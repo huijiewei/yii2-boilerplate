@@ -1,0 +1,13 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+composer.phar
+/vendor/
+/.idea/
+.env
+
