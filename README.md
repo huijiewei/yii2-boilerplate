@@ -1,30 +1,31 @@
 新版样板项目
 
-##特点
-1、模块化开发模版
+### 特点
 
-2、使用 dotenv 环境变量配置敏感数据
+1. 模块化开发模版
 
-3、更灵活的目录结构
+2. 使用 dotenv 环境变量配置敏感数据
 
-##安装
+3. 更灵活的目录结构
 
-1、安装 composer 依赖包
+### 安装
+
+##### 安装 composer 依赖包
 
 ```bash
 composer install
 ```
 
-2、复制 .env.example 文件为 .env 并编辑配置
+##### 复制 .env.example 文件为 .env 并编辑配置
 
-3、开发服务器环境
+##### 开发服务器环境
 
-修改 Hosts 
+###### 修改 Hosts 
 ```text
     127.0.0.1 www.bp.test
 ```
       
-Nginx 配置
+###### Nginx 配置
 
 ```text
 server {
@@ -44,11 +45,13 @@ server {
 }
 ```
 
-数据表初始化方法：
+##### 数据表初始化方法：
 
 ```bash
 php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 ```
+
+### 其他
 
 网站主目录
 http://www.bp.test/
