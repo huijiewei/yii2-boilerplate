@@ -6,9 +6,9 @@
  * Time: 18:07
  */
 
-namespace app\modules\website;
+namespace app\modules\admin;
 
-use app\core\components\WebController as WebController;
+use yii\web\Controller as WebController;
 
 class Controller extends WebController
 {

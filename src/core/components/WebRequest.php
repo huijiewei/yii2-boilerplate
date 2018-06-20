@@ -6,11 +6,9 @@
  * Time: 16:50
  */
 
-namespace app\core;
+namespace app\core\components;
 
-use yii\web\Request;
-
-class WebRequest extends Request
+class WebRequest extends \yii\web\Request
 {
     /**
      * @return string

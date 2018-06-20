@@ -7,7 +7,7 @@ Thumbs.db
 $RECYCLE.BIN/
 
 composer.phar
-/vendor/
-/.idea/
+/vendor
+/.idea
+/node_modules
 .env
-

@@ -9,8 +9,7 @@
 $common = require(__DIR__ . '/common.php');
 
 $config = [
-    'id' => 'bp-website',
-    'name' => '样板项目网站应用',
+    'id' => getenv('APP_WEB_ID') . '-web',
 
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -19,8 +18,8 @@ $config = [
 
     'components' => [
         'request' => [
-            'class' => \app\core\WebRequest::class,
-            'cookieValidationKey' => getenv('COOKIE_VALIDATION_KEY'),
+            'class' => \app\core\components\WebRequest::class,
+            'cookieValidationKey' => getenv('APP_COOKIE_VALIDATION_KEY'),
         ],
     ]
 ];

@@ -8,11 +8,10 @@
 
 $db = require(__DIR__ . '/db.php');
 
-$serverTimeZone = getenv('SERVER_TIMEZONE');
+$serverTimeZone = getenv('APP_SERVER_TIMEZONE');
 
 return [
-    'id' => 'boilerplate',
-    'name' => '样板项目',
+    'name' => getenv('APP_NAME'),
     'language' => 'zh-CN',
     'timeZone' => $serverTimeZone,
     'basePath' => dirname(__DIR__) . '/src',
@@ -21,15 +20,16 @@ return [
 
     'bootstrap' => [
         'log',
-        'website',
     ],
 
     'aliases' => [
         '@app/web' => dirname(__DIR__) . '/public',
+        '@app/migrations' => dirname(__DIR__) . '/database/migrations',
     ],
 
     'modules' => [
-        'website' => \app\modules\website\Module::class,
+        \app\modules\admin\Module::getModuleId() => \app\modules\admin\Module::class,
+        \app\modules\website\Module::getModuleId() => \app\modules\website\Module::class,
     ],
 
     'components' => [
@@ -40,7 +40,7 @@ return [
         ],
 
         'cache' => [
-            'class' => \yii\caching\DummyCache::class,
+            'class' => getenv('APP_DISABLE_CACHE') ? \yii\caching\DummyCache::class : \yii\caching\FileCache::class,
         ],
 
         'formatter' => [
@@ -97,7 +97,23 @@ return [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
             'rules' => [
-                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+                \app\modules\admin\Module::getModuleId() =>
+                    \app\modules\admin\Module::getModuleId() . '/site/index',
+
+                \app\modules\admin\Module::getModuleId() . '/<controller>' =>
+                    \app\modules\admin\Module::getModuleId() . '/site/index',
+
+                \app\modules\admin\Module::getModuleId() . '/<controller>/<action>' =>
+                    \app\modules\admin\Module::getModuleId() . '/site/index',
+
+                '' =>
+                    \app\modules\website\Module::getModuleId() . '/site/index',
+
+                \app\modules\website\Module::getModuleId() . '/<controller>' =>
+                    \app\modules\website\Module::getModuleId() . '/<controller>/<action>',
+
+                \app\modules\website\Module::getModuleId() . '/<controller>/<action>' =>
+                    \app\modules\website\Module::getModuleId() . '/<controller>/<action>',
             ],
         ],
     ],

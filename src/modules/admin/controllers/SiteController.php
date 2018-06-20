@@ -6,19 +6,14 @@
  * Time: 16:47
  */
 
-namespace app\modules\website\controllers;
+namespace app\modules\admin\controllers;
 
-use app\modules\website\Controller;
+use app\modules\admin\Controller;
 
 class SiteController extends Controller
 {
     public function actionIndex()
     {
         return $this->render('index');
-    }
-
-    public function actionError()
-    {
-        return $this->render('error');
     }
 }

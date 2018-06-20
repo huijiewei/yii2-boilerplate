@@ -6,11 +6,9 @@
  * Time: 16:49
  */
 
-namespace app\core;
+namespace app\core\components;
 
-use yii\web\Controller;
-
-class WebController extends Controller
+class WebController extends \yii\web\Controller
 {
     private function changeTemplatesViewPath($view)
     {

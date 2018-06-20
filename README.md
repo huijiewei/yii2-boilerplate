@@ -8,6 +8,10 @@
 
 3. 更灵活的目录结构
 
+4. 使用 PSR-4 自动加载
+
+5. 代码风格规范符合 PSR-2,PSR-12
+
 ### 安装
 
 ##### 安装 composer 依赖包
@@ -48,6 +52,7 @@ server {
 ##### 数据表初始化方法：
 
 ```bash
+php bin/yii migrate
 php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 ```
 

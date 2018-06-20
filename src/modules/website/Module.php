@@ -8,27 +8,12 @@
 
 namespace app\modules\website;
 
-use yii\base\BootstrapInterface;
-use yii\base\Module as BaseModule;
+use app\core\components\AbstractModule;
 
-class Module extends BaseModule implements BootstrapInterface
+class Module extends AbstractModule
 {
-    public function init()
+    public static function getModuleId()
     {
-        parent::init();
-
-        $this->layout = 'main';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function bootstrap($app)
-    {
-        $app->getUrlManager()->addRules([
-            '' => $this->id . '/site/index',
-            '<controller:[\w\-]+>' => $this->id . '/<controller>/index',
-            '<controller:[\w\-]+>/<action:[\w\-]+>' => $this->id . '/<controller>/<action>',
-        ], false);
+        return 'website';
     }
 }

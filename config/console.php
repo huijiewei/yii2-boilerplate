@@ -9,8 +9,7 @@
 $common = require(__DIR__ . '/common.php');
 
 $config = [
-    'id' => 'bp-console',
-    'name' => '样板项目控制台应用',
+    'id' => getenv('APP_ID') . '-console',
 
     'components' => [
         'urlManager' => [

@@ -10,7 +10,7 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-/* @var $context \app\modules\website\WebController */
+/* @var $context \app\modules\admin\Controller */
 
 $context = $this->context;
 ?>
@@ -22,9 +22,7 @@ $context = $this->context;
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
-        <title>
-            <?= (!empty($this->title) ? Html::encode($this->title) . ' - ' : '') . Yii::$app->name; ?>
-        </title>
+        <title><?= '后台' . ' - ' . Yii::$app->name; ?></title>
         <?php $this->head() ?>
     </head>
     <body>
