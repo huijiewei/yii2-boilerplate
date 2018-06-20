@@ -8,6 +8,9 @@
 
 namespace app\core\components;
 
+use yii\console\Application as ConsoleApplication;
+use yii\web\Application as WebApplication;
+
 abstract class AbstractModule extends \yii\base\Module
 {
     abstract public static function getModuleId();
@@ -18,6 +21,12 @@ abstract class AbstractModule extends \yii\base\Module
 
         $this->layout = 'main';
 
-        \Yii::$app->getErrorHandler()->errorAction = $this->id . '/site/error';
+        if (\Yii::$app instanceof WebApplication) {
+            \Yii::$app->getErrorHandler()->errorAction = $this->id . '/site/error';
+        }
+
+        if (\Yii::$app instanceof ConsoleApplication) {
+            $this->controllerNamespace = (new \ReflectionClass(get_called_class()))->getNamespaceName() . '\commands';
+        }
     }
 }
