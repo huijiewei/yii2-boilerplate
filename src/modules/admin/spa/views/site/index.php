@@ -9,6 +9,6 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-\app\modules\admin\ManifestAssetBundle::register($this);
+\app\modules\admin\spa\ManifestAssetBundle::register($this);
 ?>
 <div id="app"></div>

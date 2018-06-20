@@ -28,7 +28,7 @@ return [
     ],
 
     'modules' => [
-        \app\modules\admin\Module::getModuleId() => \app\modules\admin\Module::class,
+        \app\modules\admin\spa\Module::getModuleId() => \app\modules\admin\spa\Module::class,
         \app\modules\website\Module::getModuleId() => \app\modules\website\Module::class,
     ],
 
@@ -97,14 +97,14 @@ return [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
             'rules' => [
-                \app\modules\admin\Module::getModuleId() =>
-                    \app\modules\admin\Module::getModuleId() . '/site/index',
+                \app\modules\admin\spa\Module::getModuleId() =>
+                    \app\modules\admin\spa\Module::getModuleId() . '/site/index',
 
-                \app\modules\admin\Module::getModuleId() . '/<controller>' =>
-                    \app\modules\admin\Module::getModuleId() . '/site/index',
+                \app\modules\admin\spa\Module::getModuleId() . '/<controller>' =>
+                    \app\modules\admin\spa\Module::getModuleId() . '/site/index',
 
-                \app\modules\admin\Module::getModuleId() . '/<controller>/<action>' =>
-                    \app\modules\admin\Module::getModuleId() . '/site/index',
+                \app\modules\admin\spa\Module::getModuleId() . '/<controller>/<action>' =>
+                    \app\modules\admin\spa\Module::getModuleId() . '/site/index',
 
                 '' =>
                     \app\modules\website\Module::getModuleId() . '/site/index',

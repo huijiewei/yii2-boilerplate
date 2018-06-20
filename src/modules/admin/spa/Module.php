@@ -6,7 +6,7 @@
  * Time: 16:46
  */
 
-namespace app\modules\admin;
+namespace app\modules\admin\spa;
 
 use app\core\components\AbstractModule;
 

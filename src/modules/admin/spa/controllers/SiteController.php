@@ -6,9 +6,9 @@
  * Time: 16:47
  */
 
-namespace app\modules\admin\controllers;
+namespace app\modules\admin\spa\controllers;
 
-use app\modules\admin\Controller;
+use app\modules\admin\spa\Controller;
 
 class SiteController extends Controller
 {

@@ -6,7 +6,7 @@
  * Time: 19:31
  */
 
-namespace app\modules\admin;
+namespace app\modules\admin\spa;
 
 class ManifestAssetBundle extends \app\core\components\ManifestAssetBundle
 {

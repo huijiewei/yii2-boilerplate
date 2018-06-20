@@ -10,7 +10,7 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-/* @var $context \app\modules\admin\Controller */
+/* @var $context \app\modules\admin\spa\Controller */
 
 $context = $this->context;
 ?>
