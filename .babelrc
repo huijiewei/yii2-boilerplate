@@ -9,6 +9,7 @@
     ],
     "plugins": [
         [
+            "syntax-dynamic-import",
             "transform-runtime",
             "component",
             {

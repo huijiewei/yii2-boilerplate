@@ -1,19 +1,22 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 
-Vue.use(Router)
+import siteRoutes from './site'
+import authRoutes from './auth'
+import userRoutes from './user'
 
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
+Vue.use(VueRouter)
 
 const routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
+  ...siteRoutes,
+  ...userRoutes,
+  ...authRoutes
 ]
 
-const router = new Router({
-  mode: 'history',
-  routes
+const router = new VueRouter({
+  routes,
+  base: '/admin',
+  mode: 'history'
 })
 
-export { router }
+export default router

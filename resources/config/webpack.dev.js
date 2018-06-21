@@ -15,7 +15,10 @@ module.exports = merge(base, {
     host: '127.0.0.1',
     port: 8080,
     contentBase: false,
-    hot: true
+    hot: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
   },
   output: {
     publicPath: 'http://127.0.0.1:8080/build/'

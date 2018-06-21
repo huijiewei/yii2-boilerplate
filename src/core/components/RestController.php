@@ -8,6 +8,7 @@
 
 namespace app\core\components;
 
+use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
@@ -44,7 +45,27 @@ class RestController extends Controller
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
                 'optional' => [
-                    'error',
+                    'error', 'login', 'logout'
+                ]
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['login', 'error'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['logout'],
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => [],
+                        'roles' => ['user'],
+                    ],
                 ]
             ],
             'rateLimiter' => [

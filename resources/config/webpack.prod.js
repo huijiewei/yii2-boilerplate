@@ -28,7 +28,11 @@ module.exports = merge(base, {
     }
   },
   plugins: [
-    new CleanWebpackPlugin([path.join(base.output.path, '*.*')], { allowExternal: true }),
+    new CleanWebpackPlugin([
+      path.join(base.output.path, '*.*'),
+      path.join(base.output.path, 'fonts'),
+      path.join(base.output.path, 'images')
+    ], { allowExternal: true }),
     new MiniCssExtractPlugin({
       filename: '[name].[chunkhash].css'
     })
