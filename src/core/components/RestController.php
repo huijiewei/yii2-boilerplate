@@ -43,6 +43,9 @@ class RestController extends Controller
             ],
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
+                'optional' => [
+                    'error',
+                ]
             ],
             'rateLimiter' => [
                 'class' => RateLimiter::class,
@@ -54,6 +57,7 @@ class RestController extends Controller
     public function afterAction($action, $result)
     {
         $result = parent::afterAction($action, $result);
+
         return $this->serializeData($result);
     }
 

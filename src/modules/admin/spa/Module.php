@@ -17,6 +17,11 @@ class Module extends AbstractModule
         return 'admin';
     }
 
+    public static function getUserComponent()
+    {
+        return null;
+    }
+
     public function init()
     {
         parent::init();

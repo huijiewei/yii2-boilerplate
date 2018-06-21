@@ -20,6 +20,8 @@ return [
 
     'bootstrap' => [
         'log',
+        \app\modules\admin\api\ModuleBootstrap::class,
+        \app\modules\admin\spa\ModuleBootstrap::class,
     ],
 
     'aliases' => [
@@ -35,11 +37,6 @@ return [
 
     'components' => [
         'db' => $db,
-
-        'user' => [
-            'class' => \yii\web\User::class,
-            'enableSession' => false,
-        ],
 
         'security' => [
             'passwordHashStrategy' => 'password_hash',
@@ -103,24 +100,6 @@ return [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
             'rules' => [
-                [
-                    'class' => \yii\web\GroupUrlRule::class,
-                    'prefix' => \app\modules\admin\api\Module::getModuleId(),
-                    'rules' => [
-                        '' => 'site/index',
-                        '<controller>' => '<controller>/index',
-                        '<controller>/<action>' => '<controller>/<action>',
-                    ],
-                ],
-                [
-                    'class' => \yii\web\GroupUrlRule::class,
-                    'prefix' => \app\modules\admin\spa\Module::getModuleId(),
-                    'rules' => [
-                        '' => 'site/index',
-                        '<controller>' => 'site/index',
-                        '<controller>/<action>' => 'site/index',
-                    ],
-                ],
                 '' => \app\modules\website\Module::getModuleId() . '/site/index',
                 '<controller>' => \app\modules\website\Module::getModuleId() . '/<controller>/index',
                 '<controller>/<action>' => \app\modules\website\Module::getModuleId() . '/<controller>/<action>',

@@ -9,7 +9,7 @@
 $common = require(__DIR__ . '/common.php');
 
 $config = [
-    'id' => getenv('APP_WEB_ID') . '-web',
+    'id' => getenv('APP_ID') . '-web',
 
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -17,6 +17,11 @@ $config = [
     ],
 
     'components' => [
+        'user' => [
+            'class' => \yii\web\User::class,
+            'enableSession' => false,
+        ],
+
         'request' => [
             'class' => \app\core\components\WebRequest::class,
             'cookieValidationKey' => getenv('APP_COOKIE_VALIDATION_KEY'),

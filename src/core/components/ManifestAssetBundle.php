@@ -70,7 +70,6 @@ class ManifestAssetBundle extends BaseObject
 
         $responseHeaders = \Yii::$app->getResponse()->getHeaders();
 
-        $responseHeaders->set('Cache-Control', 'must-revalidate');
         $responseHeaders->set('ETag', $bundle->etag);
 
         foreach ($bundle->js as $js) {

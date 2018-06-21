@@ -9,7 +9,8 @@
 namespace app\modules\admin\api;
 
 use app\core\components\AbstractModule;
-use yii\web\Application;
+use app\core\models\admin\Admin;
+use yii\web\User;
 
 class Module extends AbstractModule
 {
@@ -18,14 +19,14 @@ class Module extends AbstractModule
         return 'admin-api';
     }
 
-    public function init()
+    public static function getUserComponent()
     {
-        parent::init();
-
-        if (\Yii::$app instanceof Application) {
-            $user = \Yii::$app->getUser();
-            $user->enableSession = false;
-            $user->loginUrl = null;
-        }
+        return [
+            'class' => User::class,
+            'identityClass' => Admin::class,
+            'enableAutoLogin' => false,
+            'enableSession' => false,
+            'loginUrl' => null,
+        ];
     }
 }

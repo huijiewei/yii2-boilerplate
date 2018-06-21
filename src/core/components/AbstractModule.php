@@ -15,6 +15,8 @@ abstract class AbstractModule extends \yii\base\Module
 {
     abstract public static function getModuleId();
 
+    abstract public static function getUserComponent();
+
     public function init()
     {
         parent::init();
@@ -26,7 +28,8 @@ abstract class AbstractModule extends \yii\base\Module
         }
 
         if (\Yii::$app instanceof ConsoleApplication) {
-            $this->controllerNamespace = (new \ReflectionClass(get_called_class()))->getNamespaceName() . '\commands';
+            $namespace = (new \ReflectionClass(get_called_class()))->getNamespaceName();
+            $this->controllerNamespace = $namespace . '\\commands';
         }
     }
 }

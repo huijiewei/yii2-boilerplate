@@ -16,4 +16,9 @@ class Module extends AbstractModule
     {
         return 'website';
     }
+
+    public static function getUserComponent()
+    {
+        return null;
+    }
 }
