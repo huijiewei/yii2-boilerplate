@@ -9,7 +9,8 @@ const base = require('./webpack.base.js')
 module.exports = merge(base, {
   mode: 'production',
   output: {
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js'
   },
   optimization: {
     splitChunks: {
@@ -29,9 +30,7 @@ module.exports = merge(base, {
   },
   plugins: [
     new CleanWebpackPlugin([
-      path.join(base.output.path, '*.*'),
-      path.join(base.output.path, 'fonts'),
-      path.join(base.output.path, 'images')
+      path.join(base.output.path, '*')
     ], { allowExternal: true }),
     new MiniCssExtractPlugin({
       filename: '[name].[chunkhash].css'

@@ -1,5 +1,4 @@
 import main from '@admin/views/layouts/Main'
-import userIndex from '@admin/views/templates/user/Index'
 
 const routes = [
   {
@@ -8,7 +7,7 @@ const routes = [
     children: [
       {
         path: 'index',
-        component: userIndex,
+        component: () => import(/* webpackChunkName: "admin/user" */ '@admin/views/templates/user/Index'),
         alias: ''
       }
     ]

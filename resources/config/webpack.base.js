@@ -9,10 +9,11 @@ function resolve(dir) {
 module.exports = {
   context: resolve('src'),
   entry: {
-    admin: './modules/admin/main.js'
+    'admin/app': './modules/admin/main.js'
   },
   output: {
     filename: '[name].js',
+    chunkFilename: '[name].js',
     path: resolve('../public/build'),
     publicPath: '/build/'
   },
@@ -55,6 +56,9 @@ module.exports = {
         }
       }
     ]
+  },
+  stats: {
+    colors: true
   },
   plugins: [
     new VueLoaderPlugin(),

@@ -1,5 +1,4 @@
 import blank from '@admin/views/layouts/Blank'
-import authLogin from '@admin/views/templates/auth/Login'
 
 const routes = [
   {
@@ -8,7 +7,7 @@ const routes = [
     children: [
       {
         path: 'login',
-        component: authLogin
+        component: () => import(/* webpackChunkName: "admin/auth" */ '@admin/views/templates/auth/Login')
       }
     ]
   }

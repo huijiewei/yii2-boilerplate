@@ -1,12 +1,13 @@
 <template>
-  <div>
-    adminAuthLogin
-  </div>
+  <div>Not Found</div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    name: 'Error'
+  }
 </script>
 
 <style lang="css" scoped>
+
 </style>

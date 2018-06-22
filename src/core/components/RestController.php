@@ -82,6 +82,13 @@ class RestController extends Controller
         return $this->serializeData($result);
     }
 
+    /**
+     * @return null|\yii\web\IdentityInterface
+     */
+    public function getIdentity()
+    {
+        return \Yii::$app->getUser()->getIdentity();
+    }
 
     protected function verbs()
     {

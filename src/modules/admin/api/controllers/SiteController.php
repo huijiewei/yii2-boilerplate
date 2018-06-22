@@ -16,4 +16,14 @@ class SiteController extends Controller
     {
         return \Yii::$app->getErrorHandler()->exception;
     }
+
+    public function actionMenus()
+    {
+        if ($this->getIdentity() == null) {
+            return [];
+        }
+
+
+        return [];
+    }
 }

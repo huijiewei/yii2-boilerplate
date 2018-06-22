@@ -1,9 +1,9 @@
 <template>
-    <div>siteAbout</div>
+  <div>siteAbout</div>
 </template>
 
 <script>
-    export default {}
+  export default {}
 </script>
 
 <style scoped>

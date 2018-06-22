@@ -1,9 +1,9 @@
 <template>
-    <div>userIndex</div>
+  <div>userIndex</div>
 </template>
 
 <script>
-    export default {}
+  export default {}
 </script>
 
 <style scoped>

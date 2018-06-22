@@ -1,9 +1,11 @@
 <template>
-    <div>siteIndex</div>
+  <div>
+    siteIndex
+  </div>
 </template>
 
 <script>
-    export default {}
+  export default {}
 </script>
 
 <style scoped>
