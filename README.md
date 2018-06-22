@@ -12,6 +12,8 @@
 
 5. 代码风格规范符合 PSR-2,PSR-12
 
+6. 后台管理系统使用 VueJS + Element UI + webpack4 构建
+
 ### 安装
 
 ##### 安装 composer 依赖包
@@ -56,9 +58,79 @@ php bin/yii migrate
 php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 ```
 
+### 目录结构
+```
+├── bin // yii 命令
+├── config // 后端配置
+├── database 
+│   └── migrations // 数据迁移脚本
+├── public // 网站
+├── resources // 前端开发
+│   ├── config // webpack4 配置文件
+│   └── src // 前端代码
+│       ├── core // 公用核心模块
+│       │   ├── components
+│       │   │   └── Breadcrumb
+│       │   └── styles
+│       └── modules // 前端模块目录
+│           └── admin // 管理后台前端代码目录
+│               ├── components
+│               ├── router
+│               │   ├── auth
+│               │   ├── site
+│               │   └── user
+│               └── views
+│                   ├── layouts
+│                   └── templates
+│                       ├── auth
+│                       ├── site
+│                       └── user
+├── src // 后端代码根
+│   ├── core // 核心公用代码
+│   │   ├── components
+│   │   ├── models
+│   │   │   └── admin
+│   │   ├── traits
+│   │   └── widgets
+│   └── modules // 后端模块
+│       ├── admin // 管理后台
+│       │   ├── api
+│       │   │   ├── commands
+│       │   │   └── controllers
+│       │   └── spa
+│       │       ├── controllers
+│       │       └── views
+│       │           ├── layouts
+│       │           └── site
+│       ├── website // 前台网站
+│       │   ├── controllers
+│       │   └── views
+│       │       ├── layouts
+│       │       └── templates
+│       │           ├── auth
+│       │           └── site
+│       └── wechat // 微信端
+└── tests // 测试
+```
+
+### 前端相关说明
+##### 
+初始化
+```bash
+yarn install
+```
+运行 dev-serve
+```bash
+yarn serve
+```
+构建生产版本
+```bash
+yarn build
+```
+
 ### 其他
 
-网站主目录
+网站主地址
 http://www.bp.test/
 
 后台访问路径
@@ -71,4 +143,4 @@ http://www.bp.test/wechat
 用户：13012345678
 密码：123456
 
-Version: 2018-06-19 18:30
+Version: 2018-06-22 17:55
