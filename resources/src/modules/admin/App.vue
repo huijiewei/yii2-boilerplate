@@ -12,6 +12,10 @@
   }
 </script>
 
-<style lang="css" scoped>
-
+<style lang="css">
+  body {
+    padding: 0;
+    margin: 0 !important;
+    color: #647279;
+  }
 </style>
