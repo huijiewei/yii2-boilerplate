@@ -7,6 +7,10 @@
     "lint": "eslint --ext .js ./resources/src/"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.0",
+    "@fortawesome/free-regular-svg-icons": "^5.1.0",
+    "@fortawesome/free-solid-svg-icons": "^5.1.0",
+    "@fortawesome/react-fontawesome": "^0.1.0",
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.6",
     "jquery": "^3.3.1",

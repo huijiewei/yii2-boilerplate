@@ -7,5 +7,99 @@
 
 .header {
     position: relative;
+    background: #ffffff;
+    z-index: 50;
     box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.header .navbar {
+    padding: 0 15px 0 0;
+}
+
+.navbar-header {
+    line-height: 45px;
+    text-align: center;
+    background: #fff;
+}
+
+.fix-header .header {
+}
+
+.fix-sidebar .sidebar {
+    position: fixed;
+}
+
+@media (min-width: 768px) {
+    .navbar-header {
+        width: 210px;
+        flex-shrink: 0;
+    }
+}
+
+.sidebar {
+    height: 100%;
+    top: 0;
+    z-index: 20;
+    box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+    padding-top: 60px;
+    width: 210px;
+}
+
+.sidebar-nav {
+    padding: 0;
+    background: #ffffff;
+}
+
+.sidebar-nav ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav ul li {
+    list-style: none;
+}
+
+.sidebar-nav ul li.nav-divider {
+    height: 1px;
+    background: rgba(120, 130, 140, 0.13);
+    display: block;
+}
+
+.sidebar-nav ul li.nav-label {
+    font-size: 13px;
+    margin-bottom: 0;
+    padding: 12px 12px 12px 16px;
+    color: #607d8b;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: #fbfbfb;
+}
+
+.sidebar-nav ul li a {
+    color: #607d8b;
+    padding: 7px 35px 7px 15px;
+    display: block;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.sidebar-nav > ul > li > a {
+    border-left: 3px solid transparent;
+}
+
+.sidebar-nav .has-arrow {
+    position: relative;
+}
+
+.sidebar-nav > ul > li > a i {
+    width: 27px;
+    display: inline-block;
+    color: #99abb4;
+}
+
+.sidebar-nav > ul > li.active > a {
+    color: #1976d2;
+    font-weight: 500;
+    border-left: 3px solid #fff;
 }
