@@ -1,16 +1,10 @@
 const merge = require('webpack-merge')
-const webpack = require('webpack')
 
 const base = require('./webpack.base.js')
 
 module.exports = merge(base, {
-  mode: 'development',
   devtool: 'cheap-module-eval-source-map',
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    }
-  },
+  resolve: {},
   devServer: {
     host: '127.0.0.1',
     port: 8080,
@@ -27,11 +21,9 @@ module.exports = merge(base, {
     rules: [
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  plugins: []
 })

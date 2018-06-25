@@ -14,5 +14,5 @@ indent_size = 2
 [*.json]
 indent_size = 2
 
-[*.vue]
+[*.babelrc]
 indent_size = 2

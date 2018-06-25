@@ -1,4 +1,3 @@
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const path = require('path')
 
@@ -6,10 +5,14 @@ function resolve(dir) {
   return path.join(__dirname, '../', dir)
 }
 
+const NODE_ENV = process.env.NODE_ENV
+
 module.exports = {
+  mode: NODE_ENV,
+  target: 'web',
   context: resolve('src'),
   entry: {
-    'admin/app': './modules/admin/main.js'
+    'admin/app': './modules/admin/app.js'
   },
   output: {
     filename: '[name].js',
@@ -20,19 +23,13 @@ module.exports = {
   resolve: {
     modules: [resolve('src'), resolve('../node_modules')],
     alias: {
-      '@': resolve('src'),
+      '@core': resolve('src/core'),
       '@admin': resolve('src/modules/admin')
     },
-    extensions: ['.js', '.vue', '.json']
+    extensions: ['.js', '.json']
   },
   module: {
-    noParse: /node_modules\/(element-ui\.js)/,
     rules: [
-      {
-        test: /\.vue$/,
-        include: resolve('src'),
-        loader: 'vue-loader'
-      },
       {
         test: /\.js$/,
         include: resolve('src'),
@@ -57,11 +54,7 @@ module.exports = {
       }
     ]
   },
-  stats: {
-    colors: true
-  },
   plugins: [
-    new VueLoaderPlugin(),
     new ManifestPlugin({
       fileName: 'admin.manifest.json',
       writeToFileEmit: true

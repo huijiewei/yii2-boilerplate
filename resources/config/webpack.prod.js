@@ -1,4 +1,4 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const path = require('path')
@@ -7,7 +7,6 @@ const merge = require('webpack-merge')
 const base = require('./webpack.base.js')
 
 module.exports = merge(base, {
-  mode: 'production',
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js'
@@ -18,7 +17,8 @@ module.exports = merge(base, {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
-          chunks: 'all'
+          chunks: 'all',
+          priority: -10
         },
         styles: {
           name: 'styles',
@@ -28,21 +28,25 @@ module.exports = merge(base, {
       }
     }
   },
-  plugins: [
-    new CleanWebpackPlugin([
-      path.join(base.output.path, '*')
-    ], { allowExternal: true }),
-    new MiniCssExtractPlugin({
-      filename: '[name].[chunkhash].css'
-    })
-  ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin([
+      path.join(base.output.path, '*')
+    ], { allowExternal: true }),
+    new ExtractTextPlugin({
+      filename: '[name].[chunkhash].css',
+      allChunks: true
+    })
+  ]
 })
 
