@@ -2,12 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Loadable from 'react-loadable'
 
-import styled from 'styled-components'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-const Title = styled.h2`
-  color: red;
-`
+import DefaultLayout from '@admin/views/layouts/DefaultLayout'
 
 const Loading = () => <div>Loading...</div>
 
@@ -16,33 +13,17 @@ const LoadableAbout = Loadable({
   loading: Loading
 })
 
-class Home extends React.Component {
-  render() {
-    return (<div>
-      <Title>Home</Title>
-    </div>)
-  }
-}
-
 
 const App = () => (
   <Router basename="/admin">
-    <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-      </ul>
-
-      <hr/>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/about" component={LoadableAbout}/>
-      </Switch>
-    </div>
+    <Switch>
+      <Route path="/about" component={LoadableAbout}/>
+      <Route exact path="/" component={DefaultLayout}/>
+    </Switch>
   </Router>
 )
 
 ReactDOM.render(
   <App/>,
-  document.getElementById('app')
+  document.getElementById('root')
 )

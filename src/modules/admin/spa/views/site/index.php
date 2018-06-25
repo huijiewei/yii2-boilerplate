@@ -11,4 +11,4 @@
 
 \app\modules\admin\spa\ManifestAssetBundle::register($this);
 ?>
-<div id="app"></div>
+<div id="root"></div>

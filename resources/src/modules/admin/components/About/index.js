@@ -1,14 +1,9 @@
 import React from 'react'
 
-import styled from 'styled-components'
-
-const Title = styled.h2`
-  color: blue;
-`
-
 const About = () => (
   <div>
-    <Title>About</Title>
+    <h2>About</h2>
+    <button>测试</button>
   </div>
 )
 

@@ -1,0 +1,11 @@
+@import "base.css";
+
+.wrapper {
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.header {
+    position: relative;
+    box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
+}
