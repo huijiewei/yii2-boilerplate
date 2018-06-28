@@ -17,7 +17,7 @@ class ManifestAssetBundle extends BaseObject
 {
     public $manifestFile = 'manifest.json';
 
-    public $manifestPath = '@webroot/build';
+    public $manifestPath = '@webroot/statics/build';
 
     public $js = [];
     public $css = [];

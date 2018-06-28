@@ -1,0 +1,79 @@
+@import "../../../core/styles/base";
+
+$headerHeight: 50px;
+$contentPadding: 22px;
+$borderColor: #e6e5e5;
+$siderWidth: 210px;
+$siderCollapsedWidth: 60px;
+
+:export {
+  bp-header-height: $headerHeight;
+  bp-sider-width: $siderWidth;
+  bp-sider-collapsed-width: $siderCollapsedWidth;
+}
+
+.bp-root {
+  width: 100%;
+}
+
+.bp-sider {
+  .bp-logo {
+    height: $headerHeight;
+    text-align: center;
+  }
+
+  .ant-layout-sider-children {
+    border-right: 1px solid $borderColor;
+    width: $siderWidth;
+    position: fixed;
+    height: 100%;
+    transition: width 0.3s;
+  }
+
+  &.ant-layout-sider-collapsed {
+    .bp-logo .banner {
+      display: none;
+    }
+
+    .ant-layout-sider-children {
+      width: $siderCollapsedWidth;
+
+      .ant-menu-inline-collapsed {
+        .menu-title-text {
+          display: none;
+        }
+
+        .ant-menu-submenu-arrow {
+          display: block;
+          opacity: 0.2;
+          top: 48%;
+          right: 9px;
+        }
+      }
+    }
+  }
+}
+
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border-right: none;
+}
+
+.bp-header {
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+  height: $headerHeight;
+  border-bottom: 1px solid $borderColor;
+}
+
+.bp-content {
+  padding: 22px;
+  margin-top: $headerHeight;
+}
+
+.bp-scroll {
+  position: relative;
+}
+

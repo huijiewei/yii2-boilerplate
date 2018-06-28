@@ -7,12 +7,7 @@
         "useBuiltIns": "entry"
       }
     ],
-    [
-      "@babel/react",
-      {
-        "useBuiltIns": true
-      }
-    ]
+    "@babel/react"
   ],
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
@@ -28,6 +23,14 @@
         "helpers": false,
         "polyfill": false,
         "regenerator": true
+      }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": true
       }
     ]
   ]
