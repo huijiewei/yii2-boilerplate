@@ -178,6 +178,11 @@ class Generator {
             name: 'vendor',
             chunks: 'all'
           },
+          common: {
+            name: 'common',
+            chunks: 'initial',
+            minChunks: 2
+          },
           styles: {
             name: 'styles',
             test: /\.css$/,

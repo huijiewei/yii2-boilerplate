@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import Loadable from 'react-loadable'
 import ReactDOM from 'react-dom'
 import { Router } from '@reach/router'
@@ -10,6 +10,8 @@ import { ContainerQuery } from 'react-container-query'
 import classNames from 'classnames'
 import Home from '@admin/views/templates/site/Home'
 import DefaultLayout from '@admin/views/layouts/DefaultLayout'
+import { Provider } from 'constate'
+
 
 const Loading = () => <div>Loading...</div>
 
@@ -43,29 +45,33 @@ const containerQuery = {
   }
 }
 
+const mobileQuery = 'only screen and (max-width: 767.99px)'
+
 const NotFound = () => <p>Sorry, nothing here</p>
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <LocaleProvider locale={zh_CN}>
-        <Fragment>
-          <Helmet titleTemplate={'%s - ' + document.title}/>
-          <ContainerQuery query={containerQuery}>
-            {(params) => (
-              <div className={classNames(params)}>
-                <Router basepath="/admin">
-                  <DefaultLayout path="/">
-                    <Home path="/"/>
-                    <LoadableAbout path="about"/>
-                    <NotFound default/>
-                  </DefaultLayout>
-                </Router>
-              </div>
-            )}
-          </ContainerQuery>
-        </Fragment>
-      </LocaleProvider>
+      <Provider>
+        <LocaleProvider locale={zh_CN}>
+          <React.Fragment>
+            <Helmet titleTemplate={'%s - ' + document.title}/>
+            <ContainerQuery query={containerQuery}>
+              {(params) => (
+                <div className={classNames(params)}>
+                  <Router basepath="/admin">
+                    <DefaultLayout path="/">
+                      <Home path="/"/>
+                      <LoadableAbout path="about"/>
+                      <NotFound default/>
+                    </DefaultLayout>
+                  </Router>
+                </div>
+              )}
+            </ContainerQuery>
+          </React.Fragment>
+        </LocaleProvider>
+      </Provider>
     )
   }
 }

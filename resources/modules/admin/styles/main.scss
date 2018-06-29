@@ -1,10 +1,5 @@
 @import "../../../core/styles/base";
-
-$headerHeight: 50px;
-$contentPadding: 22px;
-$borderColor: #e6e5e5;
-$siderWidth: 210px;
-$siderCollapsedWidth: 60px;
+@import "./base.scss";
 
 :export {
   bp-header-height: $headerHeight;
@@ -58,14 +53,6 @@ $siderCollapsedWidth: 60px;
 .ant-menu-vertical,
 .ant-menu-vertical-left {
   border-right: none;
-}
-
-.bp-header {
-  width: 100%;
-  background-color: #fff;
-  position: fixed;
-  height: $headerHeight;
-  border-bottom: 1px solid $borderColor;
 }
 
 .bp-content {
