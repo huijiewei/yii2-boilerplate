@@ -52,7 +52,7 @@ const NotFound = () => <p>Sorry, nothing here</p>
 class App extends React.Component {
   render() {
     return (
-      <Provider>
+      <Provider devtools>
         <LocaleProvider locale={zh_CN}>
           <React.Fragment>
             <Helmet titleTemplate={'%s - ' + document.title}/>

@@ -23,14 +23,15 @@ class DefaultLayout extends React.PureComponent {
     return (
       <Layout className="bp-root" hasSider={true} style={{ minHeight: '100vh' }}>
         <SiderCollapseContainer context="siderCollapse">
-          {({ collapsed }) => <Sider
-            collapsible
+          {({ collapsed, onCollapse }) => <Sider
+            collapsible={true}
             collapsed={collapsed}
             trigger={null}
             collapsedWidth={styles['bp-sider-collapsed-width']}
             width={styles['bp-sider-width']}
             className="bp-sider"
             breakpoint="lg"
+            onCollapse={onCollapse}
             theme={'light'}>
             <div className="bp-logo">
               <img className="logo" height="50" src={Logo}/>
