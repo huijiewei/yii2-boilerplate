@@ -6,7 +6,7 @@ const antdThemes = {
   'menu-collapsed-width': '60px',
   '@icon-url': '"/statics/assets/iconfont/iconfont"'
 }
-const webpack = require('webpack')
+
 const path = require('path')
 
 const Config = require('./webpack/Config')
@@ -17,15 +17,15 @@ config.context = path.resolve(__dirname, '../modules/admin')
 config.addEntry('app', './app.js')
 config.outputPath = path.resolve(__dirname, '../../public/statics/build/admin')
 config.publicPath = '/statics/build/admin/'
+config.usePostCssLoader = true
 config.useSassLoader = true
 config.useLessLoader = true
 config.useSourceMaps = true
 
 config.aliases = {
-  '@admin': path.resolve(__dirname, '../modules/admin')
+  '@admin': path.resolve(__dirname, '../modules/admin'),
+  '@core': path.resolve(__dirname, '../core')
 }
-
-config.addPlugin(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
 
 config.lessLoaderOptionsCallback = function(options) {
   options.javascriptEnabled = true

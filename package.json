@@ -1,10 +1,10 @@
 {
   "license": "MIT",
   "scripts": {
-    "admin-serve": "cross-env NODE_ENV=development webpack-dev-server --hot --color --config ./resources/config/admin.webpack.dev.js",
-    "admin-build": "cross-env NODE_ENV=production webpack --progress --config ./resources/config/admin.webpack.prod.js",
-    "admin-stats": "cross-env NODE_ENV=production webpack --progress --config ./resources/config/admin.webpack.prod.js --json > stats.json",
-    "lint": "eslint --ext .js ./resources/modules/"
+    "admin-serve": "cross-env NODE_ENV=development webpack-dev-server --hot --config ./resources/config/admin.webpack.dev.js",
+    "admin-build": "cross-env NODE_ENV=production webpack --config ./resources/config/admin.webpack.prod.js",
+    "admin-stats": "cross-env NODE_ENV=production webpack --config ./resources/config/admin.webpack.prod.js --json > stats.json",
+    "lint": "eslint --ext .js ./resources/"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.51",
@@ -34,21 +34,27 @@
     "@babel/plugin-transform-runtime": "^7.0.0-beta.51",
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-react": "^7.0.0-beta.51",
+    "autoprefixer": "^8.6.4",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.0-beta",
     "babel-plugin-import": "^1.8.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
     "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
     "cssnano": "^3.10.0",
+    "directory-named-webpack-plugin": "^4.0.0",
     "eslint": "^4.19.1",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-react": "^7.9.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
+    "moment-locales-webpack-plugin": "^1.0.7",
     "node-sass": "^4.9.0",
     "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "stylelint": "^9.3.0",
@@ -57,7 +63,6 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.8",
-    "webpack-dashboard": "^2.0.0",
     "webpack-dev-server": "^3.1.4",
     "webpack-manifest-plugin": "^2.0.3"
   }

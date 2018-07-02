@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const autoprefixer = require('autoprefixer')
 
 const path = require('path')
 
@@ -32,6 +33,38 @@ class Generator {
     return NODE_ENV === 'production'
   }
 
+  getStyleLoaders(appendLoader = null) {
+    let loaders = []
+
+    loaders.push(Generator.isProduction() ? MiniCssExtractPlugin.loader : 'style-loader')
+
+    loaders.push({
+      loader: 'css-loader',
+      options: {
+        importLoaders: this.config.usePostCssLoader ? 1 : 0,
+        sourceMap: false
+      }
+    })
+
+    if (this.config.usePostCssLoader) {
+      loaders.push({
+        loader: 'postcss-loader',
+        options: Generator.applyOptionsCallback(this.config.postCssLoaderOptionsCallback, {
+          sourceMap: false,
+          plugins: () => [
+            autoprefixer()
+          ]
+        })
+      })
+    }
+
+    if (appendLoader != null) {
+      loaders.push(appendLoader)
+    }
+
+    return loaders
+  }
+
   buildOutputConfig() {
     return {
       path: this.config.outputPath,
@@ -53,15 +86,7 @@ class Generator {
 
     rules.push({
       test: /\.css$/,
-      use: [
-        Generator.isProduction() ? MiniCssExtractPlugin.loader : 'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            sourceMap: this.config.useSourceMaps
-          }
-        }
-      ]
+      use: this.getStyleLoaders()
     })
 
     rules.push({
@@ -92,27 +117,24 @@ class Generator {
       rules.push(
         {
           test: /\.s[ca]ss$/,
-          use: [
-            Generator.isProduction() ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader',
-            'sass-loader'
-          ]
+          use: this.getStyleLoaders({
+            loader: 'sass-loader',
+            options: Generator.applyOptionsCallback(this.config.sassLoaderOptionsCallback, {
+              sourceMap: false
+            })
+          })
         })
     }
 
     if (this.config.useLessLoader) {
       rules.push({
         test: /\.less$/,
-        use: [
-          Generator.isProduction() ? MiniCssExtractPlugin.loader : 'style-loader',
-          'css-loader',
-          {
-            loader: 'less-loader',
-            options: Generator.applyOptionsCallback(this.config.lessLoaderOptionsCallback, {
-              sourceMap: this.config.useSourceMaps
-            })
-          }
-        ]
+        use: this.getStyleLoaders({
+          loader: 'less-loader',
+          options: Generator.applyOptionsCallback(this.config.lessLoaderOptionsCallback, {
+            sourceMap: false
+          })
+        })
       })
     }
 
@@ -131,13 +153,13 @@ class Generator {
         filename: Generator.isProduction() ? '[name].[chunkhash].css' : '[name].css',
         chunkFilename: Generator.isProduction() ? '[name].[chunkhash].css' : '[name].css'
       }),
-      priority: 0
+      priority: -10
     })
 
     plugins.push({
       plugin: new ManifestPlugin({
         fileName: 'manifest.json',
-        writeToFileEmit: true,
+        writeToFileEmit: !Generator.isProduction(),
         filter: function({ isChunk, isInitial }) {
           return isChunk && isInitial
         }
@@ -148,7 +170,7 @@ class Generator {
     if (Generator.isProduction()) {
       plugins.push({
         plugin: new CleanWebpackPlugin([path.join(this.config.outputPath, '*')], { allowExternal: true }),
-        priority: 0
+        priority: -10
       })
     }
 
@@ -171,12 +193,22 @@ class Generator {
     const optimization = {}
 
     if (Generator.isProduction()) {
+      optimization.minimizer = [
+        new UglifyJsPlugin({
+          parallel: true,
+          cache: true,
+          sourceMap: this.config.useSourceMaps
+        }),
+        new OptimizeCssAssetsPlugin()
+      ]
+
       let splitChunks = {
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendor',
-            chunks: 'all'
+            chunks: 'all',
+            enforce: true
           },
           common: {
             name: 'common',
@@ -195,15 +227,6 @@ class Generator {
         this.config.splitChunksConfigurationCallback,
         splitChunks
       )
-
-      optimization.minimizer = [
-        new UglifyJsPlugin({
-          parallel: true,
-          cache: true,
-          sourceMap: this.config.useSourceMaps
-        }),
-        new OptimizeCssAssetsPlugin()
-      ]
     } else {
       optimization.namedModules = true
     }
@@ -215,7 +238,9 @@ class Generator {
     return {
       host: this.config.devServerHost || 'localhost',
       port: this.config.devServerPort || 8080,
-      contentBase: this.config.publicPath,
+      compress: true,
+      contentBase: false,
+      publicPath: this.config.publicPath,
       headers: { 'Access-Control-Allow-Origin': '*' },
       inline: true,
       watchOptions: {
@@ -236,7 +261,7 @@ class Generator {
 
   getWebpackConfig() {
     let webpackConfig = {
-      mode: NODE_ENV,
+      mode: Generator.isProduction() ? 'production' : 'development',
       target: this.config.target || 'web',
       context: this.config.context,
       entry: this.buildEntryConfig(),
@@ -259,17 +284,26 @@ class Generator {
     if (this.config.useDevServer) {
       let devServerConfig = this.buildDevServerConfig()
 
-      webpackConfig.output.publicPath = 'http://' + devServerConfig.host + ':' + devServerConfig.port + '/'
+      webpackConfig.output.publicPath = 'http://' + devServerConfig.host + ':' + devServerConfig.port + devServerConfig.publicPath
       webpackConfig.devServer = devServerConfig
     }
 
     webpackConfig.resolve = {
-      extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
+      modules: [
+        path.resolve(__dirname, '../../core'),
+        path.resolve(__dirname, '../../../node_modules')
+      ],
       alias: this.config.aliases
     }
 
+    webpackConfig.resolveLoader = {
+      modules: [
+        path.resolve(__dirname, '../../../node_modules')
+      ]
+    }
+
     webpackConfig.performance = {
-      hints: false
+      hints: Generator.isProduction() ? 'warning' : false
     }
 
     webpackConfig.externals = this.config.externals

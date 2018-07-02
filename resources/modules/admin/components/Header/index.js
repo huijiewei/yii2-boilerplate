@@ -8,7 +8,7 @@ import './index.scss'
 class Header extends Component {
   render() {
     return (
-      <Layout.Header className="bp-header">
+      <Layout.Header>
         <SiderCollapseContainer context="siderCollapse">
           {({ collapsed, collapse }) => <Icon
             className="trigger"

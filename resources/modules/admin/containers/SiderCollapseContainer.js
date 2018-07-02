@@ -1,18 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Container } from 'constate'
 
-class SiderCollapseContainer extends React.Component {
-  initialState = { collapsed: true }
+class SiderCollapseContainer extends Component {
+  initialState = { collapsed: false }
 
   actions = {
     collapse: () => state => {
       state.collapsed = !state.collapsed
     },
-    onCollapse: (value, type) => state => {
-      if (type === 'responsive' && state.collapsed === value) {
-        return
-      }
 
+    onCollapse: (value) => state => {
       state.collapsed = value
     }
   }

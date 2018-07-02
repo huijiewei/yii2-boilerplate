@@ -4,7 +4,13 @@
       "@babel/env",
       {
         "modules": false,
-        "useBuiltIns": "entry"
+        "useBuiltIns": "entry",
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "ie >= 11"
+          ]
+        }
       }
     ],
     "@babel/react"
@@ -30,6 +36,12 @@
         "polyfill": false,
         "regenerator": true
       }
+    ],
+    [
+      "transform-react-remove-prop-types"
+    ],
+    [
+      "lodash"
     ],
     [
       "import",

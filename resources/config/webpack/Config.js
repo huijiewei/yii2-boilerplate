@@ -6,6 +6,7 @@ class Config {
     this.entries = new Map()
     this.outputPath = null
     this.publicPath = null
+    this.usePostCssLoader = false
     this.useLessLoader = false
     this.useSassLoader = false
     this.useDevServer = false
@@ -17,6 +18,12 @@ class Config {
     this.aliases = {}
     this.externals = {}
     this.lessLoaderOptionsCallback = () => {
+    }
+    this.sassLoaderOptionsCallback = () => {
+
+    }
+    this.postCssLoaderOptionsCallback = () => {
+
     }
     this.splitChunksConfigurationCallback = () => {
     }

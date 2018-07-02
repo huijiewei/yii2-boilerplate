@@ -1,0 +1,43 @@
+@import "../../styles/base.scss";
+
+.ant-layout-sider {
+  transition: all 0.3s;
+
+  .bp-logo {
+    height: $headerHeight;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .ant-layout-sider-children {
+    border-right: 1px solid $borderColor;
+    width: $siderWidth;
+    position: fixed;
+    transition: width 0.3s;
+  }
+
+  &.ant-layout-sider-collapsed {
+    .ant-layout-sider-children {
+      width: $siderCollapsedWidth;
+
+      .ant-menu-inline-collapsed {
+        .menu-title-text {
+          display: none;
+        }
+
+        .ant-menu-submenu-arrow {
+          display: block;
+          opacity: 0.2;
+          top: 48%;
+          right: 9px;
+        }
+      }
+    }
+  }
+}
+
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border-right: none;
+}
