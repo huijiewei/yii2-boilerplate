@@ -6,13 +6,16 @@ import SiderLogo from '@admin/components/SiderLogo'
 
 import styles from './index.scss'
 
-import { Layout } from 'antd'
+import { Layout as AntLayout } from 'antd'
+
+const AntSider = AntLayout.Sider
 
 class Sider extends Component {
   render() {
     return (
       <SiderCollapseContainer context="siderCollapse">
-        {({ collapsed, onCollapse }) => <Layout.Sider
+        {({ collapsed, onCollapse }) => <AntSider
+          className="bp-sider"
           collapsible={true}
           collapsed={collapsed}
           onCollapse={onCollapse}
@@ -25,7 +28,7 @@ class Sider extends Component {
           <Scrollbars style={{ height: 'calc(100vh - ' + styles['bp-header-height'] + ')' }} autoHide={true}>
             <SiderMenu/>
           </Scrollbars>
-        </Layout.Sider>}
+        </AntSider>}
       </SiderCollapseContainer>
     )
   }

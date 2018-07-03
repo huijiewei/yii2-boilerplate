@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Layout } from 'antd'
+import { Layout as AntLayout } from 'antd'
 
 import Header from '@admin/components/Header'
 import Sider from '@admin/components/Sider'
 
-import '@admin/styles/main.scss'
+import styles from '@admin/styles/main.scss'
+import { Scrollbars } from 'react-custom-scrollbars'
 
-const { Content } = Layout
+const AntContent = AntLayout.Content
 
 class DefaultLayout extends PureComponent {
   static propTypes = {
@@ -16,15 +17,19 @@ class DefaultLayout extends PureComponent {
 
   render() {
     return (
-      <Layout hasSider={true} style={{ minHeight: '100vh' }}>
+      <AntLayout hasSider={true} style={{ height: '100vh' }}>
         <Sider/>
-        <Layout>
+        <AntLayout>
           <Header/>
-          <Content>
-            {this.props.children}
-          </Content>
-        </Layout>
-      </Layout>
+          <AntContent className="bp-content">
+            <Scrollbars style={{ height: 'calc(100vh - ' + styles['bp-header-height'] + ')' }} autoHide={false}>
+              <div className="bp-content-main">
+                {this.props.children}
+              </div>
+            </Scrollbars>
+          </AntContent>
+        </AntLayout>
+      </AntLayout>
     )
   }
 }

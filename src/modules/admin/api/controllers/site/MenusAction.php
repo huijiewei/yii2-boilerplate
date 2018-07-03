@@ -37,188 +37,108 @@ class MenusAction extends ControllerAction
             ],
             [
                 'label' => '商品管理',
-                'icon' => 'car',
-                'url' => 'car',
+                'icon' => 'gift',
+                'url' => 'good',
                 'children' => [
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '商品列表',
+                        'url' => 'good'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '新建商品',
+                        'url' => 'good/new'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '商品分类',
+                        'url' => 'good/category'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '商品属性',
+                        'url' => 'good/property'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '商品特点',
+                        'url' => 'good/feature'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '商品品牌',
+                        'url' => 'good/brand'
                     ]
                 ],
             ],
             [
                 'label' => '订单管理',
-                'icon' => 'car',
-                'url' => 'car',
+                'icon' => 'book',
+                'url' => 'order',
                 'children' => [
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '订单列表',
+                        'url' => 'order'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '运费设置',
+                        'url' => 'order/freight'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '快递查询',
+                        'url' => 'order/express'
                     ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ]
                 ],
             ],
             [
                 'label' => '运营管理',
-                'icon' => 'car',
-                'url' => 'car',
+                'icon' => 'coffee',
+                'url' => 'business',
                 'children' => [
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '运营管理',
+                        'url' => 'business'
                     ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ]
                 ],
             ],
             [
                 'label' => '报表管理',
-                'icon' => 'car',
-                'url' => 'car',
+                'icon' => 'line-chart',
+                'url' => 'report',
                 'children' => [
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '商品报表',
+                        'url' => 'report/good'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '订单报表',
+                        'url' => 'report/order'
                     ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ]
                 ],
             ],
             [
                 'label' => '财务管理',
-                'icon' => 'car',
-                'url' => 'car',
+                'icon' => 'pay-circle-o',
+                'url' => 'finance',
                 'children' => [
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '财务管理',
+                        'url' => 'finance'
                     ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ]
                 ],
             ],
             [
                 'label' => '系统管理',
-                'icon' => 'car',
-                'url' => 'car',
+                'icon' => 'setting',
+                'url' => 'setting',
                 'children' => [
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '系统设置',
+                        'url' => 'setting'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '管理员',
+                        'url' => 'setting/admin'
                     ],
                     [
-                        'label' => '车辆列表',
-                        'url' => 'car'
+                        'label' => '管理组',
+                        'url' => 'setting/group'
                     ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ],
-                    [
-                        'label' => '车辆列表',
-                        'url' => 'car'
-                    ]
                 ],
             ],
         ];

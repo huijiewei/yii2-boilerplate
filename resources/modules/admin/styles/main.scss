@@ -1,7 +1,11 @@
 @import "@core/styles/base.scss";
 @import "./base.scss";
 
-.ant-layout-content {
-  padding: 20px;
+.bp-content {
+  padding: 0;
   margin-top: $headerHeight;
+
+  .bp-content-main {
+    padding: 20px;
+  }
 }

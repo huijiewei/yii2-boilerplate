@@ -1,6 +1,6 @@
 @import "../../styles/base.scss";
 
-.ant-layout-sider {
+.bp-sider {
   transition: all 0.3s;
 
   .bp-logo {
@@ -21,7 +21,7 @@
       width: $siderCollapsedWidth;
 
       .ant-menu-inline-collapsed {
-        .menu-title-text {
+        .menu-title-label {
           display: none;
         }
 

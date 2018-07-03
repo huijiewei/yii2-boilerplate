@@ -963,8 +963,8 @@ ansi-styles@^3.2.1:
     color-convert "^1.9.0"
 
 antd@^3.6.4:
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-3.6.4.tgz#9a664aa2dcf7e027144934373b85395fb30a3373"
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-3.6.5.tgz#bed51a7e8c557a9c6331065087929f8ac4800cb2"
   dependencies:
     array-tree-filter "^2.0.0"
     babel-runtime "6.x"
@@ -5861,8 +5861,8 @@ rc-dialog@~7.1.0:
     rc-util "^4.4.0"
 
 rc-drawer@^1.4.4:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/rc-drawer/-/rc-drawer-1.5.1.tgz#db085005cb1750d0237baf938269a0f88e2f7354"
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/rc-drawer/-/rc-drawer-1.5.2.tgz#bce69a673fb6f3c284bc2eb0e3003bf151d77b16"
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.5"
