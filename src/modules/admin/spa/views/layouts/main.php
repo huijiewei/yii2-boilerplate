@@ -6,8 +6,6 @@
  * Time: 16:21
  */
 
-use yii\helpers\Html;
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 /* @var $context \app\modules\admin\spa\Controller */
@@ -20,7 +18,7 @@ $context = $this->context;
     <head>
         <meta charset="<?= Yii::$app->charset ?>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <?= Html::csrfMetaTags() ?>
+        <meta name="api-host" content="<?= \app\modules\admin\api\Module::toRoute([''], true); ?>">
         <title><?= '后台' . ' - ' . Yii::$app->name; ?></title>
         <?php $this->head() ?>
     </head>

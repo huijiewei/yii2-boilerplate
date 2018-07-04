@@ -22,15 +22,5 @@ class Module extends AbstractModule
         return null;
     }
 
-    public function init()
-    {
-        parent::init();
-
-        /* @var $debug \yii\debug\Module|null */
-        $debug = \Yii::$app->getModule('debug');
-
-        if ($debug) {
-            $debug->allowedIPs = [];
-        }
-    }
+    public $disableDebugModule = true;
 }

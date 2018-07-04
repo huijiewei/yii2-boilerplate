@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Icon, Menu } from 'antd'
 
-import axios from 'axios'
 import { Link } from '@reach/router'
+import apiClient from '@admin/utils/ApiClient'
 
 class SiderMenu extends Component {
   state = {
@@ -10,7 +10,7 @@ class SiderMenu extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://www.bp.test/admin-api/site/menus').then(response => this.setState({ menus: response.data }))
+    apiClient.get('site/menus').then(data => this.setState({ menus: data }))
   }
 
   generateMenuPartitions(menus) {

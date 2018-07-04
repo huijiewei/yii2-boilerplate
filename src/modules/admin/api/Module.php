@@ -29,4 +29,6 @@ class Module extends AbstractModule
             'loginUrl' => null,
         ];
     }
+
+    public $disableDebugModule = true;
 }
