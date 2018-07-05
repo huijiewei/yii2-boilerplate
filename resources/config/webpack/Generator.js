@@ -7,6 +7,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 const path = require('path')
 
@@ -162,6 +163,13 @@ class Generator {
 
   buildPluginsConfig() {
     const plugins = []
+
+    plugins.push({
+      plugin: new StylelintPlugin({
+        files: ['**/*.vue', '**/*.css', '**/*.less', '**/*.scss']
+      }),
+      priority: 0
+    })
 
     plugins.push({
       plugin: new VueLoaderPlugin(),

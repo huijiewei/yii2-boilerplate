@@ -7,7 +7,3 @@
     name: 'Error'
   }
 </script>
-
-<style lang="css" scoped>
-
-</style>

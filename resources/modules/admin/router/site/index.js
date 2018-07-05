@@ -17,15 +17,10 @@ const routes = [
         component: siteAbout
       },
       {
-        path: '404',
+        path: '*',
         component: siteNotFound
       }
     ]
-  }
-  ,
-  {
-    path: '*',
-    redirect: '/404'
   }
 ]
 

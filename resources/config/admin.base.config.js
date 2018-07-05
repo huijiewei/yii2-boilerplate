@@ -14,8 +14,8 @@ config.useLessLoader = false
 config.useSourceMaps = true
 
 config.aliases = {
-  '@admin': path.resolve(__dirname, '../modules/admin'),
-  '@core': path.resolve(__dirname, '../core')
+  '@core': path.resolve(__dirname, '../core'),
+  '@admin': path.resolve(__dirname, '../modules/admin')
 }
 
 module.exports = config

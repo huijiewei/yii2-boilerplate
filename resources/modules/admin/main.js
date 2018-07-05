@@ -1,15 +1,13 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 
-import routers from './routers'
+import router from './router'
+import store from './store'
 
 import App from './components/App'
 
-Vue.use(Vuex)
-
 new Vue({
   el: '#root',
-  router: routers,
-  render: h => h(App),
-  components: { App }
+  store: store,
+  router: router,
+  render: h => h(App)
 })
