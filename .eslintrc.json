@@ -6,25 +6,16 @@
     "es6": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:vue/essential",
+    "eslint:recommended"
   ],
-  "parser": "babel-eslint",
   "parserOptions": {
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "parser": "babel-eslint",
+    "sourceType": "module"
   },
   "rules": {
     "no-console": "off",
-    "indent": [
-      "warn",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
+    "indent": "off",
     "linebreak-style": [
       "error",
       "unix"
@@ -36,6 +27,13 @@
     "semi": [
       "error",
       "never"
+    ],
+    "vue/script-indent": [
+      "warn",
+      2,
+      {
+        "baseIndent": 1
+      }
     ]
   }
 }

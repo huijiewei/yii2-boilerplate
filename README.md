@@ -16,6 +16,8 @@
 
 ### 安装
 
+项目需要 PHP 7.1 以上版本
+
 ##### 安装 composer 依赖包
 
 ```bash
@@ -67,25 +69,24 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 ├── public // 网站
 ├── resources // 前端开发
 │   ├── config // webpack4 配置文件
-│   └── src // 前端代码
-│       ├── core // 公用核心模块
-│       │   ├── components
-│       │   │   └── Breadcrumb
-│       │   └── styles
-│       └── modules // 前端模块目录
-│           └── admin // 管理后台前端代码目录
-│               ├── components
-│               ├── router
-│               │   ├── auth
-│               │   ├── site
-│               │   └── user
-│               └── views
-│                   ├── layouts
-│                   └── templates
-│                       ├── auth
-│                       ├── site
-│                       └── user
-├── src // 后端代码根
+│   ├── core // 公用核心模块
+│   │   ├── components
+│   │   │   └── Breadcrumb
+│   │   └── styles
+│   └── modules // 前端模块目录
+│      └── admin // 管理后台前端代码目录
+│          ├── components
+│          ├── router
+│          │   ├── auth
+│          │   ├── site
+│          │   └── user
+│          └── views
+│              ├── layouts
+│              └── templates
+│                  ├── auth
+│                  ├── site
+│                  └── user
+├── src // 后端代码
 │   ├── core // 核心公用代码
 │   │   ├── components
 │   │   ├── models
@@ -94,10 +95,10 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 │   │   └── widgets
 │   └── modules // 后端模块
 │       ├── admin // 管理后台
-│       │   ├── api
+│       │   ├── api // 管理后台 API
 │       │   │   ├── commands
 │       │   │   └── controllers
-│       │   └── spa
+│       │   └── spa // 管理后台 SPA 页面
 │       │       ├── controllers
 │       │       └── views
 │       │           ├── layouts
@@ -115,17 +116,17 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 
 ### 前端相关说明
 ##### 
-初始化
+初始化开发环境
 ```bash
 yarn install
 ```
-运行 dev-serve
+管理后台前端开发服务器
 ```bash
-yarn serve
+yarn admin-serve
 ```
-构建生产版本
+管理后台构建生产版本
 ```bash
-yarn build
+yarn admin-build
 ```
 
 ### 其他

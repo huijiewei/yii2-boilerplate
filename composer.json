@@ -2,7 +2,7 @@
   "name": "huijiewei/yii2-boilerplate",
   "type": "project",
   "require": {
-    "php": ">=7.1.0",
+    "php": "^7.1.3",
     "yiisoft/yii2": "^2.0",
     "symfony/dotenv": "^4.1",
     "yiisoft/yii2-swiftmailer": "^2.1",
@@ -37,7 +37,6 @@
     }
   },
   "scripts": {
-
   },
   "repositories": [
     {

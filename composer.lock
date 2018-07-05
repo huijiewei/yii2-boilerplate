@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3969d7cd849040e291b8c572278243e",
+    "content-hash": "9073d4fdb6a9395b9b82e35b9197e41c",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -761,16 +761,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "4.0.31",
+            "version": "4.0.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "025867a5c59d56cfd4f3158ab425e5ae61ddbd08"
+                "reference": "20267eb6833702b4b5b96a9f9b4743903479a1f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/025867a5c59d56cfd4f3158ab425e5ae61ddbd08",
-                "reference": "025867a5c59d56cfd4f3158ab425e5ae61ddbd08",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/20267eb6833702b4b5b96a9f9b4743903479a1f2",
+                "reference": "20267eb6833702b4b5b96a9f9b4743903479a1f2",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -826,7 +826,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2018-06-22T02:50:03+00:00"
+            "time": "2018-07-04T07:14:01+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -1156,16 +1156,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.1.0",
+            "version": "v6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "0ff595e1d9d7d1c929b2a5f7b774bbcfbbd81587"
+                "reference": "aa899fef280b1c1aec8d5d4ac069af7f80c89a23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0ff595e1d9d7d1c929b2a5f7b774bbcfbbd81587",
-                "reference": "0ff595e1d9d7d1c929b2a5f7b774bbcfbbd81587",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/aa899fef280b1c1aec8d5d4ac069af7f80c89a23",
+                "reference": "aa899fef280b1c1aec8d5d4ac069af7f80c89a23",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1217,7 +1217,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2018-07-02T20:24:38+00:00"
+            "time": "2018-07-04T11:12:44+00:00"
         },
         {
             "name": "symfony/cache",
@@ -3629,7 +3629,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1.0"
+        "php": "^7.1.3"
     },
     "platform-dev": []
 }

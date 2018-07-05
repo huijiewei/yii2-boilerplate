@@ -3,17 +3,9 @@
     [
       "@babel/env",
       {
-        "modules": false,
-        "useBuiltIns": "entry",
-        "targets": {
-          "browsers": [
-            "last 2 versions",
-            "ie >= 11"
-          ]
-        }
+        "modules": false
       }
-    ],
-    "@babel/react"
+    ]
   ],
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
@@ -30,26 +22,7 @@
       }
     ],
     [
-      "@babel/plugin-transform-runtime",
-      {
-        "helpers": false,
-        "polyfill": false,
-        "regenerator": true
-      }
-    ],
-    [
-      "transform-react-remove-prop-types"
-    ],
-    [
-      "lodash"
-    ],
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "libraryDirectory": "es",
-        "style": true
-      }
+      "@babel/plugin-transform-runtime"
     ]
   ]
 }

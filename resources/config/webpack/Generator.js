@@ -6,6 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const autoprefixer = require('autoprefixer')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const path = require('path')
 
@@ -36,7 +37,7 @@ class Generator {
   getStyleLoaders(appendLoader = null) {
     let loaders = []
 
-    loaders.push(Generator.isProduction() ? MiniCssExtractPlugin.loader : 'style-loader')
+    loaders.push(Generator.isProduction() ? MiniCssExtractPlugin.loader : 'vue-style-loader')
 
     loaders.push({
       loader: 'css-loader',
@@ -79,9 +80,24 @@ class Generator {
     let rules = []
 
     rules.push({
+      enforce: 'pre',
+      test: /\.(js|vue)$/,
+      loader: 'eslint-loader',
+      exclude: /node_modules/
+    })
+
+    rules.push({
+      test: /\.vue/,
+      loader: 'vue-loader'
+    })
+
+    rules.push({
       test: /\.js$/,
-      exclude: /(node_modules|bower_components)/,
-      loader: 'babel-loader?cacheDirectory'
+      loader: 'babel-loader?cacheDirectory',
+      exclude: file => (
+        /node_modules/.test(file) &&
+        !/\.vue\.js/.test(file)
+      )
     })
 
     rules.push({
@@ -114,16 +130,15 @@ class Generator {
     })
 
     if (this.config.useSassLoader) {
-      rules.push(
-        {
-          test: /\.s[ca]ss$/,
-          use: this.getStyleLoaders({
-            loader: 'sass-loader',
-            options: Generator.applyOptionsCallback(this.config.sassLoaderOptionsCallback, {
-              sourceMap: false
-            })
+      rules.push({
+        test: /\.s[ca]ss$/,
+        use: this.getStyleLoaders({
+          loader: 'sass-loader',
+          options: Generator.applyOptionsCallback(this.config.sassLoaderOptionsCallback, {
+            sourceMap: false
           })
         })
+      })
     }
 
     if (this.config.useLessLoader) {
@@ -149,11 +164,16 @@ class Generator {
     const plugins = []
 
     plugins.push({
+      plugin: new VueLoaderPlugin(),
+      priority: 0
+    })
+
+    plugins.push({
       plugin: new MiniCssExtractPlugin({
         filename: Generator.isProduction() ? '[name].[chunkhash].css' : '[name].css',
         chunkFilename: Generator.isProduction() ? '[name].[chunkhash].css' : '[name].css'
       }),
-      priority: -10
+      priority: 0
     })
 
     plugins.push({
@@ -170,7 +190,7 @@ class Generator {
     if (Generator.isProduction()) {
       plugins.push({
         plugin: new CleanWebpackPlugin([path.join(this.config.outputPath, '*')], { allowExternal: true }),
-        priority: -10
+        priority: 0
       })
     }
 
@@ -290,9 +310,9 @@ class Generator {
 
     webpackConfig.resolve = {
       modules: [
-        path.resolve(__dirname, '../../core'),
         path.resolve(__dirname, '../../../node_modules')
       ],
+      extensions: ['.js', '.vue', '.json'],
       alias: this.config.aliases
     }
 
