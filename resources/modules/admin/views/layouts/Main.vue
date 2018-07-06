@@ -8,7 +8,7 @@
       </div>
     </el-header>
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="210px">
         <sider></sider>
       </el-aside>
       <el-main>

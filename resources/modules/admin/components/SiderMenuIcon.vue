@@ -1,5 +1,5 @@
 <template>
-  <i :class="'anticon icon-' + icon"></i>
+  <i :class="'anticon anticon-' + icon"></i>
 </template>
 
 <script>

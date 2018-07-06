@@ -10,7 +10,7 @@ config.outputPath = path.resolve(__dirname, '../../public/statics/build/admin')
 config.publicPath = '/statics/build/admin/'
 config.usePostCssLoader = false
 config.useSassLoader = true
-config.useLessLoader = false
+config.useLessLoader = true
 config.useSourceMaps = true
 
 config.aliases = {
