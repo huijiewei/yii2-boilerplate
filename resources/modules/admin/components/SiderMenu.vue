@@ -1,5 +1,5 @@
 <template>
-  <el-menu :router="true" :default-active="$route.path" class="bp-menu">
+  <el-menu :collapse-transition="false" :router="true" :default-active="$route.path" class="bp-menu" :collapse="isCollapsed">
     <template v-for="(menu, index) in menus">
       <sider-menu-item v-if="!menu.children" :menu="menu" :key="'m' + 1 + index"></sider-menu-item>
       <sider-menu-sub v-else :menu="menu" :key="'m' + 1 + index" :depth="1" :index="index"></sider-menu-sub>
@@ -17,6 +17,7 @@
       SiderMenuSub,
       SiderMenuItem
     },
+    props: ['isCollapsed'],
     data() {
       return {
         menus: []
@@ -30,7 +31,11 @@
   }
 </script>
 <style lang="scss">
-  .bp-menu {
+  body {
+    .el-menu {
+      border-right: none;
+    }
+
     .el-menu-item,
     .el-submenu {
       .anticon {
@@ -48,12 +53,16 @@
     }
 
     .el-submenu .el-menu-item {
-      line-height: 39px;
-      height: 39px;
+      line-height: 50px;
+      height: 50px;
     }
 
     .el-submenu__icon-arrow {
       margin-top: -4px;
+    }
+
+    .el-menu--collapse {
+      width: 100%;
     }
   }
 </style>

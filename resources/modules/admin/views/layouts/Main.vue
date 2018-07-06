@@ -1,15 +1,11 @@
 <template>
   <el-container class="bp-layout">
     <el-header height="50px">
-      <div class="bp-logo">
-        <router-link to="/">
-          <img alt="主页" src="../../assets/images/logo.png"><img alt="Boilerplate" src="../../assets/images/banner.png">
-        </router-link>
-      </div>
+      <header-nav :isCollapsed="isCollapsed"></header-nav>
     </el-header>
     <el-container>
-      <el-aside width="210px">
-        <sider></sider>
+      <el-aside :width="isCollapsed ? '60px' : '210px'">
+        <sider-menu :isCollapsed="isCollapsed"></sider-menu>
       </el-aside>
       <el-main>
         <router-view></router-view>
@@ -20,39 +16,20 @@
 
 <script>
   import SiderMenu from '@admin/components/SiderMenu'
-  import Sider from '@admin/components/Sider'
+  import HeaderNav from '@admin/components/HeaderNav'
 
   export default {
-    components: { Sider, SiderMenu }
-  }
-</script>
-
-<style lang="scss">
-  .bp-layout {
-    .el-header {
-      padding: 0 0 20px 0;
-      border-bottom: 1px solid #e4e9f0;
+    components: { HeaderNav, SiderMenu },
+    computed: {
+      isCollapsed() {
+        return this.$store.state.app.isCollapsed
+      }
     }
   }
-
-  .bp-logo {
-    width: 210px;
-    text-align: center;
-    overflow: hidden;
-    float: left;
-  }
-
-  .bp-logo a {
-    text-decoration: none;
-  }
-
-  .bp-logo strong {
-    display: inline-block;
-  }
-
-  .bp-logo img {
-    vertical-align: middle;
-    height: 50px;
-    display: inline-block;
+</script>
+<style lang="scss">
+  .el-aside {
+    border-right: 1px solid #e4e9f0;
+    transition: width 0.2s;
   }
 </style>

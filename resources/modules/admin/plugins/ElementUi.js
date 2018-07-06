@@ -1,4 +1,16 @@
-import { Aside, Container, Header, Loading, Main, Menu, MenuItem, Message, MessageBox, Submenu } from 'element-ui'
+import {
+  Aside,
+  Container,
+  Header,
+  Loading,
+  Main,
+  Menu,
+  MenuItem,
+  Message,
+  MessageBox,
+  Submenu,
+  Tooltip
+} from 'element-ui'
 
 const components = [
   Container,
@@ -7,7 +19,8 @@ const components = [
   Menu,
   Submenu,
   MenuItem,
-  Main
+  Main,
+  Tooltip
 ]
 
 const ElementUi = {
