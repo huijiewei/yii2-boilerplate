@@ -2,6 +2,7 @@ import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
+import { Message } from 'element-ui'
 
 const HttpClient = {
   install(Vue) {
@@ -18,6 +19,24 @@ const HttpClient = {
     })
 
     loadProgressBar({}, httpClient)
+
+    httpClient.interceptors.response.use(undefined, function(error) {
+      if (error.response) {
+        console.log(error.response)
+
+        if (error.response.data) {
+          if (error.response.data.message) {
+            Message.error(error.response.data.message)
+          }
+        }
+      } else if (error.request) {
+        Message.error(error.request)
+      } else {
+        Message.error(error.message)
+      }
+
+      return Promise.reject(error)
+    })
 
     Vue.prototype.$http = {
       get(url, params = []) {

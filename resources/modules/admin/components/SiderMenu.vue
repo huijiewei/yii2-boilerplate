@@ -1,27 +1,46 @@
 <template>
-  <div>
+  <el-menu :router="true" :default-active="$route.path" class="bp-menu">
     <template v-for="(menu, index) in menus">
-      <el-submenu v-bind:key="'m' + depth + index" :index="'m' + depth + index" v-if="menu.children">
-        <template slot="title">
-          <i v-bind:class="'el-icon-' + menu.icon" v-if="menu.icon"></i>
-          <span slot="title">{{menu.label}}</span>
-        </template>
-        <sider-menu :menus="menu.children" :depth="depth + 1"></sider-menu>
-      </el-submenu>
-      <el-menu-item :route="{path :'/' + menu.url}" v-bind:key="'m' + depth + index"
-                    :index="'/' + menu.url"
-                    v-else>
-        <i v-bind:class="'el-icon-' + menu.icon" v-if="menu.icon"></i>
-        <span slot="title">{{menu.label}}</span>
-      </el-menu-item>
+      <sider-menu-item v-if="!menu.children" :menu="menu" :key="'m' + 1 + index"></sider-menu-item>
+      <sider-menu-sub v-else :menu="menu" :key="'m' + 1 + index" :depth="1" :index="index"></sider-menu-sub>
     </template>
-  </div>
+  </el-menu>
 </template>
 
 <script>
+  import SiderMenuSub from './SiderMenuSub'
+  import SiderMenuItem from './SiderMenuItem'
+
   export default {
     name: 'SiderMenu',
-    props: ['menus', 'depth']
+    components: {
+      SiderMenuSub,
+      SiderMenuItem
+    },
+    data() {
+      return {
+        menus: []
+      }
+    },
+    mounted() {
+      this.$http.get('site/menus').then(response => {
+        this.menus = response.data
+      })
+    }
   }
 </script>
+<style lang="scss">
+  .bp-menu {
+    .el-menu-item,
+    .el-submenu__title {
+      line-height: 50px;
+      height: 50px;
+    }
+
+    .el-submenu .el-menu-item {
+      line-height: 39px;
+      height: 39px;
+    }
+  }
+</style>
 

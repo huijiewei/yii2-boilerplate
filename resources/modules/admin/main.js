@@ -8,6 +8,8 @@ import App from './App'
 import ElementUi from './plugins/ElementUi'
 import HttpClient from './plugins/HttpClient'
 
+import '@core/assets/icons/iconfont.css'
+
 Vue.use(ElementUi)
 Vue.use(HttpClient)
 

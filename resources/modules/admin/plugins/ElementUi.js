@@ -1,4 +1,4 @@
-import { Aside, Container, Header, Main, Menu, MenuItem, Submenu } from 'element-ui'
+import { Aside, Container, Header, Loading, Main, Menu, MenuItem, Message, MessageBox, Submenu } from 'element-ui'
 
 const components = [
   Container,
@@ -15,6 +15,15 @@ const ElementUi = {
     components.map(component => {
       Vue.component(component.name, component)
     })
+
+    Vue.use(Loading.directive)
+
+    Vue.prototype.$loading = Loading.service
+    Vue.prototype.$alert = MessageBox.alert
+    Vue.prototype.$confirm = MessageBox.confirm
+    Vue.prototype.$prompt = MessageBox.prompt
+    Vue.prototype.$notify = Notification
+    Vue.prototype.$message = Message
   }
 }
 
