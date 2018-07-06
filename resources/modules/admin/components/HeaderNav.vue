@@ -16,7 +16,7 @@
     props: ['isCollapsed'],
     methods: {
       toggleSideMenu() {
-        this.$store.dispatch('toggleSideMenu')
+        this.$store.dispatch('toggleSideMenu').then()
       }
     }
   }
