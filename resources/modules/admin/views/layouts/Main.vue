@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="bp-layout">
     <el-header height="50px">
       <div class="bp-logo">
         <router-link to="/">
@@ -9,7 +9,7 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-
+        <sider></sider>
       </el-aside>
       <el-main>
         <router-view></router-view>
@@ -19,25 +19,20 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import { Aside, Container, Header, Main } from 'element-ui'
+  import SiderMenu from '@admin/components/SiderMenu'
+  import Sider from '@admin/components/Sider'
 
-  Vue.component(Container.name, Container)
-  Vue.component(Aside.name, Aside)
-  Vue.component(Header.name, Header)
-  Vue.component(Main.name, Main)
-
-  export default {}
+  export default {
+    components: { Sider, SiderMenu }
+  }
 </script>
 
-<style lang="css">
-  .el-aside {
-    border-right: 1px solid #e4e9f0;
-  }
-
-  .el-header {
-    padding: 0 0 20px 0;
-    border-bottom: 1px solid #e4e9f0;
+<style lang="scss">
+  .bp-layout {
+    .el-header {
+      padding: 0 0 20px 0;
+      border-bottom: 1px solid #e4e9f0;
+    }
   }
 
   .bp-logo {

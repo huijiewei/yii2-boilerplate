@@ -3,10 +3,8 @@ import axiosRetry from 'axios-retry'
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
 
-class ApiClient {
-  httpClient = null
-
-  constructor() {
+const HttpClient = {
+  install(Vue) {
     let httpClient = axios.create({
       baseURL: document.querySelector('meta[name="api-host"]').getAttribute('content'),
       timeout: 1000
@@ -21,23 +19,20 @@ class ApiClient {
 
     loadProgressBar({}, httpClient)
 
-    this.httpClient = httpClient
-  }
-
-  get(url, params = []) {
-    return this.httpClient.get(url, {
-      params: params
-    })
-  }
-
-  post(url, params = [], data = []) {
-    return this.httpClient.post(url, {
-      params: params,
-      data: data
-    })
+    Vue.prototype.$http = {
+      get(url, params = []) {
+        return httpClient.get(url, {
+          params: params
+        })
+      },
+      post(url, params = [], data = []) {
+        return httpClient.post(url, {
+          params: params,
+          data: data
+        })
+      }
+    }
   }
 }
 
-const apiClient = new ApiClient()
-
-export default apiClient
+export default HttpClient

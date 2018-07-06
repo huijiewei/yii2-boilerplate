@@ -9,7 +9,7 @@ config.addEntry('app', './main.js')
 config.outputPath = path.resolve(__dirname, '../../public/statics/build/admin')
 config.publicPath = '/statics/build/admin/'
 config.usePostCssLoader = false
-config.useSassLoader = false
+config.useSassLoader = true
 config.useLessLoader = false
 config.useSourceMaps = true
 

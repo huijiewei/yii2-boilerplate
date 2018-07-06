@@ -31,7 +31,17 @@ class MenusAction extends ControllerAction
                     ],
                     [
                         'label' => '新建会员',
-                        'url' => 'user/new'
+                        'url' => 'user/new',
+                        'children' => [
+                            [
+                                'label' => '手工新建',
+                                'url' => 'user/new'
+                            ],
+                            [
+                                'label' => '批量导入',
+                                'url' => 'user/new/import'
+                            ]
+                        ]
                     ]
                 ]
             ],
