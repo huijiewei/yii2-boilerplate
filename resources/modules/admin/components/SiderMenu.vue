@@ -32,6 +32,16 @@
 <style lang="scss">
   .bp-menu {
     .el-menu-item,
+    .el-submenu {
+      .anticon {
+        font-size: 16px;
+        vertical-align: middle;
+        text-align: center;
+        width: 22px;
+      }
+    }
+
+    .el-menu-item,
     .el-submenu__title {
       line-height: 50px;
       height: 50px;
@@ -40,6 +50,10 @@
     .el-submenu .el-menu-item {
       line-height: 39px;
       height: 39px;
+    }
+
+    .el-submenu__icon-arrow {
+      margin-top: -4px;
     }
   }
 </style>
