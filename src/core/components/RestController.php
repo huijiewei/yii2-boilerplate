@@ -19,7 +19,10 @@ use yii\web\Response;
 
 class RestController extends Controller
 {
-    public $serializer = 'yii\rest\Serializer';
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
 
     public $enableCsrfValidation = false;
 
@@ -74,6 +77,10 @@ class RestController extends Controller
         ];
     }
 
+    protected function verbs()
+    {
+        return [];
+    }
 
     public function afterAction($action, $result)
     {
@@ -82,22 +89,16 @@ class RestController extends Controller
         return $this->serializeData($result);
     }
 
+    protected function serializeData($data)
+    {
+        return \Yii::createObject($this->serializer)->serialize($data);
+    }
+
     /**
      * @return null|\yii\web\IdentityInterface
      */
     public function getIdentity()
     {
         return \Yii::$app->getUser()->getIdentity();
-    }
-
-    protected function verbs()
-    {
-        return [];
-    }
-
-
-    protected function serializeData($data)
-    {
-        return \Yii::createObject($this->serializer)->serialize($data);
     }
 }

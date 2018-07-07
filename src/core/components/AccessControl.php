@@ -27,11 +27,6 @@ class AccessControl extends ActionFilter
         }
     }
 
-    protected function getActionId($action)
-    {
-        return $action->controller->id . '/' . $action->id;
-    }
-
     public function beforeAction($action)
     {
         $actionId = $this->getActionId($action);
@@ -44,5 +39,10 @@ class AccessControl extends ActionFilter
         }
 
         return true;
+    }
+
+    protected function getActionId($action)
+    {
+        return $action->controller->id . '/' . $action->id;
     }
 }

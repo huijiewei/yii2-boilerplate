@@ -14,6 +14,8 @@ use yii\web\User;
 
 class Module extends AbstractModule
 {
+    public $disableDebugModule = true;
+
     public static function getModuleId()
     {
         return 'admin-api';
@@ -29,6 +31,4 @@ class Module extends AbstractModule
             'loginUrl' => null,
         ];
     }
-
-    public $disableDebugModule = true;
 }

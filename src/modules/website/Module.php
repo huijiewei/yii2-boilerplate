@@ -12,11 +12,6 @@ use app\core\components\AbstractModule;
 
 class Module extends AbstractModule
 {
-    public static function getModuleId()
-    {
-        return 'website';
-    }
-
     public static function getUserComponent()
     {
         return null;
@@ -29,5 +24,10 @@ class Module extends AbstractModule
             '<controller>' => static::getModuleId() . '/<controller>/index',
             '<controller>/<action>' => static::getModuleId() . '/<controller>/<action>',
         ];
+    }
+
+    public static function getModuleId()
+    {
+        return 'website';
     }
 }

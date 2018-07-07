@@ -12,6 +12,8 @@ use app\core\components\AbstractModule;
 
 class Module extends AbstractModule
 {
+    public $disableDebugModule = true;
+
     public static function getModuleId()
     {
         return 'admin';
@@ -30,6 +32,4 @@ class Module extends AbstractModule
             '<controller>/<action>' => 'site/index',
         ];
     }
-
-    public $disableDebugModule = true;
 }

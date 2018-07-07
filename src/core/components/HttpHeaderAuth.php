@@ -12,13 +12,13 @@ use yii\web\UnauthorizedHttpException;
 
 class HttpHeaderAuth extends \yii\filters\auth\HttpHeaderAuth
 {
-    protected function getActionId($action)
-    {
-        return $action->controller->id . '/' . $action->id;
-    }
-
     public function handleFailure($response)
     {
         throw new UnauthorizedHttpException('必须登陆才能进行操作');
+    }
+
+    protected function getActionId($action)
+    {
+        return $action->controller->id . '/' . $action->id;
     }
 }

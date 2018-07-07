@@ -21,9 +21,9 @@ if ($exception instanceof \yii\web\UnauthorizedHttpException) {
     $this->title = '登录';
     \app\core\widgets\ScriptBlock::begin(); ?>
     <script>
-        $(document).ready(function () {
-            $.loginModal('<?= Html::encode(Yii::$app->getRequest()->getUrl()); ?>');
-        });
+        $(document).ready(function() {
+            $.loginModal('<?= Html::encode(Yii::$app->getRequest()->getUrl()); ?>')
+        })
     </script>
     <?php \app\core\widgets\ScriptBlock::end();
 } else {

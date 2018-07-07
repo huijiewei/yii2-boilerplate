@@ -16,27 +16,8 @@ abstract class AbstractModuleBootstrap implements BootstrapInterface
 {
     public $appendUrlRules = true;
 
-    /**
-     * @return static
-     */
-    protected function getModuleId()
-    {
-        return $this->moduleClass::getModuleId();
-    }
-
     /* @var $moduleClass AbstractModule */
     protected $moduleClass;
-
-    private function getUrlRules()
-    {
-        return [
-            [
-                'class' => GroupUrlRule::class,
-                'prefix' => $this->getModuleId(),
-                'rules' => $this->moduleClass::getUrlRules(),
-            ]
-        ];
-    }
 
     /**
      * @param Application $app
@@ -56,5 +37,24 @@ abstract class AbstractModuleBootstrap implements BootstrapInterface
                 $app->set('user', $userComponent);
             }
         }
+    }
+
+    protected function getUrlRules()
+    {
+        return [
+            [
+                'class' => GroupUrlRule::class,
+                'prefix' => $this->getModuleId(),
+                'rules' => $this->moduleClass::getUrlRules(),
+            ]
+        ];
+    }
+
+    /**
+     * @return static
+     */
+    protected function getModuleId()
+    {
+        return $this->moduleClass::getModuleId();
     }
 }

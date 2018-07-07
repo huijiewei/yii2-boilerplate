@@ -14,7 +14,7 @@ use yii\web\Application as WebApplication;
 
 abstract class AbstractModule extends \yii\base\Module
 {
-    abstract public static function getModuleId();
+    public $disableDebugModule = false;
 
     abstract public static function getUserComponent();
 
@@ -38,7 +38,7 @@ abstract class AbstractModule extends \yii\base\Module
         return Url::toRoute($route, $scheme);
     }
 
-    public $disableDebugModule = false;
+    abstract public static function getModuleId();
 
     public function init()
     {
@@ -47,7 +47,7 @@ abstract class AbstractModule extends \yii\base\Module
         $this->layout = 'main';
 
         if (\Yii::$app instanceof WebApplication) {
-            \Yii::$app->getErrorHandler()->errorAction = $this->id . '/site/error';
+            \Yii::$app->getErrorHandler()->errorAction = static::getModuleId() . '/site/error';
         }
 
         if (\Yii::$app instanceof ConsoleApplication) {

@@ -23,6 +23,27 @@ class ManifestAssetBundle extends BaseObject
     public $css = [];
     public $etag = '';
 
+    /**
+     * @param $view View
+     */
+    public static function register($view)
+    {
+        /* @var $bundle ManifestAssetBundle */
+        $bundle = \Yii::createObject(get_called_class());
+
+        $responseHeaders = \Yii::$app->getResponse()->getHeaders();
+
+        $responseHeaders->set('ETag', $bundle->etag);
+
+        foreach ($bundle->js as $js) {
+            $view->registerJsFile($js);
+        }
+
+        foreach ($bundle->css as $css) {
+            $view->registerCssFile($css);
+        }
+    }
+
     public function init()
     {
         parent::init();
@@ -56,28 +77,6 @@ class ManifestAssetBundle extends BaseObject
             if ($fileExt == 'css') {
                 $this->css[] = $url;
             }
-        }
-    }
-
-
-    /**
-     * @param $view View
-     */
-    public static function register($view)
-    {
-        /* @var $bundle ManifestAssetBundle */
-        $bundle = \Yii::createObject(get_called_class());
-
-        $responseHeaders = \Yii::$app->getResponse()->getHeaders();
-
-        $responseHeaders->set('ETag', $bundle->etag);
-
-        foreach ($bundle->js as $js) {
-            $view->registerJsFile($js);
-        }
-
-        foreach ($bundle->css as $css) {
-            $view->registerCssFile($css);
         }
     }
 }

@@ -10,6 +10,14 @@ namespace app\core\components;
 
 class WebController extends \yii\web\Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function render($view, $params = [])
+    {
+        return parent::render($this->changeTemplatesViewPath($view), $params);
+    }
+
     private function changeTemplatesViewPath($view)
     {
         if ((strncmp($view, '/', 1) !== 0 || strncmp($view, '@', 1) !== 0)) {
@@ -17,14 +25,6 @@ class WebController extends \yii\web\Controller
         }
 
         return $view;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function render($view, $params = [])
-    {
-        return parent::render($this->changeTemplatesViewPath($view), $params);
     }
 
     /**
