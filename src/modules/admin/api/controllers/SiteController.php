@@ -20,6 +20,11 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        return [];
+    }
+
     public function actionError()
     {
         return \Yii::$app->getErrorHandler()->exception;

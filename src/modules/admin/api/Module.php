@@ -21,6 +21,19 @@ class Module extends AbstractModule
         return 'admin-api';
     }
 
+    public static function getUrlRules()
+    {
+        return [
+            'site/<action\w+>' => 'site/<action>',
+            'GET <controller:\w+>s' => '<controller>/index',
+            'POST <controller:\w+>s' => '<controller>/create',
+            'GET <controller:\w+>s/<id:\d+>' => '<controller>/view',
+            'PUT <controller:\w+>s/<id:\d+>' => '<controller>/update',
+            'DELETE <controller:\w+>s/<id:\d+>' => '<controller>/delete',
+            'GET <controller:\w+>s/search' => '<controller>/search',
+        ];
+    }
+
     public static function getUserComponent()
     {
         return [
