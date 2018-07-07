@@ -10,6 +10,7 @@ namespace app\core\components;
 
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\web\GroupUrlRule;
 
 abstract class AbstractModuleBootstrap implements BootstrapInterface
 {
@@ -26,6 +27,17 @@ abstract class AbstractModuleBootstrap implements BootstrapInterface
     /* @var $moduleClass AbstractModule */
     protected $moduleClass;
 
+    private function getUrlRules()
+    {
+        return [
+            [
+                'class' => GroupUrlRule::class,
+                'prefix' => $this->getModuleId(),
+                'rules' => $this->moduleClass::getUrlRules(),
+            ]
+        ];
+    }
+
     /**
      * @param Application $app
      */
@@ -34,7 +46,7 @@ abstract class AbstractModuleBootstrap implements BootstrapInterface
         $this->moduleClass = (new \ReflectionClass(get_called_class()))->getNamespaceName() . '\Module';
 
         if ($this->appendUrlRules) {
-            $app->getUrlManager()->addRules($this->moduleClass::getUrlRules(), false);
+            $app->getUrlManager()->addRules($this->getUrlRules(), false);
         }
 
         if ($app instanceof \yii\web\Application) {

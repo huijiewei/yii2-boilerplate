@@ -100,7 +100,7 @@ return [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
-            'rules' => \app\modules\website\Module::getUrlRules()[0],
+            'rules' => \app\modules\website\Module::getUrlRules(),
         ],
     ],
 ];
