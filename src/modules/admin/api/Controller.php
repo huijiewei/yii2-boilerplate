@@ -8,9 +8,15 @@
 
 namespace app\modules\admin\api;
 
+use app\core\components\AccessControl;
+use app\core\components\HttpHeaderAuth;
 use app\core\components\RestController;
 use app\core\models\admin\Admin;
-use yii\helpers\ArrayHelper;
+use yii\filters\ContentNegotiator;
+use yii\filters\Cors;
+use yii\filters\RateLimiter;
+use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * Class Controller
@@ -23,27 +29,37 @@ class Controller extends RestController
 {
     public function behaviors()
     {
-        $parent = parent::behaviors();
-
-        $current = [
+        return [
+            'contentNegotiator' => [
+                'class' => ContentNegotiator::class,
+                'formats' => [
+                    'application/json' => Response::FORMAT_JSON,
+                    'application/vnd.api+json' => Response::FORMAT_JSON,
+                ],
+            ],
+            'corsFilter' => [
+                'class' => Cors::class,
+            ],
+            'verbFilter' => [
+                'class' => VerbFilter::class,
+                'actions' => $this->verbs(),
+            ],
             'authenticator' => [
+                'class' => HttpHeaderAuth::class,
+                'header' => 'ADMIN-ACCESS-TOKEN',
                 'optional' => [
-                    'menus'
+                    'site/error', 'auth/*', 'site/menus',
                 ]
             ],
             'access' => [
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['menus'],
-                        'roles' => ['?'],
-                    ],
-                ]
-            ]
+                'class' => AccessControl::class,
+                'except' => [
+                    'auth/login', 'site/*',
+                ],
+            ],
+            'rateLimiter' => [
+                'class' => RateLimiter::class,
+            ],
         ];
-
-        $behaviors = ArrayHelper::merge($parent, $current);
-
-        return $behaviors;
     }
 }
