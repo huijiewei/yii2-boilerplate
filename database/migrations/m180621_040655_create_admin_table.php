@@ -9,9 +9,9 @@ use yii\db\Migration;
 class m180621_040655_create_admin_table extends Migration
 {
     private $adminTableName = '{{%admin}}';
-    private $groupTableName = '{{%admin_group}}';
-    private $routeTableName = '{{%admin_route}}';
-    private $tokenTableName = '{{%admin_token}}';
+    private $adminAccessTokenTableName = '{{%admin_access_token}}';
+    private $adminGroupTableName = '{{%admin_group}}';
+    private $adminGroupAclTableName = '{{%admin_group_acl}}';
 
     public function safeUp()
     {
@@ -35,37 +35,37 @@ class m180621_040655_create_admin_table extends Migration
         $this->createIndex('phone', $this->adminTableName, 'phone', true);
         $this->createIndex('groupId', $this->adminTableName, 'groupId');
 
-        $this->createTable($this->groupTableName, [
-            'id' => $this->primaryKey(),
-            'name' => $this->string(20)->notNull()->defaultValue(''),
-        ], $tableOptions);
-
-        $this->createTable($this->routeTableName, [
-            'id' => $this->primaryKey(),
-            'groupId' => $this->integer()->notNull()->defaultValue(0),
-            'route' => $this->string(50)->notNull()->defaultValue(''),
-        ], $tableOptions);
-
-        $this->createIndex('groupId', $this->routeTableName, 'groupId');
-
-        $this->createTable($this->tokenTableName, [
+        $this->createTable($this->adminAccessTokenTableName, [
             'id' => $this->primaryKey(),
             'adminId' => $this->integer()->notNull()->defaultValue(0),
-            'accessType' => $this->string(20)->notNull()->defaultValue(''),
-            'accessToken' => $this->string(60)->notNull()->defaultValue(''),
+            'clientId' => $this->string(20)->notNull()->defaultValue(''),
+            'token' => $this->string(60)->notNull()->defaultValue(''),
             'updatedAt' => $this->timestamp()->notNull()
                 ->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ], $tableOptions);
 
-        $this->createIndex('groupId', $this->tokenTableName, 'adminId');
-        $this->createIndex('accessToken', $this->tokenTableName, ['accessType', 'accessToken']);
+        $this->createIndex('adminId', $this->adminAccessTokenTableName, ['adminId', 'clientId']);
+        $this->createIndex('token', $this->adminAccessTokenTableName, ['token', 'clientId']);
+
+        $this->createTable($this->adminGroupTableName, [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(20)->notNull()->defaultValue(''),
+        ], $tableOptions);
+
+        $this->createTable($this->adminGroupAclTableName, [
+            'id' => $this->primaryKey(),
+            'groupId' => $this->integer()->notNull()->defaultValue(0),
+            'actionId' => $this->string(50)->notNull()->defaultValue(''),
+        ], $tableOptions);
+
+        $this->createIndex('groupId', $this->adminGroupAclTableName, 'groupId');
     }
 
     public function safeDown()
     {
         $this->dropTable($this->adminTableName);
-        $this->dropTable($this->groupTableName);
-        $this->dropTable($this->routeTableName);
-        $this->dropTable($this->tokenTableName);
+        $this->dropTable($this->adminAccessTokenTableName);
+        $this->dropTable($this->adminGroupTableName);
+        $this->dropTable($this->adminGroupAclTableName);
     }
 }

@@ -8,7 +8,7 @@
 
 namespace app\core\models\admin;
 
-use yii\db\ActiveRecord;
+use app\core\components\ActiveRecord;
 
 /**
  * Class AdminGroup
