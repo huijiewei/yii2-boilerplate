@@ -27,8 +27,7 @@ if ($exception instanceof \yii\web\UnauthorizedHttpException) {
     </script>
     <?php \app\core\widgets\ScriptBlock::end();
 } else {
-    $this->title = '出现错误';
-    ?>
+    $this->title = '出现错误'; ?>
     <div class="center-wrap">
         <hr class="spacer-sm">
         <hr class="spacer-sm">

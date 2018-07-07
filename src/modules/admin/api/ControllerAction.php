@@ -20,5 +20,4 @@ use yii\base\Action;
  */
 class ControllerAction extends Action
 {
-
 }

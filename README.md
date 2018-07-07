@@ -12,7 +12,7 @@
 
 5. 代码风格规范符合 PSR-2,PSR-12
 
-6. 后台管理系统使用 VueJS + Element UI + webpack4 构建
+6. 后台管理系统使用 Vue.js + Element UI + webpack 4 构建
 
 ### 安装
 

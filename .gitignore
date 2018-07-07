@@ -11,3 +11,4 @@ composer.phar
 /.idea
 /node_modules
 .env
+*.cache

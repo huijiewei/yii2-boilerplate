@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile
 
 use yii\db\Migration;
 

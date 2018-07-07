@@ -12,5 +12,4 @@ use app\core\components\WebController as WebController;
 
 class Controller extends WebController
 {
-
 }

@@ -23,5 +23,4 @@ use yii\db\ActiveRecord;
  */
 class AdminToken extends ActiveRecord
 {
-
 }

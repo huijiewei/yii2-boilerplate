@@ -8,8 +8,6 @@
 
 namespace app\core\models\admin;
 
-
 class AdminRole
 {
-
 }

@@ -761,16 +761,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "4.0.32",
+            "version": "4.0.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "20267eb6833702b4b5b96a9f9b4743903479a1f2"
+                "reference": "8048fcb047d3dbd3e5940bab6ffd17c99919cd66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/20267eb6833702b4b5b96a9f9b4743903479a1f2",
-                "reference": "20267eb6833702b4b5b96a9f9b4743903479a1f2",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/8048fcb047d3dbd3e5940bab6ffd17c99919cd66",
+                "reference": "8048fcb047d3dbd3e5940bab6ffd17c99919cd66",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -826,7 +826,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2018-07-04T07:14:01+00:00"
+            "time": "2018-07-06T02:16:50+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -1656,16 +1656,16 @@
         },
         {
             "name": "yiisoft/yii2-composer",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "163419f1f197e02f015713b0d4f85598d8f8aa80"
+                "reference": "1439e78be1218c492e6cde251ed87d3f128b9534"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/163419f1f197e02f015713b0d4f85598d8f8aa80",
-                "reference": "163419f1f197e02f015713b0d4f85598d8f8aa80",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/1439e78be1218c492e6cde251ed87d3f128b9534",
+                "reference": "1439e78be1218c492e6cde251ed87d3f128b9534",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1712,7 +1712,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2018-03-21T16:15:55+00:00"
+            "time": "2018-07-05T15:44:47+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
