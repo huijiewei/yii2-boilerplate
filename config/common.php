@@ -22,6 +22,7 @@ return [
         'log',
         \app\modules\admin\api\ModuleBootstrap::class,
         \app\modules\admin\spa\ModuleBootstrap::class,
+        \app\modules\website\ModuleBootstrap::class,
     ],
 
     'aliases' => [
@@ -99,11 +100,7 @@ return [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
-            'rules' => [
-                '' => \app\modules\website\Module::getModuleId() . '/site/index',
-                '<controller>' => \app\modules\website\Module::getModuleId() . '/<controller>/index',
-                '<controller>/<action>' => \app\modules\website\Module::getModuleId() . '/<controller>/<action>',
-            ],
+            'rules' => \app\modules\website\Module::getUrlRules()[0],
         ],
     ],
 ];

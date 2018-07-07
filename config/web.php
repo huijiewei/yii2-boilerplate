@@ -17,11 +17,6 @@ $config = [
     ],
 
     'components' => [
-        'user' => [
-            'class' => \yii\web\User::class,
-            'enableSession' => false,
-        ],
-
         'request' => [
             'class' => \app\core\components\WebRequest::class,
             'cookieValidationKey' => getenv('APP_COOKIE_VALIDATION_KEY'),

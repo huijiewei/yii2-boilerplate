@@ -21,4 +21,15 @@ class Module extends AbstractModule
     {
         return null;
     }
+
+    public static function getUrlRules()
+    {
+        return [
+            [
+                '' => static::getModuleId() . '/site/index',
+                '<controller>' => static::getModuleId() . '/<controller>/index',
+                '<controller>/<action>' => static::getModuleId() . '/<controller>/<action>',
+            ]
+        ];
+    }
 }

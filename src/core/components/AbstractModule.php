@@ -11,12 +11,28 @@ namespace app\core\components;
 use yii\console\Application as ConsoleApplication;
 use yii\helpers\Url;
 use yii\web\Application as WebApplication;
+use yii\web\GroupUrlRule;
 
 abstract class AbstractModule extends \yii\base\Module
 {
     abstract public static function getModuleId();
 
     abstract public static function getUserComponent();
+
+    public static function getUrlRules()
+    {
+        return [
+            [
+                'class' => GroupUrlRule::class,
+                'prefix' => static::getModuleId(),
+                'rules' => [
+                    '' => 'site/index',
+                    '<controller>' => '<controller>/index',
+                    '<controller>/<action>' => '<controller>/<action>',
+                ],
+            ]
+        ];
+    }
 
     public static function toRoute($route, $scheme = false)
     {

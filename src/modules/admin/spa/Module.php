@@ -9,6 +9,7 @@
 namespace app\modules\admin\spa;
 
 use app\core\components\AbstractModule;
+use yii\web\GroupUrlRule;
 
 class Module extends AbstractModule
 {
@@ -20,6 +21,21 @@ class Module extends AbstractModule
     public static function getUserComponent()
     {
         return null;
+    }
+
+    public static function getUrlRules()
+    {
+        return [
+            [
+                'class' => GroupUrlRule::class,
+                'prefix' => static::getModuleId(),
+                'rules' => [
+                    '' => 'site/index',
+                    '<controller>' => 'site/index',
+                    '<controller>/<action>' => 'site/index',
+                ],
+            ]
+        ];
     }
 
     public $disableDebugModule = true;
