@@ -25,11 +25,11 @@
 <style lang="scss">
   .bp-nav {
     i.trigger {
-      font-size: 19px;
-      line-height: 49px;
+      font-size: 16px;
+      line-height: 50px;
       cursor: pointer;
       transition: all 0.3s, padding 0s;
-      padding: 0 15px;
+      padding: 0 17px;
 
       &:hover {
         background: #e6f7ff;
