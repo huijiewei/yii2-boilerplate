@@ -31,7 +31,7 @@
   }
 </script>
 <style lang="scss">
-  body {
+  .bp {
     .el-menu {
       border-right: none;
     }
@@ -63,6 +63,22 @@
 
     .el-menu--collapse {
       width: 100%;
+
+      .is-opened {
+        background: #fafbfc;
+      }
+    }
+
+    .el-menu--popup {
+      padding: 0;
+      background: #fafbfc;
+      border-radius: 1px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .el-menu--popup-right-start {
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 </style>
