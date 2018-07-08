@@ -61,19 +61,19 @@ class AdminGroupAcl extends ActiveRecord
                         'items' => [
                             [
                                 'name' => '管理员列表',
-                                'route' => 'setting/admins:GET',
+                                'route' => 'admin/index',
                             ],
                             [
                                 'name' => '管理员新建',
-                                'route' => 'setting/admins:POST',
+                                'route' => 'admin/create',
                             ],
                             [
                                 'name' => '管理员信息',
-                                'route' => 'setting/admin:GET',
+                                'route' => 'admin/view',
                             ],
                             [
                                 'name' => '管理员编辑',
-                                'route' => 'setting/admin:PUT',
+                                'route' => 'admin/admin:PUT',
                             ],
                             [
                                 'name' => '管理员删除',

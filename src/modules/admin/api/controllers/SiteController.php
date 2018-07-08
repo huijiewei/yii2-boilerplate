@@ -22,7 +22,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return [];
+        return ['message' => '欢迎!'];
     }
 
     public function actionError()
