@@ -14,6 +14,8 @@ class SiteController extends Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        $this->layout = false;
+
+        return $this->render('/index');
     }
 }

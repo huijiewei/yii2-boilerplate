@@ -6,7 +6,8 @@
     "yiisoft/yii2": "^2.0",
     "symfony/dotenv": "^4.1",
     "yiisoft/yii2-swiftmailer": "^2.1",
-    "huijiewei/yii2-wechat": "^2.0"
+    "huijiewei/yii2-wechat": "^2.0",
+    "huijiewei/yii2-swagger": "^2.0"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0",

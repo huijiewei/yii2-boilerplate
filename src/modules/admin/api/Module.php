@@ -10,6 +10,7 @@ namespace app\modules\admin\api;
 
 use app\core\components\AbstractModule;
 use app\core\models\admin\Admin;
+use huijiewei\swagger\SwaggerController;
 use yii\web\User;
 
 class Module extends AbstractModule
@@ -34,8 +35,8 @@ class Module extends AbstractModule
     public static function getRouteRules()
     {
         return [
-            'GET ' => 'site/index',
-            'GET site/<action\w+>' => 'site/<action>',
+            '' => 'site/index',
+            '<controller:\w+>/<action\w+>' => '<controller>/<action>',
             'GET <controller:\w+>s' => '<controller>/index',
             'POST <controller:\w+>s' => '<controller>/create',
             'GET <controller:\w+>s/<id:\d+>' => '<controller>/view',
@@ -53,6 +54,27 @@ class Module extends AbstractModule
             'enableAutoLogin' => false,
             'enableSession' => false,
             'loginUrl' => null,
+        ];
+    }
+
+    public function init()
+    {
+        parent::init();
+
+        $this->controllerMap = [
+            'swagger' => [
+                'class' => SwaggerController::class,
+                'apiOptions' => [
+                    'scanDir' => '@app/modules/admin/api',
+                    'defines' => [
+                        'API_HOST' => \Yii::$app->getRequest()->getHostName(),
+                        'API_BASE_PATH' => '/' . static::getUrlPrefix(),
+                    ]
+                ],
+                'uiOptions' => [
+                    'apiUrlRoute' => 'swagger/api'
+                ]
+            ],
         ];
     }
 }

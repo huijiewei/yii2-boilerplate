@@ -16,8 +16,17 @@ class AdminLoginForm extends Model
 {
     public $account;
     public $password;
+
     /* @var $admin Admin|null */
     private $admin;
+
+    public function attributeLabels()
+    {
+        return [
+            'account' => '管理员账号',
+            'password' => '管理员密码',
+        ];
+    }
 
     public function rules()
     {

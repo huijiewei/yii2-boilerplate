@@ -73,11 +73,11 @@ class AdminGroupAcl extends ActiveRecord
                             ],
                             [
                                 'name' => '管理员编辑',
-                                'route' => 'admin/admin:PUT',
+                                'route' => 'admin/edit',
                             ],
                             [
                                 'name' => '管理员删除',
-                                'route' => 'setting/admin:DELETE',
+                                'route' => 'admin/delete',
                             ],
                         ],
                     ],
