@@ -17,26 +17,7 @@ abstract class AbstractModule extends \yii\base\Module
 {
     public $disableDebugModule = false;
 
-    public static function getUrlPrefix()
-    {
-        return static::getModuleId();
-    }
-
-    public static function getRoutePrefix()
-    {
-        return static::getModuleId();
-    }
-
     abstract public static function getUserComponent();
-
-    public static function getRouteRules()
-    {
-        return [
-            '' => 'site/index',
-            '<controller>' => '<controller>/index',
-            '<controller>/<action>' => '<controller>/<action>',
-        ];
-    }
 
     public static function getUrlRules()
     {
@@ -45,6 +26,27 @@ abstract class AbstractModule extends \yii\base\Module
             'prefix' => static::getUrlPrefix(),
             'routePrefix' => static::getRoutePrefix(),
             'rules' => static::getRouteRules(),
+        ];
+    }
+
+    public static function getUrlPrefix()
+    {
+        return static::getModuleId();
+    }
+
+    abstract public static function getModuleId();
+
+    public static function getRoutePrefix()
+    {
+        return static::getModuleId();
+    }
+
+    public static function getRouteRules()
+    {
+        return [
+            '' => 'site/index',
+            '<controller>' => '<controller>/index',
+            '<controller>/<action>' => '<controller>/<action>',
         ];
     }
 
@@ -58,8 +60,6 @@ abstract class AbstractModule extends \yii\base\Module
 
         return Url::toRoute($route, $scheme);
     }
-
-    abstract public static function getModuleId();
 
     public function init()
     {
