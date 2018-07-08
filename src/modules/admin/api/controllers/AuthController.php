@@ -35,7 +35,7 @@ class AuthController extends Controller
      *      )
      *    )
      *   ),
-     *   @SWG\Response(response="default", description="成功后会返回一个 token，保存到本地，然后每次请求头里面带上 API-ACCESS-TOKEN")
+     *   @SWG\Response(response="default", description="成功后会返回一个 accessToken，保存到本地，然后每次请求头里面带上 ADMIN-ACCESS-TOKEN")
      * )
      */
     public function actionLogin()
@@ -47,6 +47,6 @@ class AuthController extends Controller
             return $form;
         }
 
-        return ['success' => true, 'message' => '登陆成功'];
+        return ['success' => true, 'message' => '登陆成功', 'accessToken' => $form->accessToken->token];
     }
 }

@@ -10,6 +10,7 @@ namespace app\modules\admin\api\models;
 
 use app\core\helpers\StringHelper;
 use app\core\models\admin\Admin;
+use app\core\models\admin\AdminAccessToken;
 use yii\base\Model;
 
 class AdminLoginForm extends Model
@@ -17,7 +18,10 @@ class AdminLoginForm extends Model
     public $account;
     public $password;
 
-    /* @var $admin Admin|null */
+    /* @var AdminAccessToken */
+    public $accessToken;
+
+    /* @var Admin|null */
     private $admin;
 
     public function attributeLabels()
@@ -45,11 +49,12 @@ class AdminLoginForm extends Model
             return false;
         }
 
+        $this->accessToken = $this->admin->generateAccessToken();
 
         return true;
     }
 
-    protected function validateAccount($attribute)
+    public function validateAccount($attribute)
     {
         if ($this->hasErrors()) {
             return;
@@ -74,7 +79,7 @@ class AdminLoginForm extends Model
         $this->admin = $admin;
     }
 
-    protected function validatePassword($attribute)
+    public function validatePassword($attribute)
     {
         if ($this->hasErrors()) {
             return;

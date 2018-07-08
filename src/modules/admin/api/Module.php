@@ -9,6 +9,7 @@
 namespace app\modules\admin\api;
 
 use app\core\components\AbstractModule;
+use app\core\components\WebRequest;
 use app\core\models\admin\Admin;
 use huijiewei\swagger\SwaggerController;
 use yii\web\User;
@@ -60,6 +61,17 @@ class Module extends AbstractModule
     public function init()
     {
         parent::init();
+
+        \Yii::$app->set('request', [
+            'class' => WebRequest::class,
+            'enableCsrfValidation' => false,
+            'enableCsrfCookie' => false,
+            'enableCookieValidation' => false,
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+                'text/json' => 'yii\web\JsonParser',
+            ],
+        ]);
 
         $this->controllerMap = [
             'swagger' => [
