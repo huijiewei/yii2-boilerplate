@@ -12,5 +12,4 @@ use app\core\components\AbstractModuleBootstrap;
 
 class ModuleBootstrap extends AbstractModuleBootstrap
 {
-    public $appendUrlRules = false;
 }

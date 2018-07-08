@@ -20,8 +20,7 @@ return [
 
     'bootstrap' => [
         'log',
-        \app\modules\admin\api\ModuleBootstrap::class,
-        \app\modules\admin\spa\ModuleBootstrap::class,
+        \app\modules\admin\ModuleBootstrap::class,
         \app\modules\website\ModuleBootstrap::class,
     ],
 
@@ -31,8 +30,7 @@ return [
     ],
 
     'modules' => [
-        \app\modules\admin\api\Module::getModuleId() => \app\modules\admin\api\Module::class,
-        \app\modules\admin\spa\Module::getModuleId() => \app\modules\admin\spa\Module::class,
+        \app\modules\admin\Module::getModuleId() => \app\modules\admin\Module::class,
         \app\modules\website\Module::getModuleId() => \app\modules\website\Module::class,
     ],
 
@@ -100,7 +98,10 @@ return [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
-            'rules' => \app\modules\website\Module::getUrlRules(),
+            'normalizer' => [
+                'class' => 'yii\web\UrlNormalizer',
+            ],
+            'rules' => [],
         ],
     ],
 ];

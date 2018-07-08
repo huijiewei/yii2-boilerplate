@@ -17,4 +17,11 @@ $config = require(__DIR__ . '/../config/web.php');
 
 $application = new yii\web\Application($config);
 
+$debugUrlRules = false;
+
+if ($debugUrlRules) {
+    \Symfony\Component\VarDumper\VarDumper::dump($application->getUrlManager()->rules);
+    die;
+}
+
 $application->run();

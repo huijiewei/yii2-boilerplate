@@ -18,13 +18,24 @@ class Module extends AbstractModule
 
     public static function getModuleId()
     {
-        return 'admin-api';
+        return 'api';
     }
 
-    public static function getUrlRules()
+    public static function getUrlPrefix()
+    {
+        return 'admin/api';
+    }
+
+    public static function getRoutePrefix()
+    {
+        return 'admin/api';
+    }
+
+    public static function getRouteRules()
     {
         return [
-            'site/<action\w+>' => 'site/<action>',
+            'GET ' => 'site/index',
+            'GET site/<action\w+>' => 'site/<action>',
             'GET <controller:\w+>s' => '<controller>/index',
             'POST <controller:\w+>s' => '<controller>/create',
             'GET <controller:\w+>s/<id:\d+>' => '<controller>/view',

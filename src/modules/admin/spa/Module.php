@@ -16,7 +16,17 @@ class Module extends AbstractModule
 
     public static function getModuleId()
     {
+        return 'spa';
+    }
+
+    public static function getUrlPrefix()
+    {
         return 'admin';
+    }
+
+    public static function getRoutePrefix()
+    {
+        return 'admin/spa';
     }
 
     public static function getUserComponent()
@@ -24,7 +34,7 @@ class Module extends AbstractModule
         return null;
     }
 
-    public static function getUrlRules()
+    public static function getRouteRules()
     {
         return [
             '' => 'site/index',
