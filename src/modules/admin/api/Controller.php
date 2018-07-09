@@ -51,7 +51,7 @@ class Controller extends RestController
                 'authMethods' => [
                     [
                         'class' => HttpHeaderAuth::class,
-                        'header' => 'ADMIN-ACCESS-TOKEN',
+                        'header' => 'ACCESS-TOKEN',
                     ],
                     [
                         'class' => QueryParamAuth::class,

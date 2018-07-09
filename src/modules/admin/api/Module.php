@@ -77,14 +77,17 @@ class Module extends AbstractModule
             'swagger' => [
                 'class' => SwaggerController::class,
                 'apiOptions' => [
-                    'scanDir' => '@app/modules/admin/api',
+                    'scanDir' => [
+                        '@app/modules/admin/api/Swagger.php',
+                        '@app/modules/admin/api/controllers'
+                    ],
                     'defines' => [
                         'API_HOST' => \Yii::$app->getRequest()->getHostName(),
                         'API_BASE_PATH' => '/' . static::getUrlPrefix(),
                     ]
                 ],
                 'uiOptions' => [
-                    'apiUrlRoute' => 'swagger/api'
+                    'apiUrlRoute' => 'swagger/api',
                 ]
             ],
         ];

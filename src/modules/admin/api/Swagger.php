@@ -19,7 +19,7 @@
  *   @SWG\Info(
  *     title="Boilerplate 管理员 API",
  *     description="欢迎使用 Boilerplate 管理员 API",
- *     version="1.0.0"
+ *     version="v1"
  *   )
  * )
  */
@@ -29,7 +29,7 @@
  *   securityDefinition="AdminSecurity",
  *   type="apiKey",
  *   in="header",
- *   name="ADMIN-ACCESS-TOKEN",
+ *   name="ACCESS-TOKEN",
  *   description="管理员认证令牌"
  * )
  */
