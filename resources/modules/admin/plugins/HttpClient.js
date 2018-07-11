@@ -13,15 +13,11 @@ const HttpGetMethod = ['GET', 'HEAD', 'OPTIONS']
 
 const HttpClient = {
   install(Vue, { store, router }) {
-    let CancelToken = axios.CancelToken
-    let source = CancelToken.source()
-
     let httpClient = axios.create({
       baseURL: document.querySelector('meta[name="api-host"]').getAttribute('content'),
       timeout: 10000,
       xsrfCookieName: null,
-      xsrfHeaderName: null,
-      cancelToken: source.token
+      xsrfHeaderName: null
     })
 
     axiosRetry(httpClient, {
@@ -39,6 +35,8 @@ const HttpClient = {
       if (accessToken) {
         config.headers['X-Access-Token'] = accessToken
       }
+
+      config.headers['X-Client-Id'] = store.state.auth.clientId
 
       return config
     }, undefined)

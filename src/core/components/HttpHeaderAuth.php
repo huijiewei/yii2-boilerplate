@@ -14,13 +14,14 @@ use yii\web\UnauthorizedHttpException;
 class HttpHeaderAuth extends AuthMethod
 {
     public $header = 'X-Access-Token';
+    public $clientId = '';
 
     public function authenticate($user, $request, $response)
     {
         $authHeader = $request->getHeaders()->get($this->header);
 
         if ($authHeader !== null) {
-            $identity = $user->loginByAccessToken($authHeader, '');
+            $identity = $user->loginByAccessToken($authHeader, $this->clientId);
 
             if ($identity === null) {
                 $this->challenge($response);

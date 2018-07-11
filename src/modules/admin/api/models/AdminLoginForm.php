@@ -11,10 +11,13 @@ namespace app\modules\admin\api\models;
 use app\core\helpers\StringHelper;
 use app\core\models\admin\Admin;
 use app\core\models\admin\AdminAccessToken;
+use yii\base\InvalidArgumentException;
 use yii\base\Model;
 
 class AdminLoginForm extends Model
 {
+    public $clientId;
+
     public $account;
     public $password;
 
@@ -23,6 +26,15 @@ class AdminLoginForm extends Model
 
     /* @var Admin|null */
     public $admin;
+
+    public function init()
+    {
+        parent::init();
+
+        if (empty($this->clientId)) {
+            throw new InvalidArgumentException('初始化时请设置 clientId 属性');
+        }
+    }
 
     public function attributeLabels()
     {
@@ -49,7 +61,7 @@ class AdminLoginForm extends Model
             return false;
         }
 
-        $this->accessToken = $this->admin->generateAccessToken();
+        $this->accessToken = $this->admin->generateAccessToken($this->clientId);
 
         return true;
     }

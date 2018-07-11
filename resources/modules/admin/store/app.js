@@ -1,3 +1,6 @@
+const accessTokenItemKey = 'bp-admin-access-token'
+const clientIdItemKey = 'bp-admin-client-id'
+
 const app = {
   strict: process.env.NODE_ENV !== 'production',
   state: {
@@ -7,16 +10,27 @@ const app = {
       hidden: false
     },
     auth: {
+      clientId: '',
       loginModal: false,
-      accessToken: window.localStorage.getItem('bp-admin-access-token')
-    }
-  },
-  getters: {
-    getAccessToken: state => {
-      return state.auth.accessToken
+      accessToken: window.localStorage.getItem(accessTokenItemKey)
     }
   },
   mutations: {
+    INIT_CLIENT_ID: (state) => {
+      let clientId = window.localStorage.getItem(clientIdItemKey)
+
+      if (clientId == null) {
+        clientId = Math.random().toString(36).substr(2)
+
+        window.localStorage.setItem(clientIdItemKey, clientId)
+      }
+
+      state.auth.clientId = clientId
+    },
+    CLEAR_CLIENT_ID: (state) => {
+      state.auth.clientId = ''
+      window.localStorage.removeItem(clientIdItemKey)
+    },
     TOGGLE_DEVICE: (state, device) => {
       state.device = device
     },

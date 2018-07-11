@@ -27,6 +27,11 @@ use yii\web\Response;
  */
 abstract class Controller extends RestController
 {
+    public function getClientId()
+    {
+        return \Yii::$app->getRequest()->getHeaders()->get('X-Client-Id', '');
+    }
+
     public function behaviors()
     {
         return [
@@ -47,6 +52,7 @@ abstract class Controller extends RestController
             'auth' => [
                 'class' => HttpHeaderAuth::class,
                 'header' => 'X-Access-Token',
+                'clientId' => $this->getClientId(),
                 'optional' => [
                     'auth/login',
                 ]

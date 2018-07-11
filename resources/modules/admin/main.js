@@ -18,5 +18,8 @@ new Vue({
   el: '#root',
   store: store,
   router: router,
-  render: h => h(App)
+  render: h => h(App),
+  beforeCreate() {
+    this.$store.commit('INIT_CLIENT_ID')
+  }
 })

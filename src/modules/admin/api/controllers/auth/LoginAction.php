@@ -40,7 +40,8 @@ class LoginAction extends ControllerAction
      */
     public function run()
     {
-        $form = new AdminLoginForm();
+        $form = new AdminLoginForm(['clientId' => $this->controller->getClientId()]);
+
         $form->load(\Yii::$app->getRequest()->post(), '');
 
         if (!$form->login()) {
