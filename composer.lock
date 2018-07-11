@@ -896,16 +896,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "4.0.34",
+            "version": "4.0.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "ac4b8fd907a13a8eef1c3fae94b6ae6e64535f79"
+                "reference": "7cf3e7d8814ad0a8ad8842086ad0e0e208106798"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/ac4b8fd907a13a8eef1c3fae94b6ae6e64535f79",
-                "reference": "ac4b8fd907a13a8eef1c3fae94b6ae6e64535f79",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/7cf3e7d8814ad0a8ad8842086ad0e0e208106798",
+                "reference": "7cf3e7d8814ad0a8ad8842086ad0e0e208106798",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -961,7 +961,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2018-07-08T02:39:12+00:00"
+            "time": "2018-07-11T07:18:59+00:00"
         },
         {
             "name": "pimple/pimple",
