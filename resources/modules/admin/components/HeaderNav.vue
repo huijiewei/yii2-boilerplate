@@ -11,11 +11,23 @@
       <li class="profile">
         <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link">
+            <img src="../assets/images/avatar.png">
             {{getUser.displayName}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="userLogout">退出登陆</el-dropdown-item>
+            <el-dropdown-item command="userLogout">
+              <bp-icon type="user"></bp-icon>
+              个人资料
+            </el-dropdown-item>
+            <el-dropdown-item command="userLogout">
+              <bp-icon type="lock"></bp-icon>
+              权限查看
+            </el-dropdown-item>
+            <el-dropdown-item command="userLogout" divided>
+              <bp-icon type="logout"></bp-icon>
+              退出登陆
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </li>
@@ -24,8 +36,11 @@
 </template>
 
 <script>
+  import BpIcon from '@core/components/Icon/index'
+
   export default {
     name: 'HeaderNav',
+    components: { BpIcon },
     props: ['isCollapsed'],
     mounted() {
       if (this.getUser.init === false) {
@@ -107,6 +122,7 @@
     .nav {
       display: flex;
       list-style: none;
+      margin: 0;
     }
 
     .nav-right {
@@ -117,8 +133,18 @@
 
       .profile {
         span {
-          padding: 8px 15px;
+          display: block;
+          padding: 9px 16px;
           cursor: pointer;
+          transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.2s linear 0s !important;
+
+          img {
+            height: 32px;
+            vertical-align: middle;
+            border: none;
+            border-radius: 50%;
+            margin-right: 6px;
+          }
         }
       }
     }
