@@ -16,11 +16,11 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="userLogout">
+            <el-dropdown-item>
               <bp-icon type="user"></bp-icon>
               个人资料
             </el-dropdown-item>
-            <el-dropdown-item command="userLogout">
+            <el-dropdown-item>
               <bp-icon type="lock"></bp-icon>
               权限查看
             </el-dropdown-item>
