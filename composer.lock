@@ -668,16 +668,16 @@
         },
         {
             "name": "huijiewei/yii2-swagger",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/huijiewei/yii2-swagger.git",
-                "reference": "353dad371e403e2812fd5ada404cbeaf93288048"
+                "reference": "6662f1145769b44dd5cdf734a9360a4e3c96597a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/huijiewei/yii2-swagger/zipball/353dad371e403e2812fd5ada404cbeaf93288048",
-                "reference": "353dad371e403e2812fd5ada404cbeaf93288048",
+                "url": "https://api.github.com/repos/huijiewei/yii2-swagger/zipball/6662f1145769b44dd5cdf734a9360a4e3c96597a",
+                "reference": "6662f1145769b44dd5cdf734a9360a4e3c96597a",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -709,7 +709,7 @@
                 }
             ],
             "description": "Swagger 扩展",
-            "time": "2018-07-08T10:10:42+00:00"
+            "time": "2018-07-09T01:47:39+00:00"
         },
         {
             "name": "huijiewei/yii2-wechat",

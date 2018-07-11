@@ -6,7 +6,7 @@
       </router-link>
     </div>
     <i :class="['anticon','trigger',isCollapsed ? 'anticon-menu-unfold':'anticon-menu-fold']"
-       @click="toggleSideMenu"></i>
+       @click="toggleSidebar"></i>
   </nav>
 </template>
 
@@ -15,8 +15,8 @@
     name: 'HeaderNav',
     props: ['isCollapsed'],
     methods: {
-      toggleSideMenu() {
-        this.$store.dispatch('toggleSideMenu').then()
+      toggleSidebar() {
+        this.$store.dispatch('toggleSidebar')
       }
     }
   }

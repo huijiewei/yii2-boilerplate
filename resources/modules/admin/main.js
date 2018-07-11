@@ -11,7 +11,8 @@ import HttpClient from './plugins/HttpClient'
 import '@core/assets/icons/iconfont.less'
 
 Vue.use(ElementUi)
-Vue.use(HttpClient)
+
+Vue.use(HttpClient, { store, router })
 
 new Vue({
   el: '#root',

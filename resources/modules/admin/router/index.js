@@ -2,15 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import siteRoutes from './site'
-import authRoutes from './auth'
 import userRoutes from './user'
 
 Vue.use(VueRouter)
 
 const routes = [
   ...siteRoutes,
-  ...userRoutes,
-  ...authRoutes
+  ...userRoutes
 ]
 
 const router = new VueRouter({

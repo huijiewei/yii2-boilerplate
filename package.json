@@ -11,9 +11,7 @@
     "axios-progress-bar": "^1.2.0",
     "axios-retry": "^3.1.1",
     "element-ui": "^2.4.3",
-    "feather-icons": "^4.7.3",
     "vue": "^2.5.16",
-    "vue-route": "^1.5.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

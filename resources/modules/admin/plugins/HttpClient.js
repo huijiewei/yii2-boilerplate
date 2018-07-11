@@ -4,11 +4,24 @@ import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
 import { Message } from 'element-ui'
 
+const HttpCodes = {
+  OK: 200,
+  UNAUTHORIZED: 401
+}
+
+const HttpGetMethod = ['GET', 'HEAD', 'OPTIONS']
+
 const HttpClient = {
-  install(Vue) {
+  install(Vue, { store, router }) {
+    let CancelToken = axios.CancelToken
+    let source = CancelToken.source()
+
     let httpClient = axios.create({
       baseURL: document.querySelector('meta[name="api-host"]').getAttribute('content'),
-      timeout: 1000
+      timeout: 10000,
+      xsrfCookieName: null,
+      xsrfHeaderName: null,
+      cancelToken: source.token
     })
 
     axiosRetry(httpClient, {
@@ -20,17 +33,39 @@ const HttpClient = {
 
     loadProgressBar({}, httpClient)
 
+    httpClient.interceptors.request.use(function(config) {
+      let accessToken = store.state.auth.accessToken
+
+      if (accessToken) {
+        config.headers['Access-Token'] = accessToken
+      }
+
+      return config
+    }, undefined)
+
     httpClient.interceptors.response.use(undefined, function(error) {
       if (error.response) {
-        console.log(error.response)
+        if (error.response.status === HttpCodes.UNAUTHORIZED) {
+          if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
+            router.replace({ path: '/login', query: { direct: router.currentRoute.fullPath } })
+          } else {
+            store.dispatch('toggleLoginModal')
+          }
+
+          return Promise.reject(error)
+        }
 
         if (error.response.data) {
-          if (error.response.data.message) {
-            Message.error(error.response.data.message)
+          let data = error.response.data
+          if (data.message) {
+            Message.error(data.message)
+          } else if (Array.isArray(data)) {
+            data.forEach(function(item) {
+              console.log(item)
+              Message.error(item.message)
+            })
           }
         }
-      } else if (error.request) {
-        Message.error(error.request)
       } else {
         Message.error(error.message)
       }
@@ -40,12 +75,16 @@ const HttpClient = {
 
     Vue.prototype.$http = {
       get(url, params = []) {
-        return httpClient.get(url, {
+        return httpClient.request({
+          url: url,
+          method: 'GET',
           params: params
         })
       },
-      post(url, params = [], data = []) {
-        return httpClient.post(url, {
+      post(url, data = null, params = null) {
+        return httpClient.request({
+          url: url,
+          method: 'POST',
           params: params,
           data: data
         })

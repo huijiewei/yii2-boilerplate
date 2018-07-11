@@ -8,7 +8,29 @@
 
 namespace app\core\components\auth;
 
-class HttpHeaderAuth extends \yii\filters\auth\HttpHeaderAuth
+use yii\filters\auth\AuthMethod;
+
+class HttpHeaderAuth extends AuthMethod
 {
     use AuthTrait;
+
+    public $header = 'Access-Token';
+
+    public function authenticate($user, $request, $response)
+    {
+        $authHeader = $request->getHeaders()->get($this->header);
+
+        if ($authHeader !== null) {
+            $identity = $user->loginByAccessToken($authHeader, '');
+
+            if ($identity === null) {
+                $this->challenge($response);
+                $this->handleFailure($response);
+            }
+
+            return $identity;
+        }
+
+        return null;
+    }
 }

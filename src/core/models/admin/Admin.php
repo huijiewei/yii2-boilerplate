@@ -35,7 +35,7 @@ class Admin extends Identity
     {
         return static::findOne([
             'id' => AdminAccessToken::find()
-                ->where(['clientId' => $clientId, 'accessToken' => $token])
+                ->where(['clientId' => $clientId, 'token' => $token])
                 ->select('adminId')
         ]);
     }

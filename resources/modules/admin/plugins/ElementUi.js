@@ -1,7 +1,12 @@
 import {
   Aside,
+  Button,
   Container,
+  Dialog,
+  Form,
+  FormItem,
   Header,
+  Input,
   Loading,
   Main,
   Menu,
@@ -20,7 +25,12 @@ const components = [
   Submenu,
   MenuItem,
   Main,
-  Tooltip
+  Tooltip,
+  Dialog,
+  Form,
+  FormItem,
+  Input,
+  Button
 ]
 
 const ElementUi = {

@@ -22,7 +22,7 @@ class AdminLoginForm extends Model
     public $accessToken;
 
     /* @var Admin|null */
-    private $admin;
+    public $admin;
 
     public function attributeLabels()
     {

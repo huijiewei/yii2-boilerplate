@@ -51,7 +51,7 @@ class Controller extends RestController
                 'authMethods' => [
                     [
                         'class' => HttpHeaderAuth::class,
-                        'header' => 'ACCESS-TOKEN',
+                        'header' => 'Access-Token',
                     ],
                     [
                         'class' => QueryParamAuth::class,
@@ -60,7 +60,7 @@ class Controller extends RestController
                     ]
                 ],
                 'optional' => [
-                    'site/*', 'auth/login',
+                    'auth/login',
                 ]
             ],
             'access' => [

@@ -1,11 +1,11 @@
-import main from '@admin/views/layouts/Main'
 import siteIndex from '@admin/views/templates/site/Index'
 import siteAbout from '@admin/views/templates/site/About'
-import siteNotFound from '@admin/views/templates/site/NotFound'
+
+import main from '@admin/views/layouts/Main'
 
 const routes = [
   {
-    path: '',
+    path: '/',
     component: main,
     children: [
       {
@@ -13,14 +13,18 @@ const routes = [
         component: siteIndex
       },
       {
-        path: 'about',
+        path: '/about',
         component: siteAbout
-      },
-      {
-        path: '*',
-        component: siteNotFound
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import(/* webpackChunkName: "login" */ '@admin/views/templates/site/Login')
+  },
+  {
+    path: '*',
+    component: () => import(/* webpackChunkName: "404" */ '@admin/views/templates/site/NotFound')
   }
 ]
 

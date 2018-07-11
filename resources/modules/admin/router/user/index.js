@@ -6,9 +6,8 @@ const routes = [
     component: main,
     children: [
       {
-        path: 'index',
-        component: () => import(/* webpackChunkName: "user" */ '@admin/views/templates/user/Index'),
-        alias: ''
+        path: '',
+        component: () => import(/* webpackChunkName: "user" */ '@admin/views/templates/user/Index')
       }
     ]
   }

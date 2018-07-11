@@ -47,6 +47,10 @@ class AuthController extends Controller
             return $form;
         }
 
-        return ['success' => true, 'message' => '登陆成功', 'accessToken' => $form->accessToken->token];
+        return [
+            'success' => true,
+            'message' => '登陆成功',
+            'accessToken' => $form->accessToken->token
+        ];
     }
 }
