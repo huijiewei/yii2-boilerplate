@@ -8,7 +8,7 @@
 
 namespace app\core\components;
 
-class WebController extends \yii\web\Controller
+abstract class WebController extends \yii\web\Controller
 {
     /**
      * @inheritdoc

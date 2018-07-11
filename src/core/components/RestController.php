@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
 
-class RestController extends Controller
+abstract class RestController extends Controller
 {
     public $serializer = [
         'class' => 'yii\rest\Serializer',

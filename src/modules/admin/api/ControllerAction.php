@@ -18,6 +18,6 @@ use yii\base\Action;
  *
  * @package app\modules\admin\api
  */
-class ControllerAction extends Action
+abstract class ControllerAction extends Action
 {
 }

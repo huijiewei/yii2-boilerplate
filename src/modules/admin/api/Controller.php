@@ -25,30 +25,28 @@ use yii\web\Response;
  *
  * @package app\modules\admin\api
  */
-class Controller extends RestController
+abstract class Controller extends RestController
 {
     public function behaviors()
     {
         return [
-            'contentNegotiator' => [
+            'content' => [
                 'class' => ContentNegotiator::class,
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
                     'application/vnd.api+json' => Response::FORMAT_JSON,
                 ],
             ],
-            'corsFilter' => [
+            'cors' => [
                 'class' => Cors::class,
             ],
-            'verbFilter' => [
+            'verb' => [
                 'class' => VerbFilter::class,
                 'actions' => $this->verbs(),
             ],
-            'authenticator' => [
-                [
-                    'class' => HttpHeaderAuth::class,
-                    'header' => 'X-Access-Token',
-                ],
+            'auth' => [
+                'class' => HttpHeaderAuth::class,
+                'header' => 'X-Access-Token',
                 'optional' => [
                     'auth/login',
                 ]
@@ -59,7 +57,7 @@ class Controller extends RestController
                     'site/*', 'auth/*',
                 ],
             ],
-            'rateLimiter' => [
+            'rate' => [
                 'class' => RateLimiter::class,
             ],
         ];
