@@ -37,7 +37,7 @@ const HttpClient = {
       let accessToken = store.state.auth.accessToken
 
       if (accessToken) {
-        config.headers['Access-Token'] = accessToken
+        config.headers['X-Access-Token'] = accessToken
       }
 
       return config
@@ -58,11 +58,11 @@ const HttpClient = {
         if (error.response.data) {
           let data = error.response.data
           if (data.message) {
-            Message.error(data.message)
+            Message.warning(data.message)
           } else if (Array.isArray(data)) {
             data.forEach(function(item) {
               console.log(item)
-              Message.error(item.message)
+              Message.warning(item.message)
             })
           }
         }

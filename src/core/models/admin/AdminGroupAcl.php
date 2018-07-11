@@ -85,19 +85,23 @@ class AdminGroupAcl extends ActiveRecord
                         'items' => [
                             [
                                 'name' => '管理组列表',
-                                'route' => 'setting/group',
+                                'route' => 'admin-group/index',
                             ],
                             [
                                 'name' => '管理组新建',
-                                'route' => 'setting/group/create',
+                                'route' => 'admin-group/create',
+                            ],
+                            [
+                                'name' => '管理组信息',
+                                'route' => 'admin-group/view',
                             ],
                             [
                                 'name' => '管理组编辑',
-                                'route' => 'setting/group/edit',
+                                'route' => 'admin-group/edit',
                             ],
                             [
                                 'name' => '管理组删除',
-                                'route' => 'setting/group/create',
+                                'route' => 'admin-group/delete',
                             ],
                         ],
                     ],

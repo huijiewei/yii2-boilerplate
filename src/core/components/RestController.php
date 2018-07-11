@@ -8,8 +8,6 @@
 
 namespace app\core\components;
 
-use yii\filters\AccessControl;
-use yii\filters\auth\HttpBearerAuth;
 use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\filters\RateLimiter;
@@ -44,32 +42,6 @@ class RestController extends Controller
             'verbFilter' => [
                 'class' => VerbFilter::class,
                 'actions' => $this->verbs(),
-            ],
-            'authenticator' => [
-                'class' => HttpBearerAuth::class,
-                'optional' => [
-                    'error', 'login', 'logout'
-                ]
-            ],
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['login', 'error'],
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['logout'],
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => [],
-                        'roles' => ['user'],
-                    ],
-                ]
             ],
             'rateLimiter' => [
                 'class' => RateLimiter::class,

@@ -6,15 +6,14 @@
  * Time: 09:14
  */
 
-namespace app\core\components\auth;
+namespace app\core\components;
 
 use yii\filters\auth\AuthMethod;
+use yii\web\UnauthorizedHttpException;
 
 class HttpHeaderAuth extends AuthMethod
 {
-    use AuthTrait;
-
-    public $header = 'Access-Token';
+    public $header = 'X-Access-Token';
 
     public function authenticate($user, $request, $response)
     {
@@ -32,5 +31,15 @@ class HttpHeaderAuth extends AuthMethod
         }
 
         return null;
+    }
+
+    public function handleFailure($response)
+    {
+        throw new UnauthorizedHttpException('必须登陆才能进行操作');
+    }
+
+    protected function getActionId($action)
+    {
+        return $action->controller->id . '/' . $action->id;
     }
 }

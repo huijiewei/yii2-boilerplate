@@ -51,7 +51,7 @@
     }
 
     .bp-main {
-      background: #f3f3f3;
+      background: #f4f8fb;
     }
   }
 </style>

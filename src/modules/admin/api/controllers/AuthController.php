@@ -53,4 +53,9 @@ class AuthController extends Controller
             'accessToken' => $form->accessToken->token
         ];
     }
+
+    public function actionLogout()
+    {
+
+    }
 }

@@ -9,9 +9,7 @@
 namespace app\modules\admin\api;
 
 use app\core\components\AccessControl;
-use app\core\components\auth\CompositeAuth;
-use app\core\components\auth\HttpHeaderAuth;
-use app\core\components\auth\QueryParamAuth;
+use app\core\components\HttpHeaderAuth;
 use app\core\components\RestController;
 use app\core\models\admin\Admin;
 use yii\filters\ContentNegotiator;
@@ -47,17 +45,9 @@ class Controller extends RestController
                 'actions' => $this->verbs(),
             ],
             'authenticator' => [
-                'class' => CompositeAuth::class,
-                'authMethods' => [
-                    [
-                        'class' => HttpHeaderAuth::class,
-                        'header' => 'Access-Token',
-                    ],
-                    [
-                        'class' => QueryParamAuth::class,
-                        'tokenParam' => 'access-token',
-
-                    ]
+                [
+                    'class' => HttpHeaderAuth::class,
+                    'header' => 'X-Access-Token',
                 ],
                 'optional' => [
                     'auth/login',
