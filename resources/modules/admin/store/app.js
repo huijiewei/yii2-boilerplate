@@ -13,6 +13,11 @@ const app = {
       clientId: '',
       loginModal: false,
       accessToken: window.localStorage.getItem(accessTokenItemKey)
+    },
+    user: {
+      init: false,
+      displayName: '',
+      displayIcon: ''
     }
   },
   mutations: {
@@ -27,10 +32,6 @@ const app = {
 
       state.auth.clientId = clientId
     },
-    CLEAR_CLIENT_ID: (state) => {
-      state.auth.clientId = ''
-      window.localStorage.removeItem(clientIdItemKey)
-    },
     TOGGLE_DEVICE: (state, device) => {
       state.device = device
     },
@@ -43,6 +44,16 @@ const app = {
     UPDATE_ACCESS_TOKEN: (state, accessToken) => {
       state.auth.accessToken = accessToken
       window.localStorage.setItem('bp-admin-access-token', accessToken)
+    },
+    UPDATE_USER: (state, user) => {
+      if (user == null) {
+        state.user.init = false
+        state.user.displayName = ''
+        state.user.displayIcon = ''
+      } else {
+        state.user = user
+        state.user.init = true
+      }
     }
   },
   actions: {
@@ -57,6 +68,9 @@ const app = {
     },
     updateAccessToken({ commit }, accessToken) {
       commit('UPDATE_ACCESS_TOKEN', accessToken)
+    },
+    updateUser({ commit }, user) {
+      commit('UPDATE_USER', user)
     }
   }
 }

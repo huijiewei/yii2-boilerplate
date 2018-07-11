@@ -8,7 +8,9 @@
         <sider-menu :isCollapsed="isCollapsed"></sider-menu>
       </el-aside>
       <el-main class="bp-main">
-        <router-view></router-view>
+        <transition name="el-fade-in-linear">
+          <router-view></router-view>
+        </transition>
       </el-main>
     </el-container>
   </el-container>

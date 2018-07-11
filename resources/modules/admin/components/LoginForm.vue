@@ -58,6 +58,7 @@
           this.$http.post('auth/login', this.loginForm)
             .then(response => {
               this.$store.dispatch('updateAccessToken', response.data.accessToken)
+              this.$store.dispatch('updateUser', response.data.user)
 
               if (this.inModal) {
                 this.$store.dispatch('toggleLoginModal')

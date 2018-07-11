@@ -3,6 +3,9 @@ import {
   Button,
   Container,
   Dialog,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
   Form,
   FormItem,
   Header,
@@ -30,7 +33,10 @@ const components = [
   Form,
   FormItem,
   Input,
-  Button
+  Button,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem
 ]
 
 const ElementUi = {

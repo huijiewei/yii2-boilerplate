@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <login-modal :isVisible="loginModalVisible"></login-modal>
-    <router-view></router-view>
+    <transition name="el-fade-in-linear">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 

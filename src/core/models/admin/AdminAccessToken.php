@@ -23,6 +23,11 @@ use app\core\components\ActiveRecord;
  */
 class AdminAccessToken extends ActiveRecord
 {
+    public static function deleteAccessToken($adminId, $clientId)
+    {
+        static::deleteAll(['adminId' => $adminId, 'clientId' => $clientId]);
+    }
+
     public static function generateAccessToken($adminId, $clientId)
     {
         /* @var $adminAccessToken AdminAccessToken|null */

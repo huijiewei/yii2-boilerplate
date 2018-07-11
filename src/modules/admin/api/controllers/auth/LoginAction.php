@@ -51,7 +51,8 @@ class LoginAction extends ControllerAction
         return [
             'success' => true,
             'message' => '登陆成功',
-            'accessToken' => $form->accessToken->token
+            'user' => $form->admin->toArray(['displayName', 'displayIcon']),
+            'accessToken' => $form->accessToken->token,
         ];
     }
 }
