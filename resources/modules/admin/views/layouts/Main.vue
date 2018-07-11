@@ -22,7 +22,7 @@
     components: { HeaderNav, SiderMenu },
     computed: {
       isCollapsed() {
-        return this.$store.state.app.isCollapsed
+        return this.$store.state.sidebar.collapsed
       }
     }
   }
