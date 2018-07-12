@@ -40,9 +40,9 @@ class Admin extends Identity
         ]);
     }
 
-    public function can($actionId, $httpMethod)
+    public function can($actionId)
     {
-        return in_array($actionId . ":" . $httpMethod, AdminGroupAcl::getAclByGroupId($this->groupId));
+        return in_array($actionId, AdminGroupAcl::getAclByGroupId($this->groupId));
     }
 
     /**

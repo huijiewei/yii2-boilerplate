@@ -18,7 +18,7 @@ class IndexAction extends ControllerAction
     {
         return new ActiveDataProvider([
             'query' => AdminGroup::find()->orderBy(['id' => SORT_ASC]),
-            'pagination' => null,
+            'pagination' => false,
         ]);
     }
 }

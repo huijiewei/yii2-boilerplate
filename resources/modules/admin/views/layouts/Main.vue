@@ -9,7 +9,7 @@
           <sider-menu class="bp-menu" :isCollapsed="isCollapsed"></sider-menu>
         </prefect-scrollbar>
       </el-aside>
-      <el-main :style="{marginLeft:isCollapsed ? '60px' : '210px'}" class="bp-main">
+      <el-main :style="{ marginLeft: isCollapsed ? '60px' : '210px' }" class="bp-main">
         <transition name="el-fade-in-linear">
           <router-view></router-view>
         </transition>

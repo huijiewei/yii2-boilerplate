@@ -10,6 +10,10 @@ import HttpClient from './plugins/HttpClient'
 
 import '@core/assets/icons/iconfont.less'
 
+import Meta from 'vue-meta'
+
+Vue.use(Meta, { keyName: 'meta' })
+
 Vue.use(ElementUi)
 
 Vue.use(HttpClient, { store, router })

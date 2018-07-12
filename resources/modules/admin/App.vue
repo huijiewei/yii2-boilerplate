@@ -10,16 +10,24 @@
 <script>
   import LoginModal from '@admin/components/LoginModal'
 
+  const currentTitle = document.title
+
   export default {
     name: 'App',
+    meta: {
+      title: null,
+      titleTemplate: (titleChunk) => {
+        return titleChunk ? `${titleChunk} - ${currentTitle}` : currentTitle
+      },
+      bodyAttrs: {
+        class: 'bp'
+      }
+    },
     components: { LoginModal },
     computed: {
       loginModalVisible() {
         return this.$store.state.auth.loginModal
       }
-    },
-    mounted() {
-      document.body.classList.add('bp')
     }
   }
 </script>

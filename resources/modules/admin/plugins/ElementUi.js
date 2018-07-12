@@ -18,7 +18,9 @@ import {
   MessageBox,
   Notification,
   Submenu,
-  Tooltip
+  Tooltip,
+  Table,
+  TableColumn
 } from 'element-ui'
 
 const components = [
@@ -37,7 +39,9 @@ const components = [
   Button,
   Dropdown,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Table,
+  TableColumn
 ]
 
 const ElementUi = {

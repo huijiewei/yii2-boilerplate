@@ -34,7 +34,7 @@ class AccessControl extends ActionFilter
         /** @var $identity \app\core\models\Identity */
         $identity = $this->user->getIdentity();
 
-        if (!$identity->can($actionId, \Yii::$app->getRequest()->getMethod())) {
+        if (!$identity->can($actionId)) {
             throw new ForbiddenHttpException('你没有权限进行此操作');
         }
 
