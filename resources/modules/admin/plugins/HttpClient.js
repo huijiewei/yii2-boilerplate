@@ -86,6 +86,21 @@ const HttpClient = {
           params: params,
           data: data
         })
+      },
+      put(url, data = null, params = null) {
+        return httpClient.request({
+          url: url,
+          method: 'PUT',
+          params: params,
+          data: data
+        })
+      },
+      delete(url, params = null) {
+        return httpClient.request({
+          url: url,
+          method: 'DELETE',
+          params: params
+        })
       }
     }
   }
