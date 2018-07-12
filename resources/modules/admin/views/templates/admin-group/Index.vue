@@ -3,7 +3,7 @@
     <div class="box-header">
       <h4>管理组</h4>
     </div>
-    <el-table :stripe="true" :data="adminGroups">
+    <el-table v-loading="loading" :stripe="true" :data="adminGroups">
       <el-table-column
         prop="id"
         label="Id">
@@ -56,7 +56,8 @@
     },
     data() {
       return {
-        adminGroups: []
+        adminGroups: [],
+        loading: true
       }
     },
     methods: {
@@ -71,6 +72,8 @@
       this.$http.get('admin-groups').then((response) => {
         this.adminGroups = response.data.items
       }).catch(() => {
+      }).finally(() => {
+        this.loading = false
       })
     }
   }
