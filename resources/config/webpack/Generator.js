@@ -207,15 +207,12 @@ class Generator {
       plugins.push(plugin)
     })
 
-    return plugins
-      .map((plugin, position) => Object.assign({}, plugin, { position: position }))
-      .sort((a, b) => {
-        if (a.priority === b.priority) {
-          return a.position - b.position
-        }
-        return b.priority - a.priority
-      })
-      .map((plugin) => plugin.plugin)
+    return plugins.map((plugin, position) => Object.assign({}, plugin, { position: position })).sort((a, b) => {
+      if (a.priority === b.priority) {
+        return a.position - b.position
+      }
+      return b.priority - a.priority
+    }).map((plugin) => plugin.plugin)
   }
 
   buildOptimizationConfig() {
@@ -239,14 +236,9 @@ class Generator {
             chunks: 'all',
             enforce: true
           },
-          common: {
-            name: 'common',
-            chunks: 'initial',
-            minChunks: 2
-          },
           styles: {
             name: 'styles',
-            test: /\.css$/,
+            test: /\.(css|less|scss)$/,
             chunks: 'all'
           }
         }
@@ -314,7 +306,8 @@ class Generator {
     if (this.config.useDevServer) {
       let devServerConfig = this.buildDevServerConfig()
 
-      webpackConfig.output.publicPath = 'http://' + devServerConfig.host + ':' + devServerConfig.port + devServerConfig.publicPath
+      webpackConfig.output.publicPath = 'http://' + devServerConfig.host + ':' + devServerConfig.port +
+        devServerConfig.publicPath
       webpackConfig.devServer = devServerConfig
     }
 

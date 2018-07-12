@@ -7,7 +7,7 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "user" */ '@admin/views/templates/user/Index')
+        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/templates/user/Index')
       }
     ]
   }

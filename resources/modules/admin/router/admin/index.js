@@ -7,7 +7,7 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "admin" */ '@admin/views/templates/admin/Index')
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/templates/admin/Index')
       }
     ]
   },
@@ -17,11 +17,11 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "admin" */ '@admin/views/templates/admin-group/Index')
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/templates/admin-group/Index')
       },
       {
         path: 'view/:id',
-        component: () => import(/* webpackChunkName: "admin" */ '@admin/views/templates/admin-group/View')
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/templates/admin-group/View')
       }
     ]
   }

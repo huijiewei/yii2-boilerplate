@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => import(/* webpackChunkName: "login" */ '@admin/views/templates/site/Login')
+    component: () => import(/* webpackChunkName: "chunk-login" */ '@admin/views/templates/site/Login')
   },
   {
     path: '*',

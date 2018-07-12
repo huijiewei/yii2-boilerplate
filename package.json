@@ -27,7 +27,6 @@
     "autoprefixer": "^8.6.4",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.0-beta",
-    "babel-plugin-component": "^1.1.1",
     "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
