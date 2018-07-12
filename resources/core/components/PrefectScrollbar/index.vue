@@ -13,10 +13,11 @@
   export default {
     name: 'PrefectScrollbar',
     props: {
-      options: {
+      settings: {
         type: Object,
-        default: () => {
-        }
+        default: () => ({
+          wheelPropagation: false
+        })
       }
     },
     methods: {
@@ -28,7 +29,7 @@
       }
     },
     mounted() {
-      this.ps = new PrefectScrollbar(this.$el, this.options)
+      this.ps = new PrefectScrollbar(this.$el, this.settings)
     },
     updated() {
       this.update()

@@ -2,7 +2,6 @@ import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
-import { Message } from 'element-ui'
 
 const HttpCodes = {
   OK: 200,
@@ -12,7 +11,7 @@ const HttpCodes = {
 const HttpGetMethod = ['GET', 'HEAD', 'OPTIONS']
 
 const HttpClient = {
-  install(Vue, { store, router }) {
+  install(Vue, { store, router, Message }) {
     const httpClient = axios.create({
       baseURL: document.querySelector('meta[name="api-host"]').getAttribute('content'),
       timeout: 10000,

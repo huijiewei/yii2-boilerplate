@@ -15,8 +15,7 @@ import '@core/assets/icons/iconfont.less'
 Vue.use(ElementUI)
 Vue.use(Meta, { keyName: 'meta' })
 
-
-Vue.use(HttpClient, { store, router })
+Vue.use(HttpClient, { store, router, Message: ElementUI.Message })
 
 new Vue({
   el: '#root',
