@@ -14,32 +14,32 @@
       </el-table-column>
       <el-table-column align="right" label="操作">
         <template slot-scope="scope">
-          <el-button-group>
-            <el-button
-              title="查看"
-              icon="el-icon-view"
-              type="default"
-              size="mini"
-              :plain="true"
-              @click="handleRoute('admin-group/view/' + scope.row.id)">
-            </el-button>
-            <el-button
-              title="编辑"
-              icon="el-icon-edit"
-              type="primary"
-              size="mini"
-              :plain="true"
-              @click="handleRoute('admin-group/edit/' + scope.row.id)">
-            </el-button>
-            <el-button
-              title="删除"
-              size="mini"
-              type="danger"
-              icon="el-icon-delete"
-              :plain="true"
-              @click="handleDelete(scope.$index, scope.row)">
-            </el-button>
-          </el-button-group>
+          <el-button
+            title="查看"
+            type="primary"
+            size="mini"
+            :plain="true"
+            @click="handleRoute('admin-group/view' , scope.row.id)">
+            查看
+          </el-button>
+          <el-button
+            v-show="$store.getters.checkAcl('admin-group/edit')"
+            title="编辑"
+            type="warning"
+            size="mini"
+            :plain="true"
+            @click="handleRoute('admin-group/edit' , scope.row.id)">
+            编辑
+          </el-button>
+          <el-button
+            v-show="$store.getters.checkAcl('admin-group/delete')"
+            title="删除"
+            size="mini"
+            type="danger"
+            :plain="true"
+            @click="handleDelete(scope.$index, scope.row)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -60,8 +60,8 @@
       }
     },
     methods: {
-      handleRoute(action) {
-        this.$router.push(action)
+      handleRoute(action, id) {
+        this.$router.push({ path: action, query: { id: id } })
       },
       handleDelete(index, row) {
         console.log(index, row)

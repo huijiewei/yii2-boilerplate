@@ -78,6 +78,11 @@
       display: none;
     }
 
+    .el-table td,
+    .el-table th {
+      padding: 12px 0 10px 0;
+    }
+
     .el-table {
       font-size: 13px;
 
@@ -86,6 +91,11 @@
         text-transform: uppercase;
         border-top: 1px solid #dee2e6;
         border-bottom: 2px solid #dee2e6;
+      }
+
+      .el-button--mini,
+      .el-button--mini.is-round {
+        padding: 5px 6px;
       }
     }
   }

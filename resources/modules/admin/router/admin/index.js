@@ -20,7 +20,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/templates/admin-group/Index')
       },
       {
-        path: 'view/:id',
+        path: 'view',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/templates/admin-group/View')
       }
     ]

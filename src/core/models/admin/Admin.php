@@ -45,6 +45,15 @@ class Admin extends Identity
         return in_array($actionId, AdminGroupAcl::getAclByGroupId($this->groupId));
     }
 
+    public function extraFields()
+    {
+        return [
+            'groupAcl' => function () {
+                return AdminGroupAcl::getAclByGroupId($this->groupId);
+            },
+        ];
+    }
+
     /**
      * @param string $clientId
      *

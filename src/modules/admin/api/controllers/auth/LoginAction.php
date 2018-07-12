@@ -8,6 +8,7 @@
 
 namespace app\modules\admin\api\controllers\auth;
 
+use app\core\models\admin\AdminGroupAcl;
 use app\modules\admin\api\ControllerAction;
 use app\modules\admin\api\models\AdminLoginForm;
 
@@ -51,7 +52,7 @@ class LoginAction extends ControllerAction
         return [
             'success' => true,
             'message' => '登陆成功',
-            'user' => $form->admin->toArray(['displayName', 'displayIcon']),
+            'user' => $form->admin->toArray(['displayName', 'displayIcon'], ['groupAcl']),
             'accessToken' => $form->accessToken->token,
         ];
     }

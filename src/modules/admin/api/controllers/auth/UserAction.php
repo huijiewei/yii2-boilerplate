@@ -14,6 +14,6 @@ class UserAction extends ControllerAction
 {
     public function run()
     {
-        return $this->controller->getIdentity()->toArray(['displayName', 'displayIcon']);
+        return $this->controller->getIdentity()->toArray(['displayName', 'displayIcon'], ['groupAcl']);
     }
 }

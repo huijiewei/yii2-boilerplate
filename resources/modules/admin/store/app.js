@@ -17,7 +17,13 @@ const app = {
     user: {
       init: false,
       displayName: '',
-      displayIcon: ''
+      displayIcon: '',
+      groupAcl: []
+    }
+  },
+  getters: {
+    checkAcl: (state) => (route) => {
+      return state.user.groupAcl.includes(route)
     }
   },
   mutations: {
@@ -50,6 +56,7 @@ const app = {
         state.user.init = false
         state.user.displayName = ''
         state.user.displayIcon = ''
+        state.user.groupAcl = []
       } else {
         state.user = user
         state.user.init = true
