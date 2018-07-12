@@ -13,7 +13,7 @@ const HttpGetMethod = ['GET', 'HEAD', 'OPTIONS']
 
 const HttpClient = {
   install(Vue, { store, router }) {
-    let httpClient = axios.create({
+    const httpClient = axios.create({
       baseURL: document.querySelector('meta[name="api-host"]').getAttribute('content'),
       timeout: 10000,
       xsrfCookieName: null,
@@ -27,10 +27,10 @@ const HttpClient = {
       }
     })
 
-    loadProgressBar({}, httpClient)
+    loadProgressBar({ showSpinner: false }, httpClient)
 
     httpClient.interceptors.request.use(function(config) {
-      let accessToken = store.state.auth.accessToken
+      const accessToken = store.state.auth.accessToken
 
       if (accessToken) {
         config.headers['X-Access-Token'] = accessToken

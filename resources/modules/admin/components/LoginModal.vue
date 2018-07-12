@@ -9,7 +9,6 @@
              :visible="isVisible">
     <login-form :in-modal="true"></login-form>
   </el-dialog>
-
 </template>
 
 <script>

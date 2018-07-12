@@ -16,6 +16,8 @@ use app\core\components\ActiveRecord;
  * @property integer $id
  * @property string $name
  *
+ * @property AdminGroupAcl[] $acl
+ *
  * @package app\core\models\admin
  */
 class AdminGroup extends ActiveRecord
@@ -29,11 +31,26 @@ class AdminGroup extends ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return [
+            'acl'
+        ];
+    }
+
     public function attributeLabels()
     {
         return [
             'name' => '名称',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAcl()
+    {
+        return $this->hasMany(AdminGroupAcl::class, ['groupId' => 'id']);
     }
 
     public function beforeDelete()

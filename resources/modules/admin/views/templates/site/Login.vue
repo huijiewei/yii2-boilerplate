@@ -24,8 +24,7 @@
   .login-view {
     width: 100%;
     height: 100%;
-    background-image: url('../../../assets/images/login-bg.jpg');
-    background-position: top center;
+    background: url('../../../assets/images/login-bg.jpg') top center;
     background-size: cover;
 
     .login-wrap {

@@ -16,6 +16,7 @@ import {
   MenuItem,
   Message,
   MessageBox,
+  Notification,
   Submenu,
   Tooltip
 } from 'element-ui'

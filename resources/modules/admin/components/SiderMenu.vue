@@ -24,12 +24,10 @@
       }
     },
     mounted() {
-      this.$http.get('site/menus')
-        .then(response => {
-          this.menus = response.data
-        })
-        .catch(() => {
-        })
+      this.$http.get('site/menus').then(response => {
+        this.menus = response.data
+      }).catch(() => {
+      })
     }
   }
 </script>

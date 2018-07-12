@@ -46,7 +46,14 @@ class AdminGroupAcl extends ActiveRecord
         return $acl;
     }
 
-    public static function getAcl()
+    public function fields()
+    {
+        return [
+            'actionId',
+        ];
+    }
+
+    public static function getAllAcl()
     {
         return [
             [
@@ -61,23 +68,23 @@ class AdminGroupAcl extends ActiveRecord
                         'items' => [
                             [
                                 'name' => '管理员列表',
-                                'route' => 'admin/index',
+                                'actionId' => 'admin/index',
                             ],
                             [
                                 'name' => '管理员新建',
-                                'route' => 'admin/create',
+                                'actionId' => 'admin/create',
                             ],
                             [
                                 'name' => '管理员信息',
-                                'route' => 'admin/view',
+                                'actionId' => 'admin/view',
                             ],
                             [
                                 'name' => '管理员编辑',
-                                'route' => 'admin/edit',
+                                'actionId' => 'admin/edit',
                             ],
                             [
                                 'name' => '管理员删除',
-                                'route' => 'admin/delete',
+                                'actionId' => 'admin/delete',
                             ],
                         ],
                     ],
@@ -85,23 +92,23 @@ class AdminGroupAcl extends ActiveRecord
                         'items' => [
                             [
                                 'name' => '管理组列表',
-                                'route' => 'admin-group/index',
+                                'actionId' => 'admin-group/index',
                             ],
                             [
                                 'name' => '管理组新建',
-                                'route' => 'admin-group/create',
+                                'actionId' => 'admin-group/create',
                             ],
                             [
                                 'name' => '管理组信息',
-                                'route' => 'admin-group/view',
+                                'actionId' => 'admin-group/view',
                             ],
                             [
                                 'name' => '管理组编辑',
-                                'route' => 'admin-group/edit',
+                                'actionId' => 'admin-group/edit',
                             ],
                             [
                                 'name' => '管理组删除',
-                                'route' => 'admin-group/delete',
+                                'actionId' => 'admin-group/delete',
                             ],
                         ],
                     ],

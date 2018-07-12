@@ -44,12 +44,10 @@
     props: ['isCollapsed'],
     mounted() {
       if (this.getUser.init === false) {
-        this.$http.get('auth/user')
-          .then(response => {
-            this.$store.dispatch('updateUser', response.data)
-          })
-          .catch(() => {
-          })
+        this.$http.get('auth/user').then(response => {
+          this.$store.dispatch('updateUser', response.data)
+        }).catch(() => {
+        })
       }
     },
     computed: {
@@ -63,22 +61,21 @@
       },
       handleCommand(command) {
         if (command === 'userLogout') {
-          let nav = this
+          const self = this
 
-          nav.$http.get('auth/logout').then(response => {
-            nav.$message({
+          self.$http.get('auth/logout').then(response => {
+            self.$message({
               type: 'success',
-              duration: 2000,
+              duration: 1000,
               message: response.data.message,
               onClose() {
-                nav.$store.dispatch('updateAccessToken', '')
-                nav.$store.dispatch('updateUser', null)
+                self.$store.dispatch('updateAccessToken', '')
+                self.$store.dispatch('updateUser', null)
 
-                nav.$router.push('/login')
+                self.$router.push('/login')
               }
             })
-          }).catch(error => {
-            console.log(error)
+          }).catch(() => {
           })
         }
       }

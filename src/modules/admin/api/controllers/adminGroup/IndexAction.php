@@ -8,12 +8,17 @@
 
 namespace app\modules\admin\api\controllers\adminGroup;
 
+use app\core\models\admin\AdminGroup;
 use app\modules\admin\api\ControllerAction;
+use yii\data\ActiveDataProvider;
 
 class IndexAction extends ControllerAction
 {
     public function run()
     {
-        return ['message' => '测试'];
+        return new ActiveDataProvider([
+            'query' => AdminGroup::find()->orderBy(['id' => SORT_ASC]),
+            'pagination' => null,
+        ]);
     }
 }

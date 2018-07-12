@@ -52,6 +52,7 @@ class Generator {
       loaders.push({
         loader: 'postcss-loader',
         options: Generator.applyOptionsCallback(this.config.postCssLoaderOptionsCallback, {
+          ident: 'postcss',
           sourceMap: false,
           plugins: () => [
             autoprefixer()
@@ -295,6 +296,7 @@ class Generator {
       entry: this.buildEntryConfig(),
       output: this.buildOutputConfig(),
       module: {
+        strictExportPresence: true,
         rules: this.buildRulesConfig()
       },
       plugins: this.buildPluginsConfig(),
