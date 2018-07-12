@@ -23,7 +23,7 @@
         menus: []
       }
     },
-    mounted() {
+    created() {
       this.$http.get('site/menus').then(response => {
         this.menus = response.data
       }).catch(() => {
@@ -40,7 +40,7 @@
     .el-menu-item,
     .el-submenu {
       .anticon {
-        font-size: 16px;
+        font-size: 15px;
         vertical-align: middle;
         text-align: center;
         width: 22px;
@@ -51,6 +51,7 @@
     .el-submenu__title {
       line-height: 50px;
       height: 50px;
+      font-size: 13px;
     }
 
     .el-submenu .el-menu-item {

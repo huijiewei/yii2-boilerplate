@@ -21,7 +21,7 @@
               type="default"
               size="mini"
               :plain="true"
-              @click="handleRoute('admin-group/view/' + scope.row.id)">
+              @click="handleRoute('admin-group/view/'+ scope.row.id)">
             </el-button>
             <el-button
               title="编辑"
@@ -29,7 +29,7 @@
               type="primary"
               size="mini"
               :plain="true"
-              @click="handleRoute('admin-group/edit/' + scope.row.id)">
+              @click="handleRoute('admin-group/edit/'+ scope.row.id)">
             </el-button>
             <el-button
               title="删除"

@@ -1,6 +1,6 @@
 <template>
   <nav class="bp-nav">
-    <div class="bp-logo" :style="{ width: isCollapsed ? '60px' : '210px'}">
+    <div class="bp-logo" :style="{ width: isCollapsed ? '60px' : '200px'}">
       <router-link to="/">
         <img alt="主页" src="../assets/images/logo.png"><img alt="Boilerplate" src="../assets/images/banner.png">
       </router-link>
@@ -42,7 +42,7 @@
     name: 'HeaderNav',
     components: { BpIcon },
     props: ['isCollapsed'],
-    mounted() {
+    created() {
       if (this.getUser.init === false) {
         this.$http.get('auth/user').then(response => {
           this.$store.dispatch('updateUser', response.data)

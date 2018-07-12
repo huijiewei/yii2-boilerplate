@@ -37,9 +37,14 @@
     padding: 0;
     margin: 0 !important;
     color: #647279;
+    font-size: 13px;
   }
 
   .bp {
+    .el-dropdown {
+      font-size: 13px;
+    }
+
     .el-dropdown-menu {
       border-radius: 2px;
       padding: 0;
@@ -71,6 +76,17 @@
 
     .el-popper .popper__arrow {
       display: none;
+    }
+
+    .el-table {
+      font-size: 13px;
+
+      thead th {
+        font-size: 13px;
+        text-transform: uppercase;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 2px solid #dee2e6;
+      }
     }
   }
 </style>

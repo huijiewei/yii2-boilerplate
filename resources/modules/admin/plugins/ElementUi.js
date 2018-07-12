@@ -20,7 +20,9 @@ import {
   Submenu,
   Tooltip,
   Table,
-  TableColumn
+  TableColumn,
+  Popover,
+  ButtonGroup
 } from 'element-ui'
 
 const components = [
@@ -41,7 +43,9 @@ const components = [
   DropdownMenu,
   DropdownItem,
   Table,
-  TableColumn
+  TableColumn,
+  Popover,
+  ButtonGroup
 ]
 
 const ElementUi = {

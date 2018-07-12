@@ -58,7 +58,7 @@
         message: ''
       }
     },
-    mounted() {
+    created() {
       this.$http.get('site/index').then((response) => {
         this.message = response.data.message
       }).catch(() => {

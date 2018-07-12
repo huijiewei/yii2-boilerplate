@@ -4,12 +4,12 @@
       <header-nav :isCollapsed="isCollapsed"></header-nav>
     </el-header>
     <el-container class="bp-wrap">
-      <el-aside class="bp-aside" :width="isCollapsed ? '60px' : '210px'">
+      <el-aside class="bp-aside" :width="isCollapsed ? '60px' : '200px'">
         <prefect-scrollbar class="bp-scrollbar">
           <sider-menu class="bp-menu" :isCollapsed="isCollapsed"></sider-menu>
         </prefect-scrollbar>
       </el-aside>
-      <el-main :style="{ marginLeft: isCollapsed ? '60px' : '210px' }" class="bp-main">
+      <el-main :style="{ marginLeft: isCollapsed ? '60px' : '200px' }" class="bp-main">
         <transition name="el-fade-in-linear">
           <router-view></router-view>
         </transition>
@@ -63,6 +63,26 @@
 
       .bp-menu {
         min-height: calc(100vh - 50px);
+      }
+    }
+
+    .bp-main {
+      .box {
+        background: #fff;
+        padding: 20px;
+
+        .box-header {
+          margin-bottom: 20px;
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            margin: 0;
+          }
+        }
       }
     }
   }

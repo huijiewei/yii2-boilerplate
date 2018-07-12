@@ -41,7 +41,7 @@ class Module extends AbstractModule
             'GET <controller>s' => '<controller>/index',
             'POST <controller>s' => '<controller>/create',
             'GET <controller>s/<id:\d+>' => '<controller>/view',
-            'PUT <controller>s/<id:\d+>' => '<controller>/update',
+            'PUT <controller>s/<id:\d+>' => '<controller>/edit',
             'DELETE <controller>s/<id:\d+>' => '<controller>/delete',
             'GET <controller>s/search' => '<controller>/search',
         ];
