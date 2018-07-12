@@ -12,6 +12,7 @@ use app\core\components\AbstractModule;
 use app\core\components\WebRequest;
 use app\core\models\admin\Admin;
 use huijiewei\swagger\SwaggerController;
+use yii\web\Response;
 use yii\web\User;
 
 class Module extends AbstractModule
@@ -71,6 +72,11 @@ class Module extends AbstractModule
                 'application/json' => 'yii\web\JsonParser',
                 'text/json' => 'yii\web\JsonParser',
             ],
+        ]);
+
+        \Yii::$app->set('response', [
+            'class' => Response::class,
+            'format' => Response::FORMAT_JSON,
         ]);
 
         $this->controllerMap = [

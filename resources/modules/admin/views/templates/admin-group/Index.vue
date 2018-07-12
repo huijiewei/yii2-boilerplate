@@ -69,15 +69,19 @@
           cancelButtonText: '取消',
           type: 'error'
         }).then(() => {
-          this.adminGroups.forEach((item, index) => {
-            if (item.id === group.id) {
-              this.adminGroups.splice(index, 1)
-            }
-          })
-          
-          this.$message({
-            type: 'success',
-            message: '删除用户组成功!'
+          this.$http.delete('admin-groups/' + group.id).then(response => {
+            this.adminGroups.forEach((item, index) => {
+              if (item.id === group.id) {
+                this.adminGroups.splice(index, 1)
+              }
+            })
+
+            this.$message({
+              type: 'success',
+              message: response.data.message
+            })
+          }).catch(() => {
+
           })
         })
       }

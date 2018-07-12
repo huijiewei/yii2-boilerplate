@@ -12,11 +12,9 @@ use app\core\components\AccessControl;
 use app\core\components\HttpHeaderAuth;
 use app\core\components\RestController;
 use app\core\models\admin\Admin;
-use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\filters\RateLimiter;
 use yii\filters\VerbFilter;
-use yii\web\Response;
 
 /**
  * Class Controller
@@ -27,21 +25,9 @@ use yii\web\Response;
  */
 abstract class Controller extends RestController
 {
-    public function getClientId()
-    {
-        return \Yii::$app->getRequest()->getHeaders()->get('X-Client-Id', '');
-    }
-
     public function behaviors()
     {
         return [
-            'content' => [
-                'class' => ContentNegotiator::class,
-                'formats' => [
-                    'application/json' => Response::FORMAT_JSON,
-                    'application/vnd.api+json' => Response::FORMAT_JSON,
-                ],
-            ],
             'cors' => [
                 'class' => Cors::class,
             ],
@@ -67,5 +53,10 @@ abstract class Controller extends RestController
                 'class' => RateLimiter::class,
             ],
         ];
+    }
+
+    public function getClientId()
+    {
+        return \Yii::$app->getRequest()->getHeaders()->get('X-Client-Id', '');
     }
 }
