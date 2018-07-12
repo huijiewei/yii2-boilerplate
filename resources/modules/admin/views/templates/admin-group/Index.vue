@@ -37,7 +37,7 @@
             size="mini"
             type="danger"
             :plain="true"
-            @click="handleDelete(scope.$index, scope.row)">
+            @click="handleDelete(scope.row)">
             删除
           </el-button>
         </template>
@@ -47,10 +47,7 @@
 </template>
 
 <script>
-  import BpIcon from '@core/components/Icon/index'
-
   export default {
-    components: { BpIcon },
     meta: {
       title: '管理组'
     },
@@ -61,11 +58,28 @@
       }
     },
     methods: {
-      handleRoute(action, id) {
-        this.$router.push({ path: action, query: { id: id } })
+      handleRoute(action, groupId) {
+        this.$router.push({ path: action, query: { id: groupId } })
       },
-      handleDelete(index, row) {
-        console.log(index, row)
+      handleDelete(group) {
+        this.$confirm(`你确定要删除用户组:${group.name}吗?`, '删除用户组', {
+          showClose: false,
+          confirmButtonText: '删除',
+          confirmButtonClass: 'danger',
+          cancelButtonText: '取消',
+          type: 'error'
+        }).then(() => {
+          this.adminGroups.forEach((item, index) => {
+            if (item.id === group.id) {
+              this.adminGroups.splice(index, 1)
+            }
+          })
+          
+          this.$message({
+            type: 'success',
+            message: '删除用户组成功!'
+          })
+        })
       }
     },
     created() {

@@ -80,7 +80,7 @@
 
     .el-table td,
     .el-table th {
-      padding: 12px 0 10px 0;
+      padding: 12px 0 9px 0;
     }
 
     .el-table {
