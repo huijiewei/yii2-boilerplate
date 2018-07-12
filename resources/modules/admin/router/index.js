@@ -3,12 +3,14 @@ import VueRouter from 'vue-router'
 
 import siteRoutes from './site'
 import userRoutes from './user'
+import adminRoutes from './admin'
 
 Vue.use(VueRouter)
 
 const routes = [
   ...siteRoutes,
-  ...userRoutes
+  ...userRoutes,
+  ...adminRoutes
 ]
 
 const router = new VueRouter({

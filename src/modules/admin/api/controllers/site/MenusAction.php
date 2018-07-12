@@ -124,7 +124,6 @@ class MenusAction extends ControllerAction
             [
                 'label' => '财务管理',
                 'icon' => 'pay-circle-o',
-                'url' => 'finance',
                 'children' => [
                     [
                         'label' => '财务管理',
@@ -135,7 +134,6 @@ class MenusAction extends ControllerAction
             [
                 'label' => '系统管理',
                 'icon' => 'setting',
-                'url' => 'setting',
                 'children' => [
                     [
                         'label' => '系统设置',
@@ -143,11 +141,11 @@ class MenusAction extends ControllerAction
                     ],
                     [
                         'label' => '管理员',
-                        'url' => 'setting/admin'
+                        'url' => 'admin'
                     ],
                     [
                         'label' => '管理组',
-                        'url' => 'setting/group'
+                        'url' => 'admin-group'
                     ],
                 ],
             ],
