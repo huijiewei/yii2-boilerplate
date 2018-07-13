@@ -5,7 +5,8 @@ import 'axios-progress-bar/dist/nprogress.css'
 
 const HttpCodes = {
   OK: 200,
-  UNAUTHORIZED: 401
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403
 }
 
 const HttpGetMethod = ['GET', 'HEAD', 'OPTIONS']

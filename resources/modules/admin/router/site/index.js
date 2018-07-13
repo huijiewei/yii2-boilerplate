@@ -1,6 +1,6 @@
 import siteIndex from '@admin/views/templates/site/Index'
 import siteAbout from '@admin/views/templates/site/About'
-import siteError from '@admin/views/templates/site/NotFound'
+import notFound from '@admin/views/templates/site/NotFound'
 
 import main from '@admin/views/layouts/Main'
 
@@ -25,7 +25,7 @@ const routes = [
   },
   {
     path: '*',
-    component: siteError
+    component: notFound
   }
 ]
 

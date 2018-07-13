@@ -2,7 +2,14 @@
   <div class="error-view">
     <div class="error-wrap">
       <div class="error-message">
+        <h2><img src="../../../assets/images/logo.png"></h2>
         <h3>404</h3>
+        <p>页面不存在</p>
+        <p>
+          <el-button @click="back" type="primary" size="small">
+            返回
+          </el-button>
+        </p>
       </div>
     </div>
   </div>
@@ -10,7 +17,16 @@
 
 <script>
   export default {
-    name: 'Error'
+    name: 'Error',
+    methods: {
+      back() {
+        if (this.$routerHistory.hasPrevious()) {
+          this.$router.push(this.$routerHistory.previous().path)
+        } else {
+          this.$router.push('/')
+        }
+      }
+    }
   }
 </script>
 <style lang="scss">
@@ -25,10 +41,26 @@
     .error-wrap {
       border-radius: 2px;
       background: #fff;
-      padding: 15px 35px;
+      padding: 25px 35px;
       width: 300px;
       box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.09);
       text-align: center;
+
+      .error-message {
+        h2 {
+          margin-top: 0;
+          margin-bottom: 15px;
+
+          img {
+            height: 50px;
+          }
+        }
+
+        h3 {
+          margin-top: 0;
+          margin-bottom: 15px;
+        }
+      }
     }
   }
 </style>
