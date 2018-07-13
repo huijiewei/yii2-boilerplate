@@ -76,7 +76,7 @@
           cancelButtonText: '取消',
           type: 'error'
         }).then(() => {
-          this.$http.delete('admin-groups/' + group.id).then(response => {
+          this.$http.delete('admin-group/delete', { id: group.id }).then(response => {
             this.adminGroups.forEach((item, index) => {
               if (item.id === group.id) {
                 this.adminGroups.splice(index, 1)
@@ -95,7 +95,7 @@
       }
     },
     created() {
-      this.$http.get('admin-groups').then((response) => {
+      this.$http.get('admin-group/index').then((response) => {
         this.adminGroups = response.data.items
       }).catch(() => {
       }).finally(() => {

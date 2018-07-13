@@ -9,7 +9,7 @@ const HttpCodes = {
   FORBIDDEN: 403
 }
 
-const HttpGetMethod = ['GET', 'HEAD', 'OPTIONS']
+const HttpGetMethod = ['GET', 'HEAD']
 
 const HttpClient = {
   install(Vue, { store, router, Message }) {

@@ -38,4 +38,12 @@ class AdminGroupController extends Controller
             return $this->message('管理组删除成功');
         }
     }
+
+    public function verbs()
+    {
+        return [
+            'index' => ['GET'],
+            'delete' => ['DELETE'],
+        ];
+    }
 }

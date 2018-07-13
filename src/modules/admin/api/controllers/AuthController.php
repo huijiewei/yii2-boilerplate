@@ -74,4 +74,13 @@ class AuthController extends Controller
 
         return $this->message('退出登陆成功');
     }
+
+    public function verbs()
+    {
+        return [
+            'login' => ['POST'],
+            'user' => ['GET'],
+            'logout' => ['POST'],
+        ];
+    }
 }
