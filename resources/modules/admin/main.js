@@ -9,7 +9,7 @@ import App from './App'
 
 import HttpClient from './plugins/HttpClient'
 
-import 'element-ui/lib/theme-chalk/index.css'
+import '@admin/assets/styles/theme.scss'
 import '@core/assets/icons/iconfont.less'
 
 Vue.use(ElementUI)

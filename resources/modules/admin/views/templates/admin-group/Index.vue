@@ -3,6 +3,13 @@
     <div class="box-header">
       <h4>管理组</h4>
     </div>
+    <div class="box-toolbar">
+      <router-link :to="'admin-group/create'">
+        <el-button type="primary" size="medium">
+          新建管理组
+        </el-button>
+      </router-link>
+    </div>
     <el-table v-loading="loading" :stripe="true" :data="adminGroups">
       <el-table-column
         prop="id"
