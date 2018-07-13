@@ -52,7 +52,7 @@ class AuthController extends Controller
         return [
             'success' => true,
             'message' => '登陆成功',
-            'user' => $form->admin->toArray(['displayName', 'displayIcon'], ['groupAcl']),
+            'user' => $this->actionUser(),
             'accessToken' => $form->accessToken->token,
         ];
     }
@@ -70,6 +70,8 @@ class AuthController extends Controller
      */
     public function actionLogout()
     {
+        \Yii::$app->getUser()->logout();
+
         AdminAccessToken::deleteAccessToken($this->getIdentity()->id, $this->getClientId());
 
         return '退出登陆成功';

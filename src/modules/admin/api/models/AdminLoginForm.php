@@ -25,7 +25,7 @@ class AdminLoginForm extends Model
     public $accessToken;
 
     /* @var Admin|null */
-    public $admin;
+    private $admin;
 
     public function init()
     {
@@ -63,6 +63,8 @@ class AdminLoginForm extends Model
 
         $this->accessToken = $this->admin->generateAccessToken($this->clientId);
 
+        \Yii::$app->getUser()->login($this->admin);
+
         return true;
     }
 
@@ -83,7 +85,7 @@ class AdminLoginForm extends Model
         $admin = Admin::find()->where(['phone' => $account])->one();
 
         if ($admin == null) {
-            $this->addError($attribute, '管理员账号: ' . $account . ' 不存在');
+            $this->addError($attribute, '管理员: ' . $account . ' 不存在');
 
             return;
         }
