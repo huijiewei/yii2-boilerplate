@@ -39,9 +39,7 @@
 
     .bp-header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      width: 100%;
       z-index: 1030;
       padding: 0 0 20px 0;
       background: #fff;
