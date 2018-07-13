@@ -1,8 +1,8 @@
-import siteIndex from '@admin/views/templates/site/Index'
-import siteAbout from '@admin/views/templates/site/About'
-import notFound from '@admin/views/templates/site/NotFound'
+import siteIndex from '@admin/views/site/Index'
+import siteAbout from '@admin/views/site/About'
+import notFound from '@admin/views/site/NotFound'
 
-import main from '@admin/views/layouts/Main'
+import main from '@admin/components/MainLayout'
 
 const routes = [
   {
@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => import(/* webpackChunkName: "chunk-login" */ '@admin/views/templates/site/Login')
+    component: () => import(/* webpackChunkName: "chunk-login" */ '@admin/views/site/Login')
   },
   {
     path: '*',

@@ -2,7 +2,7 @@
   <div class="error-view">
     <div class="error-wrap">
       <div class="error-message">
-        <h2><img src="../../../assets/images/logo.png"></h2>
+        <h2><img src="../../assets/images/logo.png"></h2>
         <h3>404</h3>
         <p>页面不存在</p>
         <p>

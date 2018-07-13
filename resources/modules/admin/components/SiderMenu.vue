@@ -1,5 +1,7 @@
 <template>
-  <el-menu :collapse-transition="false" :router="true" :default-active="$route.path" :collapse="isCollapsed">
+  <el-menu :show-timeout="200" :hide-timeout="200" :collapse-transition="false" :router="true"
+           :default-active="$route.path"
+           :collapse="isCollapsed">
     <template v-for="(menu, index) in menus">
       <sider-menu-item v-if="!menu.children" :menu="menu" :key="'m' + 1 + index"></sider-menu-item>
       <sider-menu-sub v-else :menu="menu" :key="'m' + 1 + index" :depth="1" :index="index"></sider-menu-sub>

@@ -1,4 +1,4 @@
-import main from '@admin/views/layouts/Main'
+import main from '@admin/components/MainLayout'
 
 const routes = [
   {
@@ -7,7 +7,7 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/templates/user/Index')
+        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Index')
       }
     ]
   }

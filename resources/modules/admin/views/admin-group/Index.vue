@@ -72,7 +72,7 @@
         this.$confirm(`你确定要删除:${group.name}吗?`, '删除管理组', {
           showClose: false,
           confirmButtonText: '删除',
-          confirmButtonClass: 'danger',
+          confirmButtonClass: 'el-button--danger',
           cancelButtonText: '取消',
           type: 'error'
         }).then(() => {
@@ -95,7 +95,7 @@
       }
     },
     created() {
-      this.$http.get('admin-group/index').then((response) => {
+      this.$http.get('admin-group').then((response) => {
         this.adminGroups = response.data.items
       }).catch(() => {
       }).finally(() => {

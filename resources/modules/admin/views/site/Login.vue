@@ -3,7 +3,7 @@
     <div class="login-wrap">
       <div class="login-form">
         <div class="login-head">
-          <div><img alt="Boilerplate" src="../../../assets/images/logo.png"></div>
+          <div><img alt="Boilerplate" src="../../assets/images/logo.png"></div>
           <h3>管理员登陆</h3>
         </div>
         <login-form :in-modal="false"></login-form>
@@ -24,7 +24,7 @@
   .login-view {
     width: 100%;
     height: 100%;
-    background: url('../../../assets/images/login-bg.jpg') top center;
+    background: url('../../assets/images/login-bg.jpg') top center;
     background-size: cover;
 
     .login-wrap {

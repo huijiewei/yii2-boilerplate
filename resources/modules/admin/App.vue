@@ -77,6 +77,8 @@
     }
 
     .el-table {
+      font-size: 13px;
+
       thead th {
         text-transform: uppercase;
         border-top: 1px solid #dee2e6;
