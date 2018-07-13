@@ -60,7 +60,7 @@
             this.$store.dispatch('updateUser', response.data.user)
 
             this.$notify.success({
-              title: '登陆成功',
+              title: response.data.message,
               message: '欢迎光临 Boilerplate 管理系统',
               duration: 2000
             })

@@ -56,6 +56,11 @@ abstract class Controller extends RestController
         ];
     }
 
+    public function message($message, $data = [])
+    {
+        return array_merge(['message' => $message], $data);
+    }
+
     public function getClientId()
     {
         return \Yii::$app->getRequest()->getHeaders()->get('X-Client-Id', '');

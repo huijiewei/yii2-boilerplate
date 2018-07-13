@@ -20,4 +20,18 @@ use yii\base\Action;
  */
 abstract class ControllerAction extends Action
 {
+    public function getClientId()
+    {
+        return $this->controller->getClientId();
+    }
+
+    public function message($message, $data = [])
+    {
+        return $this->controller->message($message, $data);
+    }
+
+    public function getIdentity()
+    {
+        return $this->controller->getIdentity();
+    }
 }

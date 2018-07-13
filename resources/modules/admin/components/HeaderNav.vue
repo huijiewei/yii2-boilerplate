@@ -17,16 +17,20 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <bp-icon type="user"></bp-icon> 个人资料
+              <bp-icon type="user"></bp-icon>
+              个人资料
             </el-dropdown-item>
             <el-dropdown-item>
-              <bp-icon type="lock"></bp-icon> 权限查看
+              <bp-icon type="lock"></bp-icon>
+              权限查看
             </el-dropdown-item>
             <el-dropdown-item>
-              <bp-icon type="sync"></bp-icon> 刷新权限
+              <bp-icon type="sync"></bp-icon>
+              刷新权限
             </el-dropdown-item>
             <el-dropdown-item command="userLogout" divided>
-              <bp-icon type="logout"></bp-icon> 退出登陆
+              <bp-icon type="logout"></bp-icon>
+              退出登陆
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -67,7 +71,7 @@
             self.$message({
               type: 'success',
               duration: 1000,
-              message: response.data,
+              message: response.data.message,
               onClose() {
                 self.$store.dispatch('updateAccessToken', '')
                 self.$store.dispatch('updateUser', null)

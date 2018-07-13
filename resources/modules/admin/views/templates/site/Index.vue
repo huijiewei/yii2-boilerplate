@@ -1,54 +1,5 @@
 <template>
-  <div>
-    <div>{{message}}</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-    <div>siteIndex</div>
-  </div>
+  <div>{{message}}</div>
 </template>
 
 <script>

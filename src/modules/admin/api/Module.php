@@ -38,13 +38,13 @@ class Module extends AbstractModule
     {
         return [
             '' => 'site/index',
-            '<controller>/<action>' => '<controller>/<action>',
             'GET <controller>s' => '<controller>/index',
             'POST <controller>s' => '<controller>/create',
             'GET <controller>s/<id:\d+>' => '<controller>/view',
             'PUT <controller>s/<id:\d+>' => '<controller>/edit',
             'DELETE <controller>s/<id:\d+>' => '<controller>/delete',
             'GET <controller>s/search' => '<controller>/search',
+            '<controller>/<action>' => '<controller>/<action>',
         ];
     }
 

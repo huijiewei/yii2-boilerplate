@@ -49,12 +49,10 @@ class AuthController extends Controller
             return $form;
         }
 
-        return [
-            'success' => true,
-            'message' => '登陆成功',
+        return $this->message('登陆成功', [
             'user' => $this->actionUser(),
             'accessToken' => $form->accessToken->token,
-        ];
+        ]);
     }
 
     /**
@@ -74,6 +72,6 @@ class AuthController extends Controller
 
         AdminAccessToken::deleteAccessToken($this->getIdentity()->id, $this->getClientId());
 
-        return '退出登陆成功';
+        return $this->message('退出登陆成功');
     }
 }

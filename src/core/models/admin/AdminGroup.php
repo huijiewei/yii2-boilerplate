@@ -56,6 +56,8 @@ class AdminGroup extends ActiveRecord
     public function beforeDelete()
     {
         if (Admin::find()->where(['groupId' => $this->id])->exists()) {
+            $this->addError('id', '管理组内还有管理员，无法删除');
+
             return false;
         }
 
