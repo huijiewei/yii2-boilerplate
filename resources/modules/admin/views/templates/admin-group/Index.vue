@@ -62,7 +62,7 @@
         this.$router.push({ path: action, query: { id: groupId } })
       },
       handleDelete(group) {
-        this.$confirm(`你确定要删除用户组:${group.name}吗?`, '删除用户组', {
+        this.$confirm(`你确定要删除:${group.name}吗?`, '删除管理组', {
           showClose: false,
           confirmButtonText: '删除',
           confirmButtonClass: 'danger',

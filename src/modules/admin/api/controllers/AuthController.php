@@ -68,9 +68,9 @@ class AuthController extends Controller
      */
     public function actionLogout()
     {
-        \Yii::$app->getUser()->logout();
-
         AdminAccessToken::deleteAccessToken($this->getIdentity()->id, $this->getClientId());
+
+        \Yii::$app->getUser()->logout();
 
         return $this->message('退出登陆成功');
     }

@@ -15,6 +15,9 @@ use yii\db\Expression;
 /**
  * Trait SoftDeleteTrait
  *
+ * @method bool save(bool $runValidation, array | null $attributeNames)
+ * @method addError($attribute, string $error)
+ *
  * @package app\core\traits
  */
 trait SoftDeleteTrait
@@ -26,6 +29,10 @@ trait SoftDeleteTrait
 
     public function remove()
     {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+
         $softDeleteAttribute = static::$softDeleteAttribute;
         $softDeleteTimeAttribute = static::$softDeleteTimeAttribute;
 
@@ -33,6 +40,8 @@ trait SoftDeleteTrait
         $this->$softDeleteTimeAttribute = new Expression('CURRENT_TIMESTAMP');
 
         $this->save(false, [$softDeleteAttribute, $softDeleteTimeAttribute]);
+
+        return true;
     }
 
     public function restore()
