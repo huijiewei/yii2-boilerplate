@@ -63,11 +63,11 @@
         if (command === 'userLogout') {
           const self = this
 
-          self.$http.get('auth/logout').then(response => {
+          self.$http.post('auth/logout').then(response => {
             self.$message({
               type: 'success',
               duration: 1000,
-              message: response.data.message,
+              message: response.data,
               onClose() {
                 self.$store.dispatch('updateAccessToken', '')
                 self.$store.dispatch('updateUser', null)

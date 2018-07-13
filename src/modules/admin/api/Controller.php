@@ -19,6 +19,7 @@ use yii\filters\VerbFilter;
 /**
  * Class Controller
  *
+ * @property Admin $identity
  * @method Admin getIdentity()
  *
  * @package app\modules\admin\api

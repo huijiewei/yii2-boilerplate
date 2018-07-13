@@ -8,15 +8,17 @@
 
 namespace app\modules\admin\api\controllers;
 
+use app\core\models\admin\AdminGroup;
 use app\modules\admin\api\Controller;
-use app\modules\admin\api\controllers\adminGroup\IndexAction;
+use yii\data\ActiveDataProvider;
 
 class AdminGroupController extends Controller
 {
-    public function actions()
+    public function actionIndex()
     {
-        return [
-            'index' => IndexAction::class
-        ];
+        return new ActiveDataProvider([
+            'query' => AdminGroup::find()->orderBy(['id' => SORT_ASC]),
+            'pagination' => false,
+        ]);
     }
 }

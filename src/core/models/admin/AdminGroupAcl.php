@@ -46,6 +46,37 @@ class AdminGroupAcl extends ActiveRecord
         return $acl;
     }
 
+    public static function updateAcl($groupId, $newAcl, $oldAcl)
+    {
+        $insertAcl = array_values(array_diff($newAcl, $oldAcl));
+        $deleteAcl = array_values(array_diff($oldAcl, $newAcl));
+
+        if (count($insertAcl) > 0) {
+            $ins = [];
+
+            foreach ($insertAcl as $acl) {
+                if (empty($acl) || $acl == '0') {
+                    continue;
+                }
+
+                $ins[] = [$groupId, $acl];
+            }
+
+            if (!empty($ins)) {
+                static::getDb()
+                    ->createCommand()
+                    ->batchInsert(static::tableName(), ['groupId', 'actionId'], $ins)
+                    ->execute();
+            }
+        }
+
+        if (!empty($deleteAcl)) {
+            static::deleteAll(['groupId' => $groupId, 'actionId' => $deleteAcl]);
+        }
+
+        \Yii::$app->getCache()->delete(static::CACHE_PREFIX . $groupId);
+    }
+
     public function fields()
     {
         return [

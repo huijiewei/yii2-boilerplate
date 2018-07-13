@@ -61,4 +61,11 @@ class AdminGroup extends ActiveRecord
 
         return parent::beforeDelete();
     }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        AdminGroupAcl::deleteAll(['groupId' => $this->id]);
+    }
 }
