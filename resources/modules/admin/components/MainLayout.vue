@@ -21,7 +21,7 @@
 <script>
   import SiderMenu from '@admin/components/SiderMenu'
   import HeaderNav from '@admin/components/HeaderNav'
-  import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
+  import PrefectScrollbar from '@core/components/PrefectScrollbar'
 
   export default {
     components: { PrefectScrollbar, HeaderNav, SiderMenu },

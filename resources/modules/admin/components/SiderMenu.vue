@@ -1,6 +1,6 @@
 <template>
   <el-menu :show-timeout="200" :hide-timeout="200" :collapse-transition="false" :router="true"
-           :default-active="$route.path"
+           :default-active="getRouteActive"
            :collapse="isCollapsed">
     <template v-for="(menu, index) in menus">
       <sider-menu-item v-if="!menu.children" :menu="menu" :key="'m' + 1 + index"></sider-menu-item>
@@ -18,6 +18,13 @@
     components: {
       SiderMenuSub,
       SiderMenuItem
+    },
+    computed: {
+      getRouteActive() {
+        const matched = this.$route.matched
+        const path = matched[matched.length - 2].path
+        return path === '' ? '/' : path
+      }
     },
     props: ['isCollapsed'],
     data() {

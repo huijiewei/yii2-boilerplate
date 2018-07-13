@@ -6,7 +6,7 @@ import main from '@admin/components/MainLayout'
 
 const routes = [
   {
-    path: '/',
+    path: '',
     component: main,
     children: [
       {

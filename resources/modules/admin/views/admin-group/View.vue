@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import BpIcon from '@core/components/Icon/index'
+  import BpIcon from '@core/components/Icon'
 
   export default {
     components: { BpIcon },
@@ -31,7 +31,7 @@
       }
     },
     created() {
-      this.$http.get('admin-groups/' + this.$router.query.id).then((response) => {
+      this.$http.get('admin-group/view', { id: this.$route.query.id }).then((response) => {
         this.adminGroup = response.data
       }).catch(() => {
       })
