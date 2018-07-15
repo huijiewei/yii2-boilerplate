@@ -56,7 +56,6 @@ class Module extends AbstractModule
             'enableCookieValidation' => false,
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
-                'text/json' => 'yii\web\JsonParser',
             ],
         ]);
 

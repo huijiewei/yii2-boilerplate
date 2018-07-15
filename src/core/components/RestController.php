@@ -8,10 +8,12 @@
 
 namespace app\core\components;
 
+use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\filters\RateLimiter;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\Response;
 
 abstract class RestController extends Controller
 {
@@ -28,6 +30,12 @@ abstract class RestController extends Controller
     public function behaviors()
     {
         return [
+            'contentNegotiator' => [
+                'class' => ContentNegotiator::class,
+                'formats' => [
+                    'application/json' => Response::FORMAT_JSON,
+                ],
+            ],
             'corsFilter' => [
                 'class' => Cors::class,
             ],

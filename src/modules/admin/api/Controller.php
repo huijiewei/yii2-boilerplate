@@ -12,9 +12,11 @@ use app\core\components\AccessControl;
 use app\core\components\HttpHeaderAuth;
 use app\core\components\RestController;
 use app\core\models\admin\Admin;
+use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\filters\RateLimiter;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * Class Controller
@@ -29,6 +31,12 @@ abstract class Controller extends RestController
     public function behaviors()
     {
         return [
+            'content' => [
+                'class' => ContentNegotiator::class,
+                'formats' => [
+                    'application/json' => Response::FORMAT_JSON,
+                ],
+            ],
             'cors' => [
                 'class' => Cors::class,
             ],
