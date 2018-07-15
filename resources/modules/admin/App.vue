@@ -14,7 +14,7 @@
 
   export default {
     name: 'App',
-    meta: {
+    metaInfo: {
       title: null,
       titleTemplate: (titleChunk) => {
         return titleChunk ? `${titleChunk} - ${currentTitle}` : currentTitle

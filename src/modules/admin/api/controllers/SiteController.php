@@ -8,6 +8,7 @@
 
 namespace app\modules\admin\api\controllers;
 
+use app\core\models\admin\AdminGroupAcl;
 use app\modules\admin\api\Controller;
 
 class SiteController extends Controller
@@ -150,6 +151,11 @@ class SiteController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionAllAcl()
+    {
+        return AdminGroupAcl::getAllAcl();
     }
 
     public function actionIndex()

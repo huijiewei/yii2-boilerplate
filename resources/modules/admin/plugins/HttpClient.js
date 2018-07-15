@@ -72,6 +72,12 @@ const HttpClient = {
     })
 
     Vue.prototype.$http = {
+      all(promises) {
+        return axios.all(promises)
+      },
+      spread(callback) {
+        return axios.spread(callback)
+      },
       get(url, params = []) {
         return httpClient.request({
           url: url,

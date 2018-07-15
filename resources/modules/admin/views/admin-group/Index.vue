@@ -4,7 +4,9 @@
       <h4>管理组</h4>
     </div>
     <div class="box-toolbar">
-      <router-link :to="'admin-group/create'">
+      <router-link
+        v-show="$store.getters.checkAcl('admin-group/create')"
+        :to="'admin-group/create'">
         <el-button type="primary" size="medium">
           新建管理组
         </el-button>
@@ -21,23 +23,28 @@
       </el-table-column>
       <el-table-column align="right" label="操作">
         <template slot-scope="scope">
-          <el-button
-            title="查看"
-            type="primary"
-            size="mini"
-            :plain="true"
-            @click="handleRoute('admin-group/view' , scope.row.id)">
-            查看
-          </el-button>
-          <el-button
+          <router-link
+            v-show="$store.getters.checkAcl('admin-group/view')"
+            :to="'admin-group/view?id=' + scope.row.id">
+            <el-button
+              title="查看"
+              type="primary"
+              size="mini"
+              :plain="true">
+              查看
+            </el-button>
+          </router-link>
+          <router-link
             v-show="$store.getters.checkAcl('admin-group/edit')"
-            title="编辑"
-            type="warning"
-            size="mini"
-            :plain="true"
-            @click="handleRoute('admin-group/edit' , scope.row.id)">
-            编辑
-          </el-button>
+            :to="'admin-group/edit?id=' + scope.row.id">
+            <el-button
+              title="编辑"
+              type="warning"
+              size="mini"
+              :plain="true">
+              编辑
+            </el-button>
+          </router-link>
           <el-button
             v-show="$store.getters.checkAcl('admin-group/delete')"
             title="删除"
@@ -55,7 +62,7 @@
 
 <script>
   export default {
-    meta: {
+    metaInfo: {
       title: '管理组'
     },
     data() {

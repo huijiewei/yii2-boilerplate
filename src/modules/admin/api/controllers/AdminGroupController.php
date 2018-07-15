@@ -23,7 +23,30 @@ class AdminGroupController extends Controller
         ]);
     }
 
-    public function actionDelete($id)
+    public function actionView($id)
+    {
+        $adminGroup = $this->getAdminGroup($id);
+
+        return $adminGroup->toArray(['id', 'name'], ['acl']);
+    }
+
+    public function actionEdit($id)
+    {
+        if (!\Yii::$app->getRequest()->getIsPost()) {
+            return $this->actionView($id);
+        }
+
+        $adminGroup = $this->getAdminGroup($id);
+        $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if (!$adminGroup->save()) {
+            return $adminGroup;
+        }
+
+        return $this->message('管理组编辑成功');
+    }
+
+    private function getAdminGroup($id)
     {
         /* @var $adminGroup AdminGroup */
         $adminGroup = AdminGroup::findOne(['id' => $id]);
@@ -31,6 +54,13 @@ class AdminGroupController extends Controller
         if ($adminGroup == null) {
             throw new NotFoundHttpException('管理组不存在');
         }
+
+        return $adminGroup;
+    }
+
+    public function actionDelete($id)
+    {
+        $adminGroup = $this->getAdminGroup($id);
 
         if (!$adminGroup->delete()) {
             return $adminGroup;
@@ -42,7 +72,10 @@ class AdminGroupController extends Controller
     public function verbs()
     {
         return [
-            'index' => ['GET'],
+            'index' => ['GET', 'HEAD'],
+            'create' => ['POST'],
+            'view' => ['GET', 'HEAD'],
+            'edit' => ['GET', 'HEAD', 'POST'],
             'delete' => ['DELETE'],
         ];
     }

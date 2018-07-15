@@ -1,7 +1,7 @@
 <template>
   <el-form :rules="rules" :model="loginForm"
            ref="loginForm"
-           @submit.native.prevent="submitLoginForm('loginForm')">
+           @submit.native.prevent="submitForm('loginForm')">
     <el-form-item prop="account">
       <el-input placeholder="手机号码" type="tel" v-model="loginForm.account" auto-complete="off">
         <template slot="prepend">
@@ -47,7 +47,7 @@
       }
     },
     methods: {
-      submitLoginForm(formName) {
+      submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
             return false

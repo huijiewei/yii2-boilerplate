@@ -89,14 +89,22 @@ class AdminGroupAcl extends ActiveRecord
         return [
             [
                 'name' => '管理首页',
-                'items' => [
+                'children' => [
+                    [
+                        'name' => '测试短信发送',
+                        'actionId' => 'site/sms-send'
+                    ],
+                    [
+                        'name' => '更新系统缓存',
+                        'actionId' => 'site/clean-cache'
+                    ]
                 ],
             ],
             [
                 'name' => '系统管理',
-                'items' => [
+                'children' => [
                     [
-                        'items' => [
+                        'children' => [
                             [
                                 'name' => '管理员列表',
                                 'actionId' => 'admin/index',
@@ -120,7 +128,7 @@ class AdminGroupAcl extends ActiveRecord
                         ],
                     ],
                     [
-                        'items' => [
+                        'children' => [
                             [
                                 'name' => '管理组列表',
                                 'actionId' => 'admin-group/index',

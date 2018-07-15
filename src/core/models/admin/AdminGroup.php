@@ -16,16 +16,16 @@ use app\core\components\ActiveRecord;
  * @property integer $id
  * @property string $name
  *
- * @property AdminGroupAcl[] $acl
- *
  * @package app\core\models\admin
  */
 class AdminGroup extends ActiveRecord
 {
+    public $acl;
+
     public function rules()
     {
         return [
-            [['name'], 'trim'],
+            [['name', 'acl'], 'trim'],
             [['name'], 'required'],
             [['name'], 'string', 'length' => [3, 10]],
         ];
@@ -34,7 +34,9 @@ class AdminGroup extends ActiveRecord
     public function extraFields()
     {
         return [
-            'acl'
+            'acl' => function () {
+                return AdminGroupAcl::getAclByGroupId($this->id);
+            },
         ];
     }
 
@@ -43,14 +45,6 @@ class AdminGroup extends ActiveRecord
         return [
             'name' => '名称',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAcl()
-    {
-        return $this->hasMany(AdminGroupAcl::class, ['groupId' => 'id']);
     }
 
     public function beforeDelete()
@@ -69,5 +63,18 @@ class AdminGroup extends ActiveRecord
         parent::afterDelete();
 
         AdminGroupAcl::deleteAll(['groupId' => $this->id]);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if (is_array($this->acl)) {
+            AdminGroupAcl::updateAcl(
+                $this->id,
+                $this->acl,
+                $insert ? [] : AdminGroupAcl::getAclByGroupId($this->id)
+            );
+        }
+
+        parent::afterSave($insert, $changedAttributes);
     }
 }

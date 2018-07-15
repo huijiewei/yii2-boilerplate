@@ -13,7 +13,7 @@ import '@admin/assets/styles/theme.scss'
 import '@core/assets/icons/iconfont.less'
 
 Vue.use(ElementUI)
-Vue.use(Meta, { keyName: 'meta' })
+Vue.use(Meta)
 
 Vue.use(HttpClient, { store, router, Message: ElementUI.Message })
 

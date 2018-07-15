@@ -12,6 +12,26 @@ $--button-small-font-size: 12px;
 $--border-radius-base: 2px;
 $--border-radius-small: 1px;
 $--pagination-border-radius: 2px;
+$--checkbox-font-size: 13px;
+$--checkbox-input-height: 13px;
+$--checkbox-input-width: 13px;
+$--input-height: 36px;
+$--checkbox-bordered-height: 36px;
+
+.bp {
+  .el-form-item__label {
+    font-size: 13px;
+    line-height: 36px;
+  }
+
+  .el-form-item__content {
+    line-height: 36px;
+  }
+
+  .el-checkbox__label {
+    padding-left: 6px;
+  }
+}
 
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
