@@ -1,5 +1,5 @@
 <template>
-  <el-menu :show-timeout="200" :hide-timeout="200" :collapse-transition="false" :router="true"
+  <el-menu :collapse-transition="false" :router="true"
            :default-active="getRouteActive"
            :collapse="isCollapsed">
     <template v-for="(menu, index) in menus">

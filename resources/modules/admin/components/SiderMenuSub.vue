@@ -1,8 +1,8 @@
 <template>
-  <el-submenu :index="'m' + depth + index" v-if="menu.children">
+  <el-submenu :show-timeout="200" :hide-timeout="200" :index="'m' + depth + index" v-if="menu.children">
     <template slot="title">
       <sider-menu-icon :icon="menu.icon" v-if="menu.icon"></sider-menu-icon>
-      <span slot="title">{{menu.label}}</span>
+      <span>{{menu.label}}</span>
     </template>
     <template v-for="(childMenu, childIndex) in menu.children">
       <sider-menu-item v-if="!childMenu.children"
@@ -22,6 +22,17 @@
 
   export default {
     name: 'SiderMenuSub',
+    data() {
+      return {
+        opened: false
+      }
+    },
+    methods: {
+      changeOpened(opened) {
+        console.log(opened)
+        this.opened = opened
+      }
+    },
     components: { SiderMenuIcon, SiderMenuItem },
     props: ['menu', 'depth', 'index']
   }
