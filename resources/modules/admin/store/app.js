@@ -19,6 +19,11 @@ const app = {
       displayName: '',
       displayIcon: '',
       groupAcl: []
+    },
+    globalError: {
+      visible: false,
+      hideBox: false,
+      message: ''
     }
   },
   getters: {
@@ -44,8 +49,21 @@ const app = {
     TOGGLE_SIDEBAR: state => {
       state.sidebar.collapsed = !state.sidebar.collapsed
     },
-    TOGGLE_LOGIN_MODAL: (state) => {
-      state.auth.loginModal = !state.auth.loginModal
+    TOGGLE_GLOBAL_ERROR: (state, visible, message, hideBox) => {
+      if (state.globalError.visible === visible) {
+        return
+      }
+
+      state.globalError.visible = visible
+      state.globalError.message = message
+      state.globalError.hideBox = hideBox
+    },
+    TOGGLE_LOGIN_MODAL: (state, visible) => {
+      if (state.auth.loginModal === visible) {
+        return
+      }
+
+      state.auth.loginModal = visible
     },
     UPDATE_ACCESS_TOKEN: (state, accessToken) => {
       state.auth.accessToken = accessToken
@@ -70,8 +88,17 @@ const app = {
     toggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
     },
-    toggleLoginModal({ commit }) {
-      commit('TOGGLE_LOGIN_MODAL')
+    showGlobalError({ commit }, message, hideBox) {
+      commit('TOGGLE_GLOBAL_ERROR', true, message, hideBox)
+    },
+    hideGlobalError({ commit }) {
+      commit('TOGGLE_DEVICE', false, '', false)
+    },
+    showLoginModal({ commit }) {
+      commit('TOGGLE_LOGIN_MODAL', true)
+    },
+    hideLoginModal({ commit }) {
+      commit('TOGGLE_LOGIN_MODAL', false)
     },
     updateAccessToken({ commit }, accessToken) {
       commit('UPDATE_ACCESS_TOKEN', accessToken)

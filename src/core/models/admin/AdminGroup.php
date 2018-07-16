@@ -43,7 +43,7 @@ class AdminGroup extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name' => '名称',
+            'name' => '管理组名称',
         ];
     }
 

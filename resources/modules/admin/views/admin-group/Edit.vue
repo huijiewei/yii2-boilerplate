@@ -71,14 +71,16 @@
       const apiQueries = [this.$http.get('site/all-acl')]
 
       if (this.$route.query.id) {
-        apiQueries.push(this.$http.get('admin-group/edit', { id: this.$route.query.id }))
+        const adminGroupId = this.$route.query.id
+
+        this.title = '编辑管理组'
+        this.postUrl = 'admin-group/edit'
+        this.postParams = { id: adminGroupId }
+        apiQueries.push(this.$http.get('admin-group/edit', { id: adminGroupId }))
       }
 
       this.$http.all(apiQueries).then(this.$http.spread((allAclResponse, adminGroupResponse) => {
         if (adminGroupResponse) {
-          this.title = '编辑管理组'
-          this.postUrl = 'admin-group/edit'
-          this.postParams = { id: adminGroupResponse.data.id }
           this.adminGroupFrom = adminGroupResponse.data
         }
 
@@ -121,7 +123,8 @@
         })
 
         this.adminGroupFrom.acl = result
-      }))
+      })).catch(() => {
+      })
     },
     methods: {
       handleCheckAllChange(group) {
@@ -182,7 +185,6 @@
     line-height: 1;
 
     .cgb-panel {
-      border-bottom: 1px solid #dcdfe6;
       margin-bottom: 10px;
       padding-bottom: 3px;
 

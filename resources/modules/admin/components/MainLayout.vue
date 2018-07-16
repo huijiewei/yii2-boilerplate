@@ -5,7 +5,9 @@
     </el-header>
     <el-container class="bp-wrap">
       <el-aside class="bp-aside" :width="isCollapsed ? '60px' : '200px'">
-        <prefect-scrollbar class="bp-scrollbar">
+        <prefect-scrollbar :scroll-to="'li.el-menu-item.is-active'"
+                           :settings="{ suppressScrollX: true }"
+                           class="bp-scrollbar">
           <sider-menu class="bp-menu" :isCollapsed="isCollapsed"></sider-menu>
         </prefect-scrollbar>
       </el-aside>

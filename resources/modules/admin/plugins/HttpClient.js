@@ -6,7 +6,8 @@ import 'axios-progress-bar/dist/nprogress.css'
 const HttpCodes = {
   OK: 200,
   UNAUTHORIZED: 401,
-  FORBIDDEN: 403
+  FORBIDDEN: 403,
+  NOT_FOUND: 404
 }
 
 const HttpGetMethod = ['GET', 'HEAD']
@@ -44,11 +45,28 @@ const HttpClient = {
     httpClient.interceptors.response.use(undefined, function(error) {
       if (error.response) {
         if (error.response.status === HttpCodes.UNAUTHORIZED) {
-          if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
-            router.replace({ path: '/login', query: { direct: router.currentRoute.fullPath } })
-          } else {
-            store.dispatch('toggleLoginModal')
+          if (!error.config.__retry) {
+            error.config.__retry = true
+
+            if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
+              if (router.currentRoute.fullPath.startsWith('/login')) {
+                router.replace(router.currentRoute.fullPath)
+              } else {
+                router.replace({ path: '/login', query: { direct: router.currentRoute.fullPath } })
+              }
+            } else {
+              store.dispatch('showLoginModal')
+            }
           }
+
+          return Promise.reject(error)
+        }
+
+        if (
+          error.response.status === HttpCodes.NOT_FOUND
+          && HttpGetMethod.includes(error.response.config.method.toUpperCase())
+        ) {
+          router.replace('/not-found')
 
           return Promise.reject(error)
         }
@@ -59,7 +77,6 @@ const HttpClient = {
             Message.warning(data.message)
           } else if (Array.isArray(data)) {
             data.forEach(function(item) {
-              console.log(item)
               Message.warning(item.message)
             })
           }

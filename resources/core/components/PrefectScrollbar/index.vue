@@ -1,5 +1,6 @@
 <template>
-  <div class="ps-container" @ps-scroll-y="scrollHandler" @ps-scroll-x="scrollHandler" @ps-scroll-up="scrollHandler"
+  <div ref="ps" class="ps-container" @ps-scroll-y="scrollHandler" @ps-scroll-x="scrollHandler"
+       @ps-scroll-up="scrollHandler"
        @ps-scroll-down="scrollHandler" @ps-scroll-left="scrollHandler" @ps-scroll-right="scrollHandler"
        @ps-y-reach-start="scrollHandler" @ps-y-reach-end="scrollHandler" @ps-x-reach-start="scrollHandler"
        @ps-x-reach-end="scrollHandler">
@@ -15,9 +16,11 @@
     props: {
       settings: {
         type: Object,
-        default: () => ({
-          wheelPropagation: false
-        })
+        default: () => ({})
+      },
+      scrollTo: {
+        type: String,
+        default: ''
       }
     },
     methods: {
@@ -29,7 +32,25 @@
       }
     },
     mounted() {
-      this.ps = new PrefectScrollbar(this.$el, this.settings)
+      this.ps = new PrefectScrollbar(this.$el, Object.assign(this.settings, { wheelPropagation: false }))
+
+      this.$nextTick(() => {
+        if (this.scrollTo !== '') {
+          console.log(this.scrollTo)
+          console.log(this.$el)
+
+          const element = this.$refs.ps.querySelectorAll('li')
+
+          console.log(element)
+
+          if (element) {
+            const elementPos = element.getBoundingClientRect()
+            const containerPos = this.$el.getBoundingClientRect()
+
+            console.log(elementPos, containerPos)
+          }
+        }
+      })
     },
     updated() {
       this.update()

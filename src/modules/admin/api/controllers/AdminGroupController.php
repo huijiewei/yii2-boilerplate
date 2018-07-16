@@ -30,6 +30,19 @@ class AdminGroupController extends Controller
         return $adminGroup->toArray(['id', 'name'], ['acl']);
     }
 
+    public function actionCreate()
+    {
+        $adminGroup = new AdminGroup();
+
+        $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if (!$adminGroup->save()) {
+            return $adminGroup;
+        }
+
+        return $this->message('管理组新建成功');
+    }
+
     public function actionEdit($id)
     {
         if (!\Yii::$app->getRequest()->getIsPost()) {
