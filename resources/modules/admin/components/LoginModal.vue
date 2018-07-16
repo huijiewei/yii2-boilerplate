@@ -6,7 +6,7 @@
              :close-on-click-modal="false"
              :show-close="false"
              :close-on-press-escape="false"
-             :visible="isVisible">
+             :visible="visible">
     <login-form :in-modal="true"></login-form>
   </el-dialog>
 </template>
@@ -17,6 +17,6 @@
   export default {
     name: 'LoginModal',
     components: { LoginForm },
-    props: ['isVisible']
+    props: ['visible']
   }
 </script>

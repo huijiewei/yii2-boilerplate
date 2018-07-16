@@ -10,9 +10,9 @@ Vue.use(VueRouter)
 Vue.use(routerHistory)
 
 const routes = [
-  ...siteRoutes,
   ...userRoutes,
-  ...adminRoutes
+  ...adminRoutes,
+  ...siteRoutes
 ]
 
 const router = new VueRouter({

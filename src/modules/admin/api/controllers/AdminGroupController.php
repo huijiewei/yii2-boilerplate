@@ -9,12 +9,66 @@
 namespace app\modules\admin\api\controllers;
 
 use app\core\models\admin\AdminGroup;
+use app\core\models\admin\AdminGroupAcl;
 use app\modules\admin\api\Controller;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 
 class AdminGroupController extends Controller
 {
+    public function actionCreate()
+    {
+        $adminGroup = new AdminGroup(['id' => 0, 'name' => '']);
+
+        if (!\Yii::$app->getRequest()->getIsPost()) {
+            return [
+                'adminGroup' => $adminGroup->toArray(['id', 'name'], ['acl']),
+                'formRules' => $this->formatModelRules($adminGroup),
+                'allAcl' => AdminGroupAcl::getAllAcl()
+            ];
+        }
+
+        $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if (!$adminGroup->save()) {
+            return $adminGroup;
+        }
+
+        return $this->message('管理组新建成功');
+    }
+
+    public function actionDelete($id)
+    {
+        $adminGroup = $this->getAdminGroup($id);
+
+        if (!$adminGroup->delete()) {
+            return $adminGroup;
+        } else {
+            return $this->message('管理组删除成功');
+        }
+    }
+
+    public function actionEdit($id)
+    {
+        $adminGroup = $this->getAdminGroup($id);
+
+        if (!\Yii::$app->getRequest()->getIsPost()) {
+            return [
+                'adminGroup' => $adminGroup->toArray(['id', 'name'], ['acl']),
+                'formRules' => $this->formatModelRules($adminGroup),
+                'allAcl' => AdminGroupAcl::getAllAcl()
+            ];
+        }
+
+        $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if (!$adminGroup->save()) {
+            return $adminGroup;
+        }
+
+        return $this->message('管理组编辑成功');
+    }
+
     public function actionIndex()
     {
         return new ActiveDataProvider([
@@ -30,35 +84,6 @@ class AdminGroupController extends Controller
         return $adminGroup->toArray(['id', 'name'], ['acl']);
     }
 
-    public function actionCreate()
-    {
-        $adminGroup = new AdminGroup();
-
-        $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
-
-        if (!$adminGroup->save()) {
-            return $adminGroup;
-        }
-
-        return $this->message('管理组新建成功');
-    }
-
-    public function actionEdit($id)
-    {
-        if (!\Yii::$app->getRequest()->getIsPost()) {
-            return $this->actionView($id);
-        }
-
-        $adminGroup = $this->getAdminGroup($id);
-        $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
-
-        if (!$adminGroup->save()) {
-            return $adminGroup;
-        }
-
-        return $this->message('管理组编辑成功');
-    }
-
     private function getAdminGroup($id)
     {
         /* @var $adminGroup AdminGroup */
@@ -71,22 +96,11 @@ class AdminGroupController extends Controller
         return $adminGroup;
     }
 
-    public function actionDelete($id)
-    {
-        $adminGroup = $this->getAdminGroup($id);
-
-        if (!$adminGroup->delete()) {
-            return $adminGroup;
-        } else {
-            return $this->message('管理组删除成功');
-        }
-    }
-
     public function verbs()
     {
         return [
             'index' => ['GET', 'HEAD'],
-            'create' => ['POST'],
+            'create' => ['GET', 'HEAD', 'POST'],
             'view' => ['GET', 'HEAD'],
             'edit' => ['GET', 'HEAD', 'POST'],
             'delete' => ['DELETE'],

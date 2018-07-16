@@ -1,8 +1,8 @@
 <template>
   <el-menu-item :index="'/' + menu.url">
-    <template slot="title">
+    <template>
       <sider-menu-icon :icon="menu.icon" v-if="menu.icon"></sider-menu-icon>
-      <span>{{menu.label}}</span>
+      <span slot="title">{{menu.label}}</span>
     </template>
   </el-menu-item>
 </template>

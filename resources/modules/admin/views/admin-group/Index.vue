@@ -35,7 +35,7 @@
             </el-button>
           </router-link>
           <router-link
-            v-show="$store.getters.checkAcl('admin-group/edit')"
+            v-if="$store.getters.checkAcl('admin-group/edit')"
             :to="'admin-group/edit?id=' + scope.row.id">
             <el-button
               title="编辑"
@@ -46,7 +46,7 @@
             </el-button>
           </router-link>
           <el-button
-            v-show="$store.getters.checkAcl('admin-group/delete')"
+            v-if="$store.getters.checkAcl('admin-group/delete')"
             title="删除"
             size="mini"
             type="danger"
@@ -67,14 +67,10 @@
     },
     data() {
       return {
-        adminGroups: [],
-        loading: true
+        adminGroups: []
       }
     },
     methods: {
-      handleRoute(action, groupId) {
-        this.$router.push({ path: action, query: { id: groupId } })
-      },
       handleDelete(group) {
         this.$confirm(`你确定要删除:${group.name}吗?`, '删除管理组', {
           showClose: false,
@@ -105,8 +101,6 @@
       this.$http.get('admin-group').then((response) => {
         this.adminGroups = response.data.items
       }).catch(() => {
-      }).finally(() => {
-        this.loading = false
       })
     }
   }

@@ -22,7 +22,7 @@
     computed: {
       getRouteActive() {
         const matched = this.$route.matched
-        const path = matched[matched.length - 2].path
+        const path = matched.length > 1 ? matched[matched.length - 2].path : matched[0].path
         return path === '' ? '/' : path
       }
     },

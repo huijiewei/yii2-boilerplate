@@ -153,11 +153,6 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionAllAcl()
-    {
-        return AdminGroupAcl::getAllAcl();
-    }
-
     public function actionIndex()
     {
         return $this->message('欢迎使用 Boilerplate');

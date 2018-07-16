@@ -21,7 +21,7 @@ const routes = [
       },
       {
         path: 'create',
-        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Edit')
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Create')
       },
       {
         path: 'edit',

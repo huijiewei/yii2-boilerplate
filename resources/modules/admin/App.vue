@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <login-modal v-if="loginModalVisible" :isVisible="true"></login-modal>
+    <login-modal v-if="loginModalVisible" :visible="true"></login-modal>
     <transition name="el-fade-in-linear">
       <router-view></router-view>
     </transition>

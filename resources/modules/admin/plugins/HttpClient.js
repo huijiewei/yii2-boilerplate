@@ -13,7 +13,7 @@ const HttpCodes = {
 const HttpGetMethod = ['GET', 'HEAD']
 
 const HttpClient = {
-  install(Vue, { store, router, Message }) {
+  install(Vue, { store, router, Message, MessageBox }) {
     const httpClient = axios.create({
       baseURL: document.querySelector('meta[name="api-host"]').getAttribute('content'),
       timeout: 10000,
@@ -59,16 +59,27 @@ const HttpClient = {
             }
           }
 
-          return Promise.reject(error)
+          return false
         }
 
-        if (
-          error.response.status === HttpCodes.NOT_FOUND
-          && HttpGetMethod.includes(error.response.config.method.toUpperCase())
-        ) {
-          router.replace('/not-found')
+        if (error.response.status === HttpCodes.NOT_FOUND || error.response.status === HttpCodes.FORBIDDEN) {
+          const msgBox = MessageBox.alert(
+            error.response.data ? error.response.data.message : error.response.message,
+            {
+              center: true,
+              confirmButtonText: '确定',
+              type: 'warning',
+              showClose: false
+            }
+          )
 
-          return Promise.reject(error)
+          if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
+            msgBox.then(() => {
+              router.back()
+            })
+          }
+
+          return false
         }
 
         if (error.response.data) {
