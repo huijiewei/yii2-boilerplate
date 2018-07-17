@@ -67,7 +67,8 @@
     },
     data() {
       return {
-        adminGroups: []
+        adminGroups: [],
+        loading: true
       }
     },
     methods: {
@@ -101,6 +102,8 @@
       this.$http.get('admin-group').then((response) => {
         this.adminGroups = response.data.items
       }).catch(() => {
+      }).finally(() => {
+        this.loading = false
       })
     }
   }

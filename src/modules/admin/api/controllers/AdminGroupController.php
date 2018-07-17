@@ -18,12 +18,11 @@ class AdminGroupController extends Controller
 {
     public function actionCreate()
     {
-        $adminGroup = new AdminGroup(['id' => 0, 'name' => '']);
+        $adminGroup = new AdminGroup(['name' => '']);
 
         if (!\Yii::$app->getRequest()->getIsPost()) {
             return [
-                'adminGroup' => $adminGroup->toArray(['id', 'name'], ['acl']),
-                'formRules' => $this->formatModelRules($adminGroup),
+                'adminGroup' => $adminGroup->toArray(['name'], ['acl']),
                 'allAcl' => AdminGroupAcl::getAllAcl()
             ];
         }
@@ -48,14 +47,25 @@ class AdminGroupController extends Controller
         }
     }
 
+    private function getAdminGroup($id)
+    {
+        /* @var $adminGroup AdminGroup */
+        $adminGroup = AdminGroup::findOne(['id' => $id]);
+
+        if ($adminGroup == null) {
+            throw new NotFoundHttpException('管理组不存在');
+        }
+
+        return $adminGroup;
+    }
+
     public function actionEdit($id)
     {
         $adminGroup = $this->getAdminGroup($id);
 
         if (!\Yii::$app->getRequest()->getIsPost()) {
             return [
-                'adminGroup' => $adminGroup->toArray(['id', 'name'], ['acl']),
-                'formRules' => $this->formatModelRules($adminGroup),
+                'adminGroup' => $adminGroup->toArray(['name'], ['acl']),
                 'allAcl' => AdminGroupAcl::getAllAcl()
             ];
         }
@@ -82,18 +92,6 @@ class AdminGroupController extends Controller
         $adminGroup = $this->getAdminGroup($id);
 
         return $adminGroup->toArray(['id', 'name'], ['acl']);
-    }
-
-    private function getAdminGroup($id)
-    {
-        /* @var $adminGroup AdminGroup */
-        $adminGroup = AdminGroup::findOne(['id' => $id]);
-
-        if ($adminGroup == null) {
-            throw new NotFoundHttpException('管理组不存在');
-        }
-
-        return $adminGroup;
     }
 
     public function verbs()

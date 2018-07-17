@@ -31,6 +31,10 @@ $--checkbox-bordered-height: 36px;
   .el-checkbox__label {
     padding-left: 6px;
   }
+
+  .el-input__inner {
+    padding: 0 10px;
+  }
 }
 
 /* 改变 icon 字体路径变量，必需 */

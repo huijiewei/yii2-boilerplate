@@ -4,7 +4,7 @@
       <h4>{{ pageTitle }}</h4>
     </div>
     <el-form :rules="formRules" :model="formModel" label-width="120px"
-             ref="formModel"
+             ref="formModel" :validate-on-rule-change="false" v-loading="loading"
              @submit.native.prevent="submitForm('formModel')">
       <el-form-item label="管理组名称" prop="name">
         <el-input v-model="formModel.name"></el-input>
@@ -54,10 +54,12 @@
     },
     data() {
       return {
+        loading: true,
         submitLoading: false,
         formRules: {
           name: [
-            { required: true, message: '请输入管理组名称', trigger: 'blur' }
+            { required: true, message: '请输入管理组名称', trigger: ['blur', 'change'] },
+            { min: 3, max: 10, message: '管理组名称长度在 3 到 10 个字符', trigger: ['blur', 'change'] }
           ]
         },
         formModel: {
@@ -68,8 +70,9 @@
     },
     created() {
       this.$http.get(this.apiUrl, this.apiParams).then(response => {
-        this.formModel = response.data.adminGroup
-        this.formRules = response.data.formRules
+        if (response.data.adminGroup) {
+          this.formModel = response.data.adminGroup
+        }
 
         const allAcl = response.data.allAcl
 
@@ -112,6 +115,8 @@
 
         this.formModel.acl = result
       }).catch(() => {
+      }).finally(() => {
+        this.loading = false
       })
     },
     methods: {
