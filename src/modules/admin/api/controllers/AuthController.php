@@ -60,7 +60,7 @@ class AuthController extends Controller
      */
     public function actionUser()
     {
-        return $this->getIdentity()->toArray(['displayName', 'displayIcon'], ['groupAcl']);
+        return $this->getIdentity()->toArray(['displayName', 'displayIcon'], ['groupAcl', 'groupMenus']);
     }
 
     /**

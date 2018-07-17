@@ -20,24 +20,117 @@ use app\core\components\ActiveRecord;
  */
 class AdminGroup extends ActiveRecord
 {
+    const ACL_CACHE_PREFIX = 'BP_ADMIN_GROUP_ACL_';
+
     public $acl;
 
-    public function rules()
+    public static function getMenuByGroupId($groupId)
     {
-        return [
-            [['name', 'acl'], 'trim'],
-            [['name'], 'required'],
-            [['name'], 'string', 'length' => [3, 10]],
-        ];
+        function getMenu($menu, $acl)
+        {
+            if (isset($menu['url'])
+                && !in_array($menu['url'], $acl)
+                && (!isset($menu['public']) || !$menu['public'])) {
+                return false;
+            }
+
+            $children = false;
+
+            if (isset($menu['children'])) {
+                $children = [];
+
+                foreach ($menu['children'] as $child) {
+                    $item = getMenu($child, $acl);
+
+                    if ($item !== false) {
+                        $children[] = $item;
+                    }
+                }
+
+                if (empty($children)) {
+                    return false;
+                }
+            }
+
+            $result = [];
+
+            foreach ($menu as $key => $value) {
+                if ($key != 'children') {
+                    $result[$key] = $value;
+                }
+            }
+
+            if ($children !== false) {
+                $result['children'] = $children;
+            }
+
+            return $result;
+        }
+
+        $allMenus = AdminHelper::getAllMenus();
+        $groupAcl = AdminGroup::getAclByGroupId($groupId);
+
+        $menus = [];
+
+        foreach ($allMenus as $menu) {
+            $item = getMenu($menu, $groupAcl);
+
+            if ($item !== false) {
+                $menus[] = $item;
+            }
+        }
+
+        return $menus;
     }
 
-    public function extraFields()
+    /**
+     * @param $groupId
+     *
+     * @return array
+     */
+    public static function getAclByGroupId($groupId)
     {
-        return [
-            'acl' => function () {
-                return AdminGroupAcl::getAclByGroupId($this->id);
-            },
-        ];
+        $cacheKey = static::ACL_CACHE_PREFIX . $groupId;
+
+        $acl = \Yii::$app->getCache()->get($cacheKey);
+
+        if ($acl !== false) {
+            return $acl;
+        }
+
+        $acl = AdminGroupAcl::find()
+            ->where(['groupId' => $groupId])
+            ->select('actionId')
+            ->column();
+
+        \Yii::$app->getCache()->set($cacheKey, $acl);
+
+        return $acl;
+    }
+
+    public static function clearAclCache($groupId)
+    {
+        \Yii::$app->getCache()->delete(static::ACL_CACHE_PREFIX . $groupId);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        AdminGroupAcl::deleteAll(['groupId' => $this->id]);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if (is_array($this->acl)) {
+            AdminGroupAcl::updateAcl(
+                $this->id,
+                $this->acl,
+                $insert ? [] : AdminGroup::getAclByGroupId($this->id)
+            );
+        }
+
+        parent::afterSave($insert, $changedAttributes);
     }
 
     public function attributeLabels()
@@ -58,23 +151,21 @@ class AdminGroup extends ActiveRecord
         return parent::beforeDelete();
     }
 
-    public function afterDelete()
+    public function extraFields()
     {
-        parent::afterDelete();
-
-        AdminGroupAcl::deleteAll(['groupId' => $this->id]);
+        return [
+            'acl' => function () {
+                return AdminGroup::getAclByGroupId($this->id);
+            },
+        ];
     }
 
-    public function afterSave($insert, $changedAttributes)
+    public function rules()
     {
-        if (is_array($this->acl)) {
-            AdminGroupAcl::updateAcl(
-                $this->id,
-                $this->acl,
-                $insert ? [] : AdminGroupAcl::getAclByGroupId($this->id)
-            );
-        }
-
-        parent::afterSave($insert, $changedAttributes);
+        return [
+            [['name', 'acl'], 'trim'],
+            [['name'], 'required'],
+            [['name'], 'string', 'length' => [3, 10]],
+        ];
     }
 }

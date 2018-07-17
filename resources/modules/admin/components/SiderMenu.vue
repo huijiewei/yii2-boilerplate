@@ -2,7 +2,7 @@
   <el-menu :collapse-transition="false" :router="true"
            :default-active="getRouteActive"
            :collapse="isCollapsed">
-    <template v-for="(menu, index) in menus">
+    <template v-for="(menu, index) in $store.state.user.groupMenus">
       <sider-menu-item v-if="!menu.children" :menu="menu" :key="'m' + 1 + index"></sider-menu-item>
       <sider-menu-sub v-else :menu="menu" :key="'m' + 1 + index" :depth="1" :index="index"></sider-menu-sub>
     </template>
@@ -26,18 +26,7 @@
         return path === '' ? '/' : path
       }
     },
-    props: ['isCollapsed'],
-    data() {
-      return {
-        menus: []
-      }
-    },
-    created() {
-      this.$http.get('site/menus').then(response => {
-        this.menus = response.data
-      }).catch(() => {
-      })
-    }
+    props: ['isCollapsed']
   }
 </script>
 <style lang="scss">

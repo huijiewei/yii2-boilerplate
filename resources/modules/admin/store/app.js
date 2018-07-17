@@ -18,7 +18,8 @@ const app = {
       init: false,
       displayName: '',
       displayIcon: '',
-      groupAcl: []
+      groupAcl: [],
+      groupMenus: []
     }
   },
   getters: {
@@ -61,6 +62,7 @@ const app = {
         state.user.displayName = ''
         state.user.displayIcon = ''
         state.user.groupAcl = []
+        state.user.groupMenus = []
       } else {
         state.user = user
         state.user.init = true
