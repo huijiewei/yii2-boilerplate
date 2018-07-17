@@ -20,6 +20,7 @@ const routes = [
     ]
   },
   {
+    name: 'login',
     path: '/login',
     component: () => import(/* webpackChunkName: "chunk-login" */ '@admin/views/site/Login')
   },

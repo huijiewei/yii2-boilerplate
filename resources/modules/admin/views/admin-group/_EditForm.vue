@@ -58,8 +58,8 @@
         submitLoading: false,
         formRules: {
           name: [
-            { required: true, message: '请输入管理组名称', trigger: ['blur', 'change'] },
-            { min: 3, max: 10, message: '管理组名称长度在 3 到 10 个字符', trigger: ['blur', 'change'] }
+            { required: true, message: '请输入管理组名称', trigger: 'blur' },
+            { min: 3, max: 10, message: '管理组名称长度在 3 到 10 个字符', trigger: 'blur' }
           ]
         },
         formModel: {
@@ -165,6 +165,7 @@
           this.$http.post(this.apiUrl, adminGroup, this.apiParams).then(response => {
             this.$message.success(response.data.message)
 
+            this.$emit('on-success', response.data)
           }).catch(() => {
           }).finally(() => {
             this.submitLoading = false

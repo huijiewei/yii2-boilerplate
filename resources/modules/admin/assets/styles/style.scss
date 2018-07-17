@@ -1,0 +1,69 @@
+.bp {
+  .el-form-item__label {
+    font-size: 13px;
+    line-height: 36px;
+  }
+
+  .el-form-item__content {
+    line-height: 36px;
+  }
+
+  .el-checkbox__label {
+    padding-left: 6px;
+  }
+
+  .el-input__inner {
+    padding: 0 10px;
+  }
+
+  .el-dropdown-menu {
+    padding: 0;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
+    .anticon {
+      font-size: 12px;
+    }
+
+    .popper__arrow {
+      display: none;
+    }
+  }
+
+  .el-dropdown-menu__item {
+    line-height: 39px;
+    height: 39px;
+  }
+
+  .el-dropdown-menu__item--divided {
+    margin-top: 0;
+    border-top: 1px solid #f2f2f2;
+  }
+
+  .el-dropdown-menu__item--divided::before {
+    height: 0;
+  }
+
+  .el-popper[x-placement^=bottom] {
+    margin-top: 0;
+  }
+
+  .el-table td,
+  .el-table th {
+    padding: 12px 0 9px 0;
+  }
+
+  .el-table {
+    font-size: 13px;
+
+    thead th {
+      text-transform: uppercase;
+      border-top: 1px solid #dee2e6;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .el-button--mini,
+    .el-button--mini.is-round {
+      padding: 5px 6px 4px 6px;
+    }
+  }
+}

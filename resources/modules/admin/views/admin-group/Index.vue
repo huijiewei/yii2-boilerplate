@@ -24,8 +24,8 @@
       <el-table-column align="right" label="操作">
         <template slot-scope="scope">
           <router-link
-            v-show="$store.getters.checkAcl('admin-group/view')"
-            :to="'admin-group/view?id=' + scope.row.id">
+            v-if="$store.getters.checkAcl('admin-group/view')"
+            :to="{ path: 'admin-group/view', query: { id: scope.row.id } }">
             <el-button
               title="查看"
               type="primary"
@@ -36,7 +36,7 @@
           </router-link>
           <router-link
             v-if="$store.getters.checkAcl('admin-group/edit')"
-            :to="'admin-group/edit?id=' + scope.row.id">
+            :to="{ path: 'admin-group/edit', query: { id: scope.row.id } }">
             <el-button
               title="编辑"
               type="warning"
@@ -45,15 +45,18 @@
               编辑
             </el-button>
           </router-link>
-          <el-button
+          <delete-button
             v-if="$store.getters.checkAcl('admin-group/delete')"
             title="删除"
             size="mini"
             type="danger"
+            :confirm="`你确定要删除${scope.row.name}吗?`"
             :plain="true"
-            @click="handleDelete(scope.row)">
+            :api-url="'admin-group/delete'"
+            :api-params="{ id: scope.row.id }"
+            @on-success="onSuccess(scope.row)">
             删除
-          </el-button>
+          </delete-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,7 +64,10 @@
 </template>
 
 <script>
+  import DeleteButton from '@admin/components/DeleteButton'
+
   export default {
+    components: { DeleteButton },
     metaInfo: {
       title: '管理组'
     },
@@ -72,29 +78,11 @@
       }
     },
     methods: {
-      handleDelete(group) {
-        this.$confirm(`你确定要删除:${group.name}吗?`, '删除管理组', {
-          showClose: false,
-          confirmButtonText: '删除',
-          confirmButtonClass: 'el-button--danger',
-          cancelButtonText: '取消',
-          type: 'error'
-        }).then(() => {
-          this.$http.delete('admin-group/delete', { id: group.id }).then(response => {
-            this.adminGroups.forEach((item, index) => {
-              if (item.id === group.id) {
-                this.adminGroups.splice(index, 1)
-              }
-            })
-
-            this.$message({
-              type: 'success',
-              message: response.data.message
-            })
-          }).catch(() => {
-
-          })
-        }).catch(() => {
+      onSuccess(group) {
+        this.adminGroups.forEach((item, index) => {
+          if (item.id === group.id) {
+            this.adminGroups.splice(index, 1)
+          }
         })
       }
     },

@@ -6,6 +6,7 @@ const routes = [
     component: main,
     children: [
       {
+        name: 'admin',
         path: '',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index')
       }
@@ -16,14 +17,17 @@ const routes = [
     component: main,
     children: [
       {
+        name: 'admin-group',
         path: '',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Index')
       },
       {
+        name: 'admin-group-create',
         path: 'create',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Create')
       },
       {
+        name: 'admin-group-edit',
         path: 'edit',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Edit')
       }

@@ -33,7 +33,7 @@ class AdminGroupController extends Controller
             return $adminGroup;
         }
 
-        return $this->message('管理组新建成功');
+        return $this->message('管理组新建成功', ['adminGroupId' => $adminGroup->id]);
     }
 
     public function actionDelete($id)

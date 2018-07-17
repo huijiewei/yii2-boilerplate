@@ -18,26 +18,8 @@ $--checkbox-input-width: 13px;
 $--input-height: 36px;
 $--checkbox-bordered-height: 36px;
 
-.bp {
-  .el-form-item__label {
-    font-size: 13px;
-    line-height: 36px;
-  }
-
-  .el-form-item__content {
-    line-height: 36px;
-  }
-
-  .el-checkbox__label {
-    padding-left: 6px;
-  }
-
-  .el-input__inner {
-    padding: 0 10px;
-  }
-}
-
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import "~element-ui/packages/theme-chalk/src/index";
+@import "./style";

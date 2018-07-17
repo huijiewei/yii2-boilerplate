@@ -49,10 +49,10 @@ const HttpClient = {
             error.config.__retry = true
 
             if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
-              if (router.currentRoute.fullPath.startsWith('/login')) {
+              if (router.currentRoute.name === 'login') {
                 router.replace(router.currentRoute.fullPath)
               } else {
-                router.replace({ path: '/login', query: { direct: router.currentRoute.fullPath } })
+                router.replace({ name: 'login', query: { direct: router.currentRoute.fullPath } })
               }
             } else {
               store.dispatch('showLoginModal')
