@@ -180,8 +180,10 @@
     line-height: 1;
 
     .cgb-panel {
-      margin-bottom: 10px;
-      padding-bottom: 3px;
+      &:not(:last-child) {
+        margin-bottom: 10px;
+        padding-bottom: 3px;
+      }
 
       .cgb-head {
         background-color: #f8f8f8;
