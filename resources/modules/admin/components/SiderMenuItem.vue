@@ -9,6 +9,7 @@
 
 <script>
   import SiderMenuIcon from '@admin/components/SiderMenuIcon'
+  import { formatUrl } from '@admin/utils/Utils'
 
   export default {
     name: 'SiderMenuItem',
@@ -16,15 +17,7 @@
     props: ['menu'],
     computed: {
       menuUrl: function() {
-        if (this.menu.url === 'site/index') {
-          return ''
-        }
-
-        if (this.menu.url.endsWith('/index')) {
-          return this.menu.url.substr(0, this.menu.url.length - 6)
-        }
-
-        return this.menu.url
+        return formatUrl(this.menu.url)
       }
     }
   }

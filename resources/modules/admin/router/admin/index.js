@@ -1,4 +1,4 @@
-import main from '@admin/components/MainLayout'
+import main from '@admin/layouts/Default'
 
 const routes = [
   {
@@ -19,7 +19,10 @@ const routes = [
       {
         name: 'admin-group',
         path: '',
-        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Index')
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Index'),
+        meta: {
+          label: '管理组'
+        }
       },
       {
         name: 'admin-group-create',

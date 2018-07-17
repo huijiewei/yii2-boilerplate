@@ -1,6 +1,8 @@
 const accessTokenItemKey = 'bp-admin-access-token'
 const clientIdItemKey = 'bp-admin-client-id'
 
+import { deepSearch, formatUrl } from '@admin/utils/Utils'
+
 const app = {
   strict: process.env.NODE_ENV !== 'production',
   state: {
@@ -25,6 +27,15 @@ const app = {
   getters: {
     checkAcl: (state) => (route) => {
       return state.user.groupAcl.includes(route)
+    },
+    checkInMenu: (state, getters) => (route) => {
+      const menus = getters.deepSearchMenus(state)
+      const path = route.startsWith('/') ? route.substr(1) : route
+
+      return menus.map(menu => formatUrl(menu)).includes(path)
+    },
+    deepSearchMenus: (state) => () => {
+      return deepSearch('url', state.user.groupMenus)
     }
   },
   mutations: {

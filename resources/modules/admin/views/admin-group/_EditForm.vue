@@ -1,8 +1,5 @@
 <template>
   <div class="box">
-    <div class="box-header">
-      <h4>{{ pageTitle }}</h4>
-    </div>
     <el-form :rules="formRules" :model="formModel" label-width="120px"
              ref="formModel" :validate-on-rule-change="false" v-loading="loading"
              @submit.native.prevent="submitForm('formModel')">

@@ -1,5 +1,5 @@
 <template>
-  <div class="box">userIndex</div>
+  <div class="box">userCreate</div>
 </template>
 
 <script>

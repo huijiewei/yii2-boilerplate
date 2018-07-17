@@ -28,6 +28,64 @@ class AdminHelper
                 ],
             ],
             [
+                'name' => '会员管理',
+                'children' => [
+                    [
+                        'name' => '会员列表',
+                        'actionId' => 'user/index',
+                    ],
+                    [
+                        'name' => '会员新建',
+                        'actionId' => 'user/create',
+                    ],
+                    [
+                        'name' => '会员导入',
+                        'actionId' => 'user/import',
+                    ],
+                ],
+            ],
+            [
+                'name' => '商品管理',
+                'children' => [
+                    [
+                        'children' => [
+                            [
+                                'name' => '商品列表',
+                                'actionId' => 'good/index'
+                            ],
+                            [
+                                'name' => '新建商品',
+                                'actionId' => 'good/new'
+                            ],
+                            [
+                                'name' => '编辑商品',
+                                'actionId' => 'good/edit'
+                            ],
+                            [
+                                'name' => '删除商品',
+                                'actionId' => 'good/delete'
+                            ],
+                        ]
+                    ],
+                    [
+                        'name' => '商品分类',
+                        'actionId' => 'good/category'
+                    ],
+                    [
+                        'name' => '商品属性',
+                        'actionId' => 'good/property'
+                    ],
+                    [
+                        'name' => '商品特点',
+                        'actionId' => 'good/feature'
+                    ],
+                    [
+                        'name' => '商品品牌',
+                        'actionId' => 'good/brand'
+                    ]
+                ],
+            ],
+            [
                 'name' => '系统管理',
                 'children' => [
                     [
@@ -96,8 +154,8 @@ class AdminHelper
                         'label' => '新建会员',
                         'children' => [
                             [
-                                'label' => '手工新建',
-                                'url' => 'user/new'
+                                'label' => '新建会员',
+                                'url' => 'user/create'
                             ],
                             [
                                 'label' => '批量导入',
@@ -112,12 +170,12 @@ class AdminHelper
                 'icon' => 'gift',
                 'children' => [
                     [
-                        'label' => '商品列表',
-                        'url' => 'good/index'
-                    ],
-                    [
                         'label' => '新建商品',
                         'url' => 'good/new'
+                    ],
+                    [
+                        'label' => '商品列表',
+                        'url' => 'good/index'
                     ],
                     [
                         'label' => '商品分类',

@@ -12,9 +12,12 @@
         </prefect-scrollbar>
       </el-aside>
       <el-main :style="{ marginLeft: isCollapsed ? '60px' : '200px' }" class="bp-main">
-        <transition name="el-fade-in-linear">
-          <router-view></router-view>
-        </transition>
+        <breadcrumb></breadcrumb>
+        <div class="bp-content">
+          <transition name="el-fade-in-linear">
+            <router-view></router-view>
+          </transition>
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -23,10 +26,13 @@
 <script>
   import SiderMenu from '@admin/components/SiderMenu'
   import HeaderNav from '@admin/components/HeaderNav'
-  import PrefectScrollbar from '@core/components/PrefectScrollbar'
+  import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
+  import BpIcon from '@core/components/Icon/index'
+  import Breadcrumb from '@admin/components/Breadcrumb'
 
   export default {
-    components: { PrefectScrollbar, HeaderNav, SiderMenu },
+    name: 'Default',
+    components: { Breadcrumb, BpIcon, PrefectScrollbar, HeaderNav, SiderMenu },
     computed: {
       isCollapsed() {
         return this.$store.state.sidebar.collapsed
@@ -66,7 +72,7 @@
       }
     }
 
-    .bp-main {
+    .bp-content {
       .box {
         background: #fff;
         padding: 20px;

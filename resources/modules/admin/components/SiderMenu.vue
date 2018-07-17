@@ -2,7 +2,7 @@
   <el-menu :collapse-transition="false" :router="true"
            :default-active="getRouteActive"
            :collapse="isCollapsed">
-    <template v-for="(menu, index) in $store.state.user.groupMenus">
+    <template v-for="(menu, index) in getMenus">
       <sider-menu-item v-if="!menu.children" :menu="menu" :key="'m' + 1 + index"></sider-menu-item>
       <sider-menu-sub v-else :menu="menu" :key="'m' + 1 + index" :depth="1" :index="index"></sider-menu-sub>
     </template>
@@ -20,10 +20,22 @@
       SiderMenuItem
     },
     computed: {
+      getMenus() {
+        return this.$store.state.user.groupMenus
+      },
       getRouteActive() {
-        const matched = this.$route.matched
-        const path = matched.length > 1 ? matched[matched.length - 2].path : matched[0].path
-        return path === '' ? '/' : path
+        let matched = this.$route.matched
+
+        for (let i = matched.length - 1; i >= 0; i--) {
+          const route = matched[i]
+          const find = this.$store.getters.checkInMenu(route.path)
+
+          if (find) {
+            return route.path
+          }
+        }
+
+        return ''
       }
     },
     props: ['isCollapsed']
