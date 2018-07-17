@@ -16,15 +16,15 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>
+            <el-dropdown-item command="userProfile">
               <bp-icon type="user"></bp-icon>
               个人资料
             </el-dropdown-item>
-            <el-dropdown-item>
+            <el-dropdown-item command="aclView">
               <bp-icon type="lock"></bp-icon>
               权限查看
             </el-dropdown-item>
-            <el-dropdown-item>
+            <el-dropdown-item command="aclUpdate">
               <bp-icon type="sync"></bp-icon>
               刷新权限
             </el-dropdown-item>
@@ -79,6 +79,25 @@
                 self.$router.push('/login')
               }
             })
+          }).catch(() => {
+          })
+
+          return
+        }
+
+        if (command === 'userProfile') {
+
+          return
+        }
+
+        if (command === 'aclView') {
+
+          return
+        }
+
+        if (command === 'aclUpdate') {
+          this.$http.get('auth/user').then(response => {
+            this.$store.dispatch('updateUser', response.data)
           }).catch(() => {
           })
         }
