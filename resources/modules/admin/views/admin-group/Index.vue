@@ -24,19 +24,8 @@
       <el-table-column align="right" label="操作">
         <template slot-scope="scope">
           <router-link
-            v-if="$store.getters.checkAcl('admin-group/view')"
-            :to="{ path: 'admin-group/view', query: { id: scope.row.id } }">
-            <el-button
-              title="查看"
-              type="primary"
-              size="mini"
-              :plain="true">
-              查看
-            </el-button>
-          </router-link>
-          <router-link
             v-if="$store.getters.checkAcl('admin-group/edit')"
-            :to="{ path: 'admin-group/edit', query: { id: scope.row.id } }">
+            :to="{ name: 'admin-group-edit', query: { id: scope.row.id } }">
             <el-button
               title="编辑"
               type="warning"

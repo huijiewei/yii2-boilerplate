@@ -23,6 +23,13 @@ class AdminGroupAcl extends ActiveRecord
 {
     const CACHE_PREFIX = 'BP_ADMIN_GROUP_ACL_';
 
+    public function fields()
+    {
+        return [
+            'actionId',
+        ];
+    }
+
     /**
      * @param $groupId
      *
@@ -44,44 +51,6 @@ class AdminGroupAcl extends ActiveRecord
         }
 
         return $acl;
-    }
-
-    public static function updateAcl($groupId, $newAcl, $oldAcl)
-    {
-        $insertAcl = array_values(array_diff($newAcl, $oldAcl));
-        $deleteAcl = array_values(array_diff($oldAcl, $newAcl));
-
-        if (count($insertAcl) > 0) {
-            $ins = [];
-
-            foreach ($insertAcl as $acl) {
-                if (empty($acl) || $acl == '0') {
-                    continue;
-                }
-
-                $ins[] = [$groupId, $acl];
-            }
-
-            if (!empty($ins)) {
-                static::getDb()
-                    ->createCommand()
-                    ->batchInsert(static::tableName(), ['groupId', 'actionId'], $ins)
-                    ->execute();
-            }
-        }
-
-        if (!empty($deleteAcl)) {
-            static::deleteAll(['groupId' => $groupId, 'actionId' => $deleteAcl]);
-        }
-
-        \Yii::$app->getCache()->delete(static::CACHE_PREFIX . $groupId);
-    }
-
-    public function fields()
-    {
-        return [
-            'actionId',
-        ];
     }
 
     public static function getAllAcl()
@@ -114,10 +83,6 @@ class AdminGroupAcl extends ActiveRecord
                                 'actionId' => 'admin/create',
                             ],
                             [
-                                'name' => '管理员信息',
-                                'actionId' => 'admin/view',
-                            ],
-                            [
                                 'name' => '管理员编辑',
                                 'actionId' => 'admin/edit',
                             ],
@@ -138,10 +103,6 @@ class AdminGroupAcl extends ActiveRecord
                                 'actionId' => 'admin-group/create',
                             ],
                             [
-                                'name' => '管理组信息',
-                                'actionId' => 'admin-group/view',
-                            ],
-                            [
                                 'name' => '管理组编辑',
                                 'actionId' => 'admin-group/edit',
                             ],
@@ -154,5 +115,36 @@ class AdminGroupAcl extends ActiveRecord
                 ],
             ],
         ];
+    }
+
+    public static function updateAcl($groupId, $newAcl, $oldAcl)
+    {
+        $insertAcl = array_values(array_diff($newAcl, $oldAcl));
+        $deleteAcl = array_values(array_diff($oldAcl, $newAcl));
+
+        if (count($insertAcl) > 0) {
+            $ins = [];
+
+            foreach ($insertAcl as $acl) {
+                if (empty($acl) || $acl == '0') {
+                    continue;
+                }
+
+                $ins[] = [$groupId, $acl];
+            }
+
+            if (!empty($ins)) {
+                static::getDb()
+                    ->createCommand()
+                    ->batchInsert(static::tableName(), ['groupId', 'actionId'], $ins)
+                    ->execute();
+            }
+        }
+
+        if (!empty($deleteAcl)) {
+            static::deleteAll(['groupId' => $groupId, 'actionId' => $deleteAcl]);
+        }
+
+        \Yii::$app->getCache()->delete(static::CACHE_PREFIX . $groupId);
     }
 }
