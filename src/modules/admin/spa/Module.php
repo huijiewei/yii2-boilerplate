@@ -38,8 +38,7 @@ class Module extends AbstractModule
     {
         return [
             '' => 'site/index',
-            '<controller>' => 'site/index',
-            '<controller>/<action>' => 'site/index',
+            '<url:(.*)>' => 'site/index',
         ];
     }
 }

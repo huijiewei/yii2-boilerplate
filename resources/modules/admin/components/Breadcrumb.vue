@@ -1,12 +1,9 @@
 <template>
   <el-breadcrumb class="bp-breadcrumb">
-    <el-breadcrumb-item :to="{ name: 'site-index' }">
-      <bp-icon type="home"></bp-icon>
-      管理后台
-    </el-breadcrumb-item>
-    <template v-for="(route, index) in $route.matched.slice()">
-      <el-breadcrumb-item :to="route" :key="index">
-        {{ route.name }}
+    <template v-for="(breadcrumb, index) in getBreadcrumbs">
+      <el-breadcrumb-item :to="{ name: breadcrumb.link }" :key="index">
+        <bp-icon v-if="breadcrumb.icon" :type="breadcrumb.icon"></bp-icon>
+        <span>{{ breadcrumb.title }}</span>
       </el-breadcrumb-item>
     </template>
   </el-breadcrumb>
@@ -18,30 +15,27 @@
   export default {
     name: 'Breadcrumb',
     components: { BpIcon },
-    created() {
-      this.getBreadcrumb()
-    },
-    data() {
-      return {
-        title: '',
-        breadcrumbs: []
-      }
-    },
-    methods: {
-      getBreadcrumb() {
-        this.brumblist = this.$route.matched
+    computed: {
+      getBreadcrumbs() {
+        const breadcrumbs = []
 
-        this.$route.matched.forEach((item) => {
+        this.$route.matched.forEach((route) => {
+          const breadcrumb = route.meta.breadcrumb
 
-          item.meta.title === '首页' ?
-            item.path = '/' :
-            this.$route.path === item.path ? this.title = item.meta.title : ''
+          if (breadcrumb) {
+            if (breadcrumb.parent) {
+              const parent = this.$router.resolve({ name: breadcrumb.parent }).route
+
+              if (parent.meta.breadcrumb) {
+                breadcrumbs.push(parent.meta.breadcrumb)
+              }
+            }
+
+            breadcrumbs.push(breadcrumb)
+          }
         })
-      }
-    },
-    watch: {
-      $route() {
-        this.getBreadcrumb()
+
+        return breadcrumbs
       }
     }
   }

@@ -1,54 +1,47 @@
 <template>
-  <div class="box">
-    <el-form :rules="formRules" :model="formModel" label-width="120px"
-             ref="formModel" :validate-on-rule-change="false" v-loading="loading"
-             @submit.native.prevent="submitForm('formModel')">
-      <el-form-item label="管理组名称" prop="name">
-        <el-input v-model="formModel.name"></el-input>
-      </el-form-item>
-      <el-form-item label="管理组权限">
-        <div class="check-group-box">
-          <div class="cgb-panel" v-for="(group, index) in formModel.acl" :key="index">
-            <div class="cgb-head">
-              <el-checkbox :label="group.name" v-model="group.checkAll"
-                           :indeterminate="group.checkIndeterminate"
-                           @change="handleCheckAllChange(group)"></el-checkbox>
-            </div>
-            <div class="cgb-body">
-              <el-checkbox-group v-model="group.checkedAcl" @change="handleCheckedAclChange(group)">
-                <template v-for="(child, childIndex) in group.children">
-                  <el-checkbox v-if="!child.children" :label="child.actionId"
-                               :key="index + '-' + childIndex">
-                    {{ child.name }}
+  <el-form :rules="formRules" :model="formModel" label-width="120px"
+           ref="formModel" :validate-on-rule-change="false" v-loading="loading"
+           @submit.native.prevent="submitForm('formModel')">
+    <el-form-item label="管理组名称" prop="name">
+      <el-input v-model="formModel.name"></el-input>
+    </el-form-item>
+    <el-form-item label="管理组权限">
+      <div class="check-group-box">
+        <div class="cgb-panel" v-for="(group, index) in formModel.acl" :key="index">
+          <div class="cgb-head">
+            <el-checkbox :label="group.name" v-model="group.checkAll"
+                         :indeterminate="group.checkIndeterminate"
+                         @change="handleCheckAllChange(group)"></el-checkbox>
+          </div>
+          <div class="cgb-body">
+            <el-checkbox-group v-model="group.checkedAcl" @change="handleCheckedAclChange(group)">
+              <template v-for="(child, childIndex) in group.children">
+                <el-checkbox v-if="!child.children" :label="child.actionId"
+                             :key="index + '-' + childIndex">
+                  {{ child.name }}
+                </el-checkbox>
+                <div class="cgb-line" v-if="child.children" :key="index + '-' + childIndex">
+                  <el-checkbox v-for="(checkbox, checkboxIndex) in child.children" :label="checkbox.actionId"
+                               :key="index + '-' + childIndex + '-' + checkboxIndex">
+                    {{ checkbox.name }}
                   </el-checkbox>
-                  <div class="cgb-line" v-if="child.children" :key="index + '-' + childIndex">
-                    <el-checkbox v-for="(checkbox, checkboxIndex) in child.children" :label="checkbox.actionId"
-                                 :key="index + '-' + childIndex + '-' + checkboxIndex">
-                      {{ checkbox.name }}
-                    </el-checkbox>
-                  </div>
-                </template>
-              </el-checkbox-group>
-            </div>
+                </div>
+              </template>
+            </el-checkbox-group>
           </div>
         </div>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" native-type="submit" :loading="submitLoading">{{ pageTitle }}</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+      </div>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" native-type="submit" :loading="submitLoading">{{ buttonText }}</el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script>
   export default {
     name: 'AdminGroupForm',
-    props: ['pageTitle', 'apiUrl', 'apiParams'],
-    metaInfo() {
-      return {
-        title: this.pageTitle
-      }
-    },
+    props: ['buttonText', 'apiUrl', 'apiParams'],
     data() {
       return {
         loading: true,

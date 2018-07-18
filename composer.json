@@ -10,6 +10,7 @@
     "huijiewei/yii2-swagger": "^2.0"
   },
   "require-dev": {
+    "yiisoft/yii2-faker": "^2.0",
     "yiisoft/yii2-debug": "^2.0",
     "symfony/var-dumper": "^4.1",
     "phpunit/phpunit": "^7"

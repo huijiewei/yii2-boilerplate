@@ -1,5 +1,5 @@
 <template>
-  <div>adminIndex</div>
+  <div class="box">adminIndex</div>
 </template>
 
 <script>
