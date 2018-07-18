@@ -55,7 +55,7 @@ const HttpClient = {
                 router.replace({ name: 'login', query: { direct: router.currentRoute.fullPath } })
               }
             } else {
-              store.dispatch('showLoginModal')
+              store.dispatch('toggleLoginModal', true)
             }
           }
 

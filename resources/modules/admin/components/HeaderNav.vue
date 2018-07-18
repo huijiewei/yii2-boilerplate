@@ -73,10 +73,10 @@
               duration: 1000,
               message: response.data.message,
               onClose() {
-                self.$store.dispatch('updateAccessToken', '')
+                self.$store.dispatch('updateAccessToken', null)
                 self.$store.dispatch('updateUser', null)
 
-                self.$router.push('/login')
+                self.$router.push({ name: 'login', query: { direct: self.$route.path } })
               }
             })
           }).catch(() => {

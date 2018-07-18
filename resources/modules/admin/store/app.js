@@ -14,7 +14,9 @@ const app = {
     auth: {
       clientId: '',
       loginModal: false,
-      accessToken: window.localStorage.getItem(accessTokenItemKey)
+      get accessToken() {
+        return window.localStorage.getItem(accessTokenItemKey)
+      }
     },
     user: {
       init: false,
@@ -64,8 +66,11 @@ const app = {
       state.auth.loginModal = visible
     },
     UPDATE_ACCESS_TOKEN: (state, accessToken) => {
-      state.auth.accessToken = accessToken
-      window.localStorage.setItem('bp-admin-access-token', accessToken)
+      if (accessToken !== null) {
+        window.localStorage.setItem(accessTokenItemKey, accessToken)
+      } else {
+        window.localStorage.removeItem(accessTokenItemKey)
+      }
     },
     UPDATE_USER: (state, user) => {
       if (user == null) {
@@ -87,11 +92,8 @@ const app = {
     toggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
     },
-    showLoginModal({ commit }) {
-      commit('TOGGLE_LOGIN_MODAL', true)
-    },
-    hideLoginModal({ commit }) {
-      commit('TOGGLE_LOGIN_MODAL', false)
+    toggleLoginModal({ commit }, visible) {
+      commit('TOGGLE_LOGIN_MODAL', visible)
     },
     updateAccessToken({ commit }, accessToken) {
       commit('UPDATE_ACCESS_TOKEN', accessToken)

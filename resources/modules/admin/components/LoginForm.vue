@@ -66,7 +66,7 @@
             })
 
             if (this.inModal) {
-              this.$store.dispatch('hideLoginModal')
+              this.$store.dispatch('toggleLoginModal', false)
             } else {
               if (this.$router.currentRoute.query.direct) {
                 this.$router.replace(this.$router.currentRoute.query.direct)
