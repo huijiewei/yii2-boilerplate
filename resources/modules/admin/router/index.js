@@ -4,6 +4,7 @@ import { routerHistory, writeHistory } from 'vue-router-back-button'
 
 import userRoutes from './user'
 import adminRoutes from './admin'
+import adminGroupRoutes from './admin-group'
 
 import siteIndex from '@admin/views/site/Index'
 import siteLogin from '@admin/views/site/Login'
@@ -37,7 +38,8 @@ const routes = [
         }
       },
       ...userRoutes,
-      ...adminRoutes
+      ...adminRoutes,
+      ...adminGroupRoutes
     ]
   },
   {
