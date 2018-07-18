@@ -59,7 +59,7 @@ const HttpClient = {
             }
           }
 
-          return false
+          return Promise.reject(error)
         }
 
         if (error.response.status === HttpCodes.NOT_FOUND || error.response.status === HttpCodes.FORBIDDEN) {
@@ -79,7 +79,7 @@ const HttpClient = {
             })
           }
 
-          return false
+          return Promise.reject(error)
         }
 
         if (error.response.data) {

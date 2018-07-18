@@ -41,6 +41,10 @@
   }
 </script>
 <style lang="scss">
+  [v-cloak] {
+    display: none !important;
+  }
+
   .bp-layout {
     background: #f4f8fb;
     min-height: 100vh;

@@ -1,6 +1,6 @@
 <template>
   <el-form :rules="formRules" :model="formModel" label-width="120px"
-           ref="formModel" :validate-on-rule-change="false" v-loading="loading"
+           ref="formModel" :validate-on-rule-change="false"
            @submit.native.prevent="submitForm('formModel')">
     <el-form-item label="管理组名称" prop="name">
       <el-input v-model="formModel.name"></el-input>
@@ -41,10 +41,9 @@
 <script>
   export default {
     name: 'AdminGroupForm',
-    props: ['buttonText', 'apiUrl', 'apiParams'],
+    props: ['buttonText', 'adminGroup', 'allAcl'],
     data() {
       return {
-        loading: true,
         submitLoading: false,
         formRules: {
           name: [
@@ -58,56 +57,48 @@
         }
       }
     },
-    created() {
-      this.$http.get(this.apiUrl, this.apiParams).then(response => {
-        if (response.data.adminGroup) {
-          this.formModel = response.data.adminGroup
+    mounted() {
+      const adminGroupAcl = this.adminGroup.acl
+      const result = []
+
+      this.allAcl.forEach(acl => {
+        const group = {
+          name: acl.name,
+          checkAll: false,
+          checkIndeterminate: false,
+          checkedAcl: [],
+          aclCount: 0,
+          children: acl.children
         }
 
-        const allAcl = response.data.allAcl
-
-        const adminGroupAcl = this.formModel.acl
-        const result = []
-
-        allAcl.forEach(acl => {
-          const group = {
-            name: acl.name,
-            checkAll: false,
-            checkIndeterminate: false,
-            checkedAcl: [],
-            aclCount: 0,
-            children: acl.children
-          }
-
-          acl.children.forEach(child => {
-            if (child.children) {
-              child.children.forEach(item => {
-                group.aclCount++
-                if (adminGroupAcl.includes(item.actionId)) {
-                  group.checkedAcl.push(item.actionId)
-                }
-              })
-            } else {
+        acl.children.forEach(child => {
+          if (child.children) {
+            child.children.forEach(item => {
               group.aclCount++
-              if (adminGroupAcl.includes(child.actionId)) {
-                group.checkedAcl.push(child.actionId)
+              if (adminGroupAcl.includes(item.actionId)) {
+                group.checkedAcl.push(item.actionId)
               }
+            })
+          } else {
+            group.aclCount++
+            if (adminGroupAcl.includes(child.actionId)) {
+              group.checkedAcl.push(child.actionId)
             }
-          })
-
-          const checkedCount = group.checkedAcl.length
-
-          group.checkAll = group.aclCount === checkedCount
-          group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
-
-          result.push(group)
+          }
         })
 
-        this.formModel.acl = result
-      }).catch(() => {
-      }).finally(() => {
-        this.loading = false
+        const checkedCount = group.checkedAcl.length
+
+        group.checkAll = group.aclCount === checkedCount
+        group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
+
+        result.push(group)
       })
+
+      this.formModel = {
+        name: this.adminGroup.name,
+        acl: result
+      }
     },
     methods: {
       handleCheckAllChange(group) {

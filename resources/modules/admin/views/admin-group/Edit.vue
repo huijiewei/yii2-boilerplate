@@ -1,8 +1,7 @@
 <template>
-  <div class="box">
-    <admin-group-form :button-text="pageTitle"
-                      :api-url="'admin-group/edit'"
-                      :api-params="{id: getAdminGroupId }"></admin-group-form>
+  <div class="box" v-if="adminGroup">
+    <admin-group-form :button-text="pageTitle" v-loading="loading"
+                      :admin-group="adminGroup" :all-acl="allAcl"></admin-group-form>
   </div>
 </template>
 
@@ -18,8 +17,20 @@
     },
     data() {
       return {
-        pageTitle: '编辑管理组'
+        loading: true,
+        pageTitle: '编辑管理组',
+        adminGroup: null,
+        allAcl: []
       }
+    },
+    created() {
+      this.$http.get('admin-group/edit', { id: this.getAdminGroupId }).then(response => {
+        this.adminGroup = response.data.adminGroup
+        this.allAcl = response.data.allAcl
+      }).catch(() => {
+      }).finally(() => {
+        this.loading = false
+      })
     },
     computed: {
       getAdminGroupId() {

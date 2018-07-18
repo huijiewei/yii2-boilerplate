@@ -1,7 +1,7 @@
 <template>
-  <div class="box">
-    <admin-group-form :button-text="pageTitle"
-                      :api-url="'admin-group/create'" :api-params="{}"
+  <div class="box" v-if="adminGroup">
+    <admin-group-form :button-text="pageTitle" v-loading="loading"
+                      :admin-group="adminGroup" :all-acl="allAcl"
                       @on-success="onSuccess"></admin-group-form>
   </div>
 </template>
@@ -18,8 +18,20 @@
     },
     data() {
       return {
-        pageTitle: '新建管理组'
+        loading: true,
+        pageTitle: '新建管理组',
+        adminGroup: null,
+        allAcl: []
       }
+    },
+    created() {
+      this.$http.get('admin-group/create').then(response => {
+        this.adminGroup = response.data.adminGroup
+        this.allAcl = response.data.allAcl
+      }).catch(() => {
+      }).finally(() => {
+        this.loading = false
+      })
     },
     methods: {
       onSuccess(data) {
