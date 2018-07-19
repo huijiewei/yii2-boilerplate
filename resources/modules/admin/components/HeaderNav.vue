@@ -46,14 +46,6 @@
     name: 'HeaderNav',
     components: { BpIcon },
     props: ['isCollapsed'],
-    created() {
-      if (this.getUser.init === false) {
-        this.$http.get('auth/user').then(response => {
-          this.$store.dispatch('updateUser', response.data)
-        }).catch(() => {
-        })
-      }
-    },
     computed: {
       getUser() {
         return this.$store.state.user

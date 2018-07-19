@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box" v-if="adminGroups">
     <div class="box-toolbar">
       <router-link
         v-show="$store.getters.checkAcl('admin-group/create')"
@@ -40,7 +40,7 @@
             :plain="true"
             :api-url="'admin-group/delete'"
             :api-params="{ id: scope.row.id }"
-            @on-success="onSuccess(scope.row)">
+            @on-success="deleteSuccess(scope.row)">
             删除
           </delete-button>
         </template>
@@ -59,12 +59,12 @@
     },
     data() {
       return {
-        adminGroups: [],
+        adminGroups: null,
         loading: true
       }
     },
     methods: {
-      onSuccess(group) {
+      deleteSuccess(group) {
         this.adminGroups.forEach((item, index) => {
           if (item.id === group.id) {
             this.adminGroups.splice(index, 1)

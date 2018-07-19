@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <login-modal v-if="loginModalVisible" :visible="true"></login-modal>
-    <transition name="el-fade-in-linear">
-      <router-view></router-view>
-    </transition>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -23,10 +21,28 @@
         class: 'bp'
       }
     },
+    timeoutId: null,
     components: { LoginModal },
     computed: {
       loginModalVisible() {
         return this.$store.state.auth.loginModal
+      }
+    },
+    mounted() {
+      this.timeoutId = setTimeout(
+        () => {
+          const spinner = document.getElementById('spinner')
+
+          if (spinner) {
+            spinner.remove()
+          }
+        },
+        1000
+      )
+    },
+    destroyed() {
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId)
       }
     }
   }
@@ -34,8 +50,6 @@
 
 <style lang="scss">
   body {
-    padding: 0;
-    margin: 0 !important;
     color: #647279;
   }
 </style>

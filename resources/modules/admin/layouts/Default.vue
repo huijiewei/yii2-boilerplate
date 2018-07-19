@@ -14,9 +14,7 @@
       <el-main :style="{ marginLeft: isCollapsed ? '60px' : '200px' }" class="bp-main">
         <breadcrumb></breadcrumb>
         <div class="bp-content">
-          <transition name="el-fade-in-linear">
-            <router-view></router-view>
-          </transition>
+          <router-view></router-view>
         </div>
       </el-main>
     </el-container>
@@ -36,6 +34,14 @@
     computed: {
       isCollapsed() {
         return this.$store.state.sidebar.collapsed
+      }
+    },
+    created() {
+      if (this.$store.state.user.init === false) {
+        this.$http.get('auth/user').then(response => {
+          this.$store.dispatch('updateUser', response.data)
+        }).catch(() => {
+        })
       }
     }
   }
