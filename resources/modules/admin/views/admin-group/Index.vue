@@ -2,8 +2,7 @@
   <div class="box">
     <div class="box-toolbar">
       <router-link
-        v-show="$store.getters.checkAcl('admin-group/create')"
-        :to="'admin-group/create'">
+        :to="{ name: 'admin-group-create' }">
         <el-button type="primary" size="medium">
           新建管理组
         </el-button>

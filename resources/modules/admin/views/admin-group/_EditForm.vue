@@ -1,9 +1,9 @@
 <template>
   <el-form :rules="formRules" :model="formModel" label-width="120px"
            ref="formModel" :validate-on-rule-change="false"
-           @submit.native.prevent="submitForm('formModel')">
+           @submit.native.stop.prevent="submitForm('formModel')">
     <el-form-item label="管理组名称" prop="name">
-      <el-input v-model="formModel.name"></el-input>
+      <el-input v-model.trim="formModel.name"></el-input>
     </el-form-item>
     <el-form-item label="管理组权限">
       <div class="check-group-box">
@@ -57,50 +57,55 @@
         }
       }
     },
-    mounted() {
-      const adminGroupAcl = this.adminGroup.acl
-      const result = []
-
-      this.allAcl.forEach(acl => {
-        const group = {
-          name: acl.name,
-          checkAll: false,
-          checkIndeterminate: false,
-          checkedAcl: [],
-          aclCount: 0,
-          children: acl.children
-        }
-
-        acl.children.forEach(child => {
-          if (child.children) {
-            child.children.forEach(item => {
-              group.aclCount++
-              if (adminGroupAcl.includes(item.actionId)) {
-                group.checkedAcl.push(item.actionId)
-              }
-            })
-          } else {
-            group.aclCount++
-            if (adminGroupAcl.includes(child.actionId)) {
-              group.checkedAcl.push(child.actionId)
-            }
-          }
-        })
-
-        const checkedCount = group.checkedAcl.length
-
-        group.checkAll = group.aclCount === checkedCount
-        group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
-
-        result.push(group)
-      })
-
-      this.formModel = {
-        name: this.adminGroup.name,
-        acl: result
+    watch: {
+      'adminGroup': function() {
+        this.update()
       }
     },
     methods: {
+      update() {
+        const adminGroupAcl = this.adminGroup.acl
+        const result = []
+
+        this.allAcl.forEach(acl => {
+          const group = {
+            name: acl.name,
+            checkAll: false,
+            checkIndeterminate: false,
+            checkedAcl: [],
+            aclCount: 0,
+            children: acl.children
+          }
+
+          acl.children.forEach(child => {
+            if (child.children) {
+              child.children.forEach(item => {
+                group.aclCount++
+                if (adminGroupAcl.includes(item.actionId)) {
+                  group.checkedAcl.push(item.actionId)
+                }
+              })
+            } else {
+              group.aclCount++
+              if (adminGroupAcl.includes(child.actionId)) {
+                group.checkedAcl.push(child.actionId)
+              }
+            }
+          })
+
+          const checkedCount = group.checkedAcl.length
+
+          group.checkAll = group.aclCount === checkedCount
+          group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
+
+          result.push(group)
+        })
+
+        this.formModel = {
+          name: this.adminGroup.name,
+          acl: result
+        }
+      },
       handleCheckAllChange(group) {
         group.checkIndeterminate = false
 
@@ -143,12 +148,7 @@
             })
           })
 
-          this.$http.post(this.apiUrl, adminGroup, this.apiParams).then(response => {
-            this.$message.success(response.data.message)
-
-            this.$emit('on-success', response.data)
-          }).catch(() => {
-          }).finally(() => {
+          this.$emit('on-submit', adminGroup, () => {
             this.submitLoading = false
           })
         })

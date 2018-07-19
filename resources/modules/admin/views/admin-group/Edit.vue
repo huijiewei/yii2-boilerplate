@@ -1,7 +1,7 @@
 <template>
   <div class="box">
-    <admin-group-form :button-text="pageTitle" v-loading="loading" v-if="adminGroup"
-                      :admin-group="adminGroup" :all-acl="allAcl"></admin-group-form>
+    <admin-group-form :button-text="pageTitle" v-loading="loading"
+                      :admin-group="adminGroup" :all-acl="allAcl" @on-submit="formSubmit"></admin-group-form>
   </div>
 </template>
 
@@ -35,6 +35,16 @@
     computed: {
       getAdminGroupId() {
         return this.$router.currentRoute.query.id
+      }
+    },
+    methods: {
+      formSubmit(adminGroup, callback) {
+        this.$http.post('admin-group/edit', adminGroup, { id: this.getAdminGroupId }).then(response => {
+          this.$message.success(response.data.message)
+        }).catch(() => {
+        }).finally(() => {
+          callback()
+        })
       }
     }
   }

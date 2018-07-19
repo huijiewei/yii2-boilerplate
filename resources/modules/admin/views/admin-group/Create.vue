@@ -2,7 +2,7 @@
   <div class="box">
     <admin-group-form :button-text="pageTitle" v-loading="loading"
                       :admin-group="adminGroup" :all-acl="allAcl"
-                      @on-success="onSuccess"></admin-group-form>
+                      @on-submit="formSubmit"></admin-group-form>
   </div>
 </template>
 
@@ -34,8 +34,14 @@
       })
     },
     methods: {
-      onSuccess(data) {
-        this.$router.replace({ name: 'admin-group-edit', query: { id: data.adminGroupId } })
+      formSubmit(adminGroup, callback) {
+        this.$http.post('admin-group/create', adminGroup).then(response => {
+          this.$message.success(response.data.message)
+          this.$router.replace({ name: 'admin-group-edit', query: { id: response.data.adminGroupId } })
+        }).catch(() => {
+        }).finally(() => {
+          callback()
+        })
       }
     }
   }
