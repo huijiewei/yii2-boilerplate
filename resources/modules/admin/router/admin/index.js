@@ -1,14 +1,60 @@
+import Blank from '@admin/layouts/Blank'
+
 const routes = [
   {
-    name: 'admin',
     path: 'admin',
-    component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index'),
+    component: Blank,
     meta: {
       breadcrumb: {
         title: '管理员',
         link: 'admin'
       }
-    }
+    },
+    children: [
+      {
+        name: 'admin',
+        path: '',
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index')
+
+      }
+    ]
+  },
+  {
+    path: 'admin-group',
+    component: Blank,
+    meta: {
+      breadcrumb: {
+        title: '管理组',
+        link: 'admin-group'
+      }
+    },
+    children: [
+      {
+        name: 'admin-group',
+        path: '',
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Index')
+      },
+      {
+        name: 'admin-group-create',
+        path: 'create',
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Create'),
+        meta: {
+          breadcrumb: {
+            title: '新建'
+          }
+        }
+      },
+      {
+        name: 'admin-group-edit',
+        path: 'edit',
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Edit'),
+        meta: {
+          breadcrumb: {
+            title: '编辑'
+          }
+        }
+      }
+    ]
   }
 ]
 

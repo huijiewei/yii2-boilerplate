@@ -23,14 +23,6 @@
           const breadcrumb = route.meta.breadcrumb
 
           if (breadcrumb) {
-            if (breadcrumb.parent) {
-              const parent = this.$router.resolve({ name: breadcrumb.parent }).route
-
-              if (parent.meta.breadcrumb) {
-                breadcrumbs.push(parent.meta.breadcrumb)
-              }
-            }
-
             breadcrumbs.push(breadcrumb)
           }
         })

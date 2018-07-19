@@ -11,11 +11,14 @@ import HttpClient from './plugins/HttpClient'
 
 import '@admin/assets/styles/theme.scss'
 import '@core/assets/icons/iconfont.less'
+import StretchSpinner from '@admin/components/spinners/StretchSpinner'
 
 Vue.use(ElementUI)
 Vue.use(Meta)
 
 Vue.use(HttpClient, { store, router, Message: ElementUI.Message, MessageBox: ElementUI.MessageBox })
+
+Vue.component(StretchSpinner.name, StretchSpinner)
 
 new Vue({
   el: '#root',

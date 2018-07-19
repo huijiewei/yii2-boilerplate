@@ -28,6 +28,7 @@
 
         for (let i = matched.length - 1; i >= 0; i--) {
           const route = matched[i]
+
           const find = this.$store.getters.checkInMenu(route.path)
 
           if (find) {

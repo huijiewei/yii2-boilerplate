@@ -1,36 +1,42 @@
+import Blank from '@admin/layouts/Blank'
+
 const routes = [
   {
-    name: 'user',
     path: 'user',
-    component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Index'),
+    component: Blank,
     meta: {
       breadcrumb: {
         title: '会员',
         link: 'user'
       }
-    }
-  },
-  {
-    name: 'user-create',
-    path: 'user/create',
-    component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Create'),
-    meta: {
-      breadcrumb: {
-        title: '新建',
-        parent: 'user'
+    },
+    children: [
+      {
+        name: 'user',
+        path: '',
+        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Index')
+      },
+      {
+        name: 'user-create',
+        path: 'create',
+        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Create'),
+        meta: {
+          breadcrumb: {
+            title: '新建'
+          }
+        }
+      },
+      {
+        name: 'user-import',
+        path: 'import',
+        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Import'),
+        meta: {
+          breadcrumb: {
+            title: '导入'
+          }
+        }
       }
-    }
-  },
-  {
-    name: 'user-import',
-    path: 'user/import',
-    component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Import'),
-    meta: {
-      breadcrumb: {
-        title: '导入',
-        parent: 'user'
-      }
-    }
+    ]
   }
 ]
 
