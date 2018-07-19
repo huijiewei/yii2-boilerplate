@@ -1,6 +1,6 @@
 <template>
-  <div class="box" v-if="adminGroup">
-    <admin-group-form :button-text="pageTitle" v-loading="loading"
+  <div class="box">
+    <admin-group-form :button-text="pageTitle" v-loading="loading" v-if="adminGroup"
                       :admin-group="adminGroup" :all-acl="allAcl"></admin-group-form>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="box" v-if="adminGroups">
+  <div class="box">
     <div class="box-toolbar">
       <router-link
         v-show="$store.getters.checkAcl('admin-group/create')"

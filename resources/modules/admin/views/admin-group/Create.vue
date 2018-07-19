@@ -1,5 +1,5 @@
 <template>
-  <div class="box" v-if="adminGroup">
+  <div class="box">
     <admin-group-form :button-text="pageTitle" v-loading="loading"
                       :admin-group="adminGroup" :all-acl="allAcl"
                       @on-success="onSuccess"></admin-group-form>
