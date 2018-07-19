@@ -9,7 +9,7 @@
 
 <script>
   import SiderMenuIcon from '@admin/components/SiderMenuIcon'
-  import { formatUrl } from '@admin/utils/Utils'
+  import { formatUrl } from '@admin/utils/util'
 
   export default {
     name: 'SiderMenuItem',

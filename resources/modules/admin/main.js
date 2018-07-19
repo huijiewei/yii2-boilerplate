@@ -23,6 +23,6 @@ new Vue({
   router: router,
   render: h => h(App),
   beforeCreate() {
-    this.$store.commit('INIT_CLIENT_ID')
+    this.$store.dispatch('initClientId')
   }
 })

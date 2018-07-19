@@ -1,7 +1,7 @@
 const accessTokenItemKey = 'bp-admin-access-token'
 const clientIdItemKey = 'bp-admin-client-id'
 
-import { deepSearch, formatUrl } from '@admin/utils/Utils'
+import { deepSearch, formatUrl } from '@admin/utils/util'
 
 const app = {
   strict: process.env.NODE_ENV !== 'production',
@@ -12,8 +12,10 @@ const app = {
       hidden: false
     },
     auth: {
-      clientId: '',
       loginModal: false,
+      get clientId() {
+        return window.localStorage.getItem(clientIdItemKey)
+      },
       get accessToken() {
         return window.localStorage.getItem(accessTokenItemKey)
       }
@@ -23,25 +25,22 @@ const app = {
       displayName: '',
       displayIcon: '',
       groupAcl: [],
-      groupMenus: []
+      groupMenus: [],
+      groupFlattenMenus: []
     }
   },
   getters: {
     checkAcl: (state) => (route) => {
       return state.user.groupAcl.includes(route)
     },
-    checkInMenu: (state, getters) => (route) => {
-      const menus = getters.deepSearchMenus(state)
+    checkInMenu: (state) => (route) => {
       const path = route.startsWith('/') ? route.substr(1) : route
 
-      return menus.map(menu => formatUrl(menu)).includes(path)
-    },
-    deepSearchMenus: (state) => () => {
-      return deepSearch('url', state.user.groupMenus)
+      return state.user.groupFlattenMenus.map(menu => formatUrl(menu)).includes(path)
     }
   },
   mutations: {
-    INIT_CLIENT_ID: (state) => {
+    INIT_CLIENT_ID: () => {
       let clientId = window.localStorage.getItem(clientIdItemKey)
 
       if (clientId == null) {
@@ -49,8 +48,6 @@ const app = {
 
         window.localStorage.setItem(clientIdItemKey, clientId)
       }
-
-      state.auth.clientId = clientId
     },
     TOGGLE_DEVICE: (state, device) => {
       state.device = device
@@ -79,8 +76,10 @@ const app = {
         state.user.displayIcon = ''
         state.user.groupAcl = []
         state.user.groupMenus = []
+        state.user.groupFlattenMenus = []
       } else {
         state.user = user
+        state.user.groupFlattenMenus = deepSearch('url', user.groupMenus)
         state.user.init = true
       }
     }
@@ -94,6 +93,9 @@ const app = {
     },
     toggleLoginModal({ commit }, visible) {
       commit('TOGGLE_LOGIN_MODAL', visible)
+    },
+    initClientId({ commit }) {
+      commit('INIT_CLIENT_ID')
     },
     updateAccessToken({ commit }, accessToken) {
       commit('UPDATE_ACCESS_TOKEN', accessToken)
