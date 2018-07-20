@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb class="bp-breadcrumb">
-    <template v-for="(breadcrumb, index) in getBreadcrumbs">
+    <template v-for="(breadcrumb, index) in breadcrumbs">
       <el-breadcrumb-item :to="{ name: breadcrumb.link }" :key="index">
         <bp-icon v-if="breadcrumb.icon" :type="breadcrumb.icon"></bp-icon>
         <span>{{ breadcrumb.title }}</span>
@@ -15,8 +15,17 @@
   export default {
     name: 'Breadcrumb',
     components: { BpIcon },
-    computed: {
-      getBreadcrumbs() {
+    data() {
+      return {
+        breadcrumbs: [],
+        documentTitle: '%s - ' + document.title
+      }
+    },
+    mounted() {
+      this.updateBreadcrumbs()
+    },
+    methods: {
+      updateBreadcrumbs() {
         const breadcrumbs = []
 
         this.$route.matched.forEach((route) => {
@@ -27,7 +36,26 @@
           }
         })
 
-        return breadcrumbs
+        this.breadcrumbs = breadcrumbs
+
+        this.updatePageTitle()
+      },
+      updatePageTitle() {
+        const breadcrumbs = this.breadcrumbs
+        const titles = []
+
+        for (let i = breadcrumbs.length - 1; i >= 0; i--) {
+          if (breadcrumbs[i].title) {
+            titles.push(breadcrumbs[i].title)
+          }
+        }
+
+        document.title = this.documentTitle.replace('%s', titles.join(' - '))
+      }
+    },
+    watch: {
+      $route() {
+        this.updateBreadcrumbs()
       }
     }
   }

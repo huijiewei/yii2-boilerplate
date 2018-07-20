@@ -13,8 +13,8 @@
       }
     },
     created() {
-      this.$http.get('site/index').then((response) => {
-        this.message = response.data.message
+      this.$http.get('site/index').then((data) => {
+        this.message = data.message
       }).catch(() => {
       })
     }
