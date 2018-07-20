@@ -1,4 +1,4 @@
-import AuthService from '@admin/services/AuthService'
+import Vue from 'vue'
 import Auth from '@admin/utils/auth'
 import { deepSearch, formatUrl } from '@admin/utils/util'
 
@@ -75,7 +75,7 @@ const auth = {
       commit('TOGGLE_LOGIN_MODAL', true)
     },
     login({ commit }, loginForm) {
-      return AuthService.login(loginForm).then(data => {
+      return Vue.http.post('auth/login', loginForm).then(data => {
         commit('TOGGLE_LOGIN_MODAL', false)
         commit('UPDATE_CURRENT_USER', data.currentUser)
 
@@ -85,7 +85,7 @@ const auth = {
       })
     },
     logout({ commit }) {
-      return AuthService.logout().then(data => {
+      return Vue.http.post('auth/logout').then(data => {
         commit('UPDATE_CURRENT_USER', null)
 
         Auth.setAccessToken(null)
@@ -94,7 +94,7 @@ const auth = {
       })
     },
     updateCurrentUser({ commit }) {
-      return AuthService.getCurrentUser().then(data => {
+      return Vue.http.get('auth/current-user').then(data => {
         commit('UPDATE_CURRENT_USER', data)
 
         return data
