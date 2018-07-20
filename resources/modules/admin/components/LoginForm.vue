@@ -63,6 +63,7 @@
             })
 
             this.$emit('login-success')
+          }).catch(() => {
           }).finally(() => {
             this.submitLoading = false
           })

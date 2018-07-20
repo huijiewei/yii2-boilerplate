@@ -35,7 +35,6 @@
         this.$http.get('admin-group/edit', { id: this.getAdminGroupId }).then(data => {
           this.adminGroup = data.adminGroup
           this.allAcl = data.allAcl
-        }).catch(() => {
         }).finally(() => {
           this.loading = false
         })

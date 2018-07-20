@@ -66,6 +66,7 @@
                 this.$router.push({ name: 'login', query: { direct: this.$route.path } })
               }
             })
+          }).catch(() => {
           })
 
           return
@@ -82,7 +83,8 @@
         }
 
         if (command === 'aclUpdate') {
-          this.$store.dispatch('auth/updateCurrentUser').then()
+          this.$store.dispatch('auth/updateCurrentUser').catch(() => {
+          })
         }
       }
     }

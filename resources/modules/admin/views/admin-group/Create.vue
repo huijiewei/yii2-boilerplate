@@ -36,6 +36,7 @@
         this.$http.post('admin-group/create', adminGroup).then(data => {
           this.$message.success(data.message)
           this.$router.replace({ name: 'admin-group-edit', query: { id: data.adminGroupId } })
+        }).catch(() => {
         }).finally(() => {
           callback()
         })
