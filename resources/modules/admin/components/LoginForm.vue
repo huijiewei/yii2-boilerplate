@@ -55,26 +55,14 @@
 
           this.submitLoading = true
 
-          this.$http.post('auth/login', this.loginForm).then(response => {
-            this.$store.dispatch('updateAccessToken', response.data.accessToken)
-            this.$store.dispatch('updateUser', response.data.user)
-
+          this.$store.dispatch('auth/login', this.loginForm).then(data => {
             this.$notify.success({
-              title: response.data.message,
+              title: data.message,
               message: '欢迎光临 Boilerplate 管理系统',
               duration: 2000
             })
 
-            if (this.inModal) {
-              this.$store.dispatch('toggleLoginModal', false)
-            } else {
-              if (this.$router.currentRoute.query.direct) {
-                this.$router.replace(this.$router.currentRoute.query.direct)
-              } else {
-                this.$router.replace('/')
-              }
-            }
-          }).catch(() => {
+            this.$emit('login-success')
           }).finally(() => {
             this.submitLoading = false
           })

@@ -50,15 +50,15 @@ class AuthController extends Controller
         }
 
         return $this->message('登陆成功', [
-            'user' => $this->actionUser(),
             'accessToken' => $form->accessToken->token,
+            'currentUser' => $this->actionCurrentUser(),
         ]);
     }
 
     /**
      * @return array
      */
-    public function actionUser()
+    public function actionCurrentUser()
     {
         return $this->getIdentity()->toArray(['displayName', 'displayIcon'], ['groupAcl', 'groupMenus']);
     }

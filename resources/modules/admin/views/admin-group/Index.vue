@@ -2,6 +2,7 @@
   <div class="box">
     <div class="box-toolbar">
       <router-link
+        v-can="'admin-group/create'"
         :to="{ name: 'admin-group-create' }">
         <el-button type="primary" size="medium">
           新建管理组
@@ -20,7 +21,7 @@
       <el-table-column align="right" label="操作">
         <template slot-scope="scope">
           <router-link
-            v-if="$store.getters.checkAcl('admin-group/edit')"
+            v-can="'admin-group/edit'"
             :to="{ name: 'admin-group-edit', query: { id: scope.row.id } }">
             <el-button
               title="编辑"
@@ -31,7 +32,7 @@
             </el-button>
           </router-link>
           <delete-button
-            v-if="$store.getters.checkAcl('admin-group/delete')"
+            v-can="'admin-group/delete'"
             title="删除"
             size="mini"
             type="danger"
@@ -53,9 +54,6 @@
 
   export default {
     components: { DeleteButton },
-    metaInfo: {
-      title: '管理组'
-    },
     data() {
       return {
         adminGroups: null,
@@ -72,9 +70,8 @@
       }
     },
     created() {
-      this.$http.get('admin-group').then((response) => {
-        this.adminGroups = response.data.items
-      }).catch(() => {
+      this.$http.get('admin-group').then((data) => {
+        this.adminGroups = data.items
       }).finally(() => {
         this.loading = false
       })

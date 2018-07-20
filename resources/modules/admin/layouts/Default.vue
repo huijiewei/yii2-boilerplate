@@ -33,15 +33,12 @@
     components: { Breadcrumb, BpIcon, PrefectScrollbar, HeaderNav, SiderMenu },
     computed: {
       isCollapsed() {
-        return this.$store.state.sidebar.collapsed
+        return this.$store.getters.isSidebarCollapsed
       }
     },
-    created() {
-      if (this.$store.state.user.init === false) {
-        this.$http.get('auth/user').then(response => {
-          this.$store.dispatch('updateUser', response.data)
-        }).catch(() => {
-        })
+    beforeCreate() {
+      if (this.$store.getters['auth/isCurrentUserInit'] === false) {
+        this.$store.dispatch('auth/updateCurrentUser').then()
       }
     }
   }

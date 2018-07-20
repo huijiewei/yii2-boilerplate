@@ -41,7 +41,18 @@
 <script>
   export default {
     name: 'AdminGroupForm',
-    props: ['buttonText', 'adminGroup', 'allAcl'],
+    props: {
+      buttonText: {
+        type: String,
+        required: true
+      },
+      adminGroup: {
+        type: Object
+      },
+      allAcl: {
+        type: Array
+      }
+    },
     data() {
       return {
         submitLoading: false,

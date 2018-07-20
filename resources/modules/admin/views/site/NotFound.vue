@@ -20,8 +20,8 @@
     name: 'Error',
     methods: {
       back() {
-        if (this.$routerHistory.hasPrevious()) {
-          this.$router.push(this.$routerHistory.previous().path)
+        if (window.history.length > 0) {
+          this.$router.back()
         } else {
           this.$router.push('/')
         }

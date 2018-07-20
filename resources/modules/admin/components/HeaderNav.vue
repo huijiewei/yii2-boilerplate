@@ -12,7 +12,7 @@
         <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link">
             <img src="../assets/images/avatar.png">
-            {{getUser.displayName}}
+            {{getCurrentUser.displayName}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -47,31 +47,25 @@
     components: { BpIcon },
     props: ['isCollapsed'],
     computed: {
-      getUser() {
-        return this.$store.state.user
+      getCurrentUser() {
+        return this.$store.getters['auth/getCurrentUser']
       }
     },
     methods: {
       toggleSidebar() {
-        this.$store.dispatch('toggleSidebar')
+        this.$store.dispatch('toggleSidebar').then()
       },
       handleCommand(command) {
         if (command === 'userLogout') {
-          const self = this
-
-          self.$http.post('auth/logout').then(response => {
-            self.$message({
+          this.$store.dispatch('auth/logout').then(data => {
+            this.$message({
               type: 'success',
               duration: 1000,
-              message: response.data.message,
-              onClose() {
-                self.$store.dispatch('updateAccessToken', null)
-                self.$store.dispatch('updateUser', null)
-
-                self.$router.push({ name: 'login', query: { direct: self.$route.path } })
+              message: data.message,
+              onClose: () => {
+                this.$router.push({ name: 'login', query: { direct: this.$route.path } })
               }
             })
-          }).catch(() => {
           })
 
           return
@@ -88,10 +82,7 @@
         }
 
         if (command === 'aclUpdate') {
-          this.$http.get('auth/user').then(response => {
-            this.$store.dispatch('updateUser', response.data)
-          }).catch(() => {
-          })
+          this.$store.dispatch('auth/updateCurrentUser').then()
         }
       }
     }

@@ -63,7 +63,7 @@ class AdminGroupController extends Controller
     {
         $adminGroup = $this->getAdminGroup($id);
 
-        if (!\Yii::$app->getRequest()->getIsPost()) {
+        if (!\Yii::$app->getRequest()->getIsPut()) {
             return [
                 'adminGroup' => $adminGroup->toArray(['name'], ['acl']),
                 'allAcl' => AdminHelper::getAllAcl()
@@ -100,7 +100,7 @@ class AdminGroupController extends Controller
             'index' => ['GET', 'HEAD'],
             'create' => ['GET', 'HEAD', 'POST'],
             'view' => ['GET', 'HEAD'],
-            'edit' => ['GET', 'HEAD', 'POST'],
+            'edit' => ['GET', 'HEAD', 'PUT'],
             'delete' => ['DELETE'],
         ];
     }

@@ -20,7 +20,7 @@ $context = $this->context;
         <meta charset="<?= Yii::$app->charset ?>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="api-host" content="<?= \app\modules\admin\api\Module::toRoute([''], true); ?>">
-        <title><?= '管理后台' . ' - ' . Yii::$app->name; ?></title>
+        <title><?= Yii::$app->name; ?></title>
         <?php $this->head() ?>
         <style type="text/css">
             body {
@@ -48,7 +48,7 @@ $context = $this->context;
             }
 
             .spinner > div {
-                background-color: #333;
+                background-color: #666;
                 height: 100%;
                 width: 6px;
                 display: inline-block;

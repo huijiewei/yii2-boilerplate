@@ -1,8 +1,11 @@
 <template>
   <div class="box">
-    <admin-group-form :button-text="pageTitle" v-loading="loading"
-                      :admin-group="adminGroup" :all-acl="allAcl"
-                      @on-submit="formSubmit"></admin-group-form>
+    <admin-group-form :button-text="pageTitle"
+                      v-loading="loading"
+                      :admin-group="adminGroup"
+                      :all-acl="allAcl"
+                      @on-submit="formSubmit">
+    </admin-group-form>
   </div>
 </template>
 
@@ -11,11 +14,6 @@
 
   export default {
     components: { AdminGroupForm },
-    metaInfo() {
-      return {
-        title: this.pageTitle
-      }
-    },
     data() {
       return {
         loading: true,
@@ -25,9 +23,9 @@
       }
     },
     created() {
-      this.$http.get('admin-group/create').then(response => {
-        this.adminGroup = response.data.adminGroup
-        this.allAcl = response.data.allAcl
+      this.$http.get('admin-group/create').then(data => {
+        this.adminGroup = data.adminGroup
+        this.allAcl = data.allAcl
       }).catch(() => {
       }).finally(() => {
         this.loading = false
@@ -35,10 +33,9 @@
     },
     methods: {
       formSubmit(adminGroup, callback) {
-        this.$http.post('admin-group/create', adminGroup).then(response => {
-          this.$message.success(response.data.message)
-          this.$router.replace({ name: 'admin-group-edit', query: { id: response.data.adminGroupId } })
-        }).catch(() => {
+        this.$http.post('admin-group/create', adminGroup).then(data => {
+          this.$message.success(data.message)
+          this.$router.replace({ name: 'admin-group-edit', query: { id: data.adminGroupId } })
         }).finally(() => {
           callback()
         })

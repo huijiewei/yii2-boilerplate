@@ -6,7 +6,7 @@
           <div><img alt="Boilerplate" src="../../assets/images/logo.png"></div>
           <h3>管理员登陆</h3>
         </div>
-        <login-form :in-modal="false"></login-form>
+        <login-form @login-success="loginSuccess"></login-form>
       </div>
     </div>
   </div>
@@ -17,7 +17,16 @@
 
   export default {
     name: 'Login',
-    components: { LoginForm }
+    components: { LoginForm },
+    methods: {
+      loginSuccess() {
+        if (this.$router.currentRoute.query.direct) {
+          this.$router.replace(this.$router.currentRoute.query.direct)
+        } else {
+          this.$router.replace('/')
+        }
+      }
+    }
   }
 </script>
 <style lang="scss">

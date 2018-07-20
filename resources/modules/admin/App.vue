@@ -8,28 +8,22 @@
 <script>
   import LoginModal from '@admin/components/LoginModal'
 
-  const currentTitle = document.title
-
   export default {
     name: 'App',
-    metaInfo: {
-      title: null,
-      titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} - ${currentTitle}` : currentTitle
-      },
-      bodyAttrs: {
-        class: 'bp'
-      }
-    },
-    timeoutId: null,
+    spinnerTimeoutId: null,
     components: { LoginModal },
     computed: {
       loginModalVisible() {
-        return this.$store.state.auth.loginModal
+        return this.$store.getters['auth/isLoginModalVisible']
       }
     },
+    beforeCreate() {
+      this.$store.dispatch('auth/initClientId').then()
+    },
     mounted() {
-      this.timeoutId = setTimeout(
+      document.body.classList.add('bp')
+
+      this.spinnerTimeoutId = setTimeout(
         () => {
           const spinner = document.getElementById('spinner')
 
@@ -41,8 +35,8 @@
       )
     },
     destroyed() {
-      if (this.timeoutId) {
-        clearTimeout(this.timeoutId)
+      if (this.spinnerTimeoutId) {
+        clearTimeout(this.spinnerTimeoutId)
       }
     }
   }

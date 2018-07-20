@@ -7,7 +7,7 @@
              :show-close="false"
              :close-on-press-escape="false"
              :visible="visible">
-    <login-form :in-modal="true"></login-form>
+    <login-form></login-form>
   </el-dialog>
 </template>
 

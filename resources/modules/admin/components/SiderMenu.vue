@@ -21,7 +21,7 @@
     },
     computed: {
       getMenus() {
-        return this.$store.state.user.groupMenus
+        return this.$store.getters['auth/getCurrentUserMenus']
       },
       getRouteActive() {
         let matched = this.$route.matched
@@ -29,7 +29,7 @@
         for (let i = matched.length - 1; i >= 0; i--) {
           const route = matched[i]
 
-          const find = this.$store.getters.checkInMenu(route.path)
+          const find = this.$store.getters['auth/isRouteInMenus'](route.path)
 
           if (find) {
             return route.path
