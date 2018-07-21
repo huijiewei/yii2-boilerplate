@@ -16,6 +16,26 @@ const routes = [
         path: '',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index')
 
+      },
+      {
+        name: 'admin-create',
+        path: 'create',
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Create'),
+        meta: {
+          breadcrumb: {
+            title: '新建'
+          }
+        }
+      },
+      {
+        name: 'admin-edit',
+        path: 'edit',
+        component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Edit'),
+        meta: {
+          breadcrumb: {
+            title: '编辑'
+          }
+        }
       }
     ]
   },

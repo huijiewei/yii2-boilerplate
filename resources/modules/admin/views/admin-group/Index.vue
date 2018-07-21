@@ -11,6 +11,7 @@
     </div>
     <el-table v-loading="loading" :stripe="true" :data="adminGroups">
       <el-table-column
+        class-name="text-mono"
         prop="id"
         label="Id">
       </el-table-column>
@@ -56,7 +57,7 @@
     components: { DeleteButton },
     data() {
       return {
-        adminGroups: null,
+        adminGroups: [],
         loading: true
       }
     },

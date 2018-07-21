@@ -9,6 +9,7 @@
 namespace app\core\models\admin;
 
 use app\core\models\Identity;
+use app\core\validators\PhoneNumberValidator;
 
 /**
  * Class Admin
@@ -25,6 +26,8 @@ use app\core\models\Identity;
  */
 class Admin extends Identity
 {
+    public $passwordRepeat;
+
     /**
      * @param mixed $token
      * @param string $clientId
@@ -40,20 +43,77 @@ class Admin extends Identity
         ]);
     }
 
+    public function rules()
+    {
+        return [
+            [['groupId', 'phone', 'displayName', 'displayIcon', 'password', 'passwordRepeat'], 'trim'],
+            [['password', 'passwordRepeat'], 'required', 'on' => 'create'],
+            [
+                ['password', 'passwordRepeat'],
+                'string',
+                'length' => [5, 20],
+                'on' => 'create',
+                'when' => function ($model) {
+                    return !empty($model->passwordRepeat);
+                }
+            ],
+            ['password', 'compare', 'compareAttribute' => 'passwordRepeat'],
+            ['groupId', 'required', 'on' => ['create', 'edit']],
+            [
+                'groupId',
+                'exist',
+                'targetClass' => AdminGroup::class,
+                'targetAttribute' => 'id',
+                'on' => ['create', 'edit'],
+            ],
+            ['phone', 'required'],
+            ['phone', PhoneNumberValidator::class],
+            ['phone', 'unique'],
+            ['displayName', 'string', 'length' => [3, 10]],
+
+        ];
+    }
+
+    public function scenarios()
+    {
+        return [
+            'create' => ['groupId', 'password', 'passwordRepeat', 'phone', 'displayName', 'displayIcon'],
+            'edit' => ['groupId', 'password', 'passwordRepeat', 'phone', 'displayName', 'displayIcon'],
+            'profile' => ['groupId', 'password', 'passwordRepeat', 'phone', 'displayName', 'displayIcon'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'groupId' => '所属管理组',
+            'phone' => '电话号码',
+            'password' => '密码',
+            'passwordRepeat' => '重复密码',
+            'displayName' => '显示名',
+            'displayIcon' => '头像',
+        ];
+    }
+
     public function can($actionId)
     {
-        return in_array($actionId, AdminGroup::getAclByGroupId($this->groupId));
+        return in_array($actionId, $this->getGroupAcl());
+    }
+
+    public function getGroupAcl()
+    {
+        return AdminGroup::getAclByGroupId($this->groupId);
+    }
+
+    public function getGroupMenus()
+    {
+        return AdminGroup::getMenuByGroupId($this->groupId);
     }
 
     public function extraFields()
     {
         return [
-            'groupAcl' => function () {
-                return AdminGroup::getAclByGroupId($this->groupId);
-            },
-            'groupMenus' => function () {
-                return AdminGroup::getMenuByGroupId($this->groupId);
-            }
+            'group',
         ];
     }
 
@@ -65,6 +125,22 @@ class Admin extends Identity
     public function generateAccessToken($clientId = '')
     {
         return AdminAccessToken::generateAccessToken($this->id, $clientId);
+    }
+
+    public function deleteAccessToken($clientId = '')
+    {
+        AdminAccessToken::deleteAccessToken($this->id, $clientId);
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'phone',
+            'displayName',
+            'displayIcon',
+            'groupId',
+        ];
     }
 
     /**

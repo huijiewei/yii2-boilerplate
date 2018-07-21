@@ -10,7 +10,6 @@ namespace app\modules\admin\api\controllers;
 
 use app\core\models\admin\Admin;
 use app\core\models\admin\AdminGroup;
-use app\core\models\admin\AdminHelper;
 use app\modules\admin\api\Controller;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -19,78 +18,80 @@ class AdminController extends Controller
 {
     public function actionCreate()
     {
-        $adminGroup = new Admin();
+        $admin = new Admin();
 
         if (!\Yii::$app->getRequest()->getIsPost()) {
             return [
-                'admin' => $adminGroup->toArray(['name'], ['acl']),
-                'adminGroups' => AdminHelper::getAllAcl()
+                'admin' => $admin,
+                'allGroup' => AdminGroup::find()->orderBy(['id' => SORT_ASC])->all()
             ];
         }
 
-        $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $admin->setScenario('create');
+        $admin->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
-        if (!$adminGroup->save()) {
-            return $adminGroup;
+        if (!$admin->save()) {
+            return $admin;
         }
 
-        return $this->message('管理组新建成功', ['adminGroupId' => $adminGroup->id]);
+        return $this->message('管理员新建成功', ['adminId' => $admin->id]);
     }
 
     public function actionDelete($id)
     {
-        $adminGroup = $this->getAdminGroup($id);
+        $admin = $this->getAdminById($id);
 
-        if (!$adminGroup->delete()) {
-            return $adminGroup;
+        if (!$admin->delete()) {
+            return $admin;
         } else {
-            return $this->message('管理组删除成功');
+            return $this->message('管理员删除成功');
         }
     }
 
-    private function getAdminGroup($id)
+    private function getAdminById($id)
     {
-        /* @var $adminGroup AdminGroup */
-        $adminGroup = AdminGroup::findOne(['id' => $id]);
+        /* @var $admin Admin */
+        $admin = Admin::findOne(['id' => $id]);
 
-        if ($adminGroup == null) {
-            throw new NotFoundHttpException('管理组不存在');
+        if ($admin == null) {
+            throw new NotFoundHttpException('管理员不存在');
         }
 
-        return $adminGroup;
+        return $admin;
     }
 
     public function actionEdit($id)
     {
-        $adminGroup = $this->getAdminGroup($id);
+        $admin = $this->getAdminById($id);
 
-        if (!\Yii::$app->getRequest()->getIsPost()) {
+        if (!\Yii::$app->getRequest()->getIsPut()) {
             return [
-                'adminGroup' => $adminGroup->toArray(['name'], ['acl']),
-                'allAcl' => AdminHelper::getAllAcl()
+                'admin' => $admin,
+                'allGroup' => AdminGroup::find()->orderBy(['id' => SORT_ASC])->all()
             ];
         }
 
-        $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $admin->setScenario('edit');
+        $admin->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
-        if (!$adminGroup->save()) {
-            return $adminGroup;
+        if (!$admin->save()) {
+            return $admin;
         }
 
-        return $this->message('管理组编辑成功');
+        return $this->message('管理员编辑成功');
     }
 
     public function actionIndex()
     {
         return new ActiveDataProvider([
-            'query' => AdminGroup::find()->orderBy(['id' => SORT_ASC]),
+            'query' => Admin::find()->with(['group'])->orderBy(['id' => SORT_ASC]),
             'pagination' => false,
         ]);
     }
 
     public function actionView($id)
     {
-        $adminGroup = $this->getAdminGroup($id);
+        $adminGroup = $this->getAdminById($id);
 
         return $adminGroup->toArray(['id', 'name'], ['acl']);
     }
@@ -101,7 +102,7 @@ class AdminController extends Controller
             'index' => ['GET', 'HEAD'],
             'create' => ['GET', 'HEAD', 'POST'],
             'view' => ['GET', 'HEAD'],
-            'edit' => ['GET', 'HEAD', 'POST'],
+            'edit' => ['GET', 'HEAD', 'PUT'],
             'delete' => ['DELETE'],
         ];
     }

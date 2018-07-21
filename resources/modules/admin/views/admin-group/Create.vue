@@ -1,12 +1,13 @@
 <template>
-  <div class="box">
-    <admin-group-form :button-text="pageTitle"
+  <el-card shadow="never">
+    <div slot="header">{{ pageTitle }}</div>
+    <admin-group-form v-if="adminGroup" :button-text="pageTitle"
                       v-loading="loading"
                       :admin-group="adminGroup"
                       :all-acl="allAcl"
                       @on-submit="formSubmit">
     </admin-group-form>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -32,7 +33,7 @@
       })
     },
     methods: {
-      formSubmit(adminGroup, callback) {
+      formSubmit(adminGroup, success, callback) {
         this.$http.post('admin-group/create', adminGroup).then(data => {
           this.$message.success(data.message)
           this.$router.replace({ name: 'admin-group-edit', query: { id: data.adminGroupId } })

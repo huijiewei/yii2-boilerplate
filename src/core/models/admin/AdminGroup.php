@@ -151,6 +151,14 @@ class AdminGroup extends ActiveRecord
         return parent::beforeDelete();
     }
 
+    public function fields()
+    {
+        return [
+            'id',
+            'name'
+        ];
+    }
+
     public function extraFields()
     {
         return [
@@ -164,8 +172,9 @@ class AdminGroup extends ActiveRecord
     {
         return [
             [['name', 'acl'], 'trim'],
-            [['name'], 'required'],
-            [['name'], 'string', 'length' => [3, 10]],
+            ['name', 'required'],
+            ['name', 'string', 'length' => [3, 10]],
+            ['name', 'unique']
         ];
     }
 }

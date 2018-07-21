@@ -38,7 +38,7 @@ class AdminGroupController extends Controller
 
     public function actionDelete($id)
     {
-        $adminGroup = $this->getAdminGroup($id);
+        $adminGroup = $this->getAdminGroupById($id);
 
         if (!$adminGroup->delete()) {
             return $adminGroup;
@@ -47,7 +47,7 @@ class AdminGroupController extends Controller
         }
     }
 
-    private function getAdminGroup($id)
+    private function getAdminGroupById($id)
     {
         /* @var $adminGroup AdminGroup */
         $adminGroup = AdminGroup::findOne(['id' => $id]);
@@ -61,7 +61,7 @@ class AdminGroupController extends Controller
 
     public function actionEdit($id)
     {
-        $adminGroup = $this->getAdminGroup($id);
+        $adminGroup = $this->getAdminGroupById($id);
 
         if (!\Yii::$app->getRequest()->getIsPut()) {
             return [
@@ -89,7 +89,7 @@ class AdminGroupController extends Controller
 
     public function actionView($id)
     {
-        $adminGroup = $this->getAdminGroup($id);
+        $adminGroup = $this->getAdminGroupById($id);
 
         return $adminGroup->toArray(['id', 'name'], ['acl']);
     }

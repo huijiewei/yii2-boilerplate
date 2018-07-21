@@ -1,11 +1,14 @@
 <template>
-  <el-form :rules="formRules" :model="formModel" label-width="120px"
-           ref="formModel" :validate-on-rule-change="false"
+  <el-form :rules="formRules" :model="formModel" label-width="100px"
+           ref="formModel"
+           label-suffix="："
            @submit.native.stop.prevent="submitForm('formModel')">
-    <el-form-item label="管理组名称" prop="name">
-      <el-input v-model.trim="formModel.name"></el-input>
+    <el-form-item label="名称" prop="name">
+      <el-col :md="9">
+        <el-input v-model.trim="formModel.name"></el-input>
+      </el-col>
     </el-form-item>
-    <el-form-item label="管理组权限">
+    <el-form-item label="权限">
       <div class="check-group-box">
         <div class="cgb-panel" v-for="(group, index) in formModel.acl" :key="index">
           <div class="cgb-head">
@@ -46,6 +49,10 @@
         type: String,
         required: true
       },
+      isEdit: {
+        type: Boolean,
+        default: false
+      },
       adminGroup: {
         type: Object
       },
@@ -68,10 +75,8 @@
         }
       }
     },
-    watch: {
-      'adminGroup': function() {
-        this.update()
-      }
+    mounted() {
+      this.update()
     },
     methods: {
       update() {
@@ -160,6 +165,8 @@
           })
 
           this.$emit('on-submit', adminGroup, () => {
+            this.$refs[formName].clearValidate()
+          }, () => {
             this.submitLoading = false
           })
         })

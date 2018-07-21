@@ -1,12 +1,14 @@
 <template>
-  <div class="box">
-    <admin-group-form :button-text="pageTitle"
+  <el-card shadow="never">
+    <div slot="header">{{ pageTitle }}</div>
+    <admin-group-form v-if="adminGroup" :button-text="pageTitle"
                       v-loading="loading"
                       :admin-group="adminGroup"
                       :all-acl="allAcl"
+                      :is-edit="true"
                       @on-submit="formSubmit">
     </admin-group-form>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -39,9 +41,10 @@
           this.loading = false
         })
       },
-      formSubmit(adminGroup, callback) {
+      formSubmit(adminGroup, success, callback) {
         this.$http.put('admin-group/edit', adminGroup, { id: this.getAdminGroupId }).then(data => {
           this.$message.success(data.message)
+          success()
         }).catch(() => {
         }).finally(() => {
           callback()
