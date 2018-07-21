@@ -37,8 +37,8 @@
       }
     },
     beforeCreate() {
-      if (this.$store.getters['auth/isCurrentUserInit'] === false) {
-        this.$store.dispatch('auth/updateCurrentUser').then()
+      if (!this.$store.getters['auth/getCurrentUser']) {
+        this.$store.dispatch('auth/authentication').then()
       }
     }
   }

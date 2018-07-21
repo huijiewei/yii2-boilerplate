@@ -66,4 +66,27 @@
       padding: 5px 6px 4px 6px;
     }
   }
+
+  .el-card {
+    border-radius: 2px;
+
+    .el-card__header {
+      background-color: #fefefe;
+      padding: 15px 20px 13px 20px;
+      font-size: 15px;
+    }
+  }
+
+  .text-mono {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .form-help {
+    font-size: 13px;
+    color: #737373;
+  }
+
+  .form-help-inline {
+    margin-left: 10px;
+  }
 }

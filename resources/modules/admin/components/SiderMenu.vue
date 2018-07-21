@@ -21,7 +21,7 @@
     },
     computed: {
       getMenus() {
-        return this.$store.getters['auth/getCurrentUserMenus']
+        return this.$store.getters['auth/getGroupMenus']
       },
       getRouteActive() {
         let matched = this.$route.matched

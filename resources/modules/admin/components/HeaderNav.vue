@@ -7,12 +7,13 @@
     </div>
     <i :class="['anticon','trigger',isCollapsed ? 'anticon-menu-unfold':'anticon-menu-fold']"
        @click="toggleSidebar"></i>
-    <ul class="nav nav-right">
+    <ul v-if="getCurrentUser" class="nav nav-right">
       <li class="profile">
         <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link">
-            <img src="../assets/images/avatar.png">
-            {{getCurrentUser.displayName}}
+            <img v-if="getCurrentUser.displayIcon" :src="getCurrentUser.displayIcon">
+            <img v-else src="../assets/images/avatar.png">
+            {{getCurrentUser.displayName || getCurrentUser.phone}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -26,7 +27,7 @@
             </el-dropdown-item>
             <el-dropdown-item command="aclUpdate">
               <bp-icon type="sync"></bp-icon>
-              刷新权限
+              刷新资料
             </el-dropdown-item>
             <el-dropdown-item command="userLogout" divided>
               <bp-icon type="logout"></bp-icon>
@@ -83,8 +84,7 @@
         }
 
         if (command === 'aclUpdate') {
-          this.$store.dispatch('auth/updateCurrentUser').catch(() => {
-          })
+          this.$store.dispatch('auth/authentication').then()
         }
       }
     }

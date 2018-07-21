@@ -7,7 +7,7 @@
              :show-close="false"
              :close-on-press-escape="false"
              :visible="visible">
-    <login-form></login-form>
+    <login-form @login-success="loginSuccess"></login-form>
   </el-dialog>
 </template>
 
@@ -17,6 +17,11 @@
   export default {
     name: 'LoginModal',
     components: { LoginForm },
-    props: ['visible']
+    props: ['visible'],
+    methods: {
+      loginSuccess() {
+        this.$store.dispatch('auth/hideLoginModal').then()
+      }
+    }
   }
 </script>
