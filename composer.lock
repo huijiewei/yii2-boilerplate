@@ -65,16 +65,16 @@
         },
         {
             "name": "bower-asset/swagger-ui",
-            "version": "v3.17.3",
+            "version": "v3.17.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "9709df82d363060e55c0bb92008911ab5a5975dd"
+                "reference": "a3578fcafb77cae06ee76c66e97ef1f210345a95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/9709df82d363060e55c0bb92008911ab5a5975dd",
-                "reference": "9709df82d363060e55c0bb92008911ab5a5975dd",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/a3578fcafb77cae06ee76c66e97ef1f210345a95",
+                "reference": "a3578fcafb77cae06ee76c66e97ef1f210345a95",
                 "shasum": null
             },
             "type": "bower-asset"
@@ -896,16 +896,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "4.0.36",
+            "version": "4.0.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "7cf3e7d8814ad0a8ad8842086ad0e0e208106798"
+                "reference": "c679e92c63da9c890371b0a457ff06d96d797b31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/7cf3e7d8814ad0a8ad8842086ad0e0e208106798",
-                "reference": "7cf3e7d8814ad0a8ad8842086ad0e0e208106798",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/c679e92c63da9c890371b0a457ff06d96d797b31",
+                "reference": "c679e92c63da9c890371b0a457ff06d96d797b31",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -961,7 +961,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2018-07-11T07:18:59+00:00"
+            "time": "2018-07-19T08:45:19+00:00"
         },
         {
             "name": "pimple/pimple",
