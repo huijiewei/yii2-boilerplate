@@ -30,11 +30,16 @@
       })
     },
     methods: {
-      formSubmit(admin) {
-        return this.$http.post('admin/create', admin).then(data => {
+      formSubmit(admin, success, callback) {
+        this.$http.post('admin/create', admin).then(data => {
           this.$message.success(data.message)
           this.$router.replace({ path: '/admin/edit', query: { id: data.adminId } })
+
+          success()
         }).catch(() => {
+
+        }).finally(() => {
+          callback()
         })
       }
     }

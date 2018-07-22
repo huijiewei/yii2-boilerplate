@@ -133,9 +133,9 @@
 
           this.submitLoading = true
 
-          this.$emit('on-submit', this.formModel).then(() => {
+          this.$emit('on-submit', this.formModel, () => {
             this.$refs[formName].clearValidate()
-          }).finally(() => {
+          }, () => {
             this.submitLoading = false
           })
         })

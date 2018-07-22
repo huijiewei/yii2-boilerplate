@@ -56,6 +56,12 @@
       isEdit: {
         type: Boolean,
         default: false
+      },
+      adminGroup: {
+        type: Object
+      },
+      allAcl: {
+        type: Array
       }
     },
     data() {
@@ -70,65 +76,50 @@
         formModel: null
       }
     },
-    computed: {
-      getAdminGroupId() {
-        return this.$router.currentRoute.query.id
-      }
-    },
-    created() {
-      const http = this.isEdit ?
-        this.$http.get('admin-group/edit', { id: this.getAdminGroupId }) :
-        this.$http.get('admin-group/create')
+    mounted() {
+      const adminGroupAcl = this.adminGroup.acl
+      const result = []
 
-      http.then(data => {
-        this.setFormModal(data.adminGroup, data.allAcl)
-      }).catch(() => {
-      })
-    },
-    methods: {
-      setFormModal(adminGroup, allAcl) {
-        const adminGroupAcl = adminGroup.acl
-        const result = []
+      this.allAcl.forEach(acl => {
+        const group = {
+          name: acl.name,
+          checkAll: false,
+          checkIndeterminate: false,
+          checkedAcl: [],
+          aclCount: 0,
+          children: acl.children
+        }
 
-        allAcl.forEach(acl => {
-          const group = {
-            name: acl.name,
-            checkAll: false,
-            checkIndeterminate: false,
-            checkedAcl: [],
-            aclCount: 0,
-            children: acl.children
-          }
-
-          acl.children.forEach(child => {
-            if (child.children) {
-              child.children.forEach(item => {
-                group.aclCount++
-                if (adminGroupAcl.includes(item.actionId)) {
-                  group.checkedAcl.push(item.actionId)
-                }
-              })
-            } else {
+        acl.children.forEach(child => {
+          if (child.children) {
+            child.children.forEach(item => {
               group.aclCount++
-              if (adminGroupAcl.includes(child.actionId)) {
-                group.checkedAcl.push(child.actionId)
+              if (adminGroupAcl.includes(item.actionId)) {
+                group.checkedAcl.push(item.actionId)
               }
+            })
+          } else {
+            group.aclCount++
+            if (adminGroupAcl.includes(child.actionId)) {
+              group.checkedAcl.push(child.actionId)
             }
-          })
-
-          const checkedCount = group.checkedAcl.length
-
-          group.checkAll = group.aclCount === checkedCount
-          group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
-
-          result.push(group)
+          }
         })
 
-        this.formModel = {
-          name: adminGroup.name,
-          acl: result
-        }
-      },
+        const checkedCount = group.checkedAcl.length
+
+        group.checkAll = group.aclCount === checkedCount
+        group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
+
+        result.push(group)
+      })
+
+      this.formModel = {
+        name: this.adminGroup.name,
+        acl: result
+      }
+    },
+    methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
@@ -148,19 +139,9 @@
             })
           })
 
-          const http = this.isEdit ?
-            this.$http.put('admin-group/edit', adminGroup, { id: this.getAdminGroupId }) :
-            this.$http.post('admin-group/create', adminGroup)
-
-          http.then(data => {
-            this.$message.success(data.message)
+          this.$emit('on-submit', adminGroup, () => {
             this.$refs[formName].clearValidate()
-
-            if (!this.isEdit) {
-              this.$router.replace({ path: '/admin-group/edit', query: { id: data.adminGroupId } })
-            }
-          }).catch(() => {
-          }).finally(() => {
+          }, () => {
             this.submitLoading = false
           })
         })

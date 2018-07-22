@@ -18,7 +18,6 @@
     components: { AdminForm },
     data() {
       return {
-        loading: true,
         pageTitle: '编辑管理员',
         admin: null,
         allGroup: []
@@ -38,10 +37,14 @@
       }
     },
     methods: {
-      formSubmit(adminGroup) {
+      formSubmit(adminGroup, success, callback) {
         return this.$http.put('admin/edit', adminGroup, { id: this.getAdminId }).then(data => {
           this.$message.success(data.message)
+          success()
         }).catch(() => {
+
+        }).finally(() => {
+          callback()
         })
       }
     }
