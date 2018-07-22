@@ -3,8 +3,8 @@
     v-if="formModel"
     :rules="formRules"
     :model="formModel"
-    label-width="100px"
     ref="formModel"
+    label-width="100px"
     label-suffix="："
     @submit.native.stop.prevent="submitForm('formModel')">
     <el-form-item label="电话号码" prop="phone">
@@ -54,7 +54,7 @@
       </el-col>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" native-type="submit" :loading="submitLoading">{{ buttonText }}</el-button>
+      <el-button type="primary" native-type="submit" :loading="submitLoading">{{ submitText }}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -63,7 +63,7 @@
   export default {
     name: 'AdminForm',
     props: {
-      buttonText: {
+      submitText: {
         type: String,
         required: true
       },

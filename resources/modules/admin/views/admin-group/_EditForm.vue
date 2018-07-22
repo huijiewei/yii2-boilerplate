@@ -3,8 +3,8 @@
     v-if="formModel"
     :rules="formRules"
     :model="formModel"
-    label-width="100px"
     ref="formModel"
+    label-width="100px"
     label-suffix="："
     @submit.native.stop.prevent="submitForm('formModel')">
     <el-form-item label="名称" prop="name">

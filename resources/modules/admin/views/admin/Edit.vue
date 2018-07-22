@@ -2,7 +2,7 @@
   <el-card shadow="never">
     <div slot="header">{{ pageTitle }}</div>
     <admin-form v-if="admin"
-                :button-text="pageTitle"
+                :submit-text="pageTitle"
                 :admin="admin"
                 :all-group="allGroup"
                 :is-edit="true"
