@@ -1,8 +1,8 @@
 <template>
   <el-card shadow="never">
     <div slot="header">{{ pageTitle }}</div>
-    <admin-form v-if="admin" :button-text="pageTitle"
-                v-loading="loading"
+    <admin-form v-if="admin"
+                :button-text="pageTitle"
                 :admin="admin"
                 :all-group="allGroup"
                 :is-edit="true"
@@ -25,7 +25,12 @@
       }
     },
     created() {
-      this.getAdmin()
+      this.$http.get('admin/edit', { id: this.getAdminId }).then(data => {
+        this.admin = data.admin
+        this.allGroup = data.allGroup
+      }).catch(() => {
+
+      })
     },
     computed: {
       getAdminId() {
@@ -33,21 +38,10 @@
       }
     },
     methods: {
-      getAdmin() {
-        this.$http.get('admin/edit', { id: this.getAdminId }).then(data => {
-          this.admin = data.admin
-          this.allGroup = data.allGroup
-        }).finally(() => {
-          this.loading = false
-        })
-      },
-      formSubmit(adminGroup, success, callback) {
-        this.$http.put('admin/edit', adminGroup, { id: this.getAdminId }).then(data => {
+      formSubmit(adminGroup) {
+        return this.$http.put('admin/edit', adminGroup, { id: this.getAdminId }).then(data => {
           this.$message.success(data.message)
-          success()
         }).catch(() => {
-        }).finally(() => {
-          callback()
         })
       }
     }

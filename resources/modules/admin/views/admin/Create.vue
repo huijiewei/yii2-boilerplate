@@ -1,8 +1,8 @@
 <template>
   <el-card shadow="never">
     <div slot="header">{{ pageTitle }}</div>
-    <admin-form v-if="admin" :button-text="pageTitle"
-                v-loading="loading"
+    <admin-form v-if="admin"
+                :button-text="pageTitle"
                 :admin="admin"
                 :all-group="allGroup"
                 @on-submit="formSubmit">
@@ -17,7 +17,6 @@
     components: { AdminForm },
     data() {
       return {
-        loading: true,
         pageTitle: '新建管理员',
         admin: null,
         allGroup: []
@@ -28,18 +27,14 @@
         this.admin = data.admin
         this.allGroup = data.allGroup
       }).catch(() => {
-      }).finally(() => {
-        this.loading = false
       })
     },
     methods: {
-      formSubmit(admin, success, always) {
-        this.$http.post('admin/create', admin).then(data => {
+      formSubmit(admin) {
+        return this.$http.post('admin/create', admin).then(data => {
           this.$message.success(data.message)
-          this.$router.replace({ name: 'admin-edit', query: { id: data.adminId } })
+          this.$router.replace({ path: '/admin/edit', query: { id: data.adminId } })
         }).catch(() => {
-        }).finally(() => {
-          always()
         })
       }
     }

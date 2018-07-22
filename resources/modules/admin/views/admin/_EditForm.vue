@@ -1,8 +1,12 @@
 <template>
-  <el-form :rules="formRules" :model="formModel" label-width="100px"
-           ref="formModel"
-           label-suffix="："
-           @submit.native.stop.prevent="submitForm('formModel')">
+  <el-form
+    v-if="formModel"
+    :rules="formRules"
+    :model="formModel"
+    label-width="100px"
+    ref="formModel"
+    label-suffix="："
+    @submit.native.stop.prevent="submitForm('formModel')">
     <el-form-item label="电话号码" prop="phone">
       <el-col :md="9">
         <el-input v-model.trim="formModel.phone"></el-input>
@@ -117,15 +121,10 @@
         formModel: null
       }
     },
-    watch: {
-      'admin': function() {
-        this.update()
-      }
+    mounted() {
+      this.formModel = Object.assign({ password: '', passwordRepeat: '' }, this.admin)
     },
     methods: {
-      update() {
-        this.formModel = Object.assign({ password: '', passwordRepeat: '' }, this.admin)
-      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
@@ -134,9 +133,9 @@
 
           this.submitLoading = true
 
-          this.$emit('on-submit', this.formModel, () => {
+          this.$emit('on-submit', this.formModel).then(() => {
             this.$refs[formName].clearValidate()
-          }, () => {
+          }).finally(() => {
             this.submitLoading = false
           })
         })
