@@ -59,6 +59,15 @@ return [
             'useFileTransport' => true,
         ],
 
+        'aliyunOss' => [
+            'class' => \app\extensions\aliyunoss\AliyunOss::class,
+            'accessKeyId' => getenv('ALIYUN_OSS_ACCESS_KEY_ID'),
+            'accessKeySecret' => getenv('ALIYUN_OSS_ACCESS_KEY_SECRET'),
+            'endpoint' => getenv('ALIYUN_OSS_ENDPOINT'),
+            'bucket' => getenv('ALIYUN_OSS_BUCKET'),
+            'folder' => getenv('ALIYUN_OSS_FOLDER')
+        ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
