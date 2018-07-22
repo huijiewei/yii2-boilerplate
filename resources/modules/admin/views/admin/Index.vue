@@ -3,7 +3,7 @@
     <div class="box-toolbar">
       <router-link
         v-if="$can('admin/create')"
-        :to="{ name: 'admin-create' }">
+        :to="{ path: '/admin/create' }">
         <el-button type="primary" size="medium">
           新建管理员
         </el-button>
@@ -36,7 +36,7 @@
         <template slot-scope="scope">
           <router-link
             v-if="$can('admin/edit')"
-            :to="{ name: 'admin-edit', query: { id: scope.row.id } }">
+            :to="{ path: '/admin/edit', query: { id: scope.row.id } }">
             <el-button
               title="编辑"
               type="warning"

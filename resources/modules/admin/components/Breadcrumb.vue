@@ -1,7 +1,11 @@
 <template>
   <el-breadcrumb class="bp-breadcrumb">
+    <el-breadcrumb-item :to="{path:'/home'}">
+      <bp-icon type="home"></bp-icon>
+      <span>管理后台</span>
+    </el-breadcrumb-item>
     <template v-for="(breadcrumb, index) in breadcrumbs">
-      <el-breadcrumb-item :to="{ name: breadcrumb.link }" :key="index">
+      <el-breadcrumb-item :to="{ path: breadcrumb.path }" :key="index">
         <bp-icon v-if="breadcrumb.icon" :type="breadcrumb.icon"></bp-icon>
         <span>{{ breadcrumb.title }}</span>
       </el-breadcrumb-item>

@@ -8,38 +8,30 @@ import siteIndex from '@admin/views/site/Index'
 import siteLogin from '@admin/views/site/Login'
 import notFound from '@admin/views/site/NotFound'
 
-import defaultLayout from '@admin/layouts/Default'
+import defaultLayout from '@admin/components/DefaultLayout'
 
 Vue.use(VueRouter)
 
 const routes = [
+  ...userRoutes,
+  ...adminRoutes,
   {
     path: '/',
     component: defaultLayout,
-    meta: {
-      breadcrumb: {
-        title: '管理后台',
-        link: 'site-index',
-        icon: 'home'
-      }
-    },
     children: [
       {
-        name: 'site-index',
-        path: '',
+        path: 'home',
         component: siteIndex,
+        alias: '',
         meta: {
           breadcrumb: {
             title: '首页'
           }
         }
-      },
-      ...userRoutes,
-      ...adminRoutes
+      }
     ]
   },
   {
-    name: 'login',
     path: '/login',
     component: siteLogin
   },
@@ -50,9 +42,9 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes: routes,
   base: '/admin',
-  mode: 'history'
+  mode: 'history',
+  routes: routes
 })
 
 export default router

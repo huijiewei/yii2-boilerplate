@@ -13,7 +13,7 @@ export const deepSearch = (needle, haystack, found = []) => {
 
 export const formatUrl = (url) => {
   if (url === 'site/index') {
-    return ''
+    return 'home'
   }
 
   if (url.endsWith('/index')) {

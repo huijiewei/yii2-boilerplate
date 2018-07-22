@@ -1,23 +1,21 @@
-import Blank from '@admin/layouts/Blank'
+import DefaultLayout from '@admin/components/DefaultLayout'
 
 const routes = [
   {
-    path: 'user',
-    component: Blank,
+    path: '/user',
+    component: DefaultLayout,
     meta: {
       breadcrumb: {
         title: '会员',
-        link: 'user'
+        path: '/user'
       }
     },
     children: [
       {
-        name: 'user',
         path: '',
         component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Index')
       },
       {
-        name: 'user-create',
         path: 'create',
         component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Create'),
         meta: {
@@ -27,7 +25,6 @@ const routes = [
         }
       },
       {
-        name: 'user-import',
         path: 'import',
         component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Import'),
         meta: {

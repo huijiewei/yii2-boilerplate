@@ -1,12 +1,8 @@
 <template>
   <el-card shadow="never">
     <div slot="header">{{ pageTitle }}</div>
-    <admin-group-form v-if="adminGroup" :button-text="pageTitle"
-                      v-loading="loading"
-                      :admin-group="adminGroup"
-                      :all-acl="allAcl"
-                      :is-edit="true"
-                      @on-submit="formSubmit">
+    <admin-group-form :submit-text="pageTitle"
+                      :is-edit="true">
     </admin-group-form>
   </el-card>
 </template>
@@ -18,37 +14,7 @@
     components: { AdminGroupForm },
     data() {
       return {
-        loading: true,
-        pageTitle: '编辑管理组',
-        adminGroup: null,
-        allAcl: []
-      }
-    },
-    created() {
-      this.getAdminGroup()
-    },
-    computed: {
-      getAdminGroupId() {
-        return this.$router.currentRoute.query.id
-      }
-    },
-    methods: {
-      getAdminGroup() {
-        this.$http.get('admin-group/edit', { id: this.getAdminGroupId }).then(data => {
-          this.adminGroup = data.adminGroup
-          this.allAcl = data.allAcl
-        }).finally(() => {
-          this.loading = false
-        })
-      },
-      formSubmit(adminGroup, success, callback) {
-        this.$http.put('admin-group/edit', adminGroup, { id: this.getAdminGroupId }).then(data => {
-          this.$message.success(data.message)
-          success()
-        }).catch(() => {
-        }).finally(() => {
-          callback()
-        })
+        pageTitle: '编辑管理组'
       }
     }
   }

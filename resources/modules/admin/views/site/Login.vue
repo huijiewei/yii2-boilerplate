@@ -23,7 +23,7 @@
         if (this.$router.currentRoute.query.direct) {
           this.$router.replace(this.$router.currentRoute.query.direct)
         } else {
-          this.$router.replace('/')
+          this.$router.replace('/home')
         }
       }
     }

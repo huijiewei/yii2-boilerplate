@@ -1,8 +1,12 @@
 <template>
-  <el-form :rules="formRules" :model="formModel" label-width="100px"
-           ref="formModel"
-           label-suffix="："
-           @submit.native.stop.prevent="submitForm('formModel')">
+  <el-form
+    v-if="formModel"
+    :rules="formRules"
+    :model="formModel"
+    label-width="100px"
+    ref="formModel"
+    label-suffix="："
+    @submit.native.stop.prevent="submitForm('formModel')">
     <el-form-item label="名称" prop="name">
       <el-col :md="9">
         <el-input v-model.trim="formModel.name"></el-input>
@@ -36,7 +40,7 @@
       </div>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" native-type="submit" :loading="submitLoading">{{ buttonText }}</el-button>
+      <el-button type="primary" native-type="submit" :loading="submitLoading">{{ submitText }}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -45,19 +49,13 @@
   export default {
     name: 'AdminGroupForm',
     props: {
-      buttonText: {
+      submitText: {
         type: String,
         required: true
       },
       isEdit: {
         type: Boolean,
         default: false
-      },
-      adminGroup: {
-        type: Object
-      },
-      allAcl: {
-        type: Array
       }
     },
     data() {
@@ -69,21 +67,30 @@
             { min: 3, max: 10, message: '管理组名称长度在 3 到 10 个字符', trigger: 'blur' }
           ]
         },
-        formModel: {
-          name: '',
-          acl: []
-        }
+        formModel: null
       }
     },
-    mounted() {
-      this.update()
+    computed: {
+      getAdminGroupId() {
+        return this.$router.currentRoute.query.id
+      }
+    },
+    created() {
+      const http = this.isEdit ?
+        this.$http.get('admin-group/edit', { id: this.getAdminGroupId }) :
+        this.$http.get('admin-group/create')
+
+      http.then(data => {
+        this.setFormModal(data.adminGroup, data.allAcl)
+      }).catch(() => {
+      })
     },
     methods: {
-      update() {
-        const adminGroupAcl = this.adminGroup.acl
+      setFormModal(adminGroup, allAcl) {
+        const adminGroupAcl = adminGroup.acl
         const result = []
 
-        this.allAcl.forEach(acl => {
+        allAcl.forEach(acl => {
           const group = {
             name: acl.name,
             checkAll: false,
@@ -118,9 +125,45 @@
         })
 
         this.formModel = {
-          name: this.adminGroup.name,
+          name: adminGroup.name,
           acl: result
         }
+      },
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (!valid) {
+            return false
+          }
+
+          this.submitLoading = true
+
+          const adminGroup = {
+            name: this.formModel.name,
+            acl: []
+          }
+
+          this.formModel.acl.forEach(group => {
+            group.checkedAcl.forEach(acl => {
+              adminGroup.acl.push(acl)
+            })
+          })
+
+          const http = this.isEdit ?
+            this.$http.put('admin-group/edit', adminGroup, { id: this.getAdminGroupId }) :
+            this.$http.post('admin-group/create', adminGroup)
+
+          http.then(data => {
+            this.$message.success(data.message)
+            this.$refs[formName].clearValidate()
+
+            if (!this.isEdit) {
+              this.$router.replace({ path: '/admin-group/edit', query: { id: data.adminGroupId } })
+            }
+          }).catch(() => {
+          }).finally(() => {
+            this.submitLoading = false
+          })
+        })
       },
       handleCheckAllChange(group) {
         group.checkIndeterminate = false
@@ -144,32 +187,6 @@
 
         group.checkAll = group.aclCount === checkedCount
         group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
-      },
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (!valid) {
-            return false
-          }
-
-          this.submitLoading = true
-
-          const adminGroup = {
-            name: this.formModel.name,
-            acl: []
-          }
-
-          this.formModel.acl.forEach(group => {
-            group.checkedAcl.forEach(acl => {
-              adminGroup.acl.push(acl)
-            })
-          })
-
-          this.$emit('on-submit', adminGroup, () => {
-            this.$refs[formName].clearValidate()
-          }, () => {
-            this.submitLoading = false
-          })
-        })
       }
     }
   }

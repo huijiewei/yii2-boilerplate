@@ -114,7 +114,7 @@
             { required: true, message: '请选择所属管理组', trigger: 'change' }
           ]
         },
-        formModel: Object.assign({ password: '', passwordRepeat: '' }, this.admin)
+        formModel: null
       }
     },
     watch: {
@@ -124,7 +124,7 @@
     },
     methods: {
       update() {
-        this.formModel = this.admin
+        this.formModel = Object.assign({ password: '', passwordRepeat: '' }, this.admin)
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {

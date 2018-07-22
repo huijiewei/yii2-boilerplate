@@ -29,7 +29,7 @@
   import Breadcrumb from '@admin/components/Breadcrumb'
 
   export default {
-    name: 'Default',
+    name: 'DefaultLayout',
     components: { Breadcrumb, BpIcon, PrefectScrollbar, HeaderNav, SiderMenu },
     computed: {
       isCollapsed() {

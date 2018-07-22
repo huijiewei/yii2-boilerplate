@@ -1,24 +1,22 @@
-import Blank from '@admin/layouts/Blank'
+import DefaultLayout from '@admin/components/DefaultLayout'
 
 const routes = [
   {
-    path: 'admin',
-    component: Blank,
+    path: '/admin',
+    component: DefaultLayout,
     meta: {
       breadcrumb: {
         title: '管理员',
-        link: 'admin'
+        path: '/admin'
       }
     },
     children: [
       {
-        name: 'admin',
         path: '',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index')
 
       },
       {
-        name: 'admin-create',
         path: 'create',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Create'),
         meta: {
@@ -28,7 +26,6 @@ const routes = [
         }
       },
       {
-        name: 'admin-edit',
         path: 'edit',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Edit'),
         meta: {
@@ -40,22 +37,20 @@ const routes = [
     ]
   },
   {
-    path: 'admin-group',
-    component: Blank,
+    path: '/admin-group',
+    component: DefaultLayout,
     meta: {
       breadcrumb: {
         title: '管理组',
-        link: 'admin-group'
+        path: '/admin-group'
       }
     },
     children: [
       {
-        name: 'admin-group',
         path: '',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Index')
       },
       {
-        name: 'admin-group-create',
         path: 'create',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Create'),
         meta: {
@@ -65,7 +60,6 @@ const routes = [
         }
       },
       {
-        name: 'admin-group-edit',
         path: 'edit',
         component: () => import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Edit'),
         meta: {

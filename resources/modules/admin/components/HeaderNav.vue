@@ -64,7 +64,7 @@
               duration: 1000,
               message: data.message,
               onClose: () => {
-                this.$router.push({ name: 'login', query: { direct: this.$route.path } })
+                this.$router.push({ path: '/login', query: { direct: this.$route.path } })
               }
             })
           }).catch(() => {
