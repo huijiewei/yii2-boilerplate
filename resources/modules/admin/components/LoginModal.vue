@@ -7,20 +7,21 @@
              :show-close="false"
              :close-on-press-escape="false"
              :visible="visible">
-    <login-form @login-success="loginSuccess"></login-form>
+    <login-form @on-success="loginSuccess"></login-form>
   </el-dialog>
 </template>
 
 <script>
   import LoginForm from '@admin/components/LoginForm'
+  import flatry from '@admin/utils/flatry'
 
   export default {
     name: 'LoginModal',
     components: { LoginForm },
     props: ['visible'],
     methods: {
-      loginSuccess() {
-        this.$store.dispatch('auth/hideLoginModal').then()
+      async loginSuccess() {
+        await flatry(this.$store.dispatch('auth/hideLoginModal'))
       }
     }
   }

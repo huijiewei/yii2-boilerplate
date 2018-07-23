@@ -27,6 +27,7 @@
   import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
   import BpIcon from '@core/components/Icon/index'
   import Breadcrumb from '@admin/components/Breadcrumb'
+  import flatry from '@admin/utils/flatry'
 
   export default {
     name: 'DefaultLayout',
@@ -36,9 +37,9 @@
         return this.$store.getters.isSidebarCollapsed
       }
     },
-    beforeCreate() {
+    async beforeCreate() {
       if (!this.$store.getters['auth/getCurrentUser']) {
-        this.$store.dispatch('auth/authentication').then()
+        await flatry(this.$store.dispatch('auth/authentication'))
       }
     }
   }

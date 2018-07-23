@@ -6,7 +6,7 @@
           <div><img alt="Boilerplate" src="../../assets/images/logo.png"></div>
           <h3>管理员登陆</h3>
         </div>
-        <login-form @login-success="loginSuccess"></login-form>
+        <login-form @on-success="loginSuccess"></login-form>
       </div>
     </div>
   </div>

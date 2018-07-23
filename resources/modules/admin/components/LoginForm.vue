@@ -1,7 +1,7 @@
 <template>
   <el-form :rules="rules" :model="loginForm"
            ref="loginForm"
-           @submit.native.prevent="submitForm('loginForm')">
+           @submit.native.prevent="login('loginForm')">
     <el-form-item prop="account">
       <el-input placeholder="手机号码" type="tel" v-model="loginForm.account" auto-complete="off">
         <template slot="prepend">
@@ -24,6 +24,7 @@
 
 <script>
   import BpIcon from '@core/components/Icon/index'
+  import flatry from '@admin/utils/flatry'
 
   export default {
     name: 'LoginForm',
@@ -47,26 +48,27 @@
       }
     },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+      login(formName) {
+        this.$refs[formName].validate(async (valid) => {
           if (!valid) {
             return false
           }
 
           this.submitLoading = true
 
-          this.$store.dispatch('auth/login', this.loginForm).then(data => {
+          const { data } = await flatry(this.$store.dispatch('auth/login', this.loginForm))
+
+          if (data) {
             this.$notify.success({
               title: data.message,
               message: '欢迎光临 Boilerplate 管理系统',
               duration: 2000
             })
 
-            this.$emit('login-success')
-          }).catch(() => {
-          }).finally(() => {
-            this.submitLoading = false
-          })
+            this.$emit('on-success')
+          }
+
+          this.submitLoading = false
         })
       }
     }

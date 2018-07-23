@@ -42,6 +42,7 @@
 
 <script>
   import BpIcon from '@core/components/Icon/index'
+  import flatry from '@admin/utils/flatry'
 
   export default {
     name: 'HeaderNav',
@@ -53,12 +54,14 @@
       }
     },
     methods: {
-      toggleSidebar() {
-        this.$store.dispatch('toggleSidebar').then()
+      async toggleSidebar() {
+        await flatry(this.$store.dispatch('toggleSidebar'))
       },
-      handleCommand(command) {
+      async handleCommand(command) {
         if (command === 'userLogout') {
-          this.$store.dispatch('auth/logout').then(data => {
+          const { data } = await flatry(this.$store.dispatch('auth/logout'))
+
+          if (data) {
             this.$message({
               type: 'success',
               duration: 1000,
@@ -67,8 +70,7 @@
                 this.$router.push({ path: '/login', query: { direct: this.$route.path } })
               }
             })
-          }).catch(() => {
-          })
+          }
 
           return
         }
@@ -84,7 +86,7 @@
         }
 
         if (command === 'aclUpdate') {
-          this.$store.dispatch('auth/authentication').then()
+          await flatry(this.$store.dispatch('auth/authentication'))
         }
       }
     }
