@@ -13,6 +13,8 @@
 
 <script>
   import AdminGroupForm from '@admin/views/admin-group/_EditForm'
+  import AdminGroupService from '@admin/services/AdminGroupService'
+  import flatry from '@admin/utils/flatry'
 
   export default {
     components: { AdminGroupForm },
@@ -23,13 +25,13 @@
         allAcl: []
       }
     },
-    created() {
-      this.$http.get('admin-group/edit', { id: this.getAdminGroupId }).then(data => {
+    async created() {
+      const { data } = await flatry(AdminGroupService.edit(this.getAdminGroupId))
+
+      if (data) {
         this.adminGroup = data.adminGroup
         this.allAcl = data.allAcl
-      }).catch(() => {
-
-      })
+      }
     },
     computed: {
       getAdminGroupId() {
@@ -37,16 +39,16 @@
       }
     },
     methods: {
-      editAdminGroup(adminGroup, success, callback) {
-        this.$http.put('admin-group/edit', adminGroup, { id: this.getAdminGroupId }).then(data => {
+      async editAdminGroup(adminGroup, success, callback) {
+        const { data } = await flatry(AdminGroupService.edit(this.getAdminGroupId, adminGroup))
+
+        if (data) {
           this.$message.success(data.message)
 
           success()
-        }).catch(() => {
+        }
 
-        }).finally(() => {
-          callback()
-        })
+        callback()
       }
     }
   }

@@ -13,6 +13,8 @@
 
 <script>
   import AdminForm from '@admin/views/admin/_EditForm'
+  import AdminService from '@admin/services/AdminService'
+  import flatry from '@admin/utils/flatry'
 
   export default {
     components: { AdminForm },
@@ -23,13 +25,13 @@
         allGroup: []
       }
     },
-    created() {
-      this.$http.get('admin/edit', { id: this.getAdminId }).then(data => {
+    async created() {
+      const { data } = await flatry(AdminService.edit(this.getAdminId))
+
+      if (data) {
         this.admin = data.admin
         this.allGroup = data.allGroup
-      }).catch(() => {
-
-      })
+      }
     },
     computed: {
       getAdminId() {
@@ -37,15 +39,15 @@
       }
     },
     methods: {
-      editAdmin(adminGroup, success, callback) {
-        this.$http.put('admin/edit', adminGroup, { id: this.getAdminId }).then(data => {
+      async editAdmin(admin, success, callback) {
+        const { data } = await flatry(AdminService.edit(this.getAdminId, admin))
+
+        if (data) {
           this.$message.success(data.message)
           success()
-        }).catch(() => {
+        }
 
-        }).finally(() => {
-          callback()
-        })
+        callback()
       }
     }
   }

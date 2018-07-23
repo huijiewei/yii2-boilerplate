@@ -1,6 +1,6 @@
-import Vue from 'vue'
 import Auth from '@admin/utils/auth'
 import { deepSearch, formatUrl } from '@admin/utils/util'
+import AuthService from '@admin/services/AuthService'
 
 const auth = {
   namespaced: true,
@@ -62,7 +62,7 @@ const auth = {
       commit('TOGGLE_LOGIN_MODAL', false)
     },
     login({ commit }, credentials) {
-      return Vue.http.post('auth/login', credentials).then(data => {
+      return AuthService.login(credentials).then(data => {
         Auth.setAccessToken(data.accessToken)
 
         commit('UPDATE_CURRENT_USER', data.currentUser)
@@ -73,7 +73,7 @@ const auth = {
       })
     },
     logout({ commit }) {
-      return Vue.http.post('auth/logout').then((data) => {
+      return AuthService.logout().then((data) => {
         commit('UPDATE_CURRENT_USER', null)
         commit('UPDATE_GROUP_ACL', [])
         commit('UPDATE_GROUP_MENUS', [])
@@ -84,7 +84,7 @@ const auth = {
       })
     },
     authentication({ commit }) {
-      return Vue.http.get('auth/authentication').then(data => {
+      return AuthService.authentication().then(data => {
         commit('UPDATE_CURRENT_USER', data.currentUser)
         commit('UPDATE_GROUP_ACL', data.groupAcl)
         commit('UPDATE_GROUP_MENUS', data.groupMenus)

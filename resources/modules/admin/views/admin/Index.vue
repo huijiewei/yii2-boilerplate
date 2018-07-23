@@ -61,6 +61,9 @@
 </template>
 
 <script>
+  import AdminService from '@admin/services/AdminService'
+  import flatry from '@admin/utils/flatry'
+
   export default {
     data() {
       return {
@@ -75,38 +78,40 @@
           confirmButtonText: '删除',
           confirmButtonClass: 'el-button--danger',
           cancelButtonText: '取消',
-          type: 'error'
-        }).then(() => {
-          this.loading = true
+          type: 'error',
+          callback: async (action) => {
+            if (action === 'confirm') {
+              this.loading = true
 
-          this.$http.delete('admin/delete', { id: admin.id }).then(response => {
-            this.admins.forEach((item, index) => {
-              if (item.id === admin.id) {
-                this.admins.splice(index, 1)
+              const { data } = await flatry(AdminService.delete(admin.id))
+
+              if (data) {
+                this.admins.forEach((item, index) => {
+                  if (item.id === admin.id) {
+                    this.admins.splice(index, 1)
+                  }
+                })
+
+                this.$message({
+                  type: 'success',
+                  message: data.message
+                })
               }
-            })
 
-            this.$message({
-              type: 'success',
-              message: response.data.message
-            })
-          }).catch(() => {
-
-          }).finally(() => {
-            this.loading = false
-          })
-        }).catch(() => {
-
+              this.loading = false
+            }
+          }
         })
       }
     },
-    created() {
-      this.$http.get('admin', { expand: 'group' }).then((data) => {
+    async created() {
+      const { data } = await flatry(AdminService.all())
+
+      if (data) {
         this.admins = data.items
-      }).catch(() => {
-      }).finally(() => {
-        this.loading = false
-      })
+      }
+
+      this.loading = false
     }
   }
 </script>

@@ -12,6 +12,8 @@
 
 <script>
   import AdminForm from '@admin/views/admin/_EditForm'
+  import AdminService from '@admin/services/AdminService'
+  import flatry from '@admin/utils/flatry'
 
   export default {
     components: { AdminForm },
@@ -22,25 +24,26 @@
         allGroup: []
       }
     },
-    created() {
-      this.$http.get('admin/create').then(data => {
+    async created() {
+      const { data } = await flatry(AdminService.create())
+
+      if (data) {
         this.admin = data.admin
         this.allGroup = data.allGroup
-      }).catch(() => {
-      })
+      }
     },
     methods: {
-      createAdmin(admin, success, callback) {
-        this.$http.post('admin/create', admin).then(data => {
+      async createAdmin(admin, success, callback) {
+        const { data } = await flatry(AdminService.create(admin))
+
+        if (data) {
           this.$message.success(data.message)
           this.$router.replace({ path: '/admin/edit', query: { id: data.adminId } })
 
           success()
-        }).catch(() => {
+        }
 
-        }).finally(() => {
-          callback()
-        })
+        callback()
       }
     }
   }
