@@ -38,7 +38,7 @@
     },
     methods: {
       formSubmit(adminGroup, success, callback) {
-        return this.$http.put('admin/edit', adminGroup, { id: this.getAdminId }).then(data => {
+        this.$http.put('admin/edit', adminGroup, { id: this.getAdminId }).then(data => {
           this.$message.success(data.message)
           success()
         }).catch(() => {

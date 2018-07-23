@@ -31,7 +31,7 @@
     },
     methods: {
       formSubmit(adminGroup, success, callback) {
-        return this.$http.post('admin-group/create', adminGroup).then(data => {
+        this.$http.post('admin-group/create', adminGroup).then(data => {
           this.$message.success(data.message)
           this.$router.replace({ path: '/admin-group/edit', query: { id: data.adminGroupId } })
 
