@@ -5,7 +5,7 @@
                       :submit-text="pageTitle"
                       :admin-group="adminGroup"
                       :all-acl="allAcl"
-                      @on-submit="formSubmit">
+                      @on-submit="createAdminGroup">
     </admin-group-form>
   </el-card>
 </template>
@@ -30,7 +30,7 @@
       })
     },
     methods: {
-      formSubmit(adminGroup, success, callback) {
+      createAdminGroup(adminGroup, success, callback) {
         this.$http.post('admin-group/create', adminGroup).then(data => {
           this.$message.success(data.message)
           this.$router.replace({ path: '/admin-group/edit', query: { id: data.adminGroupId } })

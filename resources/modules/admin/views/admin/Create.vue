@@ -5,7 +5,7 @@
                 :submit-text="pageTitle"
                 :admin="admin"
                 :all-group="allGroup"
-                @on-submit="formSubmit">
+                @on-submit="createAdmin">
     </admin-form>
   </el-card>
 </template>
@@ -30,7 +30,7 @@
       })
     },
     methods: {
-      formSubmit(admin, success, callback) {
+      createAdmin(admin, success, callback) {
         this.$http.post('admin/create', admin).then(data => {
           this.$message.success(data.message)
           this.$router.replace({ path: '/admin/edit', query: { id: data.adminId } })

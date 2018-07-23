@@ -6,7 +6,7 @@
                       :admin-group="adminGroup"
                       :all-acl="allAcl"
                       :is-edit="true"
-                      @on-submit="formSubmit">
+                      @on-submit="editAdminGroup">
     </admin-group-form>
   </el-card>
 </template>
@@ -37,7 +37,7 @@
       }
     },
     methods: {
-      formSubmit(adminGroup, success, callback) {
+      editAdminGroup(adminGroup, success, callback) {
         this.$http.put('admin-group/edit', adminGroup, { id: this.getAdminGroupId }).then(data => {
           this.$message.success(data.message)
 
