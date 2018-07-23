@@ -31,18 +31,15 @@
               编辑
             </el-button>
           </router-link>
-          <delete-button
+          <el-button
             v-if="$can('admin-group/delete')"
             title="删除"
             size="mini"
             type="danger"
-            :confirm="`你确定要删除${scope.row.name}吗?`"
             :plain="true"
-            :api-url="'admin-group/delete'"
-            :api-params="{ id: scope.row.id }"
-            @on-success="deleteSuccess(scope.row)">
+            @click="deleteAdminGroup(scope.row)">
             删除
-          </delete-button>
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -50,22 +47,42 @@
 </template>
 
 <script>
-  import DeleteButton from '@admin/components/DeleteButton'
-
   export default {
-    components: { DeleteButton },
     data() {
       return {
-        adminGroups: [],
-        loading: true
+        loading: true,
+        adminGroups: []
       }
     },
     methods: {
-      deleteSuccess(group) {
-        this.adminGroups.forEach((item, index) => {
-          if (item.id === group.id) {
-            this.adminGroups.splice(index, 1)
-          }
+      deleteAdminGroup(group) {
+        this.$confirm(`你确定要删除 ${group.name} 吗？`, {
+          showClose: false,
+          confirmButtonText: '删除',
+          confirmButtonClass: 'el-button--danger',
+          cancelButtonText: '取消',
+          type: 'error'
+        }).then(() => {
+          this.loading = true
+
+          this.$http.delete('admin-group/delete', { id: group.id }).then(response => {
+            this.adminGroups.forEach((item, index) => {
+              if (item.id === group.id) {
+                this.adminGroups.splice(index, 1)
+              }
+            })
+
+            this.$message({
+              type: 'success',
+              message: response.data.message
+            })
+          }).catch(() => {
+
+          }).finally(() => {
+            this.loading = false
+          })
+        }).catch(() => {
+
         })
       }
     },
