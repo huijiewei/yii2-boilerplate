@@ -45,18 +45,15 @@
               编辑
             </el-button>
           </router-link>
-          <delete-button
+          <el-button
             v-if="$can('admin/delete')"
             title="删除"
             size="mini"
             type="danger"
-            :confirm="`你确定要删除${scope.row.name}吗?`"
             :plain="true"
-            :api-url="'admin/delete'"
-            :api-params="{ id: scope.row.id }"
-            @on-success="deleteSuccess(scope.row)">
+            @click="deleteAdmin(scope.row)">
             删除
-          </delete-button>
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,22 +61,42 @@
 </template>
 
 <script>
-  import DeleteButton from '@admin/components/DeleteButton'
-
   export default {
-    components: { DeleteButton },
     data() {
       return {
-        admins: [],
-        loading: true
+        loading: true,
+        admins: []
       }
     },
     methods: {
-      deleteSuccess(group) {
-        this.admins.forEach((item, index) => {
-          if (item.id === group.id) {
-            this.admins.splice(index, 1)
-          }
+      deleteAdmin(admin) {
+        this.$confirm(`你确定要删除 ${admin.displayName || admin.phone} 吗？`, {
+          showClose: false,
+          confirmButtonText: '删除',
+          confirmButtonClass: 'el-button--danger',
+          cancelButtonText: '取消',
+          type: 'error'
+        }).then(() => {
+          this.loading = true
+
+          this.$http.delete('admin/delete', { id: admin.id }).then(response => {
+            this.admins.forEach((item, index) => {
+              if (item.id === admin.id) {
+                this.admins.splice(index, 1)
+              }
+            })
+
+            this.$message({
+              type: 'success',
+              message: response.data.message
+            })
+          }).catch(() => {
+
+          }).finally(() => {
+            this.loading = false
+          })
+        }).catch(() => {
+
         })
       }
     },
