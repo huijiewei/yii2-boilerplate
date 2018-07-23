@@ -11,8 +11,8 @@
       <li class="profile">
         <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link">
-            <img v-if="getCurrentUser.displayIcon" :src="getCurrentUser.displayIcon">
-            <img v-else src="../assets/images/avatar.png">
+            <img class="bp-avatar" v-if="getCurrentUser.displayIcon" :src="getCurrentUser.displayIcon">
+            <img class="bp-avatar" v-else src="../assets/images/avatar.png">
             {{getCurrentUser.displayName || getCurrentUser.phone}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>

@@ -25,8 +25,11 @@
         label="显示名">
       </el-table-column>
       <el-table-column
-        prop="displayIcon"
         label="头像">
+        <template slot-scope="scope">
+          <img class="bp-avatar" width="32" v-if="scope.row.displayIcon" :src="scope.row.displayIcon">
+          <img class="bp-avatar" width="32" v-else src="../../assets/images/avatar.png">
+        </template>
       </el-table-column>
       <el-table-column
         prop="group.name"

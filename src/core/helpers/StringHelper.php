@@ -8,6 +8,7 @@
 
 namespace app\core\helpers;
 
+use Hidehalo\Nanoid\Client;
 use yii\helpers\BaseStringHelper;
 
 class StringHelper extends BaseStringHelper
@@ -78,5 +79,17 @@ class StringHelper extends BaseStringHelper
         }
 
         return true;
+    }
+
+    /**
+     * @param int $size
+     *
+     * @return string
+     */
+    public static function generateNanoId($size = 32)
+    {
+        $client = new Client();
+
+        return $client->formatedId($alphabet = '3456789abcdefghgkmnpqrstuvwxy', $size);
     }
 }

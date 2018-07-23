@@ -8,6 +8,7 @@
 
 namespace app\extensions\aliyunoss;
 
+use app\core\helpers\StringHelper;
 use OSS\OssClient;
 use yii\base\Component;
 use yii\base\InvalidArgumentException;
@@ -53,5 +54,37 @@ class AliyunOss extends Component
         }
 
         return $this->ossClient;
+    }
+
+    public function getFormUpload()
+    {
+        $month = \Yii::$app->getFormatter()->asDate('now', 'yyyyMM');
+        $folder = StringHelper::endsTrim($this->folder, '/') . '/' . $month . '/';
+
+        $policy = [
+            'expiration' => \Yii::$app->getFormatter()->asDatetime('+10 minutes', 'php:Y-m-d\TH:i:s\Z'),
+            'conditions' => [
+                ['content-length-range', 0, 1024000],
+                ['starts-with', '$key', $folder],
+            ]
+        ];
+
+        $policyJson = json_encode($policy);
+        $policyBase64 = base64_encode($policyJson);
+
+        $signature = base64_encode(hash_hmac('sha1', $policyBase64, $this->accessKeySecret, true));
+
+        $data = [];
+
+        $data['OSSAccessKeyId'] = $this->accessKeyId;
+        $data['policy'] = $policyBase64;
+        $data['Signature'] = $signature;
+        $data['key'] = $folder . StringHelper::generateNanoId(12);
+        $data['success_action_status'] = 201;
+
+        return [
+            'action' => 'https://' . $this->bucket . '.' . $this->endpoint,
+            'data' => $data,
+        ];
     }
 }

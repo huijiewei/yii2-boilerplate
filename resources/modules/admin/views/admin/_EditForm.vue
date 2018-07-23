@@ -31,18 +31,13 @@
       </el-col>
     </el-form-item>
     <el-form-item label="头像" prop="displayIcon">
-      <el-upload
-        class="avatar-uploader"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :show-file-list="false">
-        <img v-if="formModel.displayIcon" :src="formModel.displayIcon" class="avatar">
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-
+      <aliyun-oss-uploader :avatar="formModel.displayIcon"
+                           @on-upload-success="handleUploadSuccess"></aliyun-oss-uploader>
     </el-form-item>
     <el-form-item label="管理组" prop="groupId">
       <el-col :md="5">
-        <el-select v-model="formModel.groupId" :disabled="$store.getters['auth/getCurrentUser'].id === formModel.id"
+        <el-select v-model="formModel.groupId"
+                   :disabled="getCurrentUserId === formModel.id"
                    placeholder="所属管理组">
           <el-option
             v-for="item in adminGroups"
@@ -62,9 +57,11 @@
 <script>
   import AdminService from '@admin/services/AdminService'
   import flatry from '@admin/utils/flatry'
+  import AliyunOssUploader from '@admin/components/uploaders/AliyunOssUploader'
 
   export default {
     name: 'AdminForm',
+    components: { AliyunOssUploader },
     props: {
       submitText: {
         type: String,
@@ -76,6 +73,11 @@
       },
       admin: {
         type: Object
+      }
+    },
+    computed: {
+      getCurrentUserId() {
+        return this.$store.getters['auth/getCurrentUser'] ? this.$store.getters['auth/getCurrentUser'].id : 0
       }
     },
     data() {
@@ -132,6 +134,9 @@
       }
     },
     methods: {
+      handleUploadSuccess(avatarUrl) {
+        this.formModel.displayIcon = avatarUrl
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
@@ -150,32 +155,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 3px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 16px;
-    color: #8c939d;
-    width: 90px;
-    height: 90px;
-    line-height: 90px;
-    text-align: center;
-  }
-
-  .avatar {
-    width: 90px;
-    height: 90px;
-    display: block;
-  }
-</style>

@@ -8,6 +8,7 @@
 
 namespace app\modules\admin\api\controllers;
 
+use app\extensions\aliyunoss\AliyunOss;
 use app\modules\admin\api\Controller;
 
 class SiteController extends Controller
@@ -20,5 +21,13 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->message('欢迎使用 Boilerplate');
+    }
+
+    public function actionAliyunOssUpload()
+    {
+        /* @var $aliyunOss AliyunOss */
+        $aliyunOss = \Yii::$app->get('aliyunOss');
+
+        return $aliyunOss->getFormUpload();
     }
 }
