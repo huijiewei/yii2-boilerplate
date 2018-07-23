@@ -1,13 +1,15 @@
 <template>
-  <el-card shadow="never">
-    <div slot="header">{{ pageTitle }}</div>
+  <div class="box">
+    <div class="box-header">
+      <h4>{{ pageTitle }}</h4>
+    </div>
     <admin-group-form v-if="adminGroup"
                       :submit-text="pageTitle"
                       :admin-group="adminGroup"
                       :all-acl="allAcl"
                       @on-submit="createAdminGroup">
     </admin-group-form>
-  </el-card>
+  </div>
 </template>
 
 <script>

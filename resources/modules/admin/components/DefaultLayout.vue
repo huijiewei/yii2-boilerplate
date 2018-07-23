@@ -84,9 +84,17 @@
       .box {
         background: #fff;
         padding: 20px;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
 
         .box-header {
+          border-bottom: 1px solid #ddd;
           margin-bottom: 20px;
+          padding-bottom: 13px;
+
+          h4 {
+            font-size: 14px;
+            font-weight: normal;
+          }
 
           h1,
           h2,
