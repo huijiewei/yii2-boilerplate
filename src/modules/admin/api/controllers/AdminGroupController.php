@@ -9,7 +9,6 @@
 namespace app\modules\admin\api\controllers;
 
 use app\core\models\admin\AdminGroup;
-use app\core\models\admin\AdminHelper;
 use app\modules\admin\api\Controller;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -21,10 +20,7 @@ class AdminGroupController extends Controller
         $adminGroup = new AdminGroup();
 
         if (!\Yii::$app->getRequest()->getIsPost()) {
-            return [
-                'adminGroup' => $adminGroup->toArray(['name'], ['acl']),
-                'allAcl' => AdminHelper::getAllAcl()
-            ];
+            return $adminGroup->toArray(['name'], ['acl']);
         }
 
         $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
@@ -64,10 +60,7 @@ class AdminGroupController extends Controller
         $adminGroup = $this->getAdminGroupById($id);
 
         if (!\Yii::$app->getRequest()->getIsPut()) {
-            return [
-                'adminGroup' => $adminGroup->toArray(['name'], ['acl']),
-                'allAcl' => AdminHelper::getAllAcl()
-            ];
+            return $adminGroup->toArray(['name'], ['acl']);
         }
 
         $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');

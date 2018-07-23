@@ -4,6 +4,9 @@ const AdminGroupService = {
   all() {
     return Vue.http.get('admin-group')
   },
+  acls() {
+    return Vue.http.get('filter/admin-all-acl')
+  },
   delete(id) {
     return Vue.http.delete('admin-group/delete', { id: id })
   },

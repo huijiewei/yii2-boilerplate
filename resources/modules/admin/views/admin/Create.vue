@@ -6,7 +6,6 @@
     <admin-form v-if="admin"
                 :submit-text="pageTitle"
                 :admin="admin"
-                :all-group="allGroup"
                 @on-submit="createAdmin">
     </admin-form>
   </div>
@@ -22,16 +21,14 @@
     data() {
       return {
         pageTitle: '新建管理员',
-        admin: null,
-        allGroup: []
+        admin: null
       }
     },
     async created() {
       const { data } = await flatry(AdminService.create())
 
       if (data) {
-        this.admin = data.admin
-        this.allGroup = data.allGroup
+        this.admin = data
       }
     },
     methods: {

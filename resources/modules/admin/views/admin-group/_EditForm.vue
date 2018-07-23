@@ -46,6 +46,9 @@
 </template>
 
 <script>
+  import flatry from '@admin/utils/flatry'
+  import AdminGroupService from '@admin/services/AdminGroupService'
+
   export default {
     name: 'AdminGroupForm',
     props: {
@@ -59,9 +62,6 @@
       },
       adminGroup: {
         type: Object
-      },
-      allAcl: {
-        type: Array
       }
     },
     data() {
@@ -73,10 +73,17 @@
             { min: 3, max: 10, message: '管理组名称长度在 3 到 10 个字符', trigger: 'blur' }
           ]
         },
-        formModel: null
+        formModel: null,
+        allAcl: []
       }
     },
-    mounted() {
+    async mounted() {
+      const { data } = await flatry(AdminGroupService.acls())
+
+      if (data) {
+        this.allAcl = data
+      }
+
       const adminGroupAcl = this.adminGroup.acl
       const result = []
 

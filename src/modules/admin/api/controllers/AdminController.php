@@ -9,7 +9,6 @@
 namespace app\modules\admin\api\controllers;
 
 use app\core\models\admin\Admin;
-use app\core\models\admin\AdminGroup;
 use app\modules\admin\api\Controller;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -21,10 +20,7 @@ class AdminController extends Controller
         $admin = new Admin();
 
         if (!\Yii::$app->getRequest()->getIsPost()) {
-            return [
-                'admin' => $admin,
-                'allGroup' => AdminGroup::find()->orderBy(['id' => SORT_ASC])->all()
-            ];
+            return $admin;
         }
 
         $admin->setScenario('create');
@@ -65,10 +61,7 @@ class AdminController extends Controller
         $admin = $this->getAdminById($id);
 
         if (!\Yii::$app->getRequest()->getIsPut()) {
-            return [
-                'admin' => $admin,
-                'allGroup' => AdminGroup::find()->orderBy(['id' => SORT_ASC])->all()
-            ];
+            return $admin;
         }
 
         $admin->setScenario('edit');
@@ -91,9 +84,9 @@ class AdminController extends Controller
 
     public function actionView($id)
     {
-        $adminGroup = $this->getAdminById($id);
+        $admin = $this->getAdminById($id);
 
-        return $adminGroup->toArray(['id', 'name'], ['acl']);
+        return $admin;
     }
 
     public function verbs()

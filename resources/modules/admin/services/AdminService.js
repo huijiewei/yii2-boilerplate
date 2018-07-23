@@ -5,6 +5,10 @@ const AdminService = {
     return Vue.http.get('admin', { expand: 'group' })
   },
 
+  groups() {
+    return Vue.http.get('filter/admin-groups')
+  },
+
   delete(id) {
     return Vue.http.delete('admin/delete', { id: id })
   },

@@ -45,7 +45,7 @@
         <el-select v-model="formModel.groupId" :disabled="$store.getters['auth/getCurrentUser'].id === formModel.id"
                    placeholder="所属管理组">
           <el-option
-            v-for="item in allGroup"
+            v-for="item in adminGroups"
             :key="item.id"
             :label="item.name"
             :value="item.id">
@@ -60,6 +60,9 @@
 </template>
 
 <script>
+  import AdminService from '@admin/services/AdminService'
+  import flatry from '@admin/utils/flatry'
+
   export default {
     name: 'AdminForm',
     props: {
@@ -73,9 +76,6 @@
       },
       admin: {
         type: Object
-      },
-      allGroup: {
-        type: Array
       }
     },
     data() {
@@ -118,11 +118,18 @@
             { required: true, message: '请选择所属管理组', trigger: 'change' }
           ]
         },
-        formModel: null
+        formModel: null,
+        adminGroups: []
       }
     },
-    mounted() {
+    async mounted() {
       this.formModel = Object.assign({ password: '', passwordRepeat: '' }, this.admin)
+
+      const { data } = await flatry(AdminService.groups())
+
+      if (data) {
+        this.adminGroups = data
+      }
     },
     methods: {
       submitForm(formName) {
