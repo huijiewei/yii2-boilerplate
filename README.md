@@ -66,26 +66,31 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 ├── config // 后端配置
 ├── database 
 │   └── migrations // 数据迁移脚本
-├── public // 网站
+├── public // 网站根目录
+│   └── statics // 静态资源
 ├── resources // 前端开发
 │   ├── config // webpack4 配置文件
+│   │   ├── webpack // 配置生成器
 │   ├── core // 公用核心模块
+│   │   ├── assets
 │   │   ├── components
-│   │   │   └── Breadcrumb
 │   │   └── styles
 │   └── modules // 前端模块目录
 │      └── admin // 管理后台前端代码目录
+│          ├── assets
 │          ├── components
+│          ├── plugins
 │          ├── router
 │          │   ├── auth
 │          │   ├── site
 │          │   └── user
+│          ├── services
+│          ├── store
+│          ├── utils
 │          └── views
-│              ├── layouts
-│              └── templates
-│                  ├── auth
-│                  ├── site
-│                  └── user
+│              ├── auth
+│              ├── site
+│              └── user
 ├── src // 后端代码
 │   ├── core // 核心公用代码
 │   │   ├── components
