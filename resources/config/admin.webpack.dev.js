@@ -2,7 +2,7 @@ const configGenerator = require('./webpack/Generator')
 
 const config = require('./admin.base.config')
 
-config.useDevServer = true
+config.serveEnable = true
 config.profile = true
 
 const webpackConfig = configGenerator(config)

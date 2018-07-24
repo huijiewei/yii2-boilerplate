@@ -9,10 +9,10 @@ class Config {
     this.usePostCssLoader = false
     this.useLessLoader = false
     this.useSassLoader = false
-    this.useDevServer = false
     this.useSourceMaps = false
-    this.devServerPort = null
-    this.devServerHost = null
+    this.serveEnable = false
+    this.serveHost = null
+    this.servePort = null
     this.plugins = []
     this.loaders = []
     this.aliases = {}

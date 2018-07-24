@@ -8,6 +8,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
+const compress = require('koa-compress')
 
 const path = require('path')
 
@@ -255,17 +256,19 @@ class Generator {
     return optimization
   }
 
-  buildDevServerConfig() {
+  buildServeConfig() {
     return {
-      host: this.config.devServerHost || 'localhost',
-      port: this.config.devServerPort || 8080,
-      compress: true,
-      contentBase: false,
-      publicPath: this.config.publicPath,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      inline: true,
-      watchOptions: {
-        ignored: /node_modules/
+      host: this.config.serveHost || 'localhost',
+      port: this.config.servePort || 8080,
+      devMiddleware: {
+        publicPath: this.config.publicPath,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        watchOptions: {
+          ignored: /node_modules/
+        }
+      },
+      add: (app) => {
+        app.use(compress())
       }
     }
   }
@@ -303,12 +306,12 @@ class Generator {
       }
     }
 
-    if (this.config.useDevServer) {
-      let devServerConfig = this.buildDevServerConfig()
+    if (this.config.serveEnable) {
+      const serverConfig = this.buildServeConfig()
 
-      webpackConfig.output.publicPath = 'http://' + devServerConfig.host + ':' + devServerConfig.port +
-        devServerConfig.publicPath
-      webpackConfig.devServer = devServerConfig
+      webpackConfig.output.publicPath = 'http://' + serverConfig.host + ':' + serverConfig.port +
+        serverConfig.devMiddleware.publicPath
+      webpackConfig.serve = serverConfig
     }
 
     webpackConfig.resolve = {

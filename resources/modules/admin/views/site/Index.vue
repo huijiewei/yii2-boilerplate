@@ -1,5 +1,7 @@
 <template>
-  <div class="box">{{message}}</div>
+  <div class="box">
+    {{message}}, 你好
+  </div>
 </template>
 
 <script>
