@@ -268,7 +268,9 @@ class Generator {
         }
       },
       add: (app) => {
-        app.use(compress())
+        if (this.config.serveCompress) {
+          app.use(compress())
+        }
       }
     }
   }

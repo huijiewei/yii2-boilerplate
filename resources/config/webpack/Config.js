@@ -11,6 +11,7 @@ class Config {
     this.useSassLoader = false
     this.useSourceMaps = false
     this.serveEnable = false
+    this.serveCompress = true
     this.serveHost = null
     this.servePort = null
     this.plugins = []
