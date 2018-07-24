@@ -9,6 +9,7 @@ const autoprefixer = require('autoprefixer')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
 const compress = require('koa-compress')
+const fs = require('fs')
 
 const path = require('path')
 
@@ -257,7 +258,7 @@ class Generator {
   }
 
   buildServeConfig() {
-    return {
+    const serveConfig = {
       host: this.config.serveHost || 'localhost',
       port: this.config.servePort || 8080,
       devMiddleware: {
@@ -273,6 +274,16 @@ class Generator {
         }
       }
     }
+
+    if (this.config.serveHttps) {
+      serveConfig.http2 = this.config.serveHttp2
+      serveConfig.https = {
+        key: fs.readFileSync(this.config.serveHttpsKey),
+        cert: fs.readFileSync(this.config.serveHttpsCert)
+      }
+    }
+
+    return serveConfig
   }
 
   buildEntryConfig() {
@@ -311,8 +322,10 @@ class Generator {
     if (this.config.serveEnable) {
       const serverConfig = this.buildServeConfig()
 
-      webpackConfig.output.publicPath = 'http://' + serverConfig.host + ':' + serverConfig.port +
+      webpackConfig.output.publicPath = (this.config.serveHttps ? 'https' : 'http') + '://' +
+        serverConfig.host + ':' + serverConfig.port +
         serverConfig.devMiddleware.publicPath
+
       webpackConfig.serve = serverConfig
     }
 

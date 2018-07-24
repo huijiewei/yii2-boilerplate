@@ -14,6 +14,10 @@ class Config {
     this.serveCompress = true
     this.serveHost = null
     this.servePort = null
+    this.serveHttps = false
+    this.serveHttp2 = false
+    this.serveHttpsKey = ''
+    this.serveHttpsCert = ''
     this.plugins = []
     this.loaders = []
     this.aliases = {}

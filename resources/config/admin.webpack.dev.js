@@ -3,6 +3,7 @@ const configGenerator = require('./webpack/Generator')
 const config = require('./admin.base.config')
 
 config.serveEnable = true
+config.serveHttp2 = true
 config.serveHost = 'www.bp.test'
 config.serveCompress = true
 config.profile = true

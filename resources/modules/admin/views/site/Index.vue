@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    {{message}}, 你好
+    {{message}}
   </div>
 </template>
 
