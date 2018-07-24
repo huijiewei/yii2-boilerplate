@@ -17,8 +17,8 @@ use app\core\validators\PhoneNumberValidator;
  * @property integer $id
  * @property integer $groupId
  * @property string $phone
- * @property string $displayName
- * @property string $displayIcon
+ * @property string $display
+ * @property string $avatar
  *
  * @property AdminGroup $group
  *
@@ -46,7 +46,7 @@ class Admin extends Identity
     public function rules()
     {
         return [
-            [['groupId', 'phone', 'displayName', 'displayIcon', 'password', 'passwordRepeat'], 'trim'],
+            [['groupId', 'phone', 'display', 'avatar', 'password', 'passwordRepeat'], 'trim'],
             [['password', 'passwordRepeat'], 'required', 'on' => 'create'],
             [
                 ['password', 'passwordRepeat'],
@@ -69,7 +69,7 @@ class Admin extends Identity
             ['phone', 'required'],
             ['phone', PhoneNumberValidator::class],
             ['phone', 'unique'],
-            ['displayName', 'string', 'length' => [3, 10]],
+            ['display', 'string', 'length' => [3, 10]],
 
         ];
     }
@@ -77,9 +77,9 @@ class Admin extends Identity
     public function scenarios()
     {
         return [
-            'create' => ['groupId', 'password', 'passwordRepeat', 'phone', 'displayName', 'displayIcon'],
-            'edit' => ['groupId', 'password', 'passwordRepeat', 'phone', 'displayName', 'displayIcon'],
-            'profile' => ['groupId', 'password', 'passwordRepeat', 'phone', 'displayName', 'displayIcon'],
+            'create' => ['groupId', 'password', 'passwordRepeat', 'phone', 'display', 'avatar'],
+            'edit' => ['groupId', 'password', 'passwordRepeat', 'phone', 'display', 'avatar'],
+            'profile' => ['groupId', 'password', 'passwordRepeat', 'phone', 'display', 'avatar'],
         ];
     }
 
@@ -90,8 +90,8 @@ class Admin extends Identity
             'phone' => '电话号码',
             'password' => '密码',
             'passwordRepeat' => '重复密码',
-            'displayName' => '显示名',
-            'displayIcon' => '头像',
+            'display' => '显示名',
+            'avatar' => '头像',
         ];
     }
 
@@ -137,8 +137,8 @@ class Admin extends Identity
         return [
             'id',
             'phone',
-            'displayName',
-            'displayIcon',
+            'display',
+            'avatar',
             'groupId',
         ];
     }

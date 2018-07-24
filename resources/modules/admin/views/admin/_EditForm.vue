@@ -25,13 +25,13 @@
         <el-input type="password" v-model.trim="formModel.passwordRepeat"></el-input>
       </el-col>
     </el-form-item>
-    <el-form-item label="显示名" prop="displayName">
+    <el-form-item label="显示名" prop="display">
       <el-col :md="3">
-        <el-input v-model.trim="formModel.displayName"></el-input>
+        <el-input v-model.trim="formModel.display"></el-input>
       </el-col>
     </el-form-item>
     <el-form-item label="头像" prop="displayIcon">
-      <aliyun-oss-uploader :avatar="formModel.displayIcon"
+      <aliyun-oss-uploader :avatar="formModel.avatar"
                            @on-upload-success="handleUploadSuccess"></aliyun-oss-uploader>
     </el-form-item>
     <el-form-item label="管理组" prop="groupId">
@@ -135,7 +135,7 @@
     },
     methods: {
       handleUploadSuccess(avatarUrl) {
-        this.formModel.displayIcon = avatarUrl
+        this.formModel.avatar = avatarUrl
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {

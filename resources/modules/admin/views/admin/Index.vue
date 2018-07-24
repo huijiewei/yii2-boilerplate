@@ -21,13 +21,13 @@
         label="电话号码">
       </el-table-column>
       <el-table-column
-        prop="displayName"
+        prop="display"
         label="显示名">
       </el-table-column>
       <el-table-column
         label="头像">
         <template slot-scope="scope">
-          <img class="bp-avatar" width="32" v-if="scope.row.displayIcon" :src="scope.row.displayIcon">
+          <img class="bp-avatar" width="32" v-if="scope.row.avatar" :src="scope.row.avatar">
           <img class="bp-avatar" width="32" v-else src="../../assets/images/avatar.png">
         </template>
       </el-table-column>

@@ -8,9 +8,21 @@
 
 namespace app\core\models\admin;
 
-
 class AdminHelper
 {
+    public static function getFlattenAcl()
+    {
+        $allAcl = AdminHelper::getAllAcl();
+
+        $flattenAcl = [];
+
+        foreach ($allAcl as $acl) {
+            $flattenAcl = array_merge($flattenAcl, AdminHelper::getFlattenInAcl($acl));
+        }
+
+        return $flattenAcl;
+    }
+
     public static function getAllAcl()
     {
         return [
@@ -131,6 +143,23 @@ class AdminHelper
                 ],
             ],
         ];
+    }
+
+    private static function getFlattenInAcl($acl)
+    {
+        $flattenAcl = [];
+
+        if (isset($acl['actionId'])) {
+            $flattenAcl[] = $acl['actionId'];
+        }
+
+        if (isset($acl['children'])) {
+            foreach ($acl['children'] as $child) {
+                $flattenAcl = array_merge($flattenAcl, AdminHelper::getFlattenInAcl($child));
+            }
+        }
+
+        return $flattenAcl;
     }
 
     public static function getAllMenus()

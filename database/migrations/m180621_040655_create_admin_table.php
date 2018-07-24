@@ -26,11 +26,11 @@ class m180621_040655_create_admin_table extends Migration
             'groupId' => $this->integer()->notNull()->defaultValue(0),
             'phone' => $this->string(20)->notNull()->defaultValue(''),
             'password' => $this->string(90)->notNull()->defaultValue(''),
-            'authKey' => $this->string(30)->notNull()->defaultValue(''),
-            'displayName' => $this->string(20)->notNull()->defaultValue(''),
-            'displayIcon' => $this->string(255)->notNull()->defaultValue(''),
+            'authKey' => $this->string(60)->notNull()->defaultValue(''),
+            'display' => $this->string(20)->notNull()->defaultValue(''),
+            'avatar' => $this->string(255)->notNull()->defaultValue(''),
             'createdAt' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
-        ], $tableOptions);
+        ], $tableOptions . ' AUTO_INCREMENT=1021');
 
         $this->createIndex('phone', $this->adminTableName, 'phone', true);
         $this->createIndex('groupId', $this->adminTableName, 'groupId');
@@ -50,7 +50,7 @@ class m180621_040655_create_admin_table extends Migration
         $this->createTable($this->adminGroupTableName, [
             'id' => $this->primaryKey(),
             'name' => $this->string(20)->notNull()->defaultValue(''),
-        ], $tableOptions);
+        ], $tableOptions . ' AUTO_INCREMENT=101');
 
         $this->createTable($this->adminGroupAclTableName, [
             'id' => $this->primaryKey(),
@@ -59,6 +59,20 @@ class m180621_040655_create_admin_table extends Migration
         ], $tableOptions);
 
         $this->createIndex('groupId', $this->adminGroupAclTableName, 'groupId');
+
+        $adminGroup = new \app\core\models\admin\AdminGroup();
+        $adminGroup->name = '开发组';
+        $adminGroup->acl = \app\core\models\admin\AdminHelper::getFlattenAcl();
+
+        $adminGroup->save(false);
+
+        $admin = new \app\core\models\admin\Admin();
+        $admin->phone = '13012345678';
+        $admin->groupId = $adminGroup->id;
+        $admin->password = '123456';
+        $admin->display = '演示账号';
+
+        $admin->save(false);
     }
 
     public function safeDown()
