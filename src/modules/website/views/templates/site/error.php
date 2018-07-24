@@ -9,7 +9,7 @@
 use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
-/* @var $context \app\modules\website\WebController */
+/* @var $context \app\modules\website\Controller */
 /* @var $exception \Exception */
 
 $context = $this->context;
