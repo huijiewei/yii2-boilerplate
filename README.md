@@ -16,6 +16,11 @@
 
 7. 默认开启本地开发环境 HTTPS 和 HTTP2 支持（webpack-serve 未开启 HTTP2）
 
+### 在线演示
+https://bp.huijiwei.com/admin
+账号：13098761234
+密码：123456
+
 ### 安装
 
 项目需要 PHP 7.1 以上版本
