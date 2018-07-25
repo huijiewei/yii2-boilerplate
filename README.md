@@ -32,7 +32,7 @@ composer install
 
 ###### 修改 Hosts 
 ```text
-    127.0.0.1 www.bp.test
+127.0.0.1 www.bp.test
 ```
 
 ###### 生成本地开发环境 SSL 证书
