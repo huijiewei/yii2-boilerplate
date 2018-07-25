@@ -14,6 +14,8 @@
 
 6. 后台管理系统使用 Vue.js + Element UI + webpack 4 构建
 
+7. 默认开启本地开发环境 HTTPS 和 HTTP2 支持（webpack-serve 未开启 HTTP2）
+
 ### 安装
 
 项目需要 PHP 7.1 以上版本
@@ -32,24 +34,51 @@ composer install
 ```text
     127.0.0.1 www.bp.test
 ```
-      
-###### Nginx 配置
 
+###### 生成本地开发环境 SSL 证书
+
+####### 安装 mkcert
+```bash
+brew install mkcert
+brew install nss # 如果使用 Firefox
+```
+###### 生成并安装 ROOT 证书
+```bash
+mkcert -install
+```
+
+##### 进入项目 certs 目录生成 SSL 证书
+```bash
+cd certs
+mkcert www.bp.test
+cd ..
+```
+      
+###### Nginx 配置，启用 HTTPS 和 HTTP2
 ```text
 server {
-    listen	80;
+    listen     80;
     server_name www.bp.test;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen      443 ssl http2;
+    server_name www.bp.test;
+
+    ssl_certificate {项目根目录}/certs/www.bp.test.pem;
+    ssl_certificate_key {项目根目录}/certs/www.bp.test-key.pem;
 
     root {项目根目录}/public;
     index index.php index.html index.htm;
-    
+
     rewrite ^/(.*)/$ /$1 permanent;
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-    include php71-fpm;
+    include php-fpm;
 }
 ```
 
@@ -142,11 +171,33 @@ http://www.bp.test/
 后台访问路径
 http://www.bp.test/admin
 
-微信公众号访问路径
-http://www.bp.test/wechat
-
 后台管理：
 用户：13012345678
 密码：123456
 
-Version: 2018-06-22 17:55
+### 关闭 HTTPS 的配置
+###### Nginx 配置文件
+```text
+server {
+    listen	80;
+    server_name www.bp.test;
+
+    root {项目根目录}/public;
+    index index.php index.html index.htm;
+    
+    rewrite ^/(.*)/$ /$1 permanent;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    include php71-fpm;
+}
+```
+###### Webpack 配置文件修改
+修改文件 resources/config/admin.webpack.dev.js
+```js
+config.serveHttps = false
+```
+
+Version: 2018-07-25 09:55

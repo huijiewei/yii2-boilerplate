@@ -10,6 +10,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
 const compress = require('koa-compress')
 const fs = require('fs')
+const https = require('https')
 
 const path = require('path')
 
@@ -276,10 +277,16 @@ class Generator {
     }
 
     if (this.config.serveHttps) {
-      serveConfig.http2 = this.config.serveHttp2
-      serveConfig.https = {
+      const httpsConfig = {
         key: fs.readFileSync(this.config.serveHttpsKey),
         cert: fs.readFileSync(this.config.serveHttpsCert)
+      }
+
+      serveConfig.http2 = this.config.serveHttp2
+      serveConfig.https = httpsConfig
+
+      serveConfig.hotClient = {
+        server: https.createServer(httpsConfig)
       }
     }
 
