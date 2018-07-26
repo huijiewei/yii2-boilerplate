@@ -6,7 +6,7 @@
     ref="formModel"
     label-width="100px"
     label-suffix="："
-    @submit.native.stop.prevent="submitForm('formModel')">
+    @submit.native.stop.prevent="handleFormSubmit('formModel')">
     <el-form-item label="名称" prop="name">
       <el-col :md="9">
         <el-input v-model.trim="formModel.name"></el-input>
@@ -127,7 +127,7 @@
       }
     },
     methods: {
-      submitForm(formName) {
+      handleFormSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
             return false
