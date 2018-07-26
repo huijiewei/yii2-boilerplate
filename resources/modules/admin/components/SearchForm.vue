@@ -2,6 +2,7 @@
   <el-form :inline="true"
            :model="formModel"
            size="small"
+           autocomplete="off"
            @submit.native.stop.prevent="handleFormSubmit()">
     <el-form-item v-if="searchFields && searchFields.length > 0">
       <el-input placeholder="请输入内容" v-model="formModel.keyword">
