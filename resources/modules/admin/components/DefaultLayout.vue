@@ -105,10 +105,6 @@
             margin: 0;
           }
         }
-
-        .box-toolbar {
-          margin-bottom: 20px;
-        }
       }
     }
   }

@@ -1,3 +1,11 @@
+@mixin clearfix {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
 .bp {
   .el-form-item__label {
     font-size: 13px;
@@ -97,5 +105,23 @@
 
   .form-help-inline {
     margin-left: 10px;
+  }
+
+  .box-toolbar {
+    @include clearfix;
+
+    margin-bottom: 20px;
+
+    .buttons {
+      float: left;
+    }
+
+    .search-form {
+      float: right;
+
+      .el-form-item {
+        margin: 0;
+      }
+    }
   }
 }
