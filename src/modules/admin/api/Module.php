@@ -12,6 +12,7 @@ use app\core\components\AbstractModule;
 use app\core\components\WebRequest;
 use app\core\models\admin\Admin;
 use huijiewei\swagger\SwaggerController;
+use yii\web\Application;
 use yii\web\Response;
 use yii\web\User;
 
@@ -22,11 +23,6 @@ class Module extends AbstractModule
     public static function getModuleId()
     {
         return 'api';
-    }
-
-    public static function getUrlPrefix()
-    {
-        return 'admin/api';
     }
 
     public static function getRoutePrefix()
@@ -64,23 +60,30 @@ class Module extends AbstractModule
             'format' => Response::FORMAT_JSON,
         ]);
 
-        $this->controllerMap = [
-            'swagger' => [
-                'class' => SwaggerController::class,
-                'apiOptions' => [
-                    'scanDir' => [
-                        '@app/modules/admin/api/Swagger.php',
-                        '@app/modules/admin/api/controllers'
+        if (\Yii::$app instanceof Application) {
+            $this->controllerMap = [
+                'swagger' => [
+                    'class' => SwaggerController::class,
+                    'apiOptions' => [
+                        'scanDir' => [
+                            '@app/modules/admin/api/Swagger.php',
+                            '@app/modules/admin/api/controllers'
+                        ],
+                        'defines' => [
+                            'API_HOST' => \Yii::$app->getRequest()->getHostName(),
+                            'API_BASE_PATH' => '/' . static::getUrlPrefix(),
+                        ]
                     ],
-                    'defines' => [
-                        'API_HOST' => \Yii::$app->getRequest()->getHostName(),
-                        'API_BASE_PATH' => '/' . static::getUrlPrefix(),
+                    'uiOptions' => [
+                        'apiUrlRoute' => 'swagger/api',
                     ]
                 ],
-                'uiOptions' => [
-                    'apiUrlRoute' => 'swagger/api',
-                ]
-            ],
-        ];
+            ];
+        }
+    }
+
+    public static function getUrlPrefix()
+    {
+        return 'admin/api';
     }
 }

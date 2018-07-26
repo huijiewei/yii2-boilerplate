@@ -72,8 +72,7 @@ abstract class AbstractModule extends \yii\base\Module
         }
 
         if (\Yii::$app instanceof ConsoleApplication) {
-            $namespace = (new \ReflectionClass(get_called_class()))->getNamespaceName();
-            $this->controllerNamespace = $namespace . '\\commands';
+            $this->controllerNamespace = (new \ReflectionClass(get_called_class()))->getNamespaceName() . '\\commands';
         }
 
         if ($this->disableDebugModule) {
