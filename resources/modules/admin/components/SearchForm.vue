@@ -94,7 +94,7 @@
     },
     watch: {
       'searchFields': 'updateFormModel',
-      '$route': 'updateFormModel'
+      '$route.query': 'updateFormModel'
     },
     mounted() {
       if (!this.formInit) {
@@ -114,7 +114,13 @@
         if (this.getOtherFields.length > 0) {
           this.getOtherFields.forEach((item) => {
             if (item.type !== 'br') {
-              formModel[item.field] = routeQuery[item.field] || (item.multiple ? [] : '')
+              if (routeQuery[item.field]) {
+                formModel[item.field] = item.multiple && typeof(routeQuery[item.field]) === 'string' ?
+                  [routeQuery[item.field]] :
+                  routeQuery[item.field]
+              } else {
+                formModel[item.field] = item.multiple ? [] : ''
+              }
             }
           })
         }
