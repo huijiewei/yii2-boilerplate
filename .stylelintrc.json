@@ -1,11 +1,23 @@
 {
   "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-scss"
+  ],
   "rules": {
     "property-no-unknown": [
       true,
       {
         "ignoreProperties": [
           "/^bp-/"
+        ]
+      }
+    ],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "mixin",
+          "include"
         ]
       }
     ],
