@@ -115,7 +115,11 @@
       getUsers: async function() {
         this.loading = true
 
-        const { data } = await flatry(UserService.all(this.$route.query))
+        const query = this.searchFields !== null ?
+          this.$route.query :
+          Object.assign({ searchFields: true }, this.$route.query)
+
+        const { data } = await flatry(UserService.all(query))
 
         if (data) {
           this.users = data.items

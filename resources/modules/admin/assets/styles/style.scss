@@ -24,6 +24,18 @@
     padding: 0 10px;
   }
 
+  .el-button--small {
+    padding: 10px 15px 9px 15px;
+  }
+
+  .el-input--prefix {
+    left: 3px;
+
+    .el-input__inner {
+      padding-left: 29px;
+    }
+  }
+
   .el-dropdown-menu {
     padding: 0;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -120,7 +132,7 @@
       float: right;
 
       .el-form-item {
-        margin: 0;
+        margin: 0 0 0 5px;
       }
 
       .el-form-item__content {

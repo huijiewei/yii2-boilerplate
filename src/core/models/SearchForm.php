@@ -16,11 +16,13 @@ abstract class SearchForm extends Model
 {
     public $field;
     public $keyword;
+    public $searchFields = false;
 
     public function rules()
     {
         return [
-            [['field', 'keyword'], 'trim']
+            [['field', 'keyword', 'searchFields'], 'trim'],
+            ['searchFields', 'boolean'],
         ];
     }
 
@@ -30,11 +32,16 @@ abstract class SearchForm extends Model
             'query' => $this->getQuery()
         ]);
 
-        return [
+        $result = [
             'items' => $data->getModels(),
             'pages' => $this->serializePagination($data->getPagination()),
-            'searchFields' => $this->searchFields(),
         ];
+
+        if ($this->searchFields) {
+            $result['searchFields'] = $this->searchFields();
+        }
+
+        return $result;
     }
 
     abstract protected function getQuery();

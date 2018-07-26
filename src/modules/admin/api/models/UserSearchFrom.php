@@ -13,12 +13,14 @@ use app\core\models\user\User;
 
 class UserSearchFrom extends SearchForm
 {
+    public $createdAt;
     public $createdFrom;
+    public $createdRange;
 
     public function rules()
     {
         return array_merge([
-            ['createdFrom', 'trim']
+            [['createdAt', 'createdFrom', 'createdRange'], 'trim']
         ], parent::rules());
     }
 
@@ -36,8 +38,21 @@ class UserSearchFrom extends SearchForm
             }
         }
 
+        if (!empty($this->createdAt)) {
+            $userQuery->andWhere(['DATE(createdAt)' => $this->createdAt]);
+        }
+
         if (!empty($this->createdFrom)) {
             $userQuery->andWhere(['createdFrom' => $this->createdFrom]);
+        }
+
+        if (!empty($this->createdRange)
+            && is_array($this->createdRange)
+            && count($this->createdRange) == 2) {
+            $userQuery->andWhere('createdAt >= :beginTime AND createdAt <= :endTime', [
+                ':beginTime' => $this->createdRange[0],
+                ':endTime' => $this->createdRange[1],
+            ]);
         }
 
         return $userQuery;
@@ -62,6 +77,17 @@ class UserSearchFrom extends SearchForm
                 'label' => '注册来源',
                 'multiple' => true,
                 'options' => User::createdFromNameList(),
+            ],
+            [
+                'type' => 'date',
+                'field' => 'createdAt',
+                'label' => '注册日期',
+            ],
+            [
+                'type' => 'dateRange',
+                'field' => 'createdRange',
+                'labelStart' => '注册开始日期',
+                'labelEnd' => '注册结束日期',
             ]
         ];
     }
