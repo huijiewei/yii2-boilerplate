@@ -14,9 +14,11 @@
 
 <style lang="scss">
   .bp-avatar {
-    border-radius: 50%;
+    height: 32px;
+    display: inline-block;
 
     img {
+      border-radius: 50%;
       height: 32px;
       vertical-align: middle;
     }

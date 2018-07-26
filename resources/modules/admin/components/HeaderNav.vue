@@ -149,9 +149,7 @@
 
           .bp-display {
             display: inline-block;
-            margin-left: 6px;
-            height: 32px;
-            line-height: 32px;
+            margin-left: 3px;
           }
         }
       }
