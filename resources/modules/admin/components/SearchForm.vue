@@ -6,7 +6,7 @@
            @submit.native.stop.prevent="handleFormSubmit()"
            @reset.native.stop.prevent="handleFormReset()">
     <template v-if="getOtherFields.length> 0" v-for="(item, index) in getOtherFields">
-      <hr class="separation" :key="index" v-if="item.type==='separation'">
+      <hr class="br" :key="index" v-if="item.type==='br'">
       <el-form-item v-else :key="index">
         <el-select
           v-if="item.type==='select'"
@@ -113,7 +113,7 @@
 
         if (this.getOtherFields.length > 0) {
           this.getOtherFields.forEach((item) => {
-            if (item.type !== 'separation') {
+            if (item.type !== 'br') {
               formModel[item.field] = routeQuery[item.field] || (item.multiple ? [] : '')
             }
           })

@@ -90,7 +90,7 @@ class UserSearchFrom extends SearchForm
                 'labelEnd' => '注册结束日期',
             ],
             [
-                'type' => 'separation'
+                'type' => 'br'
             ]
         ];
     }
