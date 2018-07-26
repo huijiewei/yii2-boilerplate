@@ -11,11 +11,13 @@
     </div>
     <el-table v-loading="loading" :stripe="true" :data="adminGroups">
       <el-table-column
+        width="90"
         class-name="text-mono"
         prop="id"
         label="Id">
       </el-table-column>
       <el-table-column
+        width="150"
         prop="name"
         label="名称">
       </el-table-column>
@@ -38,7 +40,7 @@
             size="mini"
             type="danger"
             :plain="true"
-            @click="deleteAdminGroup(scope.row)">
+            @click="handleAdminGroupDelete(scope.row)">
             删除
           </el-button>
         </template>
@@ -59,7 +61,7 @@
       }
     },
     methods: {
-      deleteAdminGroup(group) {
+      handleAdminGroupDelete(group) {
         this.$confirm(`你确定要删除 ${group.name} 吗？`, {
           showClose: false,
           confirmButtonText: '删除',

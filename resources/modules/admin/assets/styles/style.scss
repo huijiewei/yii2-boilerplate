@@ -1,8 +1,4 @@
 .bp {
-  .bp-avatar {
-    border-radius: 50%;
-  }
-
   .el-form-item__label {
     font-size: 13px;
     line-height: 36px;
@@ -83,6 +79,15 @@
 
   .text-mono {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .text-nowrap {
+    white-space: nowrap;
+  }
+
+  .bp-pages {
+    margin-top: 20px;
+    text-align: right;
   }
 
   .form-help {

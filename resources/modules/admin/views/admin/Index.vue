@@ -11,27 +11,33 @@
     </div>
     <el-table v-loading="loading" :stripe="true" :data="admins">
       <el-table-column
+        width="90"
         class-name="text-mono"
         prop="id"
         label="Id">
       </el-table-column>
       <el-table-column
+        width="150"
         prop="phone"
         class-name="text-mono"
         label="电话号码">
       </el-table-column>
       <el-table-column
+        width="150"
         prop="display"
         label="显示名">
       </el-table-column>
       <el-table-column
+        width="60"
+        align="center"
         label="头像">
         <template slot-scope="scope">
-          <img class="bp-avatar" width="32" v-if="scope.row.avatar" :src="scope.row.avatar">
-          <img class="bp-avatar" width="32" v-else src="../../assets/images/avatar.png">
+          <bp-avatar :avatar="scope.row.avatar"></bp-avatar>
         </template>
       </el-table-column>
       <el-table-column
+        align="center"
+        width="100"
         prop="group.name"
         label="所属管理组">
       </el-table-column>
@@ -54,7 +60,7 @@
             size="mini"
             type="danger"
             :plain="true"
-            @click="deleteAdmin(scope.row)">
+            @click="handleAdminDelete(scope.row)">
             删除
           </el-button>
         </template>
@@ -66,8 +72,10 @@
 <script>
   import AdminService from '@admin/services/AdminService'
   import flatry from '@admin/utils/flatry'
+  import BpAvatar from '@admin/components/Avatar'
 
   export default {
+    components: { BpAvatar },
     data() {
       return {
         loading: true,
@@ -75,7 +83,7 @@
       }
     },
     methods: {
-      deleteAdmin(admin) {
+      handleAdminDelete(admin) {
         this.$confirm(`你确定要删除 ${admin.displayName || admin.phone} 吗？`, {
           showClose: false,
           confirmButtonText: '删除',

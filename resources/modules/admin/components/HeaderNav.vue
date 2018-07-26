@@ -1,7 +1,7 @@
 <template>
   <nav class="bp-nav">
     <div class="bp-logo" :style="{ width: isCollapsed ? '60px' : '200px'}">
-      <router-link to="/">
+      <router-link :to="{ path: '/home' }">
         <img alt="主页" src="../assets/images/logo.png"><img alt="Boilerplate" src="../assets/images/banner.png">
       </router-link>
     </div>
@@ -11,9 +11,10 @@
       <li class="profile">
         <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link">
-            <img class="bp-avatar" v-if="getCurrentUser.avatar" :src="getCurrentUser.avatar">
-            <img class="bp-avatar" v-else src="../assets/images/avatar.png">
-            {{getCurrentUser.display || getCurrentUser.phone}}
+            <bp-avatar :avatar="getCurrentUser.avatar"></bp-avatar>
+            <span class="bp-display">
+              {{getCurrentUser.display || getCurrentUser.phone}}
+            </span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -43,10 +44,11 @@
 <script>
   import BpIcon from '@core/components/Icon/index'
   import flatry from '@admin/utils/flatry'
+  import BpAvatar from '@admin/components/Avatar'
 
   export default {
     name: 'HeaderNav',
-    components: { BpIcon },
+    components: { BpAvatar, BpIcon },
     props: ['isCollapsed'],
     computed: {
       getCurrentUser() {
@@ -139,18 +141,17 @@
       justify-content: end;
 
       .profile {
-        span {
+        span.el-dropdown-link {
           display: block;
           padding: 9px 16px;
           cursor: pointer;
           transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.2s linear 0s !important;
 
-          img {
+          .bp-display {
+            display: inline-block;
+            margin-left: 6px;
             height: 32px;
-            vertical-align: middle;
-            border: none;
-            border-radius: 50%;
-            margin-right: 6px;
+            line-height: 32px;
           }
         }
       }
