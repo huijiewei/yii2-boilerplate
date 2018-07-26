@@ -4,7 +4,7 @@
       <div class="buttons">
         <router-link
           v-if="$can('user/create')"
-          :to="{ path: '/admin/create' }">
+          :to="{ path: '/user/create' }">
           <el-button type="primary" size="medium">
             新建会员
           </el-button>
