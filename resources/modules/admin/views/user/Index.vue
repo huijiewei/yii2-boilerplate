@@ -33,7 +33,7 @@
         label="显示名">
       </el-table-column>
       <el-table-column
-        width="50"
+        width="60"
         align="center"
         label="头像">
         <template slot-scope="scope">
@@ -108,11 +108,6 @@
     watch: {
       '$route': 'getUsers'
     },
-    computed: {
-      getCurrentPage() {
-        return this.$route.query.page
-      }
-    },
     methods: {
       handleCurrentChange(page) {
         this.$router.push({ path: this.$route.fullPath, query: { page: page } })
@@ -120,7 +115,7 @@
       getUsers: async function() {
         this.loading = true
 
-        const { data } = await flatry(UserService.all(this.getCurrentPage))
+        const { data } = await flatry(UserService.all(this.$route.query))
 
         if (data) {
           this.users = data.items

@@ -2,7 +2,7 @@
   <el-form :inline="true"
            :model="formModel"
            size="small"
-           @submit.native.stop.prevent="handleSearchFormSubmit()">
+           @submit.native.stop.prevent="handleFormSubmit()">
     <el-form-item v-if="searchFields && searchFields.length > 0">
       <el-input placeholder="请输入内容" v-model="formModel.keyword">
         <el-select v-model="formModel.field" slot="prepend" :style="{width: '90px'}">
@@ -13,14 +13,22 @@
       </el-input>
     </el-form-item>
     <el-form-item>
-      <el-button :plain="true" type="info" native-type="submit">查询</el-button>
+      <el-button :plain="true" type="info" native-type="submit">
+        搜索
+      </el-button>
+      <el-button :plain="true" type="default" native-type="reset">
+        <bp-icon type="database"></bp-icon>
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+  import BpIcon from '@core/components/Icon'
+
   export default {
     name: 'SearchForm',
+    components: { BpIcon },
     props: ['searchFields'],
     data() {
       return {
@@ -42,7 +50,7 @@
           this.formModel.field = this.searchFields[0].field
         }
       },
-      handleSearchFormSubmit() {
+      handleFormSubmit() {
         this.$router.push({
           path: this.$route.fullPath,
           query: {

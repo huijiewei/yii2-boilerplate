@@ -14,6 +14,16 @@ use yii\data\Pagination;
 
 abstract class SearchForm extends Model
 {
+    public $field;
+    public $keyword;
+
+    public function rules()
+    {
+        return [
+            [['field', 'keyword'], 'trim']
+        ];
+    }
+
     public function search()
     {
         $data = new ActiveDataProvider([

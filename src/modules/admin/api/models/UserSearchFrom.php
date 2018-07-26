@@ -17,6 +17,16 @@ class UserSearchFrom extends SearchForm
     {
         $userQuery = User::find()->orderBy(['id' => SORT_DESC]);
 
+        if (!empty($this->keyword)) {
+            if ($this->field === 'phone') {
+                $userQuery->andWhere(['like', 'phone', $this->keyword]);
+            }
+
+            if ($this->field === 'display') {
+                $userQuery->andWhere(['like', 'display', $this->keyword]);
+            }
+        }
+
         return $userQuery;
     }
 
