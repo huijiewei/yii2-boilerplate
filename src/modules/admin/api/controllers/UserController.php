@@ -8,13 +8,17 @@
 
 namespace app\modules\admin\api\controllers;
 
+use app\core\models\user\User;
 use app\modules\admin\api\Controller;
+use yii\data\ActiveDataProvider;
 
 class UserController extends Controller
 {
     public function actionIndex()
     {
-        return ['userIndex'];
+        return new ActiveDataProvider([
+            'query' => User::find()->orderBy(['id' => SORT_DESC]),
+        ]);
     }
 
     public function actionCreate()
