@@ -9,10 +9,10 @@
     "huijiewei/yii2-wechat": "^2.0",
     "huijiewei/yii2-swagger": "^2.0",
     "aliyuncs/oss-sdk-php": "^2.3",
-    "hidehalo/nanoid-php": "^1.1"
+    "hidehalo/nanoid-php": "^1.1",
+    "fzaninotto/faker": "^1.8"
   },
   "require-dev": {
-    "yiisoft/yii2-faker": "^2.0",
     "yiisoft/yii2-debug": "^2.0",
     "symfony/var-dumper": "^4.1",
     "phpunit/phpunit": "^7"
