@@ -8,6 +8,7 @@
 
 namespace app\core\commands;
 
+use app\core\helpers\StringHelper;
 use app\core\models\user\User;
 use Faker\Factory;
 use yii\console\Controller;
@@ -33,6 +34,12 @@ class FakeController extends Controller
             $user->display = $faker->name;
             $user->createdIp = $faker->ipv4;
             $user->createdFrom = array_rand($createFromNameList, 1);
+
+            if (rand(1, 100) > 9) {
+                $randomAvatar = StringHelper::startsTrim(rand(100001, 100677) . '', '1');
+                $user->avatar = "https://yuncars-other.oss-cn-shanghai.aliyuncs.com/" .
+                    "boilerplate/avatar/a$randomAvatar.png@!avatar";
+            }
 
             $user->save(false);
 
