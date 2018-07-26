@@ -8,17 +8,17 @@
 
 namespace app\modules\admin\api\controllers;
 
-use app\core\models\user\User;
 use app\modules\admin\api\Controller;
-use yii\data\ActiveDataProvider;
+use app\modules\admin\api\models\UserSearchFrom;
 
 class UserController extends Controller
 {
     public function actionIndex()
     {
-        return new ActiveDataProvider([
-            'query' => User::find()->orderBy(['id' => SORT_DESC]),
-        ]);
+        $form = new UserSearchFrom();
+        $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
+
+        return $form->search();
     }
 
     public function actionCreate()
