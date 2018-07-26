@@ -88,6 +88,9 @@ class UserSearchFrom extends SearchForm
                 'field' => 'createdRange',
                 'labelStart' => '注册开始日期',
                 'labelEnd' => '注册结束日期',
+            ],
+            [
+                'type' => 'separation'
             ]
         ];
     }

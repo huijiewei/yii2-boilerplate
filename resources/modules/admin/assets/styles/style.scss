@@ -7,42 +7,13 @@
 }
 
 .bp {
-  .el-form-item__label {
-    font-size: 13px;
-    line-height: 36px;
-  }
-
-  .el-form-item__content {
-    line-height: 36px;
-  }
-
   .el-checkbox__label {
     padding-left: 6px;
-  }
-
-  .el-input__inner {
-    padding: 0 10px;
-  }
-
-  .el-button--small {
-    padding: 10px 15px 9px 15px;
-  }
-
-  .el-input--prefix {
-    left: 3px;
-
-    .el-input__inner {
-      padding-left: 29px;
-    }
   }
 
   .el-dropdown-menu {
     padding: 0;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-
-    .anticon {
-      font-size: 12px;
-    }
 
     .popper__arrow {
       display: none;
@@ -67,33 +38,11 @@
     margin-top: 0;
   }
 
-  .el-table td,
-  .el-table th {
-    padding: 12px 0 9px 0;
-  }
-
   .el-table {
-    font-size: 13px;
-
     thead th {
       text-transform: uppercase;
       border-top: 1px solid #dee2e6;
       border-bottom: 2px solid #dee2e6;
-    }
-
-    .el-button--mini,
-    .el-button--mini.is-round {
-      padding: 5px 6px 4px 6px;
-    }
-  }
-
-  .el-card {
-    border-radius: 2px;
-
-    .el-card__header {
-      background-color: #fefefe;
-      padding: 15px 20px 13px 20px;
-      font-size: 15px;
     }
   }
 
@@ -111,7 +60,6 @@
   }
 
   .form-help {
-    font-size: 13px;
     color: #737373;
   }
 
@@ -130,13 +78,18 @@
 
     .search-form {
       float: right;
+      text-align: right;
 
-      .el-form-item {
-        margin: 0 0 0 5px;
+      .separation {
+        border: none;
+        display: block;
+        height: 5px;
+        line-height: 5px;
+        margin: 0;
       }
 
-      .el-form-item__content {
-        line-height: 32px;
+      .el-form-item {
+        margin: 0 0 0 3px;
       }
     }
   }

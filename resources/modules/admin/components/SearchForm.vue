@@ -1,12 +1,13 @@
 <template>
   <el-form :inline="true"
            :model="formModel"
-           size="mini"
+           size="small"
            autocomplete="off"
            @submit.native.stop.prevent="handleFormSubmit()"
            @reset.native.stop.prevent="handleFormReset()">
     <template v-if="getOtherFields.length> 0" v-for="(item, index) in getOtherFields">
-      <el-form-item :key="index">
+      <hr class="separation" :key="index" v-if="item.type==='separation'">
+      <el-form-item v-else :key="index">
         <el-select
           v-if="item.type==='select'"
           v-model="formModel[item.field]"
@@ -19,7 +20,7 @@
         </el-select>
         <el-date-picker
           type="date"
-          :style="{width:'130px'}"
+          :style="{width:'139px'}"
           v-if="item.type==='date'"
           v-model="formModel[item.field]"
           :editable="false"
@@ -28,7 +29,7 @@
         </el-date-picker>
         <el-date-picker
           type="daterange"
-          :style="{width:'230px'}"
+          :style="{width:'260px'}"
           v-if="item.type==='dateRange'"
           v-model="formModel[item.field]"
           :start-placeholder="item.labelStart"
@@ -40,7 +41,7 @@
     </template>
     <el-form-item v-if="getKeywordFields.length > 0">
       <el-input placeholder="请输入内容" v-model="formModel.keyword">
-        <el-select v-model="formModel.field" slot="prepend" :style="{width: '90px'}">
+        <el-select v-model="formModel.field" slot="prepend" :style="{width: '120px'}">
           <template v-for="(item, index) in getKeywordFields">
             <el-option :key="index" :label="item.label" :value="item.field"></el-option>
           </template>
@@ -112,7 +113,9 @@
 
         if (this.getOtherFields.length > 0) {
           this.getOtherFields.forEach((item) => {
-            formModel[item.field] = routeQuery[item.field] || (item.multiple ? [] : '')
+            if (item.type !== 'separation') {
+              formModel[item.field] = routeQuery[item.field] || (item.multiple ? [] : '')
+            }
           })
         }
 

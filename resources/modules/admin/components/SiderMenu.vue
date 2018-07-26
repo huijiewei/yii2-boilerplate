@@ -62,7 +62,6 @@
     .el-submenu__title {
       line-height: 50px;
       height: 50px;
-      font-size: 13px;
     }
 
     .el-submenu .el-menu-item {

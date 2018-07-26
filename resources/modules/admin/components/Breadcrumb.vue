@@ -71,14 +71,9 @@
 
     .bp-breadcrumb {
       margin-bottom: 15px;
-      font-size: 13px;
 
       .is-link {
         font-weight: normal;
-      }
-
-      .anticon {
-        font-size: 12px;
       }
     }
   }
