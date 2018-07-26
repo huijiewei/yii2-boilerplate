@@ -18,6 +18,8 @@ abstract class SearchForm extends Model
     public $keyword;
     public $searchFields = false;
 
+    public $defaultPageSize = 10;
+
     public function rules()
     {
         return [
@@ -29,7 +31,10 @@ abstract class SearchForm extends Model
     public function search()
     {
         $data = new ActiveDataProvider([
-            'query' => $this->getQuery()
+            'query' => $this->getQuery(),
+            'pagination' => [
+                'defaultPageSize' => $this->defaultPageSize,
+            ],
         ]);
 
         $result = [
