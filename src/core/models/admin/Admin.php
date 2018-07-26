@@ -14,7 +14,6 @@ use app\core\validators\PhoneNumberValidator;
 /**
  * Class Admin
  *
- * @property integer $id
  * @property integer $groupId
  * @property string $phone
  * @property string $display
@@ -26,8 +25,6 @@ use app\core\validators\PhoneNumberValidator;
  */
 class Admin extends Identity
 {
-    public $passwordRepeat;
-
     /**
      * @param mixed $token
      * @param string $clientId

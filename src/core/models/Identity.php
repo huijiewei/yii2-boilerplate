@@ -21,6 +21,8 @@ use yii\web\IdentityInterface;
  */
 abstract class Identity extends ActiveRecord implements IdentityInterface
 {
+    public $passwordRepeat;
+
     /**
      * @param int $id
      *
