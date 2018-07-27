@@ -22,7 +22,7 @@
 
   .el-dropdown-menu__item {
     line-height: 39px;
-    height: 39px;
+    height: 37px;
   }
 
   .el-dropdown-menu__item--divided {
@@ -72,11 +72,11 @@
 
     margin-bottom: 20px;
 
-    .buttons {
+    .button-bar {
       float: left;
     }
 
-    .search-form {
+    .search-bar {
       float: right;
       text-align: right;
 
@@ -89,7 +89,7 @@
       }
 
       .el-form-item {
-        margin: 0 0 0 3px;
+        margin: 0 0 0 5px;
       }
     }
   }

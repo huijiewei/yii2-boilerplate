@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="box-toolbar">
-      <div class="buttons">
+      <div class="button-bar">
         <router-link
           v-if="$can('user/create')"
           :to="{ path: '/user/create' }">
@@ -10,7 +10,7 @@
           </el-button>
         </router-link>
       </div>
-      <div class="search-form">
+      <div class="search-bar">
         <search-form :search-fields="searchFields"></search-form>
       </div>
     </div>

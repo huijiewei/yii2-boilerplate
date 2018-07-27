@@ -41,7 +41,7 @@
     </template>
     <el-form-item v-if="getKeywordFields.length > 0">
       <el-input placeholder="请输入内容" v-model="formModel.keyword">
-        <el-select v-model="formModel.field" slot="prepend" :style="{width: '120px'}">
+        <el-select v-model="formModel.field" slot="prepend" :style="{width: '100px'}">
           <template v-for="(item, index) in getKeywordFields">
             <el-option :key="index" :label="item.label" :value="item.field"></el-option>
           </template>
