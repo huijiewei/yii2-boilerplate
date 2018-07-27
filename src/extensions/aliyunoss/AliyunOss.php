@@ -81,13 +81,13 @@ class AliyunOss extends Component
         $data['OSSAccessKeyId'] = $this->accessKeyId;
         $data['policy'] = $policyBase64;
         $data['Signature'] = $signature;
-        $data['key'] = $folder . StringHelper::generateNanoId(12);
         $data['success_action_status'] = 201;
 
         return [
             'action' => 'https://' . $this->bucket . '.' . $this->endpoint,
             'data' => $data,
-            'sizeLimit' => $sizeLimit
+            'folder' => $folder,
+            'sizeLimit' => $sizeLimit,
         ];
     }
 }

@@ -17,7 +17,7 @@
 
 <script>
   import flatry from '@admin/utils/flatry'
-  import httpRequest from './AliyunOssUploaderHttpRequest'
+  import ajax from 'element-ui/packages/upload/src/ajax'
 
   export default {
     name: 'AliyunOssUploader',
@@ -27,6 +27,7 @@
         avatarUrl: this.avatar,
         uploadAction: '',
         uploadData: null,
+        uploadFolder: '',
         uploadSizeLimit: 1024000
       }
     },
@@ -36,13 +37,15 @@
       if (data) {
         this.uploadAction = data.action
         this.uploadData = data.data
+        this.uploadFolder = data.folder
         this.uploadSizeLimit = data.sizeLimit
       }
     },
     methods: {
       httpRequest(option) {
-        option.data.key = option.data.key + '.' + option.file.name.split('.').pop()
-        return httpRequest(option)
+        option.data.key = this.uploadFolder + Math.random().toString(36).substr(2) + '.' + option.file.name.split('.').pop()
+
+        return ajax(option)
       },
       handleBeforeUpload(file) {
         if (file.size > this.uploadSizeLimit) {
