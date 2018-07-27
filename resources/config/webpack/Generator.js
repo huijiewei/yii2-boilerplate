@@ -190,10 +190,9 @@ class Generator {
 
     plugins.push({
       plugin: new ManifestPlugin({
-        fileName: 'manifest.json',
         writeToFileEmit: !Generator.isProduction(),
-        filter: function({ isChunk, isInitial }) {
-          return isChunk && isInitial
+        filter: function({ name, isChunk }) {
+          return isChunk && !name.startsWith('chunk-') && !name.endsWith('.map')
         }
       }),
       priority: 0
@@ -221,6 +220,28 @@ class Generator {
   buildOptimizationConfig() {
     const optimization = {}
 
+    const splitChunks = {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+          enforce: true
+        },
+        styles: {
+          name: 'styles',
+          test: /\.(css|less|scss)$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    }
+
+    optimization.splitChunks = Generator.applyOptionsCallback(
+      this.config.splitChunksConfigurationCallback,
+      splitChunks
+    )
+
     if (Generator.isProduction()) {
       optimization.minimizer = [
         new UglifyJsPlugin({
@@ -230,29 +251,6 @@ class Generator {
         }),
         new OptimizeCssAssetsPlugin()
       ]
-
-      let splitChunks = {
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendor',
-            chunks: 'all',
-            enforce: true
-          },
-          styles: {
-            name: 'styles',
-            test: /\.(css|less|scss)$/,
-            chunks: 'all'
-          }
-        }
-      }
-
-      optimization.splitChunks = Generator.applyOptionsCallback(
-        this.config.splitChunksConfigurationCallback,
-        splitChunks
-      )
-    } else {
-      optimization.namedModules = true
     }
 
     return optimization
@@ -351,7 +349,7 @@ class Generator {
     }
 
     webpackConfig.performance = {
-      hints: Generator.isProduction() ? 'warning' : false
+      hints: false
     }
 
     webpackConfig.externals = this.config.externals
