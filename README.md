@@ -115,16 +115,10 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 │          ├── components
 │          ├── plugins
 │          ├── router
-│          │   ├── auth
-│          │   ├── site
-│          │   └── user
 │          ├── services
 │          ├── store
 │          ├── utils
 │          └── views
-│              ├── auth
-│              ├── site
-│              └── user
 ├── src // 后端代码
 │   ├── core // 核心公用代码
 │   │   ├── components
@@ -140,8 +134,6 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 │       │   └── spa // 管理后台 SPA 页面
 │       │       ├── controllers
 │       │       └── views
-│       │           ├── layouts
-│       │           └── site
 │       ├── website // 前台网站
 │       │   ├── controllers
 │       │   └── views
