@@ -58,13 +58,15 @@ class AliyunOss extends Component
 
     public function getFormUpload()
     {
+        $sizeLimit = 1024 * 1024;
+
         $month = \Yii::$app->getFormatter()->asDate('now', 'yyyyMM');
         $folder = StringHelper::endsTrim($this->folder, '/') . '/' . $month . '/';
 
         $policy = [
             'expiration' => \Yii::$app->getFormatter()->asDatetime('+10 minutes', 'php:Y-m-d\TH:i:s\Z'),
             'conditions' => [
-                ['content-length-range', 0, 1024000],
+                ['content-length-range', 0, $sizeLimit],
                 ['starts-with', '$key', $folder],
             ]
         ];
@@ -85,6 +87,7 @@ class AliyunOss extends Component
         return [
             'action' => 'https://' . $this->bucket . '.' . $this->endpoint,
             'data' => $data,
+            'sizeLimit' => $sizeLimit
         ];
     }
 }
