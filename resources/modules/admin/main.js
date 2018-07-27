@@ -9,7 +9,7 @@ import App from './App'
 import HttpClient from './plugins/HttpClient'
 import AclChecker from './plugins/AclChecker'
 
-import '@admin/assets/styles/style.scss'
+import '@admin/assets/styles/theme.scss'
 import '@core/assets/icons/iconfont.less'
 
 Vue.use(ElementUI)

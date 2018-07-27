@@ -66,15 +66,11 @@
 </script>
 
 <style lang="scss">
-  .bp-main {
-    padding: 16px 20px;
+  .bp-breadcrumb {
+    margin-bottom: 15px;
 
-    .bp-breadcrumb {
-      margin-bottom: 15px;
-
-      .is-link {
-        font-weight: normal;
-      }
+    .is-link {
+      font-weight: normal;
     }
   }
 </style>

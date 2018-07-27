@@ -46,4 +46,6 @@
   body {
     color: #647279;
   }
+
+  @import "./assets/styles/style.scss";
 </style>
