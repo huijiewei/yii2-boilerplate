@@ -13,52 +13,17 @@ use app\core\models\user\User;
 
 class UserSearchFrom extends SearchForm
 {
-    public $createdAt;
     public $createdFrom;
     public $createdRange;
 
     public function rules()
     {
         return array_merge([
-            [['createdAt', 'createdFrom', 'createdRange'], 'trim']
+            [['createdFrom', 'createdRange'], 'trim']
         ], parent::rules());
     }
 
-    protected function getQuery()
-    {
-        $userQuery = User::find()->orderBy(['id' => SORT_DESC]);
-
-        if (!empty($this->keyword)) {
-            if ($this->field === 'phone') {
-                $userQuery->andWhere(['like', 'phone', $this->keyword]);
-            }
-
-            if ($this->field === 'display') {
-                $userQuery->andWhere(['like', 'display', $this->keyword]);
-            }
-        }
-
-        if (!empty($this->createdAt)) {
-            $userQuery->andWhere(['DATE(createdAt)' => $this->createdAt]);
-        }
-
-        if (!empty($this->createdFrom)) {
-            $userQuery->andWhere(['createdFrom' => $this->createdFrom]);
-        }
-
-        if (!empty($this->createdRange)
-            && is_array($this->createdRange)
-            && count($this->createdRange) == 2) {
-            $userQuery->andWhere('createdAt >= :beginTime AND createdAt <= :endTime', [
-                ':beginTime' => $this->createdRange[0],
-                ':endTime' => $this->createdRange[1],
-            ]);
-        }
-
-        return $userQuery;
-    }
-
-    protected function searchFields()
+    public function searchFields()
     {
         return [
             [
@@ -79,11 +44,6 @@ class UserSearchFrom extends SearchForm
                 'options' => User::createdFromNameList(),
             ],
             [
-                'type' => 'date',
-                'field' => 'createdAt',
-                'label' => '注册日期',
-            ],
-            [
                 'type' => 'dateRange',
                 'field' => 'createdRange',
                 'labelStart' => '注册开始日期',
@@ -93,5 +53,35 @@ class UserSearchFrom extends SearchForm
                 'type' => 'br'
             ]
         ];
+    }
+
+    protected function getQuery()
+    {
+        $userQuery = User::find()->orderBy(['id' => SORT_DESC]);
+
+        if (!empty($this->keyword)) {
+            if ($this->field === 'phone') {
+                $userQuery->andWhere(['like', 'phone', $this->keyword]);
+            }
+
+            if ($this->field === 'display') {
+                $userQuery->andWhere(['like', 'display', $this->keyword]);
+            }
+        }
+
+        if (!empty($this->createdFrom)) {
+            $userQuery->andWhere(['createdFrom' => $this->createdFrom]);
+        }
+
+        if (!empty($this->createdRange)
+            && is_array($this->createdRange)
+            && count($this->createdRange) == 2) {
+            $userQuery->andWhere('createdAt >= :beginTime AND createdAt <= :endTime', [
+                ':beginTime' => $this->createdRange[0] . ' 00:00:00',
+                ':endTime' => $this->createdRange[1] . ' 23:59:59',
+            ]);
+        }
+
+        return $userQuery;
     }
 }

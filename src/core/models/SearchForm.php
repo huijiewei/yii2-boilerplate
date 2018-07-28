@@ -10,14 +10,16 @@ namespace app\core\models;
 
 use app\core\components\Model;
 use yii\data\ActiveDataProvider;
+use yii\data\DataProviderInterface;
 use yii\data\Pagination;
 
 abstract class SearchForm extends Model
 {
     public $field;
     public $keyword;
-    public $searchFields = false;
 
+    public $searchFields = false;
+    public $isPagination = true;
     public $defaultPageSize = 10;
 
     public function rules()
@@ -28,28 +30,29 @@ abstract class SearchForm extends Model
         ];
     }
 
+    public function export()
+    {
+    }
+
+    /**
+     * @return DataProviderInterface
+     */
     public function search()
     {
-        $data = new ActiveDataProvider([
+        return new ActiveDataProvider([
             'query' => $this->getQuery(),
-            'pagination' => [
+            'pagination' => $this->isPagination ? [
                 'defaultPageSize' => $this->defaultPageSize,
-            ],
+            ] : false,
         ]);
-
-        $result = [
-            'items' => $data->getModels(),
-            'pages' => $this->serializePagination($data->getPagination()),
-        ];
-
-        if ($this->searchFields) {
-            $result['searchFields'] = $this->searchFields();
-        }
-
-        return $result;
     }
 
     abstract protected function getQuery();
+
+    /**
+     * @return array|null
+     */
+    abstract public function searchFields();
 
     /**
      * @param $pagination Pagination
@@ -65,9 +68,4 @@ abstract class SearchForm extends Model
             'perPage' => $pagination->getPageSize(),
         ];
     }
-
-    /**
-     * @return array
-     */
-    abstract protected function searchFields();
 }

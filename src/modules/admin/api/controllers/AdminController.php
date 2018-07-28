@@ -10,7 +10,7 @@ namespace app\modules\admin\api\controllers;
 
 use app\core\models\admin\Admin;
 use app\modules\admin\api\Controller;
-use yii\data\ActiveDataProvider;
+use app\modules\admin\api\models\AdminSearchForm;
 use yii\web\NotFoundHttpException;
 
 class AdminController extends Controller
@@ -76,10 +76,10 @@ class AdminController extends Controller
 
     public function actionIndex()
     {
-        return new ActiveDataProvider([
-            'query' => Admin::find()->with(['group'])->orderBy(['id' => SORT_ASC]),
-            'pagination' => false,
-        ]);
+        $form = new AdminSearchForm();
+        $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
+
+        return $form;
     }
 
     public function actionView($id)

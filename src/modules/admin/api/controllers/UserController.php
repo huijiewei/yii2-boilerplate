@@ -18,12 +18,11 @@ class UserController extends Controller
         $form = new UserSearchFrom();
         $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
 
-        return $form->search();
+        return $form;
     }
 
     public function actionCreate()
     {
         return ['userCreate'];
     }
-
 }

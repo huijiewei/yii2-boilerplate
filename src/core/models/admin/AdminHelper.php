@@ -47,8 +47,16 @@ class AdminHelper
                         'actionId' => 'user/index',
                     ],
                     [
+                        'name' => '会员导出',
+                        'actionId' => 'user/export',
+                    ],
+                    [
                         'name' => '会员新建',
                         'actionId' => 'user/create',
+                    ],
+                    [
+                        'name' => '会员编辑',
+                        'actionId' => 'user/edit',
                     ],
                     [
                         'name' => '会员导入',

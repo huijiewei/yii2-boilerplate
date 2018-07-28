@@ -18,8 +18,7 @@ use yii\web\Response;
 abstract class RestController extends Controller
 {
     public $serializer = [
-        'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => 'items',
+        'class' => RestSerializer::class,
     ];
 
     public $enableCsrfValidation = false;
