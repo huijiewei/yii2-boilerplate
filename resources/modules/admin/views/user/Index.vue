@@ -101,15 +101,16 @@
   import flatry from '@admin/utils/flatry'
   import UserService from '@admin/services/UserService'
   import SearchForm from '@admin/components/SearchForm'
+  import SearchFieldsMixin from '@admin/mixins/SearchFieldsMixin'
 
   export default {
     components: { SearchForm, BpAvatar },
+    mixins: [SearchFieldsMixin],
     data() {
       return {
         loading: true,
         users: [],
-        pages: null,
-        searchFields: false
+        pages: null
       }
     },
     watch: {
@@ -122,19 +123,13 @@
       getUsers: async function() {
         this.loading = true
 
-        const query = this.searchFields !== false ?
-          this.$route.query :
-          Object.assign({ searchFields: true }, this.$route.query)
-
-        const { data } = await flatry(UserService.all(query))
+        const { data } = await flatry(UserService.all(this.buildRouteQuery(this.$router.query)))
 
         if (data) {
           this.users = data.items
           this.pages = data.pages
 
-          if (this.searchFields === false) {
-            this.searchFields = data.searchFields ? data.searchFields : null
-          }
+          this.setSearchFields(data.searchFields)
         }
 
         this.loading = false
