@@ -50,6 +50,7 @@ abstract class Controller extends RestController
                 'clientId' => $this->getClientId(),
                 'optional' => [
                     'auth/login',
+                    'site/error',
                 ]
             ],
             'access' => [
