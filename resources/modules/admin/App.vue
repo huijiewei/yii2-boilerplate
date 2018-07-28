@@ -45,6 +45,7 @@
 <style lang="scss">
   body {
     color: #647279;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
   }
 
   @import "./assets/styles/style.scss";
