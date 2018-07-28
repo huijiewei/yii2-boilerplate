@@ -90,6 +90,11 @@
 
       .el-form-item {
         margin: 0 0 0 5px;
+        vertical-align: bottom;
+      }
+
+      .el-form-item__content .el-input-group {
+        vertical-align: bottom;
       }
     }
   }

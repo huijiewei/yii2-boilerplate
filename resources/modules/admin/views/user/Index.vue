@@ -9,9 +9,16 @@
             新建会员
           </el-button>
         </router-link>
+        <router-link
+          v-if="$can('user/export')"
+          :to="{ path: '/user/export' }">
+          <el-button type="default" size="small">
+            会员导出
+          </el-button>
+        </router-link>
       </div>
       <div class="search-bar">
-        <search-form :search-fields="searchFields"></search-form>
+        <search-form v-if="searchFields" :search-fields="searchFields"></search-form>
       </div>
     </div>
     <el-table v-loading="loading" :stripe="true" :data="users">
@@ -102,7 +109,7 @@
         loading: true,
         users: [],
         pages: null,
-        searchFields: null
+        searchFields: false
       }
     },
     watch: {
@@ -115,7 +122,7 @@
       getUsers: async function() {
         this.loading = true
 
-        const query = this.searchFields !== null ?
+        const query = this.searchFields !== false ?
           this.$route.query :
           Object.assign({ searchFields: true }, this.$route.query)
 
@@ -125,8 +132,8 @@
           this.users = data.items
           this.pages = data.pages
 
-          if (this.searchFields === null) {
-            this.searchFields = data.searchFields
+          if (this.searchFields === false) {
+            this.searchFields = data.searchFields ? data.searchFields : null
           }
         }
 
