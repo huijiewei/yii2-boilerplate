@@ -20,7 +20,13 @@ const HttpClient = {
       getAccessToken: () => {
         return Auth.getAccessToken()
       },
-      successHandler: (response) => Promise.resolve(response.data),
+      successHandler: (response) => {
+        if (response.config.responseType === 'blob') {
+          return Promise.resolve(response)
+        }
+
+        return Promise.resolve(response.data)
+      },
       errorHandler: (error) => {
         if (error.response) {
           if (error.response.status === HttpCodes.UNAUTHORIZED) {

@@ -54,10 +54,6 @@ class Request {
     }, undefined)
 
     httpClient.interceptors.response.use((response) => {
-      if (response.config.responseType === 'blob') {
-        return response
-      }
-
       return opt.successHandler(response)
     }, (error) => opt.errorHandler(error))
 
