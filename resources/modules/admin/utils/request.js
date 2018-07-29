@@ -53,7 +53,13 @@ class Request {
       return config
     }, undefined)
 
-    httpClient.interceptors.response.use((response) => opt.successHandler(response), (error) => opt.errorHandler(error))
+    httpClient.interceptors.response.use((response) => {
+      if (response.config.responseType === 'blob') {
+        return response
+      }
+
+      return opt.successHandler(response)
+    }, (error) => opt.errorHandler(error))
 
     this.httpClient = httpClient
   }
@@ -97,6 +103,46 @@ class Request {
 
   delete(url, params = null) {
     return this.request('DELETE', url, params)
+  }
+
+  download(method, url, accept, params = null, data = null) {
+    const config = {
+      url: url,
+      method: method,
+      responseType: 'blob'
+    }
+
+    if (params) {
+      config.params = params
+    }
+
+    if (data) {
+      config.data = data
+    }
+
+    this.httpClient.request(config).then(response => {
+      let filename = response.headers['x-suggested-filename']
+
+      if (!filename) {
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+        const matches = filenameRegex.exec(response.headers['content-disposition'])
+        if (matches != null && matches[1]) {
+          filename = matches[1].replace(/['"]/g, '')
+        }
+      }
+
+      if (filename) {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', decodeURIComponent(filename))
+        link.click()
+        window.URL.revokeObjectURL(url)
+      } else {
+        alert('无法下载文件')
+      }
+    }).catch(() => {
+    })
   }
 }
 

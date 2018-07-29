@@ -55,6 +55,13 @@ class UserSearchFrom extends SearchForm
         ];
     }
 
+    public function exportOptions()
+    {
+        return [
+            'title' => '用户列表',
+        ];
+    }
+
     protected function getQuery()
     {
         $userQuery = User::find()->orderBy(['id' => SORT_DESC]);

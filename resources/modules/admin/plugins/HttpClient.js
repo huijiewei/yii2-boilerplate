@@ -62,13 +62,24 @@ const HttpClient = {
           }
 
           if (error.response.data) {
-            let data = error.response.data
+            const data = error.response.data
             if (data.message) {
               Message.warning(data.message)
             } else if (Array.isArray(data)) {
               data.forEach(function(item) {
                 Message.warning(item.message)
               })
+            } else if (data instanceof Blob) {
+              const blb = new Blob([data])
+              const reader = new FileReader()
+
+              reader.onloadend = (e) => {
+                const result = JSON.parse(e.srcElement.result)
+
+                Message.error(result.message)
+              }
+
+              reader.readAsText(blb)
             }
           }
         } else {

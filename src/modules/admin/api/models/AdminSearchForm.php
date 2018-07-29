@@ -23,6 +23,11 @@ class AdminSearchForm extends SearchForm
         return null;
     }
 
+    public function exportOptions()
+    {
+        return null;
+    }
+
     protected function getQuery()
     {
         return Admin::find()->with(['group'])->orderBy(['id' => SORT_ASC]);
