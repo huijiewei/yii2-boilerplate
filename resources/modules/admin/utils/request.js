@@ -101,7 +101,7 @@ class Request {
     return this.request('DELETE', url, params)
   }
 
-  download(method, url, accept, params = null, data = null) {
+  download(method, url, params = null, data = null) {
     const config = {
       url: url,
       method: method,
