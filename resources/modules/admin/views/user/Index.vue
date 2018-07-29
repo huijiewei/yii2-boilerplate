@@ -9,13 +9,12 @@
             新建会员
           </el-button>
         </router-link>
-        <router-link
-          v-if="$can('user/export')"
-          :to="{ path: '/user/export' }">
-          <el-button type="default" size="small">
-            会员导出
-          </el-button>
-        </router-link>
+        <export-button v-if="$can('user/export')"
+                       :loading="loading"
+                       :api="'user/export'"
+                       type="default" size="small">
+          会员导出
+        </export-button>
       </div>
       <div class="search-bar">
         <search-form v-if="searchFields" :search-fields="searchFields"></search-form>
@@ -102,9 +101,10 @@
   import UserService from '@admin/services/UserService'
   import SearchForm from '@admin/components/SearchForm'
   import SearchFieldsMixin from '@admin/mixins/SearchFieldsMixin'
+  import ExportButton from '@admin/components/ExportButton'
 
   export default {
-    components: { SearchForm, BpAvatar },
+    components: { ExportButton, SearchForm, BpAvatar },
     mixins: [SearchFieldsMixin],
     data() {
       return {

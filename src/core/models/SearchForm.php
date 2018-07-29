@@ -9,9 +9,9 @@
 namespace app\core\models;
 
 use app\core\components\Model;
+use app\extensions\spreadsheet\Spreadsheet;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
-use yii\data\Pagination;
 
 abstract class SearchForm extends Model
 {
@@ -20,6 +20,7 @@ abstract class SearchForm extends Model
 
     public $searchFields = false;
     public $isPagination = true;
+
     public $defaultPageSize = 10;
 
     public function rules()
@@ -30,9 +31,28 @@ abstract class SearchForm extends Model
         ];
     }
 
+    /**
+     * @return Spreadsheet|null
+     */
     public function export()
     {
+        $options = $this->exportOptions();
+
+        if ($options === null || empty($options)) {
+            return null;
+        }
+
+        $options['query'] = $this->getQuery();
+
+        return new Spreadsheet($options);
     }
+
+    /**
+     * @return array|null
+     */
+    abstract public function exportOptions();
+
+    abstract protected function getQuery();
 
     /**
      * @return DataProviderInterface
@@ -47,25 +67,8 @@ abstract class SearchForm extends Model
         ]);
     }
 
-    abstract protected function getQuery();
-
     /**
      * @return array|null
      */
     abstract public function searchFields();
-
-    /**
-     * @param $pagination Pagination
-     *
-     * @return array
-     */
-    protected function serializePagination($pagination)
-    {
-        return [
-            'totalCount' => $pagination->totalCount,
-            'pageCount' => $pagination->getPageCount(),
-            'currentPage' => $pagination->getPage() + 1,
-            'perPage' => $pagination->getPageSize(),
-        ];
-    }
 }
