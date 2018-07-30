@@ -6,7 +6,7 @@
       <div class="placeholder-form-label">
         <placeholder-text-row
           :line-spacing="'0'"
-          :height="'40px'"
+          :height="'30px'"
           :width="formLabelWidth + 'px'"></placeholder-text-row>
       </div>
       <div class="placeholder-form-field" style="width: 100%; margin-left: 10px;">
@@ -51,5 +51,6 @@
 
   .placeholder-form-row {
     display: flex;
+    align-items: center;
   }
 </style>

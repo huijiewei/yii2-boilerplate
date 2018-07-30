@@ -24,5 +24,6 @@
 
   .placeholder-text-row {
     display: block;
+    border-radius: 3px;
   }
 </style>
