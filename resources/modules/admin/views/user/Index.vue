@@ -10,7 +10,7 @@
           </el-button>
         </router-link>
         <export-button v-if="$can('user/export')"
-                       :loading="loading"
+                       :disabled="loading"
                        :api="'user/export'"
                        type="default" size="small">
           会员导出

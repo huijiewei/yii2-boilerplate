@@ -102,6 +102,7 @@ class Request {
   }
 
   download(method, url, params = null, data = null) {
+    console.log(params)
     const config = {
       url: url,
       method: method,
@@ -134,10 +135,11 @@ class Request {
         link.setAttribute('download', decodeURIComponent(filename))
         link.click()
         window.URL.revokeObjectURL(url)
+
+        return true
       } else {
-        alert('无法下载文件')
+        return false
       }
-    }).catch(() => {
     })
   }
 }

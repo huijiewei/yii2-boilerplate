@@ -2,40 +2,46 @@
   <el-button
     :type="type"
     :size="size"
-    :loading="isLoading"
+    :disabled="disabled"
+    :element-loading-text="loadingText"
+    element-loading-spinner="el-icon-loading"
+    v-loading.fullscreen.lock="loading"
     @click="handleClick">
     <slot></slot>
   </el-button>
 </template>
 
 <script>
+  import flatry from '@admin/utils/flatry'
+
   export default {
     name: 'ExportButton',
-    props: ['api', 'type', 'size', 'loading'],
+    props: ['api', 'type', 'size', 'disabled'],
     data() {
       return {
-        isLoading: false
+        loading: false,
+        loadingText: ''
       }
     },
-    mounted() {
-      this.updateLoading()
-    },
-    watch: {
-      'loading': 'updateLoading'
-    },
     methods: {
-      updateLoading() {
-        this.isLoading = this.loading
-      },
       handleClick: async function() {
-        this.isLoading = true
+        this.loading = true
+        this.loadingText = '正在导出 Excel'
 
-        await this.$http.download(
+        const { data } = await flatry(this.$http.download(
           'GET',
           this.api,
-          Object.assign({ page: null }, this.$route.query))
+          Object.assign({}, this.$route.query, { page: null })))
 
-        this.isLoading = false
+        if (data === false) {
+          this.$message({
+            type: 'warning',
+            message: '下载文件失败',
+            duration: 1500
+          })
+        }
+
+        this.loading = false
       }
     }
   }
