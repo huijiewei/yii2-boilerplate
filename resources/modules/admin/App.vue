@@ -31,7 +31,7 @@
             spinner.remove()
           }
         },
-        1000
+        900
       )
     },
     destroyed() {
