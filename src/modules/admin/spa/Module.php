@@ -9,6 +9,7 @@
 namespace app\modules\admin\spa;
 
 use app\core\components\AbstractModule;
+use yii\web\Application;
 
 class Module extends AbstractModule
 {

@@ -18,4 +18,13 @@ class SiteController extends Controller
 
         return $this->render('/index');
     }
+
+    public function actionError()
+    {
+        $this->layout = false;
+
+        return $this->render('/error', [
+            'exception' => \Yii::$app->getErrorHandler()->exception
+        ]);
+    }
 }

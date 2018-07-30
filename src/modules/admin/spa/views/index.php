@@ -7,9 +7,6 @@
  */
 
 /* @var $this \yii\web\View */
-/* @var $content string */
-/* @var $context \app\modules\admin\spa\Controller */
-$context = $this->context;
 
 \app\modules\admin\spa\ManifestAssetBundle::register($this);
 ?>
@@ -109,8 +106,7 @@ $context = $this->context;
             <div class="rect5"></div>
         </div>
     </div>
-    <div id="root">
-    </div>
+    <div id="root"></div>
     <?php $this->endBody(); ?>
     </body>
     </html>

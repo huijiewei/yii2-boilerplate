@@ -42,7 +42,9 @@ return [
         ],
 
         'cache' => [
-            'class' => getenv('APP_DISABLE_CACHE') ? \yii\caching\DummyCache::class : \yii\caching\FileCache::class,
+            'class' => getenv('APP_DISABLE_CACHE') == 1 ?
+                \yii\caching\DummyCache::class :
+                \yii\caching\FileCache::class,
         ],
 
         'formatter' => [

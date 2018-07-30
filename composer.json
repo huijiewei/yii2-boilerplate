@@ -1,6 +1,7 @@
 {
   "name": "huijiewei/yii2-boilerplate",
   "type": "project",
+  "description": "样板项目",
   "require": {
     "php": "^7.1.3",
     "yiisoft/yii2": "^2.0",
