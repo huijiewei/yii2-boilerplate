@@ -9,6 +9,7 @@
                 :is-edit="true"
                 @on-submit="editAdmin">
     </admin-form>
+    <placeholder-form v-else></placeholder-form>
   </div>
 </template>
 
@@ -16,9 +17,10 @@
   import AdminForm from '@admin/views/admin/_EditForm'
   import AdminService from '@admin/services/AdminService'
   import flatry from '@admin/utils/flatry'
+  import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
   export default {
-    components: { AdminForm },
+    components: { PlaceholderForm, AdminForm },
     data() {
       return {
         pageTitle: '编辑管理员',

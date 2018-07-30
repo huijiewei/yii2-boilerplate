@@ -9,6 +9,7 @@
                       :is-edit="true"
                       @on-submit="editAdminGroup">
     </admin-group-form>
+    <placeholder-form v-else :rows="3"></placeholder-form>
   </div>
 </template>
 
@@ -16,9 +17,10 @@
   import AdminGroupForm from '@admin/views/admin-group/_EditForm'
   import AdminGroupService from '@admin/services/AdminGroupService'
   import flatry from '@admin/utils/flatry'
+  import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
   export default {
-    components: { AdminGroupForm },
+    components: { PlaceholderForm, AdminGroupForm },
     data() {
       return {
         pageTitle: '编辑管理组',

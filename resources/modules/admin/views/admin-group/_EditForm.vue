@@ -78,6 +78,11 @@
       }
     },
     async mounted() {
+      this.formModel = {
+        name: this.adminGroup.name,
+        acl: []
+      }
+
       const { data } = await flatry(AdminGroupService.acls())
 
       if (data) {
@@ -121,10 +126,7 @@
         result.push(group)
       })
 
-      this.formModel = {
-        name: this.adminGroup.name,
-        acl: result
-      }
+      this.formModel.acl = result
     },
     methods: {
       handleFormSubmit(formName) {
