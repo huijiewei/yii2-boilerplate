@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 import router from './router'
 import store from './store'
@@ -8,9 +9,6 @@ import App from './App'
 
 import HttpClient from './plugins/HttpClient'
 import AclChecker from './plugins/AclChecker'
-
-import '@admin/assets/styles/theme.scss'
-import '@core/assets/icons/iconfont.less'
 
 Vue.use(ElementUI)
 
