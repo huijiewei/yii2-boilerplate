@@ -116,7 +116,7 @@ class Request {
       config.data = data
     }
 
-    this.httpClient.request(config).then(response => {
+    return this.httpClient.request(config).then(response => {
       let filename = response.headers['x-suggested-filename']
 
       if (!filename) {
