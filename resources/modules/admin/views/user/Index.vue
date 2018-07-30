@@ -69,8 +69,8 @@
       <el-table-column width="auto" class-name="text-nowrap" align="right" label="操作">
         <template slot-scope="scope">
           <router-link
-            v-if="$can('admin/edit')"
-            :to="{ path: '/admin/edit', query: { id: scope.row.id } }">
+            v-if="$can('user/edit')"
+            :to="{ path: '/user/edit', query: { id: scope.row.id } }">
             <el-button
               title="编辑"
               type="warning"
@@ -123,7 +123,7 @@
       getUsers: async function() {
         this.loading = true
 
-        const { data } = await flatry(UserService.all(this.buildRouteQuery(this.$router.query)))
+        const { data } = await flatry(UserService.all(this.buildRouteQuery(this.$route.query)))
 
         if (data) {
           this.users = data.items
