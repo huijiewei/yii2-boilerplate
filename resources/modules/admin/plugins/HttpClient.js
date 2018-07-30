@@ -69,6 +69,7 @@ const HttpClient = {
 
           if (error.response.data) {
             const data = error.response.data
+
             if (data.message) {
               Message.warning(data.message)
             } else if (Array.isArray(data)) {

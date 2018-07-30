@@ -61,13 +61,10 @@ class UserSearchFrom extends SearchForm
             'title' => '用户列表',
             'columns' => [
                 'ID' => 'id',
-                '电话号码' => 'phone',
-                '显示名' => 'display',
-                '注册时间' => function ($model) {
-                    /* @var $model User */
-                    return \Yii::$app->getFormatter()->asDatetime($model->createdAt);
-                },
-                '注册 IP' => 'createdIp',
+                '电话号码' => 'phone:text',
+                '显示名' => 'display:text',
+                '注册时间' => 'createdAt:datetime',
+                '注册 IP' => 'createdIp:text',
                 '注册来源' => 'createdFromName',
             ],
         ];
