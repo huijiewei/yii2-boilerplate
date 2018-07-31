@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<h4>出现错误</h4>
+<h4>出现错误，请稍后刷新页面</h4>
 <p><?= $exception->getMessage(); ?></p>
 </body>
 </html>
