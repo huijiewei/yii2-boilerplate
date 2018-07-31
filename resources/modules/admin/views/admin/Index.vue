@@ -84,7 +84,7 @@
     },
     methods: {
       handleAdminDelete(admin) {
-        this.$confirm(`你确定要删除 ${admin.displayName || admin.phone} 吗？`, {
+        this.$confirm(`你确定要删除 ${admin.display || admin.phone} 吗？`, {
           showClose: false,
           confirmButtonText: '删除',
           confirmButtonClass: 'el-button--danger',
