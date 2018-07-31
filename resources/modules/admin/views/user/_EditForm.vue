@@ -14,7 +14,7 @@
     </el-form-item>
     <el-form-item label="密码" prop="password">
       <el-col :md="6">
-        <el-input type="password" v-model.trim="formModel.password"></el-input>
+        <el-input type="password" auto-complete="new-password" v-model.trim="formModel.password"></el-input>
       </el-col>
       <el-col v-if="isEdit" :md="18">
         <span class="form-help form-help-inline">密码留空表示不修改密码</span>
@@ -22,7 +22,7 @@
     </el-form-item>
     <el-form-item label="重复密码" prop="passwordRepeat">
       <el-col :md="6">
-        <el-input type="password" v-model.trim="formModel.passwordRepeat"></el-input>
+        <el-input type="password" auto-complete="new-password" v-model.trim="formModel.passwordRepeat"></el-input>
       </el-col>
     </el-form-item>
     <el-form-item label="显示名" prop="display">
