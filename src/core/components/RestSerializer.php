@@ -40,7 +40,7 @@ class RestSerializer extends Component
 
     public function serialize($data)
     {
-        if ($data instanceof Model && $data->hasErrors()) {
+        if ($data instanceof \yii\base\Model && $data->hasErrors()) {
             return $this->serializeModelErrors($data);
         } elseif ($data instanceof SearchForm) {
             return $this->serializeSearchForm($data);
