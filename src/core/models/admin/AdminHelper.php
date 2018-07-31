@@ -59,6 +59,10 @@ class AdminHelper
                         'actionId' => 'user/edit',
                     ],
                     [
+                        'name' => '会员删除',
+                        'actionId' => 'user/delete',
+                    ],
+                    [
                         'name' => '会员导入',
                         'actionId' => 'user/import',
                     ],
