@@ -41,6 +41,7 @@ composer install
 ```
 
 ###### 生成本地开发环境 SSL 证书
+使用 mkcert 工具，具体请参考：https://github.com/FiloSottile/mkcert
 
 ####### 安装 mkcert
 ```bash
