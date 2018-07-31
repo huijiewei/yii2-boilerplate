@@ -79,6 +79,15 @@
               编辑
             </el-button>
           </router-link>
+          <el-button
+            v-if="$can('user/delete')"
+            title="删除"
+            size="mini"
+            type="danger"
+            :plain="true"
+            @click="handleUserDelete(scope.row)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -117,6 +126,37 @@
       '$route': 'getUsers'
     },
     methods: {
+      handleUserDelete(user) {
+        this.$confirm(`你确定要删除 ${user.display || user.phone} 吗？`, {
+          showClose: false,
+          confirmButtonText: '删除',
+          confirmButtonClass: 'el-button--danger',
+          cancelButtonText: '取消',
+          type: 'error',
+          callback: async (action) => {
+            if (action === 'confirm') {
+              this.loading = true
+
+              const { data } = await flatry(UserService.delete(user.id))
+
+              if (data) {
+                this.users.forEach((item, index) => {
+                  if (item.id === user.id) {
+                    this.users.splice(index, 1)
+                  }
+                })
+
+                this.$message({
+                  type: 'success',
+                  message: data.message
+                })
+              }
+
+              this.loading = false
+            }
+          }
+        })
+      },
       handleCurrentChange(page) {
         this.$router.push({ path: this.$route.fullPath, query: { page: page } })
       },

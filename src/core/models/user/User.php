@@ -9,6 +9,7 @@
 namespace app\core\models\user;
 
 use app\core\models\Identity;
+use app\core\validators\PhoneNumberValidator;
 
 /**
  * Class User
@@ -31,6 +32,49 @@ class User extends Identity
     public static function findByAccessToken($token, $clientId)
     {
         return null;
+    }
+
+    public function rules()
+    {
+        return [
+            [['phone', 'display', 'avatar', 'password', 'passwordRepeat'], 'trim'],
+            [['password', 'passwordRepeat'], 'required', 'on' => 'create'],
+            [
+                ['password', 'passwordRepeat'],
+                'string',
+                'length' => [5, 20],
+                'on' => 'create',
+                'when' => function ($model) {
+                    return !empty($model->passwordRepeat);
+                }
+            ],
+            ['password', 'compare', 'compareAttribute' => 'passwordRepeat'],
+            ['phone', 'required'],
+            ['phone', PhoneNumberValidator::class],
+            ['phone', 'unique'],
+            ['display', 'string', 'length' => [3, 10]],
+
+        ];
+    }
+
+    public function scenarios()
+    {
+        return [
+            'create' => ['password', 'passwordRepeat', 'phone', 'display', 'avatar'],
+            'edit' => ['password', 'passwordRepeat', 'phone', 'display', 'avatar'],
+            'profile' => ['password', 'passwordRepeat', 'phone', 'display', 'avatar'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'phone' => '电话号码',
+            'password' => '密码',
+            'passwordRepeat' => '重复密码',
+            'display' => '显示名',
+            'avatar' => '头像',
+        ];
     }
 
     public function getCreatedFromName()

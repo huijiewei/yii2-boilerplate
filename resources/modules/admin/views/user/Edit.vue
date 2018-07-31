@@ -6,7 +6,8 @@
     <user-form v-if="user"
                :submit-text="pageTitle"
                :user="user"
-               @on-submit="createUser">
+               :is-edit="true"
+               @on-submit="editUser">
     </user-form>
     <placeholder-form v-else></placeholder-form>
   </div>
@@ -22,25 +23,28 @@
     components: { UserForm, PlaceholderForm },
     data() {
       return {
-        pageTitle: '新建会员',
+        pageTitle: '编辑会员',
         user: null
       }
     },
     async created() {
-      const { data } = await flatry(UserService.create())
+      const { data } = await flatry(UserService.edit(this.getUserId))
 
       if (data) {
         this.user = data
       }
     },
+    computed: {
+      getUserId() {
+        return this.$router.currentRoute.query.id
+      }
+    },
     methods: {
-      async createUser(user, success, callback) {
-        const { data } = await flatry(UserService.create(user))
+      async editUser(user, success, callback) {
+        const { data } = await flatry(UserService.edit(this.getUserId, user))
 
         if (data) {
           this.$message.success(data.message)
-          this.$router.replace({ path: '/user/edit', query: { id: data.userId } })
-
           success()
         }
 
