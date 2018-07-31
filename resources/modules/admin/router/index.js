@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { routerHistory, writeHistory } from 'vue-router-back-button'
 
 import userRoutes from './user'
 import adminRoutes from './admin'
@@ -11,6 +12,7 @@ import notFound from '@admin/views/site/NotFound'
 import defaultLayout from '@admin/components/DefaultLayout'
 
 Vue.use(VueRouter)
+Vue.use(routerHistory)
 
 const routes = [
   ...userRoutes,
@@ -55,7 +57,8 @@ const router = new VueRouter({
     }
 
     return { x: 0, y: 0 }
-  }
+  },
+  afterEach: writeHistory
 })
 
 export default router

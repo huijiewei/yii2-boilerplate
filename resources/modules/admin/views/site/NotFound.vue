@@ -20,10 +20,10 @@
     name: 'Error',
     methods: {
       back() {
-        if (window.history.length > 0) {
-          this.$router.back()
+        if (this.$routerHistory.hasPrevious()) {
+          this.$router.replace({ path: this.$routerHistory.previous().path })
         } else {
-          this.$router.push('/')
+          this.$router.push('/home')
         }
       }
     }
