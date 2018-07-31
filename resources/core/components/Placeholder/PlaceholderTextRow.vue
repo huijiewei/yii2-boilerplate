@@ -11,7 +11,7 @@
         styles: {
           width: this.width || '100%',
           height: this.height || '1em',
-          backgroundColor: this.color || '#f0f0f0',
+          backgroundColor: this.color || '#f3f3f3',
           marginTop: this.lineSpacing || '0.7em'
         }
       }

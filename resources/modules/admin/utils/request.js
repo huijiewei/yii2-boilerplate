@@ -102,10 +102,10 @@ class Request {
   }
 
   download(method, url, params = null, data = null) {
-    console.log(params)
     const config = {
       url: url,
       method: method,
+      timeout: 20000,
       responseType: 'blob'
     }
 
