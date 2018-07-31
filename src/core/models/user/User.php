@@ -52,7 +52,7 @@ class User extends Identity
             ['phone', 'required'],
             ['phone', PhoneNumberValidator::class],
             ['phone', 'unique'],
-            ['display', 'string', 'length' => [3, 10]],
+            ['display', 'string', 'length' => [2, 6]],
 
         ];
     }
