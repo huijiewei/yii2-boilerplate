@@ -1,4 +1,5 @@
 {
+  "private": true,
   "license": "MIT",
   "scripts": {
     "admin-serve": "cross-env NODE_ENV=development webpack-serve --config ./resources/config/admin.webpack.dev.js",

@@ -57,8 +57,9 @@ const router = new VueRouter({
     }
 
     return { x: 0, y: 0 }
-  },
-  afterEach: writeHistory
+  }
 })
+
+router.afterEach(writeHistory)
 
 export default router
