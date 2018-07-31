@@ -21,7 +21,7 @@
     methods: {
       back() {
         if (this.$routerHistory.hasPrevious()) {
-          this.$router.replace({ path: this.$routerHistory.previous().path })
+          this.$router.push({ path: this.$routerHistory.previous().path })
         } else {
           this.$router.push('/home')
         }
