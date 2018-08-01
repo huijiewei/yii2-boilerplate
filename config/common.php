@@ -62,7 +62,7 @@ return [
         ],
 
         'aliyunOss' => [
-            'class' => \app\extensions\aliyunoss\AliyunOss::class,
+            'class' => \huijiewei\aliyunoss\AliyunOss::class,
             'accessKeyId' => getenv('ALIYUN_OSS_ACCESS_KEY_ID'),
             'accessKeySecret' => getenv('ALIYUN_OSS_ACCESS_KEY_SECRET'),
             'endpoint' => getenv('ALIYUN_OSS_ENDPOINT'),
