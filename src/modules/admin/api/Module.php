@@ -45,22 +45,22 @@ class Module extends AbstractModule
     {
         parent::init();
 
-        \Yii::$app->set('request', [
-            'class' => WebRequest::class,
-            'enableCsrfValidation' => false,
-            'enableCsrfCookie' => false,
-            'enableCookieValidation' => false,
-            'parsers' => [
-                'application/json' => 'yii\web\JsonParser',
-            ],
-        ]);
-
-        \Yii::$app->set('response', [
-            'class' => Response::class,
-            'format' => Response::FORMAT_JSON,
-        ]);
-
         if (\Yii::$app instanceof Application) {
+            \Yii::$app->set('request', [
+                'class' => WebRequest::class,
+                'enableCsrfValidation' => false,
+                'enableCsrfCookie' => false,
+                'enableCookieValidation' => false,
+                'parsers' => [
+                    'application/json' => 'yii\web\JsonParser',
+                ],
+            ]);
+
+            \Yii::$app->set('response', [
+                'class' => Response::class,
+                'format' => Response::FORMAT_JSON,
+            ]);
+
             $this->controllerMap = [
                 'swagger' => [
                     'class' => SwaggerController::class,
