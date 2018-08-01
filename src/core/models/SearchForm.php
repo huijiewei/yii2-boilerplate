@@ -9,7 +9,7 @@
 namespace app\core\models;
 
 use app\core\components\Model;
-use app\extensions\spreadsheet\Spreadsheet;
+use huijiewei\spreadsheet\Spreadsheet;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 
