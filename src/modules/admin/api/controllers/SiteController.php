@@ -8,8 +8,8 @@
 
 namespace app\modules\admin\api\controllers;
 
-use app\extensions\aliyunoss\AliyunOss;
 use app\modules\admin\api\Controller;
+use huijiewei\aliyunoss\AliyunOss;
 
 class SiteController extends Controller
 {
