@@ -32,7 +32,9 @@
       "app\\core\\": "src/core",
       "app\\modules\\": "src/modules",
       "huijiewei\\aliyunoss\\": "src/extensions/yii2-aliyun-oss",
-      "huijiewei\\spreadsheet\\": "src/extensions/yii2-spreadsheet"
+      "huijiewei\\spreadsheet\\": "src/extensions/yii2-spreadsheet",
+      "huijiewei\\softdelete\\": "src/extensions/yii2-soft-delete",
+      "huijiewei\\closuretable\\": "src/extensions/yii2-closure-table"
     }
   },
   "autoload-dev": {
