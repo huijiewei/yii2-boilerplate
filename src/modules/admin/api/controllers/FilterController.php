@@ -10,6 +10,7 @@ namespace app\modules\admin\api\controllers;
 
 use app\core\models\admin\AdminGroup;
 use app\core\models\admin\AdminHelper;
+use app\core\models\shop\ShopCategory;
 use app\modules\admin\api\Controller;
 
 class FilterController extends Controller
@@ -22,5 +23,10 @@ class FilterController extends Controller
     public function actionAdminAllAcl()
     {
         return AdminHelper::getAllAcl();
+    }
+
+    public function actionShopCategoryTree()
+    {
+        return ShopCategory::getTree();
     }
 }

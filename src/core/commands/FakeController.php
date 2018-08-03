@@ -9,12 +9,16 @@
 namespace app\core\commands;
 
 use app\core\helpers\StringHelper;
+use app\core\models\shop\ShopCategory;
 use app\core\models\user\User;
 use Faker\Factory;
 use yii\console\Controller;
 
 class FakeController extends Controller
 {
+    /**
+     * @param int $count 要生成的用户数量
+     */
     public function actionUsers($count = 10)
     {
         $faker = $this->getFaker();
@@ -50,5 +54,26 @@ class FakeController extends Controller
     private function getFaker()
     {
         return Factory::create('zh_CN');
+    }
+
+    public function actionShopCategory($name, $parentId = 0)
+    {
+        if ($parentId > 0 && !ShopCategory::find()->where(['id' => $parentId])->exists()) {
+            $this->stdout('分类不存在：' . $parentId);
+            return;
+        }
+
+        $shopCategory = new ShopCategory();
+        $shopCategory->name = $name;
+        $shopCategory->parentId = $parentId;
+
+        $shopCategory->save(false);
+
+        $this->stdout('分类添加成功');
+    }
+
+    public function actionTest()
+    {
+        ShopCategory::rebuildClosureTable();
     }
 }
