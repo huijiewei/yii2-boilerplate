@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import { routerHistory, writeHistory } from 'vue-router-back-button'
 
 import userRoutes from './user'
+import shopRoutes from './shop'
 import adminRoutes from './admin'
 
 import siteIndex from '@admin/views/site/Index'
@@ -15,12 +16,13 @@ Vue.use(VueRouter)
 Vue.use(routerHistory)
 
 const routes = [
-  ...userRoutes,
-  ...adminRoutes,
   {
     path: '/',
     component: defaultLayout,
     children: [
+      ...userRoutes,
+      ...shopRoutes,
+      ...adminRoutes,
       {
         path: 'home',
         component: siteIndex,

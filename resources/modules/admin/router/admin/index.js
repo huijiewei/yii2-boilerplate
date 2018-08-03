@@ -1,9 +1,9 @@
-import DefaultLayout from '@admin/components/DefaultLayout'
+import BlankLayout from '@admin/components/BlankLayout'
 
 const routes = [
   {
     path: '/admin',
-    component: DefaultLayout,
+    component: BlankLayout,
     meta: {
       breadcrumb: {
         title: '管理员',
@@ -38,7 +38,7 @@ const routes = [
   },
   {
     path: '/admin-group',
-    component: DefaultLayout,
+    component: BlankLayout,
     meta: {
       breadcrumb: {
         title: '管理组',

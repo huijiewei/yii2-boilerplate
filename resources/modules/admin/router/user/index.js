@@ -1,9 +1,9 @@
-import DefaultLayout from '@admin/components/DefaultLayout'
+import BlankLayout from '@admin/components/BlankLayout'
 
 const routes = [
   {
     path: '/user',
-    component: DefaultLayout,
+    component: BlankLayout,
     meta: {
       breadcrumb: {
         title: '会员',
