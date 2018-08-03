@@ -92,20 +92,36 @@ class AdminHelper
                         ]
                     ],
                     [
-                        'name' => '商品分类',
-                        'actionId' => 'good/category'
+                        'children' => [
+                            [
+                                'name' => '商品分类',
+                                'actionId' => 'shop-category/index'
+                            ],
+                            [
+                                'name' => '商品分类新建',
+                                'actionId' => 'shop-category/create'
+                            ],
+                            [
+                                'name' => '商品分类编辑',
+                                'actionId' => 'shop-category/edit'
+                            ],
+                            [
+                                'name' => '商品分类删除',
+                                'actionId' => 'shop-category/delete'
+                            ],
+                        ]
                     ],
                     [
                         'name' => '商品属性',
-                        'actionId' => 'good/property'
+                        'actionId' => 'shop/property'
                     ],
                     [
                         'name' => '商品特点',
-                        'actionId' => 'good/feature'
+                        'actionId' => 'shop/feature'
                     ],
                     [
                         'name' => '商品品牌',
-                        'actionId' => 'good/brand'
+                        'actionId' => 'shop/brand'
                     ]
                 ],
             ],
@@ -220,19 +236,19 @@ class AdminHelper
                     ],
                     [
                         'label' => '商品分类',
-                        'url' => 'good/category'
+                        'url' => 'shop-category/index'
                     ],
                     [
                         'label' => '商品属性',
-                        'url' => 'good/property'
+                        'url' => 'shop/property'
                     ],
                     [
                         'label' => '商品特点',
-                        'url' => 'good/feature'
+                        'url' => 'shop/feature'
                     ],
                     [
                         'label' => '商品品牌',
-                        'url' => 'good/brand'
+                        'url' => 'shop/brand'
                     ]
                 ],
             ],
