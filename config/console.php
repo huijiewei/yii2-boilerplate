@@ -13,6 +13,10 @@ $config = [
 
     'controllerNamespace' => 'app\\core\\commands',
 
+    'controllerMap' => [
+        'closure-table' => \huijiewei\closuretable\ClosureTableController::class,
+    ],
+
     'components' => [
         'urlManager' => [
             'baseUrl' => getenv('APP_URL'),
