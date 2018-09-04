@@ -34,7 +34,6 @@
 </template>
 
 <script>
-  import AdminService from '@admin/services/AdminService'
   import flatry from '@admin/utils/flatry'
   import BpAvatar from '@admin/components/Avatar'
   import ShopCategoryService from '@admin/services/ShopCategoryService'
@@ -48,39 +47,7 @@
         tree: []
       }
     },
-    methods: {
-      handleAdminDelete(admin) {
-        this.$confirm(`你确定要删除 ${admin.display || admin.phone} 吗？`, {
-          showClose: false,
-          confirmButtonText: '删除',
-          confirmButtonClass: 'el-button--danger',
-          cancelButtonText: '取消',
-          type: 'error',
-          callback: async (action) => {
-            if (action === 'confirm') {
-              this.loading = true
-
-              const { data } = await flatry(AdminService.delete(admin.id))
-
-              if (data) {
-                this.admins.forEach((item, index) => {
-                  if (item.id === admin.id) {
-                    this.admins.splice(index, 1)
-                  }
-                })
-
-                this.$message({
-                  type: 'success',
-                  message: data.message
-                })
-              }
-
-              this.loading = false
-            }
-          }
-        })
-      }
-    },
+    methods: {},
     async created() {
       const { data } = await flatry(ShopCategoryService.tree())
 

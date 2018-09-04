@@ -16,11 +16,11 @@ class UserSearchFrom extends SearchForm
     public $createdFrom;
     public $createdRange;
 
-    public function rules()
+    public function searchRules()
     {
-        return array_merge([
+        return [
             [['createdFrom', 'createdRange'], 'trim']
-        ], parent::rules());
+        ];
     }
 
     public function searchFields()
@@ -73,16 +73,6 @@ class UserSearchFrom extends SearchForm
     protected function getQuery()
     {
         $userQuery = User::find()->orderBy(['id' => SORT_DESC]);
-
-        if (!empty($this->keyword)) {
-            if ($this->field === 'phone') {
-                $userQuery->andWhere(['like', 'phone', $this->keyword]);
-            }
-
-            if ($this->field === 'display') {
-                $userQuery->andWhere(['like', 'display', $this->keyword]);
-            }
-        }
 
         if (!empty($this->createdFrom)) {
             $userQuery->andWhere(['createdFrom' => $this->createdFrom]);

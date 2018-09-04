@@ -23,6 +23,11 @@ class AdminSearchForm extends SearchForm
         return null;
     }
 
+    public function searchRules()
+    {
+        return [];
+    }
+
     public function exportOptions()
     {
         return null;

@@ -12,6 +12,7 @@ use app\core\components\Model;
 use huijiewei\spreadsheet\Spreadsheet;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
+use yii\db\ActiveQuery;
 
 abstract class SearchForm extends Model
 {
@@ -25,11 +26,13 @@ abstract class SearchForm extends Model
 
     public function rules()
     {
-        return [
+        return array_merge($this->searchRules(), [
             [['field', 'keyword', 'searchFields'], 'trim'],
             ['searchFields', 'boolean'],
-        ];
+        ]);
     }
+
+    abstract public function searchRules();
 
     /**
      * @return Spreadsheet|null
@@ -52,6 +55,9 @@ abstract class SearchForm extends Model
      */
     abstract public function exportOptions();
 
+    /**
+     * @return ActiveQuery
+     */
     abstract protected function getQuery();
 
     /**
@@ -60,11 +66,25 @@ abstract class SearchForm extends Model
     public function search()
     {
         return new ActiveDataProvider([
-            'query' => $this->getQuery(),
+            'query' => $this->searchQuery(),
             'pagination' => $this->isPagination ? [
                 'defaultPageSize' => $this->defaultPageSize,
             ] : false,
         ]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    private function searchQuery()
+    {
+        $query = $this->getQuery();
+
+        if (!empty($this->keyword) && !empty($this->field)) {
+            $query->andWhere(['like', $this->field, $this->keyword]);
+        }
+
+        return $query;
     }
 
     /**
