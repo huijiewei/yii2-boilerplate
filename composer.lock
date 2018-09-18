@@ -112,16 +112,16 @@
         },
         {
             "name": "bower-asset/swagger-ui",
-            "version": "v3.18.2",
+            "version": "v3.18.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "00432fc07ccffdd1304a920e610edb14478b7553"
+                "reference": "1c52a9c77bc927ab3f1ab20c04929ab8d2efd70f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/00432fc07ccffdd1304a920e610edb14478b7553",
-                "reference": "00432fc07ccffdd1304a920e610edb14478b7553",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/1c52a9c77bc927ab3f1ab20c04929ab8d2efd70f",
+                "reference": "1c52a9c77bc927ab3f1ab20c04929ab8d2efd70f",
                 "shasum": null
             },
             "type": "bower-asset"
@@ -350,16 +350,16 @@
         },
         {
             "name": "easywechat-composer/easywechat-composer",
-            "version": "1.0.1",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mingyoung/easywechat-composer.git",
-                "reference": "5854eb962094a81823fe148baafe16fdebe9ee6e"
+                "reference": "c024b9600722212e31722ed9bece9ab8bd337f24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mingyoung/easywechat-composer/zipball/5854eb962094a81823fe148baafe16fdebe9ee6e",
-                "reference": "5854eb962094a81823fe148baafe16fdebe9ee6e",
+                "url": "https://api.github.com/repos/mingyoung/easywechat-composer/zipball/c024b9600722212e31722ed9bece9ab8bd337f24",
+                "reference": "c024b9600722212e31722ed9bece9ab8bd337f24",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -378,7 +378,12 @@
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "EasyWeChatComposer\\Plugin"
+                "class": "EasyWeChatComposer\\Plugin",
+                "laravel": {
+                    "providers": [
+                        "EasyWeChatComposer\\Laravel\\ServiceProvider"
+                    ]
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -391,12 +396,12 @@
             ],
             "authors": [
                 {
-                    "name": "MINGYOUNG",
+                    "name": "张铭阳",
                     "email": "mingyoungcheung@gmail.com"
                 }
             ],
             "description": "The composer plugin for EasyWeChat",
-            "time": "2018-08-22T07:50:07+00:00"
+            "time": "2018-09-16T10:16:07+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1159,16 +1164,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "4.1.4",
+            "version": "4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "b112c9fccd2c8f87a987f696bb8f490772112f1b"
+                "reference": "7db16d158716ac96c9a4bab12a11e02816e78622"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/b112c9fccd2c8f87a987f696bb8f490772112f1b",
-                "reference": "b112c9fccd2c8f87a987f696bb8f490772112f1b",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/7db16d158716ac96c9a4bab12a11e02816e78622",
+                "reference": "7db16d158716ac96c9a4bab12a11e02816e78622",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1224,7 +1229,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2018-08-30T09:18:48+00:00"
+            "time": "2018-09-18T09:39:33+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1698,16 +1703,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.1.2",
+            "version": "v6.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "7d760881d266d63c5e7a1155cbcf2ac656a31ca8"
+                "reference": "8ddcb66ac10c392d3beb54829eef8ac1438595f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/7d760881d266d63c5e7a1155cbcf2ac656a31ca8",
-                "reference": "7d760881d266d63c5e7a1155cbcf2ac656a31ca8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/8ddcb66ac10c392d3beb54829eef8ac1438595f4",
+                "reference": "8ddcb66ac10c392d3beb54829eef8ac1438595f4",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1759,7 +1764,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2018-07-13T07:04:35+00:00"
+            "time": "2018-09-11T07:12:52+00:00"
         },
         {
             "name": "symfony/cache",
@@ -2998,16 +3003,16 @@
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "cecbc684605bb0cc288828eb5d65d93d5c676d3c"
+                "reference": "050bedf145a257b1ff02746c31894800e5122946"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/cecbc684605bb0cc288828eb5d65d93d5c676d3c",
-                "reference": "cecbc684605bb0cc288828eb5d65d93d5c676d3c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/050bedf145a257b1ff02746c31894800e5122946",
+                "reference": "050bedf145a257b1ff02746c31894800e5122946",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3018,6 +3023,9 @@
             },
             "require": {
                 "php": "^7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.1"
             },
             "type": "library",
             "extra": {
@@ -3047,7 +3055,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2018-06-11T11:44:00+00:00"
+            "time": "2018-09-13T20:33:42+00:00"
         },
         {
             "name": "phpunit/php-text-template",
@@ -3208,16 +3216,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.3.3",
+            "version": "7.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1bd5629cccfb2c0a9ef5474b4ff772349e1ec898"
+                "reference": "7b331efabbb628c518c408fdfcaf571156775de2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1bd5629cccfb2c0a9ef5474b4ff772349e1ec898",
-                "reference": "1bd5629cccfb2c0a9ef5474b4ff772349e1ec898",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7b331efabbb628c518c408fdfcaf571156775de2",
+                "reference": "7b331efabbb628c518c408fdfcaf571156775de2",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3294,7 +3302,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-09-01T15:49:55+00:00"
+            "time": "2018-09-08T15:14:29+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
