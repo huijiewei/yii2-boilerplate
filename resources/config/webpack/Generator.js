@@ -8,7 +8,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
-const compress = require('koa-compress')
 const fs = require('fs')
 const https = require('https')
 
@@ -256,39 +255,31 @@ class Generator {
     return optimization
   }
 
-  buildServeConfig() {
-    const serveConfig = {
-      host: this.config.serveHost || 'localhost',
-      port: this.config.servePort || 8080,
-      devMiddleware: {
-        publicPath: this.config.publicPath,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        watchOptions: {
-          ignored: /node_modules/
-        }
-      },
-      add: (app) => {
-        if (this.config.serveCompress) {
-          app.use(compress())
-        }
+  buildDevServerConfig() {
+    const devServerConfig = {
+      host: this.config.devServerHost || 'localhost',
+      port: this.config.devServerPort || 8080,
+      compress: this.config.devServerCompress,
+      publicPath: this.config.publicPath,
+      contentBase: false,
+      inline: true,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      watchOptions: {
+        ignored: /node_modules/
       }
     }
 
-    if (this.config.serveHttps) {
-      const httpsConfig = {
-        key: fs.readFileSync(this.config.serveHttpsKey),
-        cert: fs.readFileSync(this.config.serveHttpsCert)
-      }
+    if (this.config.devServerHttps) {
 
-      serveConfig.http2 = this.config.serveHttp2
-      serveConfig.https = httpsConfig
 
-      serveConfig.hotClient = {
-        server: https.createServer(httpsConfig)
+      //devServerConfig.http2 = this.config.devServerHttp2
+      devServerConfig.https = {
+        key: fs.readFileSync(this.config.devServerHttpsKey),
+        cert: fs.readFileSync(this.config.devServerHttpsCert)
       }
     }
 
-    return serveConfig
+    return devServerConfig
   }
 
   buildEntryConfig() {
@@ -324,14 +315,14 @@ class Generator {
       }
     }
 
-    if (this.config.serveEnable) {
-      const serverConfig = this.buildServeConfig()
+    if (this.config.devServerEnable) {
+      const devServerConfig = this.buildDevServerConfig()
 
-      webpackConfig.output.publicPath = (this.config.serveHttps ? 'https' : 'http') + '://' +
-        serverConfig.host + ':' + serverConfig.port +
-        serverConfig.devMiddleware.publicPath
+      webpackConfig.output.publicPath = (this.config.devServerHttps ? 'https' : 'http') + '://' +
+        devServerConfig.host + ':' + devServerConfig.port +
+        devServerConfig.publicPath
 
-      webpackConfig.serve = serverConfig
+      webpackConfig.devServer = devServerConfig
     }
 
     webpackConfig.resolve = {
