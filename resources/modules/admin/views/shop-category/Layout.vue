@@ -10,11 +10,11 @@
         </el-input>
         <hr class="spacer-xs">
         <el-tree
-          :data="tree"
+          :data="categoryTree"
           :loading="loading"
           :highlight-current="true"
           :expand-on-click-node="false"
-          :default-checked-keys="[178]"
+          :default-expanded-keys="categoryExpanded"
           :filter-node-method="filterCategoryNode"
           ref="categoryTree"
           node-key="id">
@@ -37,7 +37,9 @@
         </el-tree>
       </el-col>
       <el-col :span="18">
-        <router-view></router-view>
+        <router-view :category-tree="this.categoryTree"
+                     @on-expanded="expandedCategoryTree"
+                     @on-updated="updatedCategoryTree"></router-view>
       </el-col>
     </el-row>
   </div>
@@ -60,21 +62,35 @@
       return {
         loading: true,
         keyword: '',
-        tree: []
+        categoryTree: [],
+        categoryExpanded: []
       }
     },
     methods: {
       filterCategoryNode(value, data) {
         if (!value) return true
         return data.name.indexOf(value) !== -1
+      },
+      expandedCategoryTree(expanded, currentId) {
+        this.categoryExpanded = expanded
+        this.$refs.categoryTree.setCurrentKey(currentId)
+      },
+      async updatedCategoryTree(currentId) {
+        this.loading = true
+        await this.loadCategoryTree()
+        this.loading = false
+        this.$refs.categoryTree.setCurrentKey(currentId)
+      },
+      async loadCategoryTree() {
+        const { data } = await flatry(ShopCategoryService.tree())
+
+        if (data) {
+          this.categoryTree = data
+        }
       }
     },
     async created() {
-      const { data } = await flatry(ShopCategoryService.tree())
-
-      if (data) {
-        this.tree = data
-      }
+      await this.loadCategoryTree()
 
       this.loading = false
     }

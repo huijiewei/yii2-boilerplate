@@ -155,6 +155,36 @@ trait ClosureTableTrait
         static::getDb()->createCommand($sql)->execute();
     }
 
+    /**
+     * @return array
+     */
+    public function getAncestor()
+    {
+        $ancestor = [];
+
+        $parent = $this->getDataItemById($this->parentId);
+
+        while ($parent != null) {
+            $ancestor[] = $parent;
+            $parent = $this->getDataItemById($parent['parentId']);
+        }
+
+        return array_reverse($ancestor);
+    }
+
+    private function getDataItemById($id)
+    {
+        $data = static::getData();
+
+        foreach ($data as $item) {
+            if ($item['id'] == $id) {
+                return $item;
+            }
+        }
+
+        return null;
+    }
+
     public function init()
     {
         if (!$this->hasAttribute('parentId') && $this->parentId == null) {

@@ -32,6 +32,23 @@ class ShopCategory extends ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return [
+            'ancestor',
+        ];
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'name',
+            'icon',
+            'parentId',
+        ];
+    }
+
     public function attributeLabels()
     {
         return [

@@ -6,6 +6,8 @@
     <shop-category-form v-if="shopCategory"
                         :submit-text="pageTitle"
                         :shop-category="shopCategory"
+                        :category-tree="categoryTree"
+                        :category-ancestor="categoryAncestor"
                         :is-edit="true"
                         @on-submit="editShopCategory">
     </shop-category-form>
@@ -21,10 +23,16 @@
 
   export default {
     components: { PlaceholderForm, ShopCategoryForm },
+    props: {
+      categoryTree: {
+        type: Array
+      }
+    },
     data() {
       return {
         pageTitle: '编辑商品分类',
-        shopCategory: null
+        shopCategory: null,
+        categoryAncestor: []
       }
     },
     async beforeRouteUpdate(to, from, next) {
@@ -40,6 +48,16 @@
         const { data } = await flatry(ShopCategoryService.edit(id))
 
         if (data) {
+          if (data.ancestor && Array.isArray(data.ancestor)) {
+            const ancestor = []
+            data.ancestor.forEach(function(item) {
+              ancestor.push(item.id)
+            })
+            this.categoryAncestor = ancestor
+
+            this.$emit('on-expanded', ancestor, data.id)
+          }
+
           this.shopCategory = data
         }
       },
@@ -49,6 +67,7 @@
         if (data) {
           this.$message.success(data.message)
           success()
+          this.$emit('on-updated', shopCategory.id)
         }
 
         callback()

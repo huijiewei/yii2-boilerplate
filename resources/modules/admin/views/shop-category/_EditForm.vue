@@ -8,12 +8,20 @@
     label-suffix="："
     @submit.native.stop.prevent="handleFormSubmit('formModel')">
     <el-form-item label="所属分类" prop="parentId">
-      <el-col :md="9">
-
+      <el-col :md="16">
+        <el-cascader
+          style="width: 100%;"
+          placeholder="请选择上级分类"
+          :options="categoryTree"
+          :props="{ value:'id', label: 'name'}"
+          v-model="categoryAncestor"
+          :change-on-select="true"
+          @change="handleCategoryAncestorChange">
+        </el-cascader>
       </el-col>
     </el-form-item>
     <el-form-item label="分类名称" prop="name">
-      <el-col :md="6">
+      <el-col :md="7">
         <el-input v-model.trim="formModel.name"></el-input>
       </el-col>
     </el-form-item>
@@ -44,6 +52,12 @@
       },
       shopCategory: {
         type: Object
+      },
+      categoryTree: {
+        type: Array
+      },
+      categoryAncestor: {
+        type: Array
       }
     },
     data() {
@@ -57,12 +71,15 @@
         formModel: null
       }
     },
-    mounted() {
+    async mounted() {
       this.formModel = this.shopCategory
     },
     methods: {
       handleUploadSuccess(imageUrl) {
         this.formModel.image = imageUrl
+      },
+      handleCategoryAncestorChange(value) {
+        this.formModel.parentId = value
       },
       handleFormSubmit(formName) {
         this.$refs[formName].validate((valid) => {
