@@ -14,6 +14,24 @@ use yii\web\NotFoundHttpException;
 
 class ShopCategoryController extends Controller
 {
+    public function actionCreate($parentId = 0)
+    {
+        $shopCategory = new ShopCategory();
+
+        if (!\Yii::$app->getRequest()->getIsPost()) {
+            $shopCategory->parentId = $parentId;
+            return $shopCategory->toArray(['*'], ['ancestor']);
+        }
+
+        $shopCategory->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if (!$shopCategory->save()) {
+            return $shopCategory;
+        }
+
+        return $this->message('商品分类新建成功', ['categoryId' => $shopCategory->id]);
+    }
+
     public function actionEdit($id)
     {
         $shopCategory = $this->getShopCategoryById($id);

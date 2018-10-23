@@ -9,7 +9,7 @@
                         :category-tree="categoryTree"
                         :category-ancestor="categoryAncestor"
                         :is-edit="true"
-                        @on-submit="editShopCategory">
+                        @on-submit="createShopCategory">
     </shop-category-form>
     <placeholder-form v-else></placeholder-form>
   </el-row>
@@ -30,7 +30,7 @@
     },
     data() {
       return {
-        pageTitle: '编辑商品分类',
+        pageTitle: '新建商品分类',
         shopCategory: null,
         categoryAncestor: []
       }
@@ -45,7 +45,7 @@
     },
     methods: {
       async getShopCategory(id) {
-        const { data } = await flatry(ShopCategoryService.edit(id))
+        const { data } = await flatry(ShopCategoryService.create(null, id))
 
         if (data) {
           if (data.ancestor && Array.isArray(data.ancestor)) {
@@ -61,12 +61,13 @@
           this.shopCategory = data
         }
       },
-      async editShopCategory(shopCategory, success, callback) {
-        const { data } = await flatry(ShopCategoryService.edit(shopCategory.id, shopCategory))
+      async createShopCategory(shopCategory, success, callback) {
+        const { data } = await flatry(ShopCategoryService.create(shopCategory))
 
         if (data) {
           this.$message.success(data.message)
-          this.$emit('on-updated', shopCategory.id)
+          this.$router.replace({ path: '/shop-category/edit', query: { id: data.categoryId } })
+          this.$emit('on-updated', data.categoryId)
           success()
         }
 

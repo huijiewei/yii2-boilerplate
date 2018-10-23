@@ -14,7 +14,7 @@
           placeholder="请选择上级分类"
           :options="categoryTree"
           :props="{ value:'id', label: 'name'}"
-          v-model="categoryAncestor"
+          v-model="formCategoryAncestor"
           :change-on-select="true"
           @change="handleCategoryAncestorChange">
         </el-cascader>
@@ -25,7 +25,12 @@
         <el-input v-model.trim="formModel.name"></el-input>
       </el-col>
     </el-form-item>
-    <el-form-item label="图片" prop="displayIcon">
+    <el-form-item label="分类图标" prop="icon">
+      <el-col :md="7">
+        <el-input v-model.trim="formModel.icon"></el-input>
+      </el-col>
+    </el-form-item>
+    <el-form-item label="图片" prop="image">
       <aliyun-oss-uploader :avatar="formModel.image"
                            @on-upload-success="handleUploadSuccess"></aliyun-oss-uploader>
     </el-form-item>
@@ -68,18 +73,20 @@
             { required: true, message: '请输入商品分类名称', trigger: 'blur' }
           ]
         },
-        formModel: null
+        formModel: null,
+        formCategoryAncestor: []
       }
     },
     async mounted() {
       this.formModel = this.shopCategory
+      this.formCategoryAncestor = this.categoryAncestor
     },
     methods: {
       handleUploadSuccess(imageUrl) {
         this.formModel.image = imageUrl
       },
       handleCategoryAncestorChange(value) {
-        this.formModel.parentId = value
+        this.formModel.parentId = value[value.length - 1]
       },
       handleFormSubmit(formName) {
         this.$refs[formName].validate((valid) => {

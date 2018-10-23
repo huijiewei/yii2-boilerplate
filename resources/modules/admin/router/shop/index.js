@@ -15,7 +15,7 @@ const routes = [
       },
       {
         path: 'create',
-        component: () => import(/* webpackChunkName: "chunk-shop" */ '@admin/views/admin-group/Create'),
+        component: () => import(/* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Create'),
         meta: {
           breadcrumb: {
             title: '新建'

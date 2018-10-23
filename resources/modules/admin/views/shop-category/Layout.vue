@@ -27,10 +27,14 @@
             </span>
             <span>
               <router-link :to="{ path: '/shop-category/edit', query: { id: data.id} }">
-                <el-button type="text" size="mini">
-                  <bp-icon type="edit"></bp-icon>
-                  编辑
-                </el-button>
+                  <el-button title="编辑" type="text" size="mini">
+                    <bp-icon type="edit"></bp-icon>
+                  </el-button>
+              </router-link>
+              <router-link :to="{ path: '/shop-category/create', query: { id: data.id} }">
+                  <el-button title="建子分类" type="text" size="mini">
+                    <bp-icon type="file-add"></bp-icon>
+                  </el-button>
               </router-link>
             </span>
           </span>
