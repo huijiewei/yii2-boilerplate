@@ -28,93 +28,10 @@ use yii\helpers\StringHelper;
  * @method ActiveQuery hasMany($class, array $link) see [[BaseActiveRecord::hasMany()]] for more info
  * @method ActiveQuery hasOne($class, array $link) see [[BaseActiveRecord::hasOne()]] for more info
  *
- * @property integer $id
- * @property integer $parentId
- *
  * @package huijiewei\closuretable
  */
 trait ClosureTableTrait
 {
-    private static $treeCacheKey = false;
-    private static $dataCacheKey = false;
-
-    /**
-     * @return array
-     */
-    public static function getTree()
-    {
-        $cacheKey = static::getTreeCacheKey();
-
-        $tree = \Yii::$app->getCache()->get($cacheKey);
-
-        if ($tree !== false) {
-            return $tree;
-        }
-
-        $tree = static::buildTree(static::getData());
-
-        \Yii::$app->getCache()->set($cacheKey, $tree);
-
-        return $tree;
-    }
-
-    protected static function getTreeCacheKey()
-    {
-        if (static::$treeCacheKey === false) {
-            static::$treeCacheKey = get_called_class() . '\treeCache';
-        }
-
-        return static::$treeCacheKey;
-    }
-
-    private static function buildTree($data)
-    {
-        if (empty($data)) {
-            return [];
-        }
-
-        $tree = [];
-
-        foreach ($data as $item) {
-            if (isset($data[$item['parentId']])) {
-                $data[$item['parentId']]['children'][] = &$data[$item['id']];
-            } else {
-                $tree[] = &$data[$item['id']];
-            }
-        }
-
-        return $tree;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getData()
-    {
-        $cacheKey = static::getDataCacheKey();
-
-        $data = \Yii::$app->getCache()->get($cacheKey);
-
-        if ($data !== false) {
-            return $data;
-        }
-
-        $data = static::find()->indexBy('id')->asArray()->all();
-
-        \Yii::$app->getCache()->set($cacheKey, $data);
-
-        return $data;
-    }
-
-    protected static function getDataCacheKey()
-    {
-        if (static::$dataCacheKey === false) {
-            static::$dataCacheKey = get_called_class() . '\dataCache';
-        }
-
-        return static::$dataCacheKey;
-    }
-
     public static function rebuildClosureTable()
     {
         static::getDb()->createCommand()->delete(static::getClosureTableName())->execute();
@@ -155,36 +72,6 @@ trait ClosureTableTrait
         static::getDb()->createCommand($sql)->execute();
     }
 
-    /**
-     * @return array
-     */
-    public function getAncestor()
-    {
-        $ancestor = [];
-
-        $parent = $this->getDataItemById($this->parentId);
-
-        while ($parent != null) {
-            $ancestor[] = $parent;
-            $parent = $this->getDataItemById($parent['parentId']);
-        }
-
-        return array_reverse($ancestor);
-    }
-
-    private function getDataItemById($id)
-    {
-        $data = static::getData();
-
-        foreach ($data as $item) {
-            if ($item['id'] == $id) {
-                return $item;
-            }
-        }
-
-        return null;
-    }
-
     public function init()
     {
         if (!$this->hasAttribute('parentId') && $this->parentId == null) {
@@ -192,25 +79,15 @@ trait ClosureTableTrait
         }
 
         $this->on(ActiveRecord::EVENT_AFTER_DELETE, function (Event $event) {
-            static::clearCache();
         });
 
         $this->on(ActiveRecord::EVENT_AFTER_INSERT, function (Event $event) {
             static::insertClosureTable($event->sender->id, $event->sender->parentId);
-            static::clearCache();
         });
 
         $this->on(ActiveRecord::EVENT_AFTER_UPDATE, function (Event $event) {
             if ($event->sender->isAttributeChanged('parentId')) {
             }
-
-            static::clearCache();
         });
-    }
-
-    protected static function clearCache()
-    {
-        \Yii::$app->getCache()->delete(static::getTreeCacheKey());
-        \Yii::$app->getCache()->delete(static::getDataCacheKey());
     }
 }

@@ -9,7 +9,7 @@
 namespace app\core\models\shop;
 
 use app\core\components\ActiveRecord;
-use huijiewei\closuretable\ClosureTableTrait;
+use huijiewei\tree\TreeTrait;
 
 /**
  * Class ShopCategory
@@ -17,25 +17,20 @@ use huijiewei\closuretable\ClosureTableTrait;
  * @property integer $id
  * @property integer $parentId
  * @property string $name
+ * @property string $icon
+ * @property string $image
  *
  * @package app\core\models\shop
  */
 class ShopCategory extends ActiveRecord
 {
-    use ClosureTableTrait;
+    use TreeTrait;
 
     public function rules()
     {
         return [
-            [['parentId', 'name'], 'trim'],
+            [['parentId', 'name', 'icon', 'image'], 'trim'],
             [['parentId', 'name'], 'required'],
-        ];
-    }
-
-    public function extraFields()
-    {
-        return [
-            'ancestor',
         ];
     }
 
@@ -45,6 +40,7 @@ class ShopCategory extends ActiveRecord
             'id',
             'name',
             'icon',
+            'image',
             'parentId',
         ];
     }
@@ -54,6 +50,8 @@ class ShopCategory extends ActiveRecord
         return [
             'parentId' => '上级分类',
             'name' => '分类名称',
+            'icon' => '分类图标',
+            'image' => '分类图片',
         ];
     }
 }

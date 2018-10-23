@@ -31,6 +31,7 @@
     "psr-4": {
       "app\\core\\": "src/core",
       "app\\modules\\": "src/modules",
+      "huijiewei\\tree\\": "src/extensions/yii2-tree",
       "huijiewei\\aliyunoss\\": "src/extensions/yii2-aliyun-oss",
       "huijiewei\\spreadsheet\\": "src/extensions/yii2-spreadsheet",
       "huijiewei\\softdelete\\": "src/extensions/yii2-soft-delete",

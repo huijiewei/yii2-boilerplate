@@ -19,7 +19,7 @@ class ShopCategoryController extends Controller
         $shopCategory = $this->getShopCategoryById($id);
 
         if (!\Yii::$app->getRequest()->getIsPut()) {
-            return $shopCategory->toArray(['id', 'name', 'icon', 'parentId'], ['ancestor']);
+            return $shopCategory->toArray(['*'], ['ancestor']);
         }
 
         $shopCategory->load(\Yii::$app->getRequest()->getBodyParams(), '');

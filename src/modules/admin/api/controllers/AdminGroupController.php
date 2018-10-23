@@ -20,7 +20,7 @@ class AdminGroupController extends Controller
         $adminGroup = new AdminGroup();
 
         if (!\Yii::$app->getRequest()->getIsPost()) {
-            return $adminGroup->toArray(['name'], ['acl']);
+            return $adminGroup->toArray(['*'], ['acl']);
         }
 
         $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
@@ -60,7 +60,7 @@ class AdminGroupController extends Controller
         $adminGroup = $this->getAdminGroupById($id);
 
         if (!\Yii::$app->getRequest()->getIsPut()) {
-            return $adminGroup->toArray(['id', 'name'], ['acl']);
+            return $adminGroup->toArray(['*'], ['acl']);
         }
 
         $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
@@ -84,7 +84,7 @@ class AdminGroupController extends Controller
     {
         $adminGroup = $this->getAdminGroupById($id);
 
-        return $adminGroup->toArray(['id', 'name'], ['acl']);
+        return $adminGroup->toArray(['*'], ['acl']);
     }
 
     public function verbs()
