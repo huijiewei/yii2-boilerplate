@@ -28,20 +28,15 @@
       }
     },
     async created() {
-      const { data } = await flatry(UserService.edit(this.getUserId))
+      const { data } = await flatry(UserService.edit(this.$router.currentRoute.query.id))
 
       if (data) {
         this.user = data
       }
     },
-    computed: {
-      getUserId() {
-        return this.$router.currentRoute.query.id
-      }
-    },
     methods: {
       async editUser(user, success, callback) {
-        const { data } = await flatry(UserService.edit(this.getUserId, user))
+        const { data } = await flatry(UserService.edit(user.id, user))
 
         if (data) {
           this.$message.success(data.message)

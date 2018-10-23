@@ -60,7 +60,7 @@ class AdminGroupController extends Controller
         $adminGroup = $this->getAdminGroupById($id);
 
         if (!\Yii::$app->getRequest()->getIsPut()) {
-            return $adminGroup->toArray(['name'], ['acl']);
+            return $adminGroup->toArray(['id', 'name'], ['acl']);
         }
 
         $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');

@@ -28,20 +28,15 @@
       }
     },
     async created() {
-      const { data } = await flatry(AdminService.edit(this.getAdminId))
+      const { data } = await flatry(AdminService.edit(this.$router.currentRoute.query.id))
 
       if (data) {
         this.admin = data
       }
     },
-    computed: {
-      getAdminId() {
-        return this.$router.currentRoute.query.id
-      }
-    },
     methods: {
       async editAdmin(admin, success, callback) {
-        const { data } = await flatry(AdminService.edit(this.getAdminId, admin))
+        const { data } = await flatry(AdminService.edit(admin.id, admin))
 
         if (data) {
           this.$message.success(data.message)

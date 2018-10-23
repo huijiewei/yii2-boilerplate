@@ -23,4 +23,20 @@ use huijiewei\closuretable\ClosureTableTrait;
 class ShopCategory extends ActiveRecord
 {
     use ClosureTableTrait;
+
+    public function rules()
+    {
+        return [
+            [['parentId', 'name'], 'trim'],
+            [['parentId', 'name'], 'required'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'parentId' => '上级分类',
+            'name' => '分类名称',
+        ];
+    }
 }
