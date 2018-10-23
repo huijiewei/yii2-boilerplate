@@ -19,3 +19,63 @@ a:hover {
 svg {
   pointer-events: none;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.vertical-center {
+  vertical-align: middle !important;
+  white-space: nowrap;
+}
+
+.vertical-bottom {
+  vertical-align: bottom !important;
+  white-space: nowrap;
+}
+
+.text-mono {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.text-delete {
+  text-decoration: line-through;
+}
+
+.color-red {
+  color: #f00;
+}
+
+hr.spacer-lg,
+hr.spacer-md,
+hr.spacer-sm,
+hr.spacer-xl,
+hr.spacer-xs {
+  border: medium none;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+hr.spacer-lg {
+  height: 50px;
+}
+
+hr.spacer-md {
+  height: 39px;
+}
+
+hr.spacer-sm {
+  height: 30px;
+}
+
+hr.spacer-xl {
+  height: 20px;
+}
+
+hr.spacer-xs {
+  height: 10px;
+}

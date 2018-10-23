@@ -2,12 +2,21 @@
   <div class="box">
     <el-row :gutter="20">
       <el-col :span="6">
+        <el-input
+          placeholder="筛选"
+          size="small"
+          suffix-icon="el-icon-search"
+          v-model="keyword">
+        </el-input>
+        <hr class="spacer-xs">
         <el-tree
-          v-if="true"
           :data="tree"
           :loading="loading"
           :highlight-current="true"
           :expand-on-click-node="false"
+          :default-checked-keys="[178]"
+          :filter-node-method="filterCategoryNode"
+          ref="categoryTree"
           node-key="id">
           <span class="category-tree-node" slot-scope="{ node, data }">
             <span>
@@ -20,6 +29,7 @@
               <router-link :to="{ path: '/shop-category/edit', query: { id: data.id} }">
                 <el-button type="text" size="mini">
                   <bp-icon type="edit"></bp-icon>
+                  编辑
                 </el-button>
               </router-link>
             </span>
@@ -40,14 +50,25 @@
   import BpIcon from '@core/components/Icon/index'
 
   export default {
+    watch: {
+      keyword(keyword) {
+        this.$refs.categoryTree.filter(keyword)
+      }
+    },
     components: { BpIcon, BpAvatar },
     data() {
       return {
         loading: true,
+        keyword: '',
         tree: []
       }
     },
-    methods: {},
+    methods: {
+      filterCategoryNode(value, data) {
+        if (!value) return true
+        return data.name.indexOf(value) !== -1
+      }
+    },
     async created() {
       const { data } = await flatry(ShopCategoryService.tree())
 
