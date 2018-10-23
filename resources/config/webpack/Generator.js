@@ -9,7 +9,6 @@ const autoprefixer = require('autoprefixer')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
 const fs = require('fs')
-const https = require('https')
 
 const path = require('path')
 
@@ -270,9 +269,6 @@ class Generator {
     }
 
     if (this.config.devServerHttps) {
-
-
-      //devServerConfig.http2 = this.config.devServerHttp2
       devServerConfig.https = {
         key: fs.readFileSync(this.config.devServerHttpsKey),
         cert: fs.readFileSync(this.config.devServerHttpsCert)
