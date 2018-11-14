@@ -78,6 +78,10 @@ class AdminHelper
                                 'actionId' => 'good/index'
                             ],
                             [
+                                'name' => '商品导入',
+                                'actionId' => 'good/export',
+                            ],
+                            [
                                 'name' => '新建商品',
                                 'actionId' => 'good/new'
                             ],
