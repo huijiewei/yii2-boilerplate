@@ -21,7 +21,7 @@
                          @change="handleCheckAllChange(group)"></el-checkbox>
           </div>
           <div class="cgb-body">
-            <el-checkbox-group v-model="group.checkedAcl" @change="handleCheckedAclChange(group)">
+            <el-checkbox-group v-same-width v-model="group.checkedAcl" @change="handleCheckedAclChange(group)">
               <template v-for="(child, childIndex) in group.children">
                 <el-checkbox v-if="!child.children" :label="child.actionId"
                              :key="index + '-' + childIndex">
@@ -75,6 +75,31 @@
         },
         formModel: null,
         allAcl: []
+      }
+    },
+    directives: {
+      sameWidth: {
+        inserted: function(el) {
+          const checkboxList = el.getElementsByClassName('el-checkbox')
+
+          if (checkboxList.length < 2) {
+            return
+          }
+
+          let maxWidth = 0
+
+          for (let elm of checkboxList) {
+            const width = elm.offsetWidth
+
+            if (width > maxWidth) {
+              maxWidth = width
+            }
+          }
+
+          for (let elm of checkboxList) {
+            elm.style.width = maxWidth + 2 + 'px'
+          }
+        }
       }
     },
     async mounted() {
