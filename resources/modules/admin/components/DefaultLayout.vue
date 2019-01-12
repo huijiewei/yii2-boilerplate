@@ -25,13 +25,12 @@
   import SiderMenu from '@admin/components/SiderMenu'
   import HeaderNav from '@admin/components/HeaderNav'
   import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
-  import BpIcon from '@core/components/Icon/index'
   import Breadcrumb from '@admin/components/Breadcrumb'
   import flatry from '@admin/utils/flatry'
 
   export default {
     name: 'DefaultLayout',
-    components: { Breadcrumb, BpIcon, PrefectScrollbar, HeaderNav, SiderMenu },
+    components: { Breadcrumb, PrefectScrollbar, HeaderNav, SiderMenu },
     computed: {
       isCollapsed() {
         return this.$store.getters.isSidebarCollapsed

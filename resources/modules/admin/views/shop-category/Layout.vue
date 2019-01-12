@@ -51,7 +51,6 @@
 
 <script>
   import flatry from '@admin/utils/flatry'
-  import BpAvatar from '@admin/components/Avatar'
   import ShopCategoryService from '@admin/services/ShopCategoryService'
   import BpIcon from '@core/components/Icon/index'
 
@@ -61,7 +60,7 @@
         this.$refs.categoryTree.filter(keyword)
       }
     },
-    components: { BpIcon, BpAvatar },
+    components: { BpIcon },
     data() {
       return {
         loading: true,

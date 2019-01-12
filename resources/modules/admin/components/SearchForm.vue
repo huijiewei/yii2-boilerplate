@@ -5,7 +5,7 @@
            autocomplete="off"
            @submit.native.stop.prevent="handleFormSubmit()"
            @reset.native.stop.prevent="handleFormReset()">
-    <template v-if="getOtherFields.length> 0" v-for="(item, index) in getOtherFields">
+    <template v-for="(item, index) in getOtherFields">
       <hr class="br" :key="index" v-if="item.type==='br'">
       <el-form-item v-else :key="index">
         <el-select
@@ -62,13 +62,10 @@
 </template>
 
 <script>
-  import BpIcon from '@core/components/Icon'
-
   export default {
     name: 'SearchForm',
-    components: { BpIcon },
     props: {
-      searchFields: Array | null
+      searchFields: Array
     },
     data() {
       return {
@@ -115,7 +112,7 @@
           this.getOtherFields.forEach((item) => {
             if (item.type !== 'br') {
               if (routeQuery[item.field]) {
-                formModel[item.field] = item.multiple && typeof(routeQuery[item.field]) === 'string' ?
+                formModel[item.field] = item.multiple && typeof (routeQuery[item.field]) === 'string' ?
                   [routeQuery[item.field]] :
                   routeQuery[item.field]
               } else {
