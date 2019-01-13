@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4dbb9aaaa7a4d613b768581c01adc96",
+    "content-hash": "13fc72881fc227a502f83a4b384bcb7a",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -829,6 +829,50 @@
                 "nanoid-php"
             ],
             "time": "2018-10-03T02:53:38+00:00"
+        },
+        {
+            "name": "huijiewei/yii2-spreadsheet",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/huijiewei/yii2-spreadsheet.git",
+                "reference": "1bbf1ccd9b074e69e12b04217ce9183598f37b02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/huijiewei/yii2-spreadsheet/zipball/1bbf1ccd9b074e69e12b04217ce9183598f37b02",
+                "reference": "1bbf1ccd9b074e69e12b04217ce9183598f37b02",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": "^7.1.3",
+                "phpoffice/phpspreadsheet": "^1.3",
+                "yiisoft/yii2": "^2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "huijiewei\\spreadsheet\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Huijie Wei",
+                    "email": "huijiewei@outlook.com"
+                }
+            ],
+            "description": "Excel 扩展",
+            "time": "2019-01-13T08:19:54+00:00"
         },
         {
             "name": "huijiewei/yii2-swagger",
