@@ -10,7 +10,7 @@
     :before-upload="handleBeforeUpload"
     :on-success="handleSuccess"
     :on-error="handleError">
-    <img v-if="avatarUrl" :src="avatarUrl" class="avatar">
+    <img alt="Image" v-if="avatarUrl" :src="avatarUrl" class="avatar">
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
   </el-upload>
 </template>

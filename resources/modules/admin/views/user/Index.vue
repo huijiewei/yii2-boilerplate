@@ -21,6 +21,23 @@
       </div>
     </div>
     <el-table v-loading="loading" :stripe="true" :data="users">
+      <el-table-column width="90" label="操作">
+        <template slot-scope="scope">
+          <el-dropdown trigger="click">
+            <el-button plain size="mini" type="primary">
+              操作<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-if="$can('user/edit')" @click.native="handleUserEdit(scope.row)">
+                编辑
+              </el-dropdown-item>
+              <el-dropdown-item v-if="$can('user/delete')" @click.native="handleUserDelete(scope.row)">
+                删除
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </template>
+      </el-table-column>
       <el-table-column
         width="90"
         class-name="text-mono"
@@ -47,13 +64,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
-        width="190"
-        class-name="text-mono"
-        prop="createdAt"
-        label="创建时间">
-      </el-table-column>
-      <el-table-column
         width="160"
         class-name="text-mono"
         prop="createdIp"
@@ -66,29 +76,10 @@
         prop="createdFromName"
         label="注册来源">
       </el-table-column>
-      <el-table-column width="auto" class-name="text-nowrap" align="right" label="操作">
-        <template slot-scope="scope">
-          <router-link
-            v-if="$can('user/edit')"
-            :to="{ path: '/user/edit', query: { id: scope.row.id } }">
-            <el-button
-              title="编辑"
-              type="warning"
-              size="mini"
-              :plain="true">
-              编辑
-            </el-button>
-          </router-link>
-          <el-button
-            v-if="$can('user/delete')"
-            title="删除"
-            size="mini"
-            type="danger"
-            :plain="true"
-            @click="handleUserDelete(scope.row)">
-            删除
-          </el-button>
-        </template>
+      <el-table-column
+        class-name="text-mono"
+        prop="createdAt"
+        label="创建时间">
       </el-table-column>
     </el-table>
     <div class="bp-pages" v-if="pages">
@@ -126,34 +117,30 @@
       '$route': 'getUsers'
     },
     methods: {
+      handleUserEdit(user) {
+        this.$router.push({ path: '/user/edit', query: { id: user.id } })
+      },
       handleUserDelete(user) {
-        this.$confirm(`你确定要删除 ${user.display || user.phone} 吗？`, {
-          showClose: false,
-          confirmButtonText: '删除',
-          confirmButtonClass: 'el-button--danger',
-          cancelButtonText: '取消',
-          type: 'error',
-          callback: async (action) => {
-            if (action === 'confirm') {
-              this.loading = true
+        this.$deleteDialog(`用户 ${ user.display || user.phone }`, async (action) => {
+          if (action === 'confirm') {
+            this.loading = true
 
-              const { data } = await flatry(UserService.delete(user.id))
+            const { data } = await flatry(UserService.delete(user.id))
 
-              if (data) {
-                this.users.forEach((item, index) => {
-                  if (item.id === user.id) {
-                    this.users.splice(index, 1)
-                  }
-                })
+            if (data) {
+              this.users.forEach((item, index) => {
+                if (item.id === user.id) {
+                  this.users.splice(index, 1)
+                }
+              })
 
-                this.$message({
-                  type: 'success',
-                  message: data.message
-                })
-              }
-
-              this.loading = false
+              this.$message({
+                type: 'success',
+                message: data.message
+              })
             }
+
+            this.loading = false
           }
         })
       },

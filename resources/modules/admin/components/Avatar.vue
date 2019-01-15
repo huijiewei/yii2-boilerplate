@@ -1,7 +1,7 @@
 <template>
     <span class="bp-avatar">
-      <img v-if="avatar && avatar.length > 0" :src="avatar">
-      <img v-else src="../assets/images/avatar.png">
+      <img alt="头像" v-if="avatar && avatar.length > 0" :src="avatar">
+      <img alt="头像" v-else src="../assets/images/avatar.png">
     </span>
 </template>
 

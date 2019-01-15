@@ -7,13 +7,46 @@
 }
 
 .bp {
+  -webkit-font-smoothing: antialiased;
+
   .el-checkbox__label {
     padding-left: 6px;
   }
 
+  .delete-dialog {
+    .el-message-box__status {
+      font-size: 66px !important;
+      color: #e6a23c;
+    }
+
+    .el-message-box__message {
+      h3 {
+        margin-top: 0;
+      }
+
+      div {
+        color: #6f727d;
+      }
+    }
+  }
+
+  .v-modal {
+    opacity: 0.3;
+  }
+
+  .el-button--mini,
+  .el-button--small {
+    border-radius: 2px;
+  }
+
+  .el-button--mini,
+  .el-button--mini.is-round {
+    padding: 6px 12px;
+  }
+
   .el-dropdown-menu {
     padding: 0;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    box-shadow: 0 0 15px 1px rgba(69, 65, 78, 0.2);
 
     .popper__arrow {
       display: none;

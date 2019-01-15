@@ -10,6 +10,7 @@ import App from './App'
 
 import HttpClient from './plugins/HttpClient'
 import AclChecker from './plugins/AclChecker'
+import DeleteDialog from './plugins/DeleteDialog'
 
 Vue.use(ElementUI)
 
@@ -22,6 +23,10 @@ Vue.use(HttpClient, {
 
 Vue.use(AclChecker, {
   store
+})
+
+Vue.use(DeleteDialog, {
+  MessageBox: ElementUI.MessageBox
 })
 
 new Vue({

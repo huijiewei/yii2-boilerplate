@@ -10,6 +10,23 @@
       </router-link>
     </div>
     <el-table v-loading="loading" :stripe="true" :data="adminGroups">
+      <el-table-column width="90" label="操作">
+        <template slot-scope="scope">
+          <el-dropdown trigger="click">
+            <el-button plain size="mini" type="primary">
+              操作<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-if="$can('admin-group/edit')" @click.native="handleAdminGroupEdit(scope.row)">
+                编辑
+              </el-dropdown-item>
+              <el-dropdown-item v-if="$can('admin-group/delete')" @click.native="handleAdminGroupDelete(scope.row)">
+                删除
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </template>
+      </el-table-column>
       <el-table-column
         width="90"
         class-name="text-mono"
@@ -17,33 +34,8 @@
         label="Id">
       </el-table-column>
       <el-table-column
-        width="150"
         prop="name"
         label="名称">
-      </el-table-column>
-      <el-table-column align="right" label="操作">
-        <template slot-scope="scope">
-          <router-link
-            v-if="$can('admin-group/edit')"
-            :to="{ path: '/admin-group/edit', query: { id: scope.row.id } }">
-            <el-button
-              title="编辑"
-              type="warning"
-              size="mini"
-              :plain="true">
-              编辑
-            </el-button>
-          </router-link>
-          <el-button
-            v-if="$can('admin-group/delete')"
-            title="删除"
-            size="mini"
-            type="danger"
-            :plain="true"
-            @click="handleAdminGroupDelete(scope.row)">
-            删除
-          </el-button>
-        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -61,34 +53,30 @@
       }
     },
     methods: {
-      handleAdminGroupDelete(group) {
-        this.$confirm(`你确定要删除 ${group.name} 吗？`, {
-          showClose: false,
-          confirmButtonText: '删除',
-          confirmButtonClass: 'el-button--danger',
-          cancelButtonText: '取消',
-          type: 'error',
-          callback: async (action) => {
-            if (action === 'confirm') {
-              this.loading = true
+      handleAdminGroupEdit(adminGroup) {
+        this.$router.push({ path: '/admin-group/edit', query: { id: adminGroup.id } })
+      },
+      handleAdminGroupDelete(adminGroup) {
+        this.$deleteDialog(`管理组 ${ adminGroup.name }`, async (action) => {
+          if (action === 'confirm') {
+            this.loading = true
 
-              const { data } = await flatry(AdminGroupService.delete(group.id))
+            const { data } = await flatry(AdminGroupService.delete(adminGroup.id))
 
-              if (data) {
-                this.adminGroups.forEach((item, index) => {
-                  if (item.id === group.id) {
-                    this.adminGroups.splice(index, 1)
-                  }
-                })
+            if (data) {
+              this.adminGroups.forEach((item, index) => {
+                if (item.id === adminGroup.id) {
+                  this.adminGroups.splice(index, 1)
+                }
+              })
 
-                this.$message({
-                  type: 'success',
-                  message: data.message
-                })
-              }
-
-              this.loading = false
+              this.$message({
+                type: 'success',
+                message: data.message
+              })
             }
+
+            this.loading = false
           }
         })
       }

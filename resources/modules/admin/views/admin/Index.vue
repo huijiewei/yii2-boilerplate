@@ -10,6 +10,23 @@
       </router-link>
     </div>
     <el-table v-loading="loading" :stripe="true" :data="admins">
+      <el-table-column width="90" label="操作">
+        <template slot-scope="scope">
+          <el-dropdown trigger="click">
+            <el-button plain size="mini" type="primary">
+              操作<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-if="$can('admin/edit')" @click.native="handleAdminEdit(scope.row)">
+                编辑
+              </el-dropdown-item>
+              <el-dropdown-item v-if="$can('admin/delete')" @click.native="handleAdminDelete(scope.row)">
+                删除
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </template>
+      </el-table-column>
       <el-table-column
         width="90"
         class-name="text-mono"
@@ -41,29 +58,9 @@
         prop="group.name"
         label="所属管理组">
       </el-table-column>
-      <el-table-column align="right" label="操作">
-        <template slot-scope="scope">
-          <router-link
-            v-if="$can('admin/edit')"
-            :to="{ path: '/admin/edit', query: { id: scope.row.id } }">
-            <el-button
-              title="编辑"
-              type="warning"
-              size="mini"
-              :plain="true">
-              编辑
-            </el-button>
-          </router-link>
-          <el-button
-            v-if="$can('admin/delete')"
-            title="删除"
-            size="mini"
-            type="danger"
-            :plain="true"
-            @click="handleAdminDelete(scope.row)">
-            删除
-          </el-button>
-        </template>
+      <el-table-column
+        prop="createdAt"
+        label="创建时间">
       </el-table-column>
     </el-table>
   </div>
@@ -83,34 +80,30 @@
       }
     },
     methods: {
+      handleAdminEdit(admin) {
+        this.$router.push({ path: '/admin/edit', query: { id: admin.id } })
+      },
       handleAdminDelete(admin) {
-        this.$confirm(`你确定要删除 ${admin.display || admin.phone} 吗？`, {
-          showClose: false,
-          confirmButtonText: '删除',
-          confirmButtonClass: 'el-button--danger',
-          cancelButtonText: '取消',
-          type: 'error',
-          callback: async (action) => {
-            if (action === 'confirm') {
-              this.loading = true
+        this.$deleteDialog(`管理员 ${ admin.display || admin.phone }`, async (action) => {
+          if (action === 'confirm') {
+            this.loading = true
 
-              const { data } = await flatry(AdminService.delete(admin.id))
+            const { data } = await flatry(AdminService.delete(admin.id))
 
-              if (data) {
-                this.admins.forEach((item, index) => {
-                  if (item.id === admin.id) {
-                    this.admins.splice(index, 1)
-                  }
-                })
+            if (data) {
+              this.admins.forEach((item, index) => {
+                if (item.id === admin.id) {
+                  this.admins.splice(index, 1)
+                }
+              })
 
-                this.$message({
-                  type: 'success',
-                  message: data.message
-                })
-              }
-
-              this.loading = false
+              this.$message({
+                type: 'success',
+                message: data.message
+              })
             }
+
+            this.loading = false
           }
         })
       }

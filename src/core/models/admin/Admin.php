@@ -136,6 +136,7 @@ class Admin extends Identity
             'phone',
             'display',
             'avatar',
+            'createdAt',
             'groupId',
         ];
     }
