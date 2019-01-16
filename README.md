@@ -143,7 +143,6 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 │       │           ├── auth
 │       │           └── site
 │       └── wechat // 微信端
-└── tests // 测试
 ```
 
 ### 前端相关说明
@@ -198,4 +197,4 @@ server {
 config.serveHttps = false
 ```
 
-Version: 2018-07-25 09:55
+Version: 2019-01-16 09:55
