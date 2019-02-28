@@ -104,6 +104,7 @@
     },
     async mounted() {
       this.formModel = {
+        id: this.adminGroup.id,
         name: this.adminGroup.name,
         acl: []
       }
@@ -163,6 +164,7 @@
           this.submitLoading = true
 
           const adminGroup = {
+            id: this.formModel.id,
             name: this.formModel.name,
             acl: []
           }
