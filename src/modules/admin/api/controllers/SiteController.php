@@ -9,7 +9,8 @@
 namespace app\modules\admin\api\controllers;
 
 use app\modules\admin\api\Controller;
-use huijiewei\aliyunoss\AliyunOss;
+use huijiewei\upload\BaseUpload;
+use huijiewei\upload\UploadAction;
 
 class SiteController extends Controller
 {
@@ -23,11 +24,18 @@ class SiteController extends Controller
         return $this->message('欢迎使用 Boilerplate');
     }
 
-    public function actionAliyunOssUpload()
+    public function actionUploadAvatarOptions()
     {
-        /* @var $aliyunOss AliyunOss */
-        $aliyunOss = \Yii::$app->get('aliyunOss');
+        /* @var $upload BaseUpload */
+        $upload = \Yii::$app->get('upload');
 
-        return $aliyunOss->getFormUpload();
+        return $upload->build(1024 * 1024, ['gif', 'png', 'jpg', 'jpeg']);
+    }
+
+    public function actions()
+    {
+        return [
+            'upload' => UploadAction::class,
+        ];
     }
 }

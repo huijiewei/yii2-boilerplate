@@ -61,8 +61,8 @@ return [
             'useFileTransport' => true,
         ],
 
-        'aliyunOss' => [
-            'class' => \huijiewei\aliyunoss\AliyunOss::class,
+        'upload' => [
+            'class' => \huijiewei\upload\drivers\AliyunOSS::class,
             'accessKeyId' => getenv('ALIYUN_OSS_ACCESS_KEY_ID'),
             'accessKeySecret' => getenv('ALIYUN_OSS_ACCESS_KEY_SECRET'),
             'endpoint' => getenv('ALIYUN_OSS_ENDPOINT'),

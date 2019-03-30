@@ -61,6 +61,7 @@ abstract class Controller extends RestController
                 'optional' => [
                     'auth/login',
                     'site/error',
+                    'site/upload',
                 ]
             ],
             'access' => [

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import AliyunOssUploader from '@admin/components/uploaders/AliyunOssUploader'
+  import AliyunOssUploader from '@admin/components/upload/AvatarUpload'
 
   export default {
     name: 'ShopCategoryForm',
