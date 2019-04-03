@@ -198,7 +198,7 @@ class Generator {
 
     if (Generator.isProduction()) {
       plugins.push({
-        plugin: new CleanWebpackPlugin([path.join(this.config.outputPath, '*')], { allowExternal: true }),
+        plugin: new CleanWebpackPlugin(),
         priority: 0
       })
     }
