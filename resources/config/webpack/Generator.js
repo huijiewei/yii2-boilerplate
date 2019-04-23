@@ -189,7 +189,7 @@ class Generator {
     plugins.push({
       plugin: new ManifestPlugin({
         writeToFileEmit: !Generator.isProduction(),
-        filter: function({ name, isChunk }) {
+        filter: function ({name, isChunk}) {
           return isChunk && !name.startsWith('chunk-') && !name.endsWith('.map')
         }
       }),
@@ -203,11 +203,11 @@ class Generator {
       })
     }
 
-    this.config.plugins.forEach(function(plugin) {
+    this.config.plugins.forEach(function (plugin) {
       plugins.push(plugin)
     })
 
-    return plugins.map((plugin, position) => Object.assign({}, plugin, { position: position })).sort((a, b) => {
+    return plugins.map((plugin, position) => Object.assign({}, plugin, {position: position})).sort((a, b) => {
       if (a.priority === b.priority) {
         return a.position - b.position
       }
@@ -262,7 +262,8 @@ class Generator {
       publicPath: this.config.publicPath,
       contentBase: false,
       inline: true,
-      headers: { 'Access-Control-Allow-Origin': '*' },
+      http2: this.config.devServerHttp2,
+      headers: {'Access-Control-Allow-Origin': '*'},
       watchOptions: {
         ignored: /node_modules/
       }
@@ -345,6 +346,6 @@ class Generator {
   }
 }
 
-module.exports = function(config) {
+module.exports = function (config) {
   return new Generator(config).getWebpackConfig()
 }
