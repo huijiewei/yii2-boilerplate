@@ -7,7 +7,8 @@
     "admin-stats": "cross-env NODE_ENV=production webpack --config ./resources/config/admin.webpack.prod.js --json > stats.json"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0",
+    "@babel/runtime": "^7.4.3",
+    "@babel/runtime-corejs2": "^7.4.3",
     "axios": "^0.18.0",
     "axios-progress-bar": "^1.2.0",
     "axios-retry": "^3.1.1",
@@ -29,7 +30,6 @@
     "babel-eslint": "^10.0.0",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^2.0.0",
-    "core-js": "3.0.1",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
     "cssnano": "^4.0.5",
