@@ -21,6 +21,7 @@ return [
     'bootstrap' => [
         'log',
         \app\modules\admin\ModuleBootstrap::class,
+        \app\modules\wechat\ModuleBootstrap::class,
         \app\modules\website\ModuleBootstrap::class,
     ],
 
@@ -31,6 +32,7 @@ return [
 
     'modules' => [
         \app\modules\admin\Module::getModuleId() => \app\modules\admin\Module::class,
+        \app\modules\wechat\Module::getModuleId() => \app\modules\wechat\Module::class,
         \app\modules\website\Module::getModuleId() => \app\modules\website\Module::class,
     ],
 
@@ -39,6 +41,14 @@ return [
 
         'security' => [
             'passwordHashStrategy' => 'password_hash',
+        ],
+
+        'wechat' => [
+            'class' => \huijiewei\wechat\Wechat::class,
+            'appConfig' => [
+                'app_id' => getenv('WECHAT_APP_ID'),
+                'secret' => getenv('WECHAT_APP_SECRET'),
+            ],
         ],
 
         'cache' => [

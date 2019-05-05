@@ -6,15 +6,17 @@
  * Time: 16:47
  */
 
-namespace app\modules\website\controllers;
+namespace app\modules\wechat\controllers;
 
-use app\modules\website\Controller;
+use app\modules\wechat\Controller;
 
 class SiteController extends Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', [
+            'wechatOpenId' => $this->wechatOpenId,
+        ]);
     }
 
     public function actionError()

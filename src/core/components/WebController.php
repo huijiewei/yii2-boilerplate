@@ -8,6 +8,9 @@
 
 namespace app\core\components;
 
+use Yii;
+use yii\helpers\Url;
+
 abstract class WebController extends \yii\web\Controller
 {
     /**
@@ -33,5 +36,16 @@ abstract class WebController extends \yii\web\Controller
     public function renderPartial($view, $params = [])
     {
         return parent::renderPartial($this->changeTemplatesViewPath($view), $params);
+    }
+
+    public function getBackUrl($default = ['site/index'])
+    {
+        $backUrl = Yii::$app->getRequest()->getReferrer();
+
+        if (empty($backUrl)) {
+            $backUrl = Url::toRoute($default);
+        }
+
+        return $backUrl;
     }
 }
