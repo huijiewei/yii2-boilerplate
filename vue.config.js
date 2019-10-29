@@ -11,14 +11,14 @@ module.exports = {
       template: 'public/index.html',
       filename: 'admin/index.html',
       title: 'Agile 管理后台',
-      chunks: ['vendor', 'element', 'core', 'admin']
+      chunks: ['vendor', 'element', 'agile', 'admin']
     },
     mobile: {
       entry: 'src/modules/mobile/main.js',
       template: 'public/index.html',
       filename: 'mobile/index.html',
       title: 'Agile 移动端',
-      chunks: ['vendor', 'core', 'mobile']
+      chunks: ['vendor', 'agile', 'mobile']
     }
   },
   chainWebpack: config => {
