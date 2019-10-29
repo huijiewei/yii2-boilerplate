@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { routerHistory, writeHistory } from 'vue-router-back-button'
+import VueRouterBackButton from 'vue-router-back-button'
 
-import siteIndex from '@admin/views/site/Index'
-import notFound from '@admin/views/site/NotFound'
+import siteIndex from '@mobile/views/site/Index'
+import notFound from '@mobile/views/site/NotFound'
 
-import defaultLayout from '@admin/components/DefaultLayout'
+import defaultLayout from '@mobile/components/DefaultLayout'
 
 Vue.use(VueRouter)
-Vue.use(routerHistory)
 
 const routes = [
   {
@@ -50,6 +49,6 @@ const router = new VueRouter({
   }
 })
 
-router.afterEach(writeHistory)
+Vue.use(VueRouterBackButton, { router })
 
 export default router

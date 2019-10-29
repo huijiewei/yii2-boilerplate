@@ -1,5 +1,9 @@
 const path = require('path')
 
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
+
 module.exports = {
   pages: {
     admin: {
@@ -19,8 +23,9 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias
-      .set('@core', path.resolve('src/core'))
-      .set('@admin', path.resolve('src/modules/admin'))
+      .set('@core', resolve('src/core'))
+      .set('@admin', resolve('src/modules/admin'))
+      .set('@mobile', resolve('src/modules/mobile'))
 
     config.optimization.splitChunks(
       {
@@ -28,23 +33,20 @@ module.exports = {
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
+            chunks: 'initial',
             name: 'vendor',
             priority: 10,
-            chunks: 'initial',
             enforce: true
           },
           element: {
             test: /[\\/]node_modules[\\/]_?element-ui(.*)/,
             name: 'element',
-            priority: 20,
-            enforce: true
+            priority: 20
           },
-          core: {
-            name: 'core',
-            test: path.resolve('src/core'),
-            minChunks: 3,
-            priority: 5,
-            reuseExistingChunk: true
+          agile: {
+            test: /[\\/]src\/core[\\/]/,
+            name: 'agile',
+            priority: 5
           }
         }
       }
