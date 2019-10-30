@@ -3,7 +3,9 @@
     <el-header
       class="ag-header"
       height="50px"
-    />
+    >
+      <header-nav :is-collapsed="isCollapsed" />
+    </el-header>
     <el-container class="ag-wrap">
       <el-aside
         class="ag-aside"
@@ -12,7 +14,7 @@
         <prefect-scrollbar
           :scroll-to="'li.el-menu-item.is-active'"
           :settings="{ suppressScrollX: true }"
-          class="bp-scrollbar"
+          class="ag-scrollbar"
         />
       </el-aside>
       <el-main
@@ -28,14 +30,22 @@
 </template>
 
 <script>
+import flatry from '@core/utils/flatry'
 import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
+import HeaderNav from '@admin/components/HeaderNav'
 
 export default {
   name: 'DefaultLayout',
-  components: { PrefectScrollbar },
+  components: { PrefectScrollbar, HeaderNav },
   computed: {
+    isCollapsed () {
+      return this.$store.getters.isSidebarCollapsed
+    }
   },
   async beforeCreate () {
+    if (!this.$store.getters['auth/getCurrentUser']) {
+      await flatry(this.$store.dispatch('auth/authentication'))
+    }
   }
 }
 </script>

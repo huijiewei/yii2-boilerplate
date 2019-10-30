@@ -10,10 +10,10 @@ class Request {
         baseUrl: '',
         timeout: 10000,
         withCredentials: false,
-        getClientId: () => {
+        getApiToken: () => {
           return null
         },
-        getAccessToken: () => {
+        getUserToken: () => {
           return null
         },
         successHandler: (response) => Promise.resolve(response),
@@ -25,7 +25,8 @@ class Request {
     const httpClient = axios.create({
       baseURL: opt.baseUrl,
       timeout: opt.timeout,
-      withCredentials: opt.withCredentials
+      withCredentials: opt.withCredentials,
+      responseType: 'json'
     })
 
     axiosRetry(httpClient, {
@@ -38,16 +39,16 @@ class Request {
     loadProgressBar({ showSpinner: false }, httpClient)
 
     httpClient.interceptors.request.use((config) => {
-      const clientId = opt.getClientId()
+      const apiToken = opt.getApiToken()
 
-      if (clientId) {
-        config.headers['X-Client-Id'] = clientId
+      if (apiToken) {
+        config.headers['X-API-TOKEN'] = apiToken
       }
 
-      const accessToken = opt.getAccessToken()
+      const userToken = opt.getUserToken()
 
-      if (accessToken) {
-        config.headers['X-Access-Token'] = accessToken
+      if (userToken) {
+        config.headers['X-USER-TOKEN'] = userToken
       }
 
       return config

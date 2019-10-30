@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'App',
-  spinnerTimeoutId: null,
+  spinnerTimeoutId: 0,
   mounted () {
     document.body.classList.add('ag')
 
@@ -23,7 +23,7 @@ export default {
     )
   },
   destroyed () {
-    if (this.spinnerTimeoutId) {
+    if (this.spinnerTimeoutId > 0) {
       clearTimeout(this.spinnerTimeoutId)
     }
   }

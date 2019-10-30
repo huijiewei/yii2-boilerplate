@@ -1,6 +1,6 @@
 const path = require('path')
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
@@ -20,6 +20,9 @@ module.exports = {
       title: 'Agile 移动端',
       chunks: ['vendor', 'agile', 'mobile']
     }
+  },
+  devServer: {
+
   },
   chainWebpack: config => {
     config.resolve.alias
