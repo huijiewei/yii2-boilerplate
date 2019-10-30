@@ -4,6 +4,7 @@ import VueRouterBackButton from 'vue-router-back-button'
 
 import siteIndex from '@admin/views/site/Index'
 import notFound from '@admin/views/site/NotFound'
+import siteLogin from '@admin/views/site/Login'
 
 import defaultLayout from '@admin/components/DefaultLayout'
 
@@ -25,6 +26,10 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: '/login',
+    component: siteLogin
   },
   {
     path: '*',

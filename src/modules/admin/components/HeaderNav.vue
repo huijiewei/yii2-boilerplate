@@ -1,7 +1,7 @@
 <template>
-  <nav class="bp-nav">
+  <nav class="ag-nav">
     <div
-      class="bp-logo"
+      class="ag-logo"
       :style="{ width: isCollapsed ? '60px' : '200px'}"
     >
       <router-link :to="{ path: '/home' }">
@@ -15,7 +15,7 @@
       </router-link>
     </div>
     <i
-      :class="['trigger',isCollapsed ? 'anticon-menu-unfold':'anticon-menu-fold']"
+      :class="['anticon','trigger',isCollapsed ? 'anticon-menu-unfold':'anticon-menu-fold']"
       @click="toggleSidebar"
     />
     <ul
@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .bp-nav {
+  .ag-nav {
     i.trigger {
       font-size: 16px;
       line-height: 50px;
@@ -132,7 +132,7 @@ export default {
       }
     }
 
-    .bp-logo {
+    .ag-logo {
       text-align: center;
       overflow: hidden;
       height: 50px;
@@ -170,7 +170,7 @@ export default {
           cursor: pointer;
           transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.2s linear 0s !important;
 
-          .bp-display {
+          .ag-display {
             display: inline-block;
             margin-left: 3px;
           }

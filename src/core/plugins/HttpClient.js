@@ -55,8 +55,18 @@ const HttpClient = {
           }
 
           if (error.response.status === HttpCodes.NOT_FOUND || error.response.status === HttpCodes.FORBIDDEN || error.response.status === HttpCodes.BAD_REQUEST) {
+            let message = '网络错误'
+
+            if (error.response.data) {
+              message = error.response.data.message
+            } else if (error.response.message) {
+              message = error.response.message
+            } else if (error.response.statusText) {
+              message = error.response.statusText
+            }
+
             const msgBox = MessageBox.alert(
-              error.response.data ? error.response.data.message : error.response.message,
+              message,
               {
                 center: true,
                 confirmButtonText: '确定',

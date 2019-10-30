@@ -1,8 +1,11 @@
 const path = require('path')
+const Mock = require('./mock/index')
 
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
+
+const port = process.env.port || process.env.npm_config_port || 8080
 
 module.exports = {
   pages: {
@@ -22,7 +25,19 @@ module.exports = {
     }
   },
   devServer: {
-
+    port: port,
+    proxy: {
+      [process.env.VUE_APP_ADMIN_API_HOST]: {
+        target: `http://127.0.0.1:${port}/mock`,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_ADMIN_API_HOST]: ''
+        }
+      }
+    },
+    before (app) {
+      Mock(app)
+    }
   },
   chainWebpack: config => {
     config.resolve.alias
