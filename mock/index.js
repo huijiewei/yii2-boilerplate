@@ -1,9 +1,21 @@
-const util = require('./util')
+import Mock from 'mockjs'
 
-module.exports = function (app) {
-  app.get('/auth/authentication', function (rep, res) {
-    const json = util.getJsonFile('./auth/authentication.json')
+import auth from './auth'
 
-    res.json(json)
-  })
+const mocks = [
+  ...auth
+]
+
+const responseFake = (url, type, respond) => {
+  return {
+    url: new RegExp(`/mock${url}`),
+    type: type || 'get',
+    response (req, res) {
+      res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
+    }
+  }
 }
+
+export default mocks.map(route => {
+  return responseFake(route.url, route.type, route.response)
+})

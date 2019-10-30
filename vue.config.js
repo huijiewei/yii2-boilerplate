@@ -1,5 +1,4 @@
 const path = require('path')
-const Mock = require('./mock/index')
 
 function resolve (dir) {
   return path.join(__dirname, dir)
@@ -35,9 +34,7 @@ module.exports = {
         }
       }
     },
-    before (app) {
-      Mock(app)
-    }
+    after: require('./mock/server.js')
   },
   chainWebpack: config => {
     config.resolve.alias
