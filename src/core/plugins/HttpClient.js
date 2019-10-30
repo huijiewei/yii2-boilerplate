@@ -20,12 +20,11 @@ const HttpClient = {
       getUserToken: () => {
         return window.localStorage.getItem(tokenPrefix + '-user-token')
       },
-      setUserToken: (accessToken) => {
-        return window.localStorage.setItem(tokenPrefix + '-user-token', accessToken)
-      },
       successHandler: (response) => {
-        if (response.headers.includes('X-USER-TOKEN')) {
-          this.setUserToken(response.headers['X-USER-TOKEN'])
+        const userToken = response.headers['x-user-token']
+
+        if (userToken) {
+          window.localStorage.setItem(tokenPrefix + '-user-token', userToken)
         }
 
         if (response.config.responseType === 'blob') {

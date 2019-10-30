@@ -1,13 +1,25 @@
 <template>
   <div id="app">
+    <login-modal
+      v-if="loginModalVisible"
+      :visible="true"
+    />
     <router-view />
   </div>
 </template>
 
 <script>
+import LoginModal from '@admin/components/LoginModal'
+
 export default {
   name: 'App',
   spinnerTimeoutId: 0,
+  components: { LoginModal },
+  computed: {
+    loginModalVisible () {
+      return this.$store.getters['auth/isLoginModalVisible']
+    }
+  },
   mounted () {
     document.body.classList.add('ag')
 

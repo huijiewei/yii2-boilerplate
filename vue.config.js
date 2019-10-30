@@ -1,8 +1,5 @@
 const path = require('path')
-
-function resolve (dir) {
-  return path.join(__dirname, dir)
-}
+const apiMocker = require('mocker-api')
 
 const port = process.env.port || process.env.npm_config_port || 8080
 
@@ -25,22 +22,15 @@ module.exports = {
   },
   devServer: {
     port: port,
-    proxy: {
-      [process.env.VUE_APP_ADMIN_API_HOST]: {
-        target: `http://127.0.0.1:${port}/mock`,
-        changeOrigin: true,
-        pathRewrite: {
-          ['^' + process.env.VUE_APP_ADMIN_API_HOST]: ''
-        }
-      }
-    },
-    after: require('./mock/server.js')
+    before (app) {
+      apiMocker(app, [path.resolve('./mocker/admin/index.js'), path.resolve('./mocker/mobile/index.js')])
+    }
   },
   chainWebpack: config => {
     config.resolve.alias
-      .set('@core', resolve('src/core'))
-      .set('@admin', resolve('src/modules/admin'))
-      .set('@mobile', resolve('src/modules/mobile'))
+      .set('@core', path.resolve('src/core'))
+      .set('@admin', path.resolve('src/modules/admin'))
+      .set('@mobile', path.resolve('src/modules/mobile'))
 
     config.optimization.splitChunks(
       {

@@ -75,6 +75,7 @@ const auth = {
     },
     authentication ({ commit }) {
       return AuthService.authentication().then(data => {
+        console.log(data)
         commit('UPDATE_CURRENT_USER', data.currentUser)
         commit('UPDATE_GROUP_ACL', data.groupAcl)
         commit('UPDATE_GROUP_MENUS', data.groupMenus)

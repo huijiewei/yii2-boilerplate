@@ -15,7 +15,12 @@
           :scroll-to="'li.el-menu-item.is-active'"
           :settings="{ suppressScrollX: true }"
           class="ag-scrollbar"
-        />
+        >
+          <sider-menu
+            class="ag-menu"
+            :is-collapsed="isCollapsed"
+          />
+        </prefect-scrollbar>
       </el-aside>
       <el-main
         :style="{ marginLeft: 1===1 ? '60px' : '200px' }"
@@ -33,10 +38,11 @@
 import flatry from '@core/utils/flatry'
 import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
 import HeaderNav from '@admin/components/HeaderNav'
+import SiderMenu from '@admin/components/SiderMenu'
 
 export default {
   name: 'DefaultLayout',
-  components: { PrefectScrollbar, HeaderNav },
+  components: { PrefectScrollbar, HeaderNav, SiderMenu },
   computed: {
     isCollapsed () {
       return this.$store.getters.isSidebarCollapsed
