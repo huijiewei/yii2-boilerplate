@@ -12,4 +12,4 @@ const proxy = {
   'POST /admin/api/auth/login': authLogin
 }
 
-module.exports = (noProxy ? {} : delay(proxy, 1000))
+module.exports = (noProxy ? {} : delay(proxy, 100))

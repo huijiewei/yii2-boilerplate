@@ -1,19 +1,9 @@
 const groupAcl = require('./_groupAcl')
 const groupMenus = require('./_groupMenus')
+const { authenticationCheck } = require('../util')
 
 exports.authAuthentication = function (req, res) {
-  const userToken = req.headers['x-user-token']
-
-  if (!userToken || userToken !== 'bmq7tDtL5GqT9b64') {
-    return res.status(401).json({
-      name: 'Unauthorized',
-      message: '必须登陆才能进行操作',
-      code: 0,
-      status: 401
-    })
-  }
-
-  return res.json({
+  const success = {
     currentUser: {
       id: 1021,
       phone: '13012345678',
@@ -24,5 +14,7 @@ exports.authAuthentication = function (req, res) {
     },
     groupAcl: groupAcl,
     groupMenus: groupMenus
-  })
+  }
+
+  return authenticationCheck(req, res, success)
 }

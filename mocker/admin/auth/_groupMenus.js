@@ -74,4 +74,4 @@ const groupMenus = [
   }
 ]
 
-export default groupMenus
+module.exports = groupMenus

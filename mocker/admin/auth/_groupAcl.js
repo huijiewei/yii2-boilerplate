@@ -36,4 +36,4 @@ const groupAcl = [
   'shop/brand'
 ]
 
-export default groupAcl
+module.exports = groupAcl
