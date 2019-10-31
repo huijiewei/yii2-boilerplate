@@ -6,6 +6,8 @@ import siteIndex from '@admin/views/site/Index'
 import notFound from '@admin/views/site/NotFound'
 import siteLogin from '@admin/views/site/Login'
 
+import adminRoutes from './admin'
+
 import defaultLayout from '@admin/components/DefaultLayout'
 
 Vue.use(VueRouter)
@@ -15,6 +17,7 @@ const routes = [
     path: '/',
     component: defaultLayout,
     children: [
+      ...adminRoutes,
       {
         path: 'home',
         component: siteIndex,

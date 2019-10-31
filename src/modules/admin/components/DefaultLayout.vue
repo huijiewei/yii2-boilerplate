@@ -26,6 +26,7 @@
         :style="{ marginLeft: isCollapsed ? '60px' : '200px' }"
         class="ag-main"
       >
+        <breadcrumb></breadcrumb>
         <div class="ag-content">
           <router-view />
         </div>
@@ -39,10 +40,11 @@ import flatry from '@core/utils/flatry'
 import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
 import HeaderNav from '@admin/components/HeaderNav'
 import SiderMenu from '@admin/components/SiderMenu'
+import Breadcrumb from '@admin/components/Breadcrumb'
 
 export default {
   name: 'DefaultLayout',
-  components: { PrefectScrollbar, HeaderNav, SiderMenu },
+  components: { PrefectScrollbar, HeaderNav, SiderMenu, Breadcrumb },
   computed: {
     isCollapsed () {
       return this.$store.getters.isSidebarCollapsed
