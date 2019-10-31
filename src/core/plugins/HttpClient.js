@@ -11,22 +11,16 @@ const HttpCodes = {
 const HttpGetMethod = ['GET', 'HEAD']
 
 const HttpClient = {
-  install (Vue, { apiHost, apiToken, tokenPrefix, store, router, Message, MessageBox, loginUrl, loginDispatch }) {
+  install (Vue, { apiHost, apiToken, store, router, Message, MessageBox, loginUrl, loginDispatch, tokenGetter }) {
     const request = new Request({
       baseUrl: apiHost,
       getApiToken: () => {
         return apiToken
       },
       getUserToken: () => {
-        return window.localStorage.getItem(tokenPrefix + '-user-token')
+        return store.getters[tokenGetter]
       },
       successHandler: (response) => {
-        const userToken = response.headers['x-user-token']
-
-        if (userToken) {
-          window.localStorage.setItem(tokenPrefix + '-user-token', userToken)
-        }
-
         if (response.config.responseType === 'blob') {
           return Promise.resolve(response)
         }

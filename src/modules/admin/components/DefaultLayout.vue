@@ -23,7 +23,7 @@
         </prefect-scrollbar>
       </el-aside>
       <el-main
-        :style="{ marginLeft: 1===1 ? '60px' : '200px' }"
+        :style="{ marginLeft: isCollapsed ? '60px' : '200px' }"
         class="ag-main"
       >
         <div class="ag-content">
@@ -56,4 +56,5 @@ export default {
 }
 </script>
 <style lang="scss">
+  @import "../assets/styles/default-layout.scss";
 </style>

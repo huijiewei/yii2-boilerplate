@@ -4,6 +4,7 @@ import AuthService from '@admin/services/AuthService'
 const auth = {
   namespaced: true,
   state: {
+    userToken: null,
     loginModal: false,
     currentUser: null,
     groupAcl: [],
@@ -13,6 +14,15 @@ const auth = {
   getters: {
     isLoginModalVisible: state => {
       return state.loginModal
+    },
+    getUserToken: state => {
+      let userToken = state.userToken
+
+      if (!userToken) {
+        userToken = window.localStorage.getItem('ag-admin-user-token')
+      }
+
+      return userToken
     },
     getCurrentUser: state => {
       return state.currentUser
@@ -37,6 +47,15 @@ const auth = {
 
       state.loginModal = visible
     },
+    UPDATE_USER_TOKEN: (state, userToken) => {
+      state.userToken = userToken
+
+      if (userToken == null) {
+        window.localStorage.removeItem('ag-admin-user-token')
+      } else {
+        window.localStorage.setItem('ag-admin-user-token', userToken)
+      }
+    },
     UPDATE_CURRENT_USER: (state, user) => {
       state.currentUser = user
     },
@@ -56,7 +75,8 @@ const auth = {
       commit('TOGGLE_LOGIN_MODAL', false)
     },
     login ({ commit }, credentials) {
-      return AuthService.login(credentials).then(data => {
+      return AuthService.login(credentials).then((data) => {
+        commit('UPDATE_USER_TOKEN', data.accessToken)
         commit('UPDATE_CURRENT_USER', data.currentUser)
         commit('UPDATE_GROUP_ACL', data.groupAcl)
         commit('UPDATE_GROUP_MENUS', data.groupMenus)
@@ -66,6 +86,7 @@ const auth = {
     },
     logout ({ commit }) {
       return AuthService.logout().then((data) => {
+        commit('UPDATE_USER_TOKEN', null)
         commit('UPDATE_CURRENT_USER', null)
         commit('UPDATE_GROUP_ACL', [])
         commit('UPDATE_GROUP_MENUS', [])
@@ -74,8 +95,7 @@ const auth = {
       })
     },
     authentication ({ commit }) {
-      return AuthService.authentication().then(data => {
-        console.log(data)
+      return AuthService.authentication().then((data) => {
         commit('UPDATE_CURRENT_USER', data.currentUser)
         commit('UPDATE_GROUP_ACL', data.groupAcl)
         commit('UPDATE_GROUP_MENUS', data.groupMenus)

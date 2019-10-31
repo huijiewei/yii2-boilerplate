@@ -49,4 +49,5 @@ export default {
   }
 
   @import "../../core/assets/styles/base.scss";
+  @import "./assets/styles/style.scss";
 </style>

@@ -21,8 +21,9 @@ exports.authLogin = function (req, res) {
     return res.status(422).json([{ 'field': 'account', 'message': '密码错误' }])
   }
 
-  return res.append('X-USER-TOKEN', '123').json({
+  return res.json({
     'message': '登陆成功',
+    'accessToken': 'bmq7tDtL5GqT9b64',
     'currentUser': {
       'id': 1021,
       'phone': '13012345678',
