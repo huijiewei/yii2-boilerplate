@@ -138,7 +138,7 @@ export default {
           }
         },
         admin.phone,
-        '请输入管理员电话'
+        '管理员电话'
       )
     }
   }
