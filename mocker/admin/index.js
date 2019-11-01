@@ -2,7 +2,7 @@ const delay = require('mocker-api/utils/delay')
 const { authAuthentication } = require('./auth/authentication')
 const { authLogin } = require('./auth/login')
 const { adminList, adminItem, adminEdit, adminCreate, adminDelete } = require('./admin/index')
-const { adminGroupList, adminGroupFilter } = require('./admin-group/index')
+const { adminGroupList, adminGroupItem, adminGroupEdit, adminGroupCreate, adminGroupDelete, adminGroupFilter, adminGroupAclFilter } = require('./admin-group/index')
 
 const noProxy = process.env.NO_PROXY === 'true'
 
@@ -18,7 +18,12 @@ const proxy = {
   'PUT /admin/api/admins/:id(\\d+)': adminEdit,
   'DELETE /admin/api/admins/:id(\\d+)': adminDelete,
   'GET /admin/api/admin-groups': adminGroupList,
-  'GET /admin/api/filter/admin-groups': adminGroupFilter
+  'POST /admin/api/admin-groups': adminGroupCreate,
+  'GET /admin/api/admin-groups/:id(\\d+)': adminGroupItem,
+  'PUT /admin/api/admin-groups/:id(\\d+)': adminGroupEdit,
+  'DELETE /admin/api/admin-groups/:id(\\d+)': adminGroupDelete,
+  'GET /admin/api/filter/admin-groups': adminGroupFilter,
+  'GET /admin/api/filter/admin-group-acl': adminGroupAclFilter
 }
 
 module.exports = (noProxy ? {} : delay(proxy, 500))

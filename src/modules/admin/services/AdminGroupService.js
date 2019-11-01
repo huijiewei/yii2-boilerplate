@@ -5,28 +5,22 @@ const AdminGroupService = {
     return Vue.http.get('admin-groups')
   },
   acl () {
-    return Vue.http.get('filter/admin-acl')
+    return Vue.http.get('filter/admin-group-acl')
   },
   delete (id) {
-    return Vue.http.delete('admin-group/delete', { id: id })
+    return Vue.http.delete('admin-groups/' + id)
   },
   create (adminGroup = null) {
-    const endpoint = 'admin-group/create'
+    return Vue.http.post('admin-groups', adminGroup)
+  },
+  edit (id, adminGroup = null) {
+    const endpoint = 'admin-groups/' + id
 
     if (adminGroup === null) {
       return Vue.http.get(endpoint)
     }
 
-    return Vue.http.post(endpoint, adminGroup)
-  },
-  edit (id, adminGroup = null) {
-    const endpoint = 'admin-group/edit'
-
-    if (adminGroup === null) {
-      return Vue.http.get(endpoint, { id: id })
-    }
-
-    return Vue.http.put(endpoint, adminGroup, { id: id })
+    return Vue.http.put(endpoint, adminGroup)
   }
 }
 

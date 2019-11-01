@@ -141,7 +141,7 @@ export default {
       acl: []
     }
 
-    const { data } = await flatry(AdminGroupService.acls())
+    const { data } = await flatry(AdminGroupService.acl())
 
     if (data) {
       this.allAcl = data
