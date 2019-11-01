@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const AdminService = {
   all () {
-    return Vue.http.get('admin', { expand: 'group' })
+    return Vue.http.get('admins', { expand: 'group' })
   },
 
   groups () {
@@ -10,27 +10,21 @@ const AdminService = {
   },
 
   delete (id) {
-    return Vue.http.delete('admin/delete', { id: id })
+    return Vue.http.delete('admins/' + id)
   },
 
-  create (admin = null) {
-    const endpoint = 'admin/create'
+  create (admin) {
+    return Vue.http.post('admins', admin)
+  },
+
+  edit (id, admin = null) {
+    const endpoint = 'admins/' + id
 
     if (admin === null) {
       return Vue.http.get(endpoint)
     }
 
-    return Vue.http.post(endpoint, admin)
-  },
-
-  edit (id, admin = null) {
-    const endpoint = 'admin/edit'
-
-    if (admin === null) {
-      return Vue.http.get(endpoint, { id: id })
-    }
-
-    return Vue.http.put(endpoint, admin, { id: id })
+    return Vue.http.put(endpoint, admin)
   }
 }
 

@@ -1,7 +1,7 @@
 const groupAcl = require('./_groupAcl')
 const groupMenus = require('./_groupMenus')
 
-exports.authLogin = function (req, res) {
+exports.authLogin = (req, res) => {
   const { account, password } = req.body
 
   if (!account || account.length === 0) {

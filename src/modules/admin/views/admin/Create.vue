@@ -28,11 +28,7 @@ export default {
     }
   },
   async created () {
-    const { data } = await flatry(AdminService.create())
-
-    if (data) {
-      this.admin = data
-    }
+    this.admin = {}
   },
   methods: {
     async createAdmin (admin, success, callback) {
@@ -40,7 +36,7 @@ export default {
 
       if (data) {
         this.$message.success(data.message)
-        this.$router.replace({ path: '/admin/edit', query: { id: data.adminId } })
+        await this.$router.replace({ path: '/admin/edit', query: { id: data.adminId } })
 
         success()
       }

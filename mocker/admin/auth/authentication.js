@@ -2,7 +2,7 @@ const groupAcl = require('./_groupAcl')
 const groupMenus = require('./_groupMenus')
 const { authenticationCheck } = require('../util')
 
-exports.authAuthentication = function (req, res) {
+exports.authAuthentication = (req, res) => {
   const success = {
     currentUser: {
       id: 1021,
@@ -16,5 +16,7 @@ exports.authAuthentication = function (req, res) {
     groupMenus: groupMenus
   }
 
-  return authenticationCheck(req, res, success)
+  return authenticationCheck(req, res, () => {
+    res.json(success)
+  })
 }

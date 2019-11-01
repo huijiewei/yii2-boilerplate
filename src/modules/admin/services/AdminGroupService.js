@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const AdminGroupService = {
   all () {
-    return Vue.http.get('admin-group')
+    return Vue.http.get('admin-groups')
   },
   acl () {
     return Vue.http.get('filter/admin-acl')
