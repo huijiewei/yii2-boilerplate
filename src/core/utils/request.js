@@ -39,17 +39,7 @@ class Request {
     loadProgressBar({ showSpinner: false }, httpClient)
 
     httpClient.interceptors.request.use((config) => {
-      const apiToken = opt.getApiToken()
-
-      if (apiToken) {
-        config.headers['X-API-TOKEN'] = apiToken
-      }
-
-      const userToken = opt.getUserToken()
-
-      if (userToken) {
-        config.headers['X-USER-TOKEN'] = userToken
-      }
+      config.headers['Authorization'] = 'Token ' + opt.getApiToken() + ' ' + opt.getUserToken()
 
       return config
     }, undefined)

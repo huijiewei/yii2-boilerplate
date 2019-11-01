@@ -1,9 +1,21 @@
 exports.authenticationCheck = function (req, res, success) {
-  const userToken = req.headers['x-user-token']
+  const authorization = req.get('Authorization') || ''
 
-  if (userToken && userToken === 'bmq7tDtL5GqT9b64') {
-    return success()
-  } else {
+  const authorizationTokens = authorization.split(' ')
+
+  const apiToken = authorizationTokens[1] || ''
+  const userToken = authorizationTokens[2] || ''
+
+  if (apiToken !== process.env.VUE_APP_ADMIN_API_TOKEN) {
+    return res.status(400).json({
+      name: 'BadRequest',
+      message: '无效的 API TOKEN',
+      code: 0,
+      status: 400
+    })
+  }
+
+  if (userToken !== 'bmq7tDtL5GqT9b64') {
     return res.status(401).json({
       name: 'Unauthorized',
       message: '必须登陆才能进行操作',
@@ -11,6 +23,8 @@ exports.authenticationCheck = function (req, res, success) {
       status: 401
     })
   }
+
+  return success()
 }
 
 exports.notFoundCheck = function (item, message, res, success) {
