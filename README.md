@@ -22,6 +22,11 @@ npm install
 npm run serve
 ```
 
+#### 本地开发访问方法
+http://localhost:8080/admin
+
+http://localhost:8080/mobile
+
 #### 构建生产版本
 
 ```bash
