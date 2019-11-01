@@ -34,7 +34,6 @@ module.exports = {
 
     config.optimization.splitChunks(
       {
-        chunks: 'all',
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
