@@ -20,8 +20,9 @@ exports.adminItem = (req, res) => {
     })
 
     return notFoundCheck(admin, '管理员不存在', res, () => {
-      delete admin.group
-      return res.json(admin)
+      const result = JSON.parse(JSON.stringify(admin))
+      delete result.group
+      return res.json(result)
     })
   })
 }
