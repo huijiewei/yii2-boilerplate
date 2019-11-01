@@ -36,8 +36,20 @@ import SiderMenuIcon from './SiderMenuIcon'
 export default {
   name: 'SiderMenuSub',
   components: { SiderMenuIcon, SiderMenuItem },
-  // eslint-disable-next-line vue/require-prop-types
-  props: ['menu', 'depth', 'index'],
+  props: {
+    menu: {
+      type: Object,
+      default: null
+    },
+    depth: {
+      type: Number,
+      default: 0
+    },
+    index: {
+      type: Number,
+      default: 0
+    }
+  },
   data () {
     return {
       opened: false

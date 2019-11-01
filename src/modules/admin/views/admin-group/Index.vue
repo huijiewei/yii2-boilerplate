@@ -1,17 +1,16 @@
 <template>
   <div class="box">
     <div class="box-toolbar">
-      <router-link
-        v-if="$can('admin-group/create')"
-        :to="{ path: '/admin-group/create' }"
-      >
+      <div class="box-toolbar-button">
         <el-button
+          :disabled="!$can('admin-group/create')"
           type="primary"
           size="medium"
+          @click.native="handleAdminGroupCreate()"
         >
           新建管理组
         </el-button>
-      </router-link>
+      </div>
     </div>
     <el-table
       v-loading="loading"
@@ -34,26 +33,24 @@
         align="right"
       >
         <template slot-scope="scope">
-          <el-button-group>
-            <el-button
-              v-if="$can('admin-group/edit')"
-              plain
-              type="primary"
-              size="mini"
-              @click.native="handleAdminGroupEdit(scope.row)"
-            >
-              编辑
-            </el-button>
-            <el-button
-              v-if="$can('admin-group/delete')"
-              plain
-              type="warning"
-              size="mini"
-              @click.native="handleAdminGroupDelete(scope.row)"
-            >
-              删除
-            </el-button>
-          </el-button-group>
+          <el-button
+            :disabled="!$can('admin-group/edit')"
+            plain
+            type="primary"
+            size="mini"
+            @click.native="handleAdminGroupEdit(scope.row)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            :disabled="!$can('admin-group/delete')"
+            plain
+            type="danger"
+            size="mini"
+            @click.native="handleAdminGroupDelete(scope.row)"
+          >
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -81,6 +78,9 @@ export default {
     this.loading = false
   },
   methods: {
+    handleAdminGroupCreate () {
+      this.$router.push({ path: '/admin-group/create' })
+    },
     handleAdminGroupEdit (adminGroup) {
       this.$router.push({ path: '/admin-group/edit', query: { id: adminGroup.id } })
     },

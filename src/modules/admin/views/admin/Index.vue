@@ -1,17 +1,16 @@
 <template>
   <div class="box">
     <div class="box-toolbar">
-      <router-link
-        v-if="$can('admin/create')"
-        :to="{ path: '/admin/create' }"
-      >
+      <div class="box-toolbar-button">
         <el-button
+          :disabled="!$can('admin/create')"
           type="primary"
           size="medium"
+          @click.native="handleAdminCreate()"
         >
           新建管理员
         </el-button>
-      </router-link>
+      </div>
     </div>
     <el-table
       v-loading="loading"
@@ -60,26 +59,24 @@
         align="right"
       >
         <template slot-scope="scope">
-          <el-button-group>
-            <el-button
-              v-if="$can('admin/edit')"
-              plain
-              type="primary"
-              size="mini"
-              @click.native="handleAdminEdit(scope.row)"
-            >
-              编辑
-            </el-button>
-            <el-button
-              v-if="$can('admin/delete')"
-              plain
-              type="warning"
-              size="mini"
-              @click.native="handleAdminDelete(scope.row)"
-            >
-              删除
-            </el-button>
-          </el-button-group>
+          <el-button
+            :disabled="!$can('admin/edit')"
+            plain
+            type="primary"
+            size="mini"
+            @click.native="handleAdminEdit(scope.row)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            :disabled="!$can('admin/delete')"
+            plain
+            type="danger"
+            size="mini"
+            @click.native="handleAdminDelete(scope.row)"
+          >
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -109,6 +106,9 @@ export default {
     this.loading = false
   },
   methods: {
+    handleAdminCreate () {
+      this.$router.push({ path: '/admin/create' })
+    },
     handleAdminEdit (admin) {
       this.$router.push({ path: '/admin/edit', query: { id: admin.id } })
     },

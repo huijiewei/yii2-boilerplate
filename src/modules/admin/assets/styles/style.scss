@@ -97,13 +97,12 @@
 
         margin-bottom: 20px;
 
-        .button-bar {
-            float: left;
+        .box-toolbar-button {
+            float: right;
         }
 
-        .search-bar {
-            float: right;
-            text-align: right;
+        .box-toolbar-search {
+            float: left;
 
             .br {
                 border: none;
