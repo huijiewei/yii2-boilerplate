@@ -83,8 +83,13 @@ const HttpClient = {
             if (data.message) {
               Message.warning(data.message)
             } else if (Array.isArray(data)) {
+              const messages = []
               data.forEach(function (item) {
-                Message.warning(item.message)
+                messages.push(item.message)
+              })
+              Message.warning({
+                dangerouslyUseHTMLString: true,
+                message: messages.join('<br><br>')
               })
             } else if (data instanceof Blob) {
               const blb = new Blob([data])
