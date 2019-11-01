@@ -34,6 +34,7 @@ module.exports = {
 
     config.optimization.splitChunks(
       {
+        chunks: 'all',
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
@@ -45,12 +46,14 @@ module.exports = {
           element: {
             test: /[\\/]node_modules[\\/]_?element-ui(.*)/,
             name: 'element',
-            priority: 20
+            priority: 20,
+            enforce: true
           },
           agile: {
             test: /[\\/]src\/core[\\/]/,
             name: 'agile',
-            priority: 5
+            priority: 5,
+            enforce: true
           }
         }
       }
