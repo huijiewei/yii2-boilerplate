@@ -67,6 +67,7 @@
           v-model="formModel.groupId"
           :disabled="getCurrentUserId === formModel.id"
           placeholder="所属管理组"
+          value=""
         >
           <el-option
             v-for="item in adminGroups"
