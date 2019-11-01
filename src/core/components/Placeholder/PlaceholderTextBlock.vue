@@ -16,7 +16,26 @@ import PlaceholderTextRow from '@core/components/Placeholder/PlaceholderTextRow'
 export default {
   name: 'PlaceholderTextBlock',
   components: { PlaceholderTextRow },
-  props: ['rows', 'color', 'widths', 'lineSpacing'],
+  props: {
+    rows: {
+      type: Number,
+      default: 6
+    },
+    color: {
+      type: String,
+      default: ''
+    },
+    widths: {
+      type: Array,
+      default: () => {
+        return [65, 70, 55, 35, 50, 60]
+      }
+    },
+    lineSpacing: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       rowArray: new Array(this.rows || 6),

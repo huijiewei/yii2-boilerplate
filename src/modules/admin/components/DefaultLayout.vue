@@ -26,7 +26,7 @@
         :style="{ marginLeft: isCollapsed ? '60px' : '200px' }"
         class="ag-main"
       >
-        <breadcrumb></breadcrumb>
+        <breadcrumb />
         <div class="ag-content">
           <router-view />
         </div>

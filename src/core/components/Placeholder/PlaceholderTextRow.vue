@@ -8,7 +8,24 @@
 <script>
 export default {
   name: 'PlaceholderTextRow',
-  props: ['color', 'width', 'height', 'lineSpacing'],
+  props: {
+    color: {
+      type: String,
+      default: ''
+    },
+    width: {
+      type: [String, Number],
+      default: '100%'
+    },
+    height: {
+      type: [String, Number],
+      default: '100%'
+    },
+    lineSpacing: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       styles: {
