@@ -32,8 +32,8 @@ export default {
       }
     },
     lineSpacing: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: '0.7em'
     }
   },
   data () {

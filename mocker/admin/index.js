@@ -21,4 +21,4 @@ const proxy = {
   'GET /admin/api/filter/admin-groups': adminGroupFilter
 }
 
-module.exports = (noProxy ? {} : delay(proxy, 100))
+module.exports = (noProxy ? {} : delay(proxy, 500))

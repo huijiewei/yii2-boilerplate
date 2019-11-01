@@ -65,8 +65,8 @@ export default {
       default: 90
     },
     lineSpacing: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: '22px'
     }
   },
   data () {
