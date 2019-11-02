@@ -11,14 +11,11 @@ const HttpCodes = {
 const HttpGetMethod = ['GET', 'HEAD']
 
 const HttpClient = {
-  install (Vue, { apiHost, apiToken, store, router, Message, MessageBox, loginUrl, loginDispatch, tokenGetter }) {
+  install (Vue, { apiHost, store, router, Message, MessageBox, loginUrl, loginDispatch, accessTokenGetter }) {
     const request = new Request({
       baseUrl: apiHost,
-      getApiToken: () => {
-        return apiToken
-      },
-      getUserToken: () => {
-        return store.getters[tokenGetter]
+      getAccessToken: () => {
+        return store.getters[accessTokenGetter]
       },
       successHandler: (response) => {
         if (response.config.responseType === 'blob') {

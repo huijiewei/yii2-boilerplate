@@ -4,8 +4,8 @@ import AuthService from '@admin/services/AuthService'
 const auth = {
   namespaced: true,
   state: {
-    userToken: null,
     loginModal: false,
+    accessToken: null,
     currentUser: null,
     groupAcl: [],
     groupMenus: [],
@@ -15,14 +15,14 @@ const auth = {
     isLoginModalVisible: state => {
       return state.loginModal
     },
-    getUserToken: state => {
-      let userToken = state.userToken
+    getAccessToken: state => {
+      let accessToken = state.accessToken
 
-      if (!userToken) {
-        userToken = window.localStorage.getItem('ag-admin-user-token')
+      if (!accessToken) {
+        accessToken = window.localStorage.getItem('ag-admin-access-token')
       }
 
-      return userToken
+      return window.localStorage.getItem('ag-admin-client-id') + ' ' + accessToken
     },
     getCurrentUser: state => {
       return state.currentUser
@@ -47,13 +47,13 @@ const auth = {
 
       state.loginModal = visible
     },
-    UPDATE_USER_TOKEN: (state, userToken) => {
-      state.userToken = userToken
+    UPDATE_ACCESS_TOKEN: (state, accessToken) => {
+      state.accessToken = accessToken
 
-      if (userToken == null) {
-        window.localStorage.removeItem('ag-admin-user-token')
+      if (accessToken == null) {
+        window.localStorage.removeItem('ag-admin-access-token')
       } else {
-        window.localStorage.setItem('ag-admin-user-token', userToken)
+        window.localStorage.setItem('ag-admin-access-token', accessToken)
       }
     },
     UPDATE_CURRENT_USER: (state, user) => {
@@ -68,6 +68,11 @@ const auth = {
     }
   },
   actions: {
+    initClientId () {
+      if (window.localStorage.getItem('ag-admin-client-id') == null) {
+        window.localStorage.setItem('ag-admin-client-id', Math.random().toString(36).substr(2))
+      }
+    },
     showLoginModal ({ commit }) {
       commit('TOGGLE_LOGIN_MODAL', true)
     },
@@ -76,7 +81,7 @@ const auth = {
     },
     login ({ commit }, credentials) {
       return AuthService.login(credentials).then((data) => {
-        commit('UPDATE_USER_TOKEN', data.accessToken)
+        commit('UPDATE_ACCESS_TOKEN', data.accessToken)
         commit('UPDATE_CURRENT_USER', data.currentUser)
         commit('UPDATE_GROUP_ACL', data.groupAcl)
         commit('UPDATE_GROUP_MENUS', data.groupMenus)
@@ -86,7 +91,7 @@ const auth = {
     },
     logout ({ commit }) {
       return AuthService.logout().then((data) => {
-        commit('UPDATE_USER_TOKEN', null)
+        commit('UPDATE_ACCESS_TOKEN', null)
         commit('UPDATE_CURRENT_USER', null)
         commit('UPDATE_GROUP_ACL', [])
         commit('UPDATE_GROUP_MENUS', [])

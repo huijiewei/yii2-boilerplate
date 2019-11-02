@@ -4,6 +4,7 @@ const apiMocker = require('mocker-api')
 const port = process.env.port || process.env.npm_config_port || 8080
 
 module.exports = {
+  lintOnSave: true,
   pages: {
     admin: {
       entry: 'src/modules/admin/main.js',

@@ -3,19 +3,19 @@ exports.authenticationCheck = function (req, res, success) {
 
   const authorizationTokens = authorization.split(' ')
 
-  const apiToken = authorizationTokens[1] || ''
-  const userToken = authorizationTokens[2] || ''
+  const clientId = authorizationTokens[1] || ''
+  const accessToken = authorizationTokens[2] || ''
 
-  if (apiToken !== process.env.VUE_APP_ADMIN_API_TOKEN) {
+  if (clientId === '') {
     return res.status(400).json({
       name: 'BadRequest',
-      message: '无效的 API TOKEN',
+      message: '无效的 Client Id，请刷新页面重新操作',
       code: 0,
       status: 400
     })
   }
 
-  if (userToken !== 'bmq7tDtL5GqT9b64') {
+  if (accessToken !== 'bmq7tDtL5GqT9b64') {
     return res.status(401).json({
       name: 'Unauthorized',
       message: '必须登陆才能进行操作',

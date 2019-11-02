@@ -16,14 +16,13 @@ Vue.use(ElementUI)
 
 Vue.use(HttpClient, {
   apiHost: process.env.VUE_APP_ADMIN_API_HOST,
-  apiToken: process.env.VUE_APP_ADMIN_API_TOKEN,
   store,
   router,
   Message: ElementUI.Message,
   MessageBox: ElementUI.MessageBox,
   loginUrl: '/login',
   loginDispatch: 'auth/showLoginModal',
-  tokenGetter: 'auth/getUserToken'
+  accessTokenGetter: 'auth/getAccessToken'
 })
 
 Vue.use(AclChecker, {

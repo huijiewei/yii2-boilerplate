@@ -10,10 +10,7 @@ class Request {
         baseUrl: '',
         timeout: 10000,
         withCredentials: false,
-        getApiToken: () => {
-          return null
-        },
-        getUserToken: () => {
+        getAccessToken: () => {
           return null
         },
         successHandler: (response) => Promise.resolve(response),
@@ -39,7 +36,7 @@ class Request {
     loadProgressBar({ showSpinner: false }, httpClient)
 
     httpClient.interceptors.request.use((config) => {
-      config.headers['Authorization'] = 'Token ' + opt.getApiToken() + ' ' + opt.getUserToken()
+      config.headers['Authorization'] = 'Token ' + opt.getAccessToken()
 
       return config
     }, undefined)

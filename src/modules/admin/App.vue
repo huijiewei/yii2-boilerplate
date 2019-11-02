@@ -20,6 +20,9 @@ export default {
       return this.$store.getters['auth/isLoginModalVisible']
     }
   },
+  beforeCreate () {
+    this.$store.dispatch('auth/initClientId')
+  },
   mounted () {
     document.body.classList.add('ag')
 
