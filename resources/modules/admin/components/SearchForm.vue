@@ -138,7 +138,7 @@
         }
 
         Object.keys(this.$route.query).forEach((key) => {
-          if (!this.formModel.hasOwnProperty(key) && key !== 'page') {
+          if (!!Object.prototype.hasOwnProperty.call(this.formModel, key) && key !== 'page') {
             queryFields[key] = this.$route.query[key]
           }
         })
@@ -149,7 +149,7 @@
         const defaultQuery = {}
 
         Object.keys(this.$route.query).forEach((key) => {
-          if (!this.formModel.hasOwnProperty(key) && key !== 'page') {
+          if (!Object.prototype.hasOwnProperty.call(this.formModel, key) && key !== 'page') {
             defaultQuery[key] = this.$route.query[key]
           }
         })

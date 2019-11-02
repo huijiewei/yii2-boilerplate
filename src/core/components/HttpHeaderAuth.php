@@ -16,6 +16,13 @@ class HttpHeaderAuth extends AuthMethod
     public $header = 'X-Access-Token';
     public $clientId = '';
 
+    /**
+     * @param $user
+     * @param $request
+     * @param $response
+     * @return \yii\web\IdentityInterface|null
+     * @throws UnauthorizedHttpException
+     */
     public function authenticate($user, $request, $response)
     {
         $authHeader = $request->getHeaders()->get($this->header);
