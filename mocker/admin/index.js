@@ -3,6 +3,7 @@ const { authAuthentication } = require('./auth/authentication')
 const { authLogin } = require('./auth/login')
 const { adminList, adminItem, adminEdit, adminCreate, adminDelete } = require('./admin/index')
 const { adminGroupList, adminGroupItem, adminGroupEdit, adminGroupCreate, adminGroupDelete, adminGroupFilter, adminGroupAclFilter } = require('./admin-group/index')
+const { userList } = require('./user/index')
 
 const noProxy = process.env.NO_PROXY === 'true'
 
@@ -23,7 +24,8 @@ const proxy = {
   'PUT /admin/api/admin-groups/:id(\\d+)': adminGroupEdit,
   'DELETE /admin/api/admin-groups/:id(\\d+)': adminGroupDelete,
   'GET /admin/api/filter/admin-groups': adminGroupFilter,
-  'GET /admin/api/filter/admin-group-acl': adminGroupAclFilter
+  'GET /admin/api/filter/admin-group-acl': adminGroupAclFilter,
+  'GET /admin/api/users': userList
 }
 
 module.exports = (noProxy ? {} : delay(proxy, 500))
