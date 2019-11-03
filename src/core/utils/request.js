@@ -94,7 +94,8 @@ class Request {
       url: url,
       method: method,
       timeout: 20000,
-      responseType: 'blob'
+      responseType: 'blob',
+      headers: { 'X-METHOD': 'download' }
     }
 
     if (params) {

@@ -1,14 +1,8 @@
 import Request from '../utils/request'
 
-const HttpCodes = {
-  OK: 200,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  NOT_FOUND: 404
-}
-
 const HttpGetMethod = ['GET', 'HEAD']
+const RouteBackHttpCodes = [404, 400, 403]
+const UnAuthorizedHttpCode = 401
 
 const HttpClient = {
   install (Vue, { apiHost, store, router, Message, MessageBox, loginUrl, loginDispatch, accessTokenGetter }) {
@@ -26,7 +20,7 @@ const HttpClient = {
       },
       errorHandler: (error) => {
         if (error.response) {
-          if (error.response.status === HttpCodes.UNAUTHORIZED) {
+          if (error.response.status === UnAuthorizedHttpCode) {
             if (!error.config.__retry) {
               error.config.__retry = true
 
@@ -44,62 +38,58 @@ const HttpClient = {
             return Promise.reject(error)
           }
 
-          if (error.response.status === HttpCodes.NOT_FOUND || error.response.status === HttpCodes.FORBIDDEN || error.response.status === HttpCodes.BAD_REQUEST) {
-            let message = '网络错误'
+          let message = '网络错误'
 
-            if (error.response.data) {
+          const contentType = error.response.headers['content-type']
+
+          if (!contentType.startsWith('application/json')) {
+            message = error.response.statusText
+          } else {
+            if (error.response.data.message) {
               message = error.response.data.message
-            } else if (error.response.message) {
-              message = error.response.message
-            } else if (error.response.statusText) {
-              message = error.response.statusText
-            }
-
-            const msgBox = MessageBox.alert(
-              message,
-              {
-                center: true,
-                confirmButtonText: '确定',
-                type: 'warning',
-                showClose: false
-              }
-            )
-
-            if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
-              msgBox.then(() => {
-                router.back()
-              })
-            }
-
-            return Promise.reject(error)
-          }
-
-          if (error.response.data) {
-            const data = error.response.data
-
-            if (data.message) {
-              Message.warning(data.message)
-            } else if (Array.isArray(data)) {
+            } else if (Array.isArray(error.response.data)) {
               const messages = []
-              data.forEach(function (item) {
+
+              error.response.data.forEach(function (item) {
                 messages.push(item.message)
               })
-              Message.warning({
-                dangerouslyUseHTMLString: true,
-                message: messages.join('<br><br>')
-              })
-            } else if (data instanceof Blob) {
-              const blb = new Blob([data])
+
+              message = messages.join('<br><br>')
+            } else if (error.response.data instanceof Blob) {
+              const blob = new Blob([error.response.data])
               const reader = new FileReader()
 
               reader.onloadend = (e) => {
                 const result = JSON.parse(e.target.result)
 
-                Message.error(result.message)
+                message = result.message
               }
 
-              reader.readAsText(blb)
+              reader.readAsText(blob)
+            } else {
+              message = error.response.statusText
             }
+          }
+
+          const alert = MessageBox.alert(
+            message,
+            {
+              dangerouslyUseHTMLString: true,
+              center: true,
+              confirmButtonText: '确定',
+              type: 'warning',
+              showClose: false
+            }
+          )
+
+          const xMethod = error.config.headers['X-METHOD'] || ''
+
+          if (xMethod !== 'download' &&
+            RouteBackHttpCodes.includes(error.response.status) &&
+            HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
+            alert.then(() => {
+              router.back()
+            })
           }
         } else {
           Message.error(error.message)
