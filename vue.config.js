@@ -1,8 +1,6 @@
 const path = require('path')
 const apiMocker = require('mocker-api')
 
-const port = process.env.port || process.env.npm_config_port || 8080
-
 module.exports = {
   lintOnSave: true,
   pages: {
@@ -22,7 +20,7 @@ module.exports = {
     }
   },
   devServer: {
-    port: port,
+    port: 8080,
     before (app) {
       apiMocker(app, [path.resolve('./mocker/admin/index.js'), path.resolve('./mocker/mobile/index.js')])
     }
