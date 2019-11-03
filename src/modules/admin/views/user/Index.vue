@@ -37,36 +37,7 @@
       :data="users"
     >
       <el-table-column
-        width="90"
-        label="操作"
-      >
-        <template slot-scope="scope">
-          <el-dropdown trigger="click">
-            <el-button
-              plain
-              size="mini"
-              type="primary"
-            >
-              操作<i class="el-icon-arrow-down el-icon--right" />
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                v-if="$can('user/edit')"
-                @click.native="handleUserEdit(scope.row)"
-              >
-                编辑
-              </el-dropdown-item>
-              <el-dropdown-item
-                v-if="$can('user/delete')"
-                @click.native="handleUserDelete(scope.row)"
-              >
-                删除
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </template>
-      </el-table-column>
-      <el-table-column
+        fixed
         width="90"
         class-name="text-mono"
         prop="id"
@@ -107,9 +78,85 @@
       />
       <el-table-column
         class-name="text-mono"
+        width="160"
         prop="createdAt"
         label="创建时间"
       />
+      <el-table-column
+        class-name="text-mono"
+        width="160"
+        prop="createdAt"
+        label="创建时间"
+      />
+      <el-table-column
+        class-name="text-mono"
+        width="160"
+        prop="createdAt"
+        label="创建时间"
+      />
+      <el-table-column
+        class-name="text-mono"
+        width="160"
+        prop="createdAt"
+        label="创建时间"
+      />
+      <el-table-column
+        class-name="text-mono"
+        width="160"
+        prop="createdAt"
+        label="创建时间"
+      />
+      <el-table-column
+        class-name="text-mono"
+        width="160"
+        prop="createdAt"
+        label="创建时间"
+      />
+      <el-table-column
+        class-name="text-mono"
+        width="160"
+        prop="createdAt"
+        label="创建时间"
+      />
+      <el-table-column
+        class-name="text-mono"
+        width="160"
+        prop="createdAt"
+        label="创建时间"
+      />
+      <el-table-column
+        class-name="text-mono"
+        width="160"
+        prop="createdAt"
+        label="创建时间"
+      />
+      <el-table-column
+        width="135"
+        label="操作"
+        fixed="right"
+        align="right"
+      >
+        <template slot-scope="scope">
+          <el-button
+            :disabled="!$can('user/edit')"
+            plain
+            type="primary"
+            size="mini"
+            @click.native="handleUserEdit(scope.row)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            :disabled="!$can('user/delete')"
+            plain
+            type="danger"
+            size="mini"
+            @click.native="handleUserDelete(scope.row)"
+          >
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <div
       v-if="pages"
@@ -199,3 +246,9 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .el-table .cell {
+    white-space: nowrap;
+    word-break: break-word;
+  }
+</style>
