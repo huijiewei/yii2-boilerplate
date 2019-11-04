@@ -17,9 +17,7 @@ Vue.use(ElementUI)
 Vue.use(HttpClient, {
   apiHost: process.env.VUE_APP_ADMIN_API_HOST,
   store,
-  router,
-  loginUrl: '/login',
-  loginDispatch: 'auth/showLoginModal',
+  loginDispatch: 'auth/directLogin',
   accessTokenGetter: 'auth/getAccessToken',
   errorMessageDispatch: 'setErrorMessage'
 })

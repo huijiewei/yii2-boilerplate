@@ -26,3 +26,9 @@ exports.userCreate = (req, res) => {
     message: '路径不存在'
   })
 }
+
+exports.userDelete = (req, res) => {
+  return res.status(401).json({
+    message: '请先登录'
+  })
+}

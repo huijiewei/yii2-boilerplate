@@ -27,7 +27,7 @@ export default {
       admin: null
     }
   },
-  async created () {
+  created () {
     this.admin = {}
   },
   methods: {

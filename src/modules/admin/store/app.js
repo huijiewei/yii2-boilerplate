@@ -1,5 +1,4 @@
 import auth from './auth'
-import fa from 'element-ui/src/locale/lang/fa'
 
 const app = {
   strict: process.env.NODE_ENV !== 'production',

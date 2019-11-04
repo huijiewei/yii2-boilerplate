@@ -27,12 +27,8 @@ export default {
       user: null
     }
   },
-  async created () {
-    const { data } = await flatry(UserService.create())
-
-    if (data) {
-      this.user = data
-    }
+  created () {
+    this.user = {}
   },
   methods: {
     async createUser (user, success, callback) {

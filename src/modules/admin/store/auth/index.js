@@ -3,7 +3,7 @@ import { deepSearch, formatUrl } from '@core/utils/util'
 const auth = {
   namespaced: true,
   state: {
-    loginModal: false,
+    directLogin: false,
     accessToken: null,
     currentUser: null,
     groupAcl: [],
@@ -11,8 +11,8 @@ const auth = {
     groupMenusUrl: []
   },
   getters: {
-    isLoginModalVisible: state => {
-      return state.loginModal
+    getDirectLogin: state => {
+      return state.directLogin
     },
     getAccessToken: state => {
       let accessToken = state.accessToken
@@ -39,12 +39,8 @@ const auth = {
     }
   },
   mutations: {
-    TOGGLE_LOGIN_MODAL: (state, visible) => {
-      if (state.loginModal === visible) {
-        return
-      }
-
-      state.loginModal = visible
+    TOGGLE_DIRECT_LOGIN: (state, direct) => {
+      state.directLogin = direct
     },
     UPDATE_ACCESS_TOKEN: (state, accessToken) => {
       state.accessToken = accessToken
@@ -72,13 +68,11 @@ const auth = {
         window.localStorage.setItem('ag-admin-client-id', Math.random().toString(36).substr(2))
       }
     },
-    showLoginModal ({ commit }) {
-      commit('TOGGLE_LOGIN_MODAL', true)
-    },
-    hideLoginModal ({ commit }) {
-      commit('TOGGLE_LOGIN_MODAL', false)
+    directLogin ({ commit }, direct) {
+      commit('TOGGLE_DIRECT_LOGIN', direct)
     },
     login ({ commit }, data) {
+      commit('TOGGLE_DIRECT_LOGIN', 'none')
       commit('UPDATE_ACCESS_TOKEN', data.accessToken)
       commit('UPDATE_CURRENT_USER', data.currentUser)
       commit('UPDATE_GROUP_ACL', data.groupAcl)

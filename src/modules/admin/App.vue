@@ -5,7 +5,7 @@
       id="errorMessage"
     />
     <login-modal
-      v-if="loginModalVisible"
+      v-if="isLoginModalVisible"
       :visible="true"
     />
     <router-view />
@@ -46,8 +46,22 @@ export default {
 
       return false
     },
-    loginModalVisible () {
-      return this.$store.getters['auth/isLoginModalVisible']
+    isLoginModalVisible () {
+      const self = this
+      const router = self.$router
+
+      const direct = this.$store.getters['auth/getDirectLogin']
+
+      if (direct === 'direct') {
+        const loginUrl = '/login'
+        if (router.currentRoute.path === loginUrl) {
+          router.replace(router.currentRoute.fullPath)
+        } else {
+          router.replace({ path: loginUrl, query: { direct: router.currentRoute.fullPath } })
+        }
+      }
+
+      return direct === 'modal'
     }
   },
   beforeCreate () {

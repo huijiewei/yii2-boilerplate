@@ -6,7 +6,7 @@ const UnauthorizedHttpCode = 401
 const UnprocessableEntityHttpCode = 422
 
 const HttpClient = {
-  install (Vue, { apiHost, store, router, loginUrl, loginDispatch, accessTokenGetter, errorMessageDispatch }) {
+  install (Vue, { apiHost, store, loginDispatch, accessTokenGetter, errorMessageDispatch }) {
     const request = new Request({
       baseUrl: apiHost,
       getAccessToken: () => {
@@ -31,13 +31,9 @@ const HttpClient = {
             error.config.__retry = true
 
             if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
-              if (router.currentRoute.path === loginUrl) {
-                router.replace(router.currentRoute.fullPath)
-              } else {
-                router.replace({ path: loginUrl, query: { direct: router.currentRoute.fullPath } })
-              }
+              store.dispatch(loginDispatch, 'direct')
             } else {
-              store.dispatch(loginDispatch)
+              store.dispatch(loginDispatch, 'modal')
             }
           }
 
