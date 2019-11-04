@@ -29,7 +29,7 @@ export default {
     }
   },
   async created () {
-    const { data, error } = await flatry(UserService.edit(this.$router.currentRoute.query.id))
+    const { data } = await flatry(UserService.edit(this.$router.currentRoute.query.id))
 
     if (data) {
       this.user = data

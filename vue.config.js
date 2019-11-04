@@ -1,25 +1,43 @@
 const path = require('path')
 const apiMocker = require('mocker-api')
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const entries = {
   admin: {
+    publicPath: isProduction ? './' : '/admin',
     outputDir: 'dist/admin',
-    page: {
-      entry: 'src/modules/admin/main.js',
-      template: 'public/index.html',
-      filename: 'index.html',
-      title: 'Agile 管理后台',
-      chunks: ['vendor', 'element', 'agile', 'admin']
+    pages: {
+      admin: {
+        entry: 'src/modules/admin/main.js',
+        template: 'public/index.html',
+        filename: 'index.html',
+        title: 'Agile 管理后台',
+        chunks: ['vendor', 'element', 'agile', 'admin']
+      }
+    },
+    devServerPort: process.env.DEV_SERVER_ADMIN_PORT,
+    mockerWatchFile: './mocker/admin/index.js',
+    alias: {
+      '@admin': 'src/modules/admin'
     }
   },
   mobile: {
+    publicPath: isProduction ? './' : '/mobile',
     outputDir: 'dist/mobile',
-    page: {
-      entry: 'src/modules/mobile/main.js',
-      template: 'public/index.html',
-      filename: 'index.html',
-      title: 'Agile 移动端',
-      chunks: ['vendor', 'agile', 'mobile']
+    pages: {
+      mobile: {
+        entry: 'src/modules/mobile/main.js',
+        template: 'public/index.html',
+        filename: 'index.html',
+        title: 'Agile 移动端',
+        chunks: ['vendor', 'agile', 'mobile']
+      }
+    },
+    devServerPort: process.env.DEV_SERVER_MOBILE_PORT,
+    mockerWatchFile: './mocker/mobile/index.js',
+    alias: {
+      '@mobile': 'src/modules/mobile'
     }
   }
 }
@@ -27,22 +45,22 @@ const entries = {
 const entry = entries[process.env.ENTRY]
 
 module.exports = {
+  publicPath: entry.publicPath,
   outputDir: entry.outputDir,
-  lintOnSave: true,
-  pages: {
-    index: entry.page
-  },
+  pages: entry.pages,
   devServer: {
-    port: 8080,
+    port: entry.devServerPort,
     before (app) {
-      apiMocker(app, [path.resolve('./mocker/admin/index.js'), path.resolve('./mocker/mobile/index.js')])
+      apiMocker(app, path.resolve(entry.mockerWatchFile))
     }
   },
   chainWebpack: config => {
     config.resolve.alias
       .set('@core', path.resolve('src/core'))
-      .set('@admin', path.resolve('src/modules/admin'))
-      .set('@mobile', path.resolve('src/modules/mobile'))
+
+    Object.keys(entry.alias).forEach(key => {
+      config.resolve.alias.set(key, path.resolve(entry.alias[key]))
+    })
 
     config.optimization.splitChunks(
       {
