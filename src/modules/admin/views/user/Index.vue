@@ -246,9 +246,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-  .el-table .cell {
-    white-space: nowrap;
-    word-break: break-word;
-  }
-</style>
