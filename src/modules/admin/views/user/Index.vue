@@ -32,6 +32,7 @@
       </div>
     </div>
     <el-table
+      border
       v-loading="loading"
       :stripe="true"
       :data="users"
