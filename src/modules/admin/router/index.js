@@ -46,7 +46,6 @@ const router = new VueRouter({
   base: '/admin',
   mode: 'history',
   routes: routes,
-  duplicateNavigationPolicy: 'ignore',
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
       return savedPosition
