@@ -1,23 +1,36 @@
 const path = require('path')
 const apiMocker = require('mocker-api')
 
-module.exports = {
-  lintOnSave: true,
-  pages: {
-    admin: {
+const entries = {
+  admin: {
+    outputDir: 'dist/admin',
+    page: {
       entry: 'src/modules/admin/main.js',
       template: 'public/index.html',
-      filename: 'admin/index.html',
+      filename: 'index.html',
       title: 'Agile 管理后台',
       chunks: ['vendor', 'element', 'agile', 'admin']
-    },
-    mobile: {
+    }
+  },
+  mobile: {
+    outputDir: 'dist/mobile',
+    page: {
       entry: 'src/modules/mobile/main.js',
       template: 'public/index.html',
-      filename: 'mobile/index.html',
+      filename: 'index.html',
       title: 'Agile 移动端',
       chunks: ['vendor', 'agile', 'mobile']
     }
+  }
+}
+
+const entry = entries[process.env.ENTRY]
+
+module.exports = {
+  outputDir: entry.outputDir,
+  lintOnSave: true,
+  pages: {
+    index: entry.page
   },
   devServer: {
     port: 8080,

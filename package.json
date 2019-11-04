@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:admin": "cross-env ENTRY=admin vue-cli-service build",
+    "build:mobile": "cross-env ENTRY=mobile vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "@vue/cli-service": "^4.0.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.3",
+    "cross-env": "^6.0.3",
     "eslint": "^6.6.0",
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
