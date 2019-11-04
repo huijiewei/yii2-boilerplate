@@ -41,6 +41,7 @@ import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
 import HeaderNav from '@admin/components/HeaderNav'
 import SiderMenu from '@admin/components/SiderMenu'
 import Breadcrumb from '@admin/components/Breadcrumb'
+import AuthService from '@admin/services/AuthService'
 
 export default {
   name: 'DefaultLayout',
@@ -52,7 +53,11 @@ export default {
   },
   async beforeCreate () {
     if (!this.$store.getters['auth/getCurrentUser']) {
-      await flatry(this.$store.dispatch('auth/authentication'))
+      const { data } = await flatry(AuthService.authentication())
+
+      if (data) {
+        await this.$store.dispatch('auth/authentication', data)
+      }
     }
   }
 }

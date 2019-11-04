@@ -1,4 +1,5 @@
 import auth from './auth'
+import fa from 'element-ui/src/locale/lang/fa'
 
 const app = {
   strict: process.env.NODE_ENV !== 'production',
@@ -6,6 +7,10 @@ const app = {
     auth: auth
   },
   state: {
+    error: {
+      message: '',
+      routeBack: false
+    },
     device: 'desktop',
     sidebar: {
       collapsed: false,
@@ -23,6 +28,9 @@ const app = {
     },
     TOGGLE_SIDEBAR: state => {
       state.sidebar.collapsed = !state.sidebar.collapsed
+    },
+    TOGGLE_ERROR_MESSAGE: (state, error) => {
+      state.error = error
     }
   },
   actions: {
@@ -31,6 +39,12 @@ const app = {
     },
     toggleDevice ({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
+    },
+    setErrorMessage ({ commit }, error) {
+      commit('TOGGLE_ERROR_MESSAGE', error)
+    },
+    clearErrorMessage ({ commit }) {
+      commit('TOGGLE_ERROR_MESSAGE', { message: '', routeBack: false })
     }
   }
 }

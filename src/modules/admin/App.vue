@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <div
+      v-if="isErrorMessageVisible"
+      id="errorMessage"
+    />
     <login-modal
       v-if="loginModalVisible"
       :visible="true"
@@ -16,6 +20,32 @@ export default {
   spinnerTimeoutId: 0,
   components: { LoginModal },
   computed: {
+    isErrorMessageVisible () {
+      const self = this
+      const error = self.$store.state.error
+
+      if (error.message.length > 0) {
+        self.$alert(
+          error.message,
+          {
+            dangerouslyUseHTMLString: true,
+            center: true,
+            confirmButtonText: '确定',
+            type: 'warning',
+            showClose: false,
+            callback: function () {
+              if (error.routeBack === true) {
+                self.$router.back()
+              }
+            }
+          }
+        )
+      }
+
+      self.$store.dispatch('clearErrorMessage')
+
+      return false
+    },
     loginModalVisible () {
       return this.$store.getters['auth/isLoginModalVisible']
     }

@@ -2,6 +2,7 @@
   <el-form
     v-if="formModel"
     ref="formModel"
+    :rules="formRules"
     :model="formModel"
     label-width="100px"
     label-suffix="："
@@ -10,9 +11,6 @@
     <el-form-item
       label="电话号码"
       prop="phone"
-      :rules="[
-        { required: true, message: '请输入电话号码', trigger: 'blur' }
-      ]"
     >
       <el-col :md="9">
         <el-input v-model.trim="formModel.phone" />
@@ -21,7 +19,6 @@
     <el-form-item
       label="密码"
       prop="password"
-      :rules="validatePassword"
     >
       <el-col :md="6">
         <el-input
@@ -40,7 +37,6 @@
     <el-form-item
       label="重复密码"
       prop="passwordRepeat"
-      :rules="validatePasswordRepeat"
     >
       <el-col :md="6">
         <el-input
@@ -58,33 +54,6 @@
         <el-input v-model.trim="formModel.display" />
       </el-col>
     </el-form-item>
-    <el-form-item
-      label="头像"
-      prop="displayIcon"
-    />
-    <el-form-item
-      label="管理组"
-      prop="groupId"
-      :rules="[
-        { required: true, message: '请选择所属管理组', trigger: 'change' }
-      ]"
-    >
-      <el-col :md="5">
-        <el-select
-          v-model="formModel.groupId"
-          :disabled="getCurrentUserId === formModel.id"
-          placeholder="所属管理组"
-          value=""
-        >
-          <el-option
-            v-for="item in adminGroups"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
-      </el-col>
-    </el-form-item>
     <el-form-item>
       <el-button
         type="primary"
@@ -98,11 +67,9 @@
 </template>
 
 <script>
-import AdminService from '@admin/services/AdminService'
-import flatry from '@core/utils/flatry'
 
 export default {
-  name: 'AdminForm',
+  name: 'UserForm',
   components: { },
   props: {
     submitText: {
@@ -113,7 +80,7 @@ export default {
       type: Boolean,
       default: false
     },
-    admin: {
+    user: {
       type: Object,
       default: null
     }
@@ -150,25 +117,18 @@ export default {
 
     return {
       submitLoading: false,
-      validatePassword: validatePassword,
-      validatePasswordRepeat: validatePasswordRepeat,
-      formModel: null,
-      adminGroups: []
+      formRules: {
+        phone: [
+          { required: true, message: '请输入电话号码', trigger: 'blur' }
+        ],
+        password: validatePassword,
+        passwordRepeat: validatePasswordRepeat
+      },
+      formModel: null
     }
   },
-  computed: {
-    getCurrentUserId () {
-      return this.$store.getters['auth/getCurrentUser'] ? this.$store.getters['auth/getCurrentUser'].id : 0
-    }
-  },
-  async mounted () {
-    this.formModel = Object.assign({ password: '', passwordRepeat: '' }, this.admin)
-
-    const { data } = await flatry(AdminService.groups())
-
-    if (data) {
-      this.adminGroups = data
-    }
+  mounted () {
+    this.formModel = Object.assign({ password: '', passwordRepeat: '' }, this.user)
   },
   methods: {
     handleUploadSuccess (avatarUrl) {

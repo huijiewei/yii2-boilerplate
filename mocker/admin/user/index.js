@@ -14,3 +14,15 @@ exports.userList = (req, res) => {
     return res.json(success)
   })
 }
+
+exports.userItem = (req, res) => {
+  return res.status(404).json({
+    message: '用户不存在'
+  })
+}
+
+exports.userCreate = (req, res) => {
+  return res.status(404).json({
+    message: '路径不存在'
+  })
+}

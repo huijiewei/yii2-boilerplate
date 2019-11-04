@@ -2,10 +2,11 @@ import Request from '../utils/request'
 
 const HttpGetMethod = ['GET', 'HEAD']
 const RouteBackHttpCodes = [404, 400, 403]
-const UnAuthorizedHttpCode = 401
+const UnauthorizedHttpCode = 401
+const UnprocessableEntityHttpCode = 422
 
 const HttpClient = {
-  install (Vue, { apiHost, store, router, Message, MessageBox, loginUrl, loginDispatch, accessTokenGetter }) {
+  install (Vue, { apiHost, store, router, loginUrl, loginDispatch, accessTokenGetter, errorMessageDispatch }) {
     const request = new Request({
       baseUrl: apiHost,
       getAccessToken: () => {
@@ -19,81 +20,71 @@ const HttpClient = {
         return Promise.resolve(response.data)
       },
       errorHandler: (error) => {
-        if (error.response) {
-          if (error.response.status === UnAuthorizedHttpCode) {
-            if (!error.config.__retry) {
-              error.config.__retry = true
+        if (!error.response) {
+          store.dispatch(errorMessageDispatch, error.message)
 
-              if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
-                if (router.currentRoute.path === loginUrl) {
-                  router.replace(router.currentRoute.fullPath)
-                } else {
-                  router.replace({ path: loginUrl, query: { direct: router.currentRoute.fullPath } })
-                }
+          return Promise.reject(error)
+        }
+
+        if (error.response.status === UnauthorizedHttpCode) {
+          if (!error.config.__retry) {
+            error.config.__retry = true
+
+            if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
+              if (router.currentRoute.path === loginUrl) {
+                router.replace(router.currentRoute.fullPath)
               } else {
-                store.dispatch(loginDispatch)
+                router.replace({ path: loginUrl, query: { direct: router.currentRoute.fullPath } })
               }
-            }
-
-            return Promise.reject(error)
-          }
-
-          let message = '网络错误'
-
-          const contentType = error.response.headers['content-type']
-
-          if (!contentType.startsWith('application/json')) {
-            message = error.response.statusText
-          } else {
-            if (error.response.data.message) {
-              message = error.response.data.message
-            } else if (Array.isArray(error.response.data)) {
-              const messages = []
-
-              error.response.data.forEach(function (item) {
-                messages.push(item.message)
-              })
-
-              message = messages.join('<br><br>')
-            } else if (error.response.data instanceof Blob) {
-              const blob = new Blob([error.response.data])
-              const reader = new FileReader()
-
-              reader.onloadend = (e) => {
-                const result = JSON.parse(e.target.result)
-
-                message = result.message
-              }
-
-              reader.readAsText(blob)
             } else {
-              message = error.response.statusText
+              store.dispatch(loginDispatch)
             }
           }
 
-          const alert = MessageBox.alert(
-            message,
-            {
-              dangerouslyUseHTMLString: true,
-              center: true,
-              confirmButtonText: '确定',
-              type: 'warning',
-              showClose: false
-            }
-          )
+          return Promise.reject(error)
+        }
 
-          const xMethod = error.config.headers['X-METHOD'] || ''
+        if (error.response.status === UnprocessableEntityHttpCode) {
+          return Promise.reject(error)
+        }
 
-          if (xMethod !== 'download' &&
-            RouteBackHttpCodes.includes(error.response.status) &&
-            HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
-            alert.then(() => {
-              router.back()
-            })
+        let message = '网络错误'
+        let routeBack = false
+
+        const contentType = error.response.headers['content-type']
+
+        if (contentType.startsWith('application/problem+json')) {
+          message = error.response.data.detail
+        } else if (contentType.startsWith('application/json')) {
+          if (error.response.data.message) {
+            message = error.response.data.message
+          } else {
+            message = error.response.statusText
           }
         } else {
-          Message.error(error.message)
+          if (error.response.statusText) {
+            message = error.response.statusText
+          } else {
+            if (error.response.status >= 500) {
+              message = '系统出现错误'
+            } else {
+              message = '网络错误'
+            }
+          }
         }
+
+        const xMethod = error.config.headers['X-METHOD'] || ''
+
+        if (xMethod !== 'download' &&
+          RouteBackHttpCodes.includes(error.response.status) &&
+          HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
+          routeBack = true
+        }
+
+        store.dispatch(errorMessageDispatch, {
+          message: message,
+          routeBack: routeBack
+        })
 
         return Promise.reject(error)
       }

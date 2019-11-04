@@ -18,11 +18,10 @@ Vue.use(HttpClient, {
   apiHost: process.env.VUE_APP_ADMIN_API_HOST,
   store,
   router,
-  Message: ElementUI.Message,
-  MessageBox: ElementUI.MessageBox,
   loginUrl: '/login',
   loginDispatch: 'auth/showLoginModal',
-  accessTokenGetter: 'auth/getAccessToken'
+  accessTokenGetter: 'auth/getAccessToken',
+  errorMessageDispatch: 'setErrorMessage'
 })
 
 Vue.use(AclChecker, {
