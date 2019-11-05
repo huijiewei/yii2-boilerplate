@@ -100,10 +100,12 @@
 <script>
 import AdminService from '@admin/services/AdminService'
 import flatry from '@core/utils/flatry'
+import UnauthorizedHttpCodeMixin from '@core/mixins/UnauthorizedHttpCodeMixin'
 
 export default {
   name: 'AdminForm',
   components: { },
+  mixins: [UnauthorizedHttpCodeMixin],
   props: {
     submitText: {
       type: String,
@@ -184,6 +186,8 @@ export default {
 
         this.$emit('on-submit', this.formModel, () => {
           this.$refs[formName].clearValidate()
+        }, (error) => {
+          this.handleViolationError(error, formName)
         }, () => {
           this.submitLoading = false
         })

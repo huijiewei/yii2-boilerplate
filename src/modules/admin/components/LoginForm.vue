@@ -6,7 +6,6 @@
   >
     <el-form-item
       prop="account"
-      :error="getFieldErrorMessage('account')"
       :rules="[
         { required: true, message: '请输入手机号码', trigger: 'blur' }
       ]"
@@ -24,7 +23,6 @@
     </el-form-item>
     <el-form-item
       prop="password"
-      :error="getFieldErrorMessage('password')"
       :rules="[
         { required: true, message: '请输入密码', trigger: 'blur' }
       ]"
@@ -101,7 +99,9 @@ export default {
           this.$emit('on-success')
         }
 
-        this.handleError(error)
+        if (error) {
+          this.handleViolationError(error, formName)
+        }
 
         this.submitLoading = false
       })

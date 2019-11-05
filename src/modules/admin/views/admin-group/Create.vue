@@ -38,17 +38,21 @@ export default {
     }
   },
   methods: {
-    async createAdminGroup (adminGroup, success, callback) {
-      const { data } = await flatry(AdminGroupService.create(adminGroup))
+    async createAdminGroup (adminGroup, done, fail, always) {
+      const { data, error } = await flatry(AdminGroupService.create(adminGroup))
 
       if (data) {
         this.$message.success(data.message)
-        this.$router.replace({ path: '/admin-group/edit', query: { id: data.adminGroupId } })
+        await this.$router.replace({ path: '/admin-group/edit', query: { id: data.adminGroupId } })
 
-        success()
+        done()
       }
 
-      callback()
+      if (error) {
+        fail(error)
+      }
+
+      always()
     }
   }
 }

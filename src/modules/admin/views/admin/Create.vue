@@ -31,17 +31,21 @@ export default {
     this.admin = {}
   },
   methods: {
-    async createAdmin (admin, success, callback) {
-      const { data } = await flatry(AdminService.create(admin))
+    async createAdmin (admin, done, fail, always) {
+      const { data, error } = await flatry(AdminService.create(admin))
 
       if (data) {
         this.$message.success(data.message)
         await this.$router.replace({ path: '/admin/edit', query: { id: data.adminId } })
 
-        success()
+        done()
       }
 
-      callback()
+      if (error) {
+        fail(error)
+      }
+
+      always()
     }
   }
 }

@@ -36,15 +36,19 @@ export default {
     }
   },
   methods: {
-    async editAdmin (admin, success, callback) {
-      const { data } = await flatry(AdminService.edit(admin.id, admin))
+    async editAdmin (admin, done, fail, always) {
+      const { data, error } = await flatry(AdminService.edit(admin.id, admin))
 
       if (data) {
         this.$message.success(data.message)
-        success()
+        done()
       }
 
-      callback()
+      if (error) {
+        fail(error)
+      }
+
+      always()
     }
   }
 }

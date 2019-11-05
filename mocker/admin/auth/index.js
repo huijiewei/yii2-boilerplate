@@ -17,12 +17,12 @@ exports.authLogin = (req, res) => {
     return res.status(422).json([{ 'field': 'account', 'message': '无效的手机号码' }])
   }
 
-  if (account !== '13012345678') {
+  if (account !== '13012345679') {
     return res.status(422).json([{ 'field': 'account', 'message': '手机号码不存在' }])
   }
 
   if (password !== '123456') {
-    return res.status(422).json([{ 'field': 'account', 'message': '密码错误' }])
+    return res.status(422).json([{ 'field': 'password', 'message': '密码错误' }])
   }
 
   return res.json({

@@ -79,6 +79,7 @@
 <script>
 import flatry from '@core/utils/flatry'
 import AdminGroupService from '@admin/services/AdminGroupService'
+import UnauthorizedHttpCodeMixin from '@core/mixins/UnauthorizedHttpCodeMixin'
 
 export default {
   name: 'AdminGroupForm',
@@ -107,6 +108,7 @@ export default {
       }
     }
   },
+  mixins: [UnauthorizedHttpCodeMixin],
   props: {
     submitText: {
       type: String,
@@ -209,6 +211,8 @@ export default {
 
         this.$emit('on-submit', adminGroup, () => {
           this.$refs[formName].clearValidate()
+        }, (error) => {
+          this.handleViolationError(error, formName)
         }, () => {
           this.submitLoading = false
         })
