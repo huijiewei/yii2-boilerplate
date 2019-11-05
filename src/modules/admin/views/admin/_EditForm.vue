@@ -28,6 +28,7 @@
           v-model.trim="formModel.password"
           type="password"
           auto-complete="new-password"
+          show-password
         />
       </el-col>
       <el-col
@@ -47,6 +48,7 @@
           v-model.trim="formModel.passwordRepeat"
           type="password"
           auto-complete="new-password"
+          show-password
         />
       </el-col>
     </el-form-item>
@@ -100,12 +102,12 @@
 <script>
 import AdminService from '@admin/services/AdminService'
 import flatry from '@core/utils/flatry'
-import UnauthorizedHttpCodeMixin from '@core/mixins/UnauthorizedHttpCodeMixin'
+import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
 export default {
   name: 'AdminForm',
   components: { },
-  mixins: [UnauthorizedHttpCodeMixin],
+  mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
       type: String,

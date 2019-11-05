@@ -1,22 +1,7 @@
-const UnauthorizedHttpCodeMixin = {
+const UnprocessableEntityHttpErrorMixin = {
   data () {
     return {
       violations: []
-    }
-  },
-  computed: {
-    getFieldErrorMessage () {
-      return (fieldName) => {
-        const violation = this.violations.find(function (violation) {
-          return violation.field === fieldName
-        })
-
-        if (violation) {
-          return violation.message
-        }
-
-        return ''
-      }
     }
   },
   methods: {
@@ -35,6 +20,10 @@ const UnauthorizedHttpCodeMixin = {
 
       if (Array.isArray(error.response.data)) {
         this.violations = error.response.data
+      }
+
+      if (this.violations.length === 0) {
+        return
       }
 
       this.$refs[formName].$children.forEach((child) => {
@@ -58,4 +47,4 @@ const UnauthorizedHttpCodeMixin = {
   }
 }
 
-export default UnauthorizedHttpCodeMixin
+export default UnprocessableEntityHttpErrorMixin

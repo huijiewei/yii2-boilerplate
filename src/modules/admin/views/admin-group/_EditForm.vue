@@ -79,7 +79,7 @@
 <script>
 import flatry from '@core/utils/flatry'
 import AdminGroupService from '@admin/services/AdminGroupService'
-import UnauthorizedHttpCodeMixin from '@core/mixins/UnauthorizedHttpCodeMixin'
+import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
 export default {
   name: 'AdminGroupForm',
@@ -108,7 +108,7 @@ export default {
       }
     }
   },
-  mixins: [UnauthorizedHttpCodeMixin],
+  mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
       type: String,

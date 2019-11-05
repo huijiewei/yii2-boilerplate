@@ -56,12 +56,12 @@
 import AgIcon from '@core/components/Icon/index'
 import flatry from '@core/utils/flatry'
 import AuthService from '@admin/services/AuthService'
-import UnauthorizedHttpCodeMixin from '@core/mixins/UnauthorizedHttpCodeMixin'
+import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
 export default {
   name: 'LoginForm',
   components: { AgIcon },
-  mixins: [UnauthorizedHttpCodeMixin],
+  mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     inModal: {
       type: Boolean
