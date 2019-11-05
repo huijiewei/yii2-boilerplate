@@ -1,4 +1,4 @@
-const SearchFieldsMixin = {
+const SearchFormFieldsMixin = {
   data () {
     return {
       searchFields: false
@@ -16,4 +16,4 @@ const SearchFieldsMixin = {
   }
 }
 
-export default SearchFieldsMixin
+export default SearchFormFieldsMixin

@@ -28,7 +28,7 @@
       >
         <breadcrumb />
         <div class="ag-content">
-          <router-view />
+          <router-view v-if="isRouterAlive" />
         </div>
       </el-main>
     </el-container>
@@ -46,6 +46,16 @@ import AuthService from '@admin/services/AuthService'
 export default {
   name: 'DefaultLayout',
   components: { PrefectScrollbar, HeaderNav, SiderMenu, Breadcrumb },
+  provide () {
+    return {
+      reload: this.reload
+    }
+  },
+  data () {
+    return {
+      isRouterAlive: true
+    }
+  },
   computed: {
     isCollapsed () {
       return this.$store.getters.isSidebarCollapsed
@@ -58,6 +68,12 @@ export default {
       if (data) {
         await this.$store.dispatch('auth/authentication', data)
       }
+    }
+  },
+  methods: {
+    reload () {
+      this.isRouterAlive = false
+      this.$nextTick(() => (this.isRouterAlive = true))
     }
   }
 }

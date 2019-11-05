@@ -107,6 +107,7 @@ export default {
       }
     }
   },
+  inject: ['reload'],
   data () {
     return {
       formInit: false,
@@ -199,10 +200,7 @@ export default {
       const queryFields = this.getQueryFields()
 
       if (JSON.stringify(this.$route.query) === JSON.stringify(queryFields)) {
-        this.$router.replace({
-          path: this.$route.path,
-          query: queryFields
-        })
+        this.reload()
       } else {
         this.$router.push({
           path: this.$route.path,

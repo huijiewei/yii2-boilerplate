@@ -180,12 +180,12 @@ import AgAvatar from '@core/components/Avatar'
 import flatry from '@core/utils/flatry'
 import UserService from '@admin/services/UserService'
 import SearchForm from '@admin/components/SearchForm'
-import SearchFieldsMixin from '@admin/mixins/SearchFieldsMixin'
+import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
 import ExportButton from '@admin/components/ExportButton'
 
 export default {
   components: { ExportButton, SearchForm, AgAvatar },
-  mixins: [SearchFieldsMixin],
+  mixins: [SearchFormFieldsMixin],
   data () {
     return {
       loading: true,
