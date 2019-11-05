@@ -5,7 +5,7 @@ const UnprocessableEntityHttpErrorMixin = {
     }
   },
   methods: {
-    handleViolationError: function (error, formName) {
+    handleViolationError (error, formName) {
       if (!error) {
         return
       }

@@ -85,7 +85,7 @@ export default {
   name: 'AdminGroupForm',
   directives: {
     sameWidth: {
-      inserted: function (el) {
+      inserted (el) {
         const checkboxList = el.getElementsByClassName('el-checkbox')
 
         if (checkboxList.length < 2) {

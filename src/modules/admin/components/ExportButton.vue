@@ -26,7 +26,7 @@ export default {
     }
   },
   methods: {
-    handleClick: async function () {
+    async handleClick () {
       this.loading = true
       this.loadingText = '正在导出 Excel'
 

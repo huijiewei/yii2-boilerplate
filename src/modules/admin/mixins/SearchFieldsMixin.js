@@ -5,10 +5,10 @@ const SearchFieldsMixin = {
     }
   },
   methods: {
-    buildRouteQuery: function (query) {
+    buildRouteQuery (query) {
       return this.searchFields !== false ? query : Object.assign({}, query, { searchFields: true })
     },
-    setSearchFields: function (searchFields) {
+    setSearchFields (searchFields) {
       if (this.searchFields === false) {
         this.searchFields = searchFields || null
       }

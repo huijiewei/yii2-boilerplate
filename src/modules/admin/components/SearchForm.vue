@@ -102,7 +102,7 @@ export default {
   props: {
     searchFields: {
       type: Array,
-      default: function () {
+      default: () => {
         return []
       }
     }

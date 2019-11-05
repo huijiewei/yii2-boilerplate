@@ -33,7 +33,7 @@ export default {
             confirmButtonText: '确定',
             type: 'warning',
             showClose: false,
-            callback: function () {
+            callback: () => {
               if (error.routeBack === true) {
                 self.$router.back()
               }

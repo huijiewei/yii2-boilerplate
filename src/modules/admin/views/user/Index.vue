@@ -230,7 +230,7 @@ export default {
     handleCurrentChange (page) {
       this.$router.push({ path: this.$route.fullPath, query: { page: page } })
     },
-    getUsers: async function () {
+    async getUsers () {
       this.loading = true
 
       const { data } = await flatry(UserService.all(this.buildRouteQuery(this.$route.query)))

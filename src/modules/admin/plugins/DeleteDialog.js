@@ -12,7 +12,7 @@ const DeleteDialog = {
           center: true,
           callback: callback,
           inputPlaceholder: promptLabel,
-          inputValidator: function (value) {
+          inputValidator: (value) => {
             return promptValue === value
           },
           inputErrorMessage: promptLabel + '不匹配'

@@ -24,7 +24,7 @@ export default {
     }
   },
   computed: {
-    menuUrl: function () {
+    menuUrl () {
       return formatUrl(this.menu.url)
     }
   }
