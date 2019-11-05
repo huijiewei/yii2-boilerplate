@@ -95,7 +95,7 @@ class Request {
       method: method,
       timeout: 20000,
       responseType: 'blob',
-      headers: { 'X-METHOD': 'download' }
+      headers: { 'X-NOT-BACK': true }
     }
 
     if (params) {

@@ -69,9 +69,9 @@ const HttpClient = {
           }
         }
 
-        const xMethod = error.config.headers['X-METHOD'] || ''
+        const notBack = error.config.headers['X-NOT-BACK'] || false
 
-        if (xMethod !== 'download' &&
+        if (!notBack &&
           RouteBackHttpCodes.includes(error.response.status) &&
           HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
           routeBack = true
