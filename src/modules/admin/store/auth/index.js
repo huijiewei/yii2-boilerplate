@@ -1,27 +1,23 @@
 import { deepSearch, formatUrl } from '@core/utils/util'
 
+const userTokenKey = 'ag-admin-access-token'
+
 const auth = {
   namespaced: true,
   state: {
-    directLogin: false,
-    accessToken: null,
+    accessToken: window.localStorage.getItem(userTokenKey) || null,
+    loginAction: 'none', // none, modal, direct
     currentUser: null,
     groupAcl: [],
     groupMenus: [],
     groupMenusUrl: []
   },
   getters: {
-    getDirectLogin: state => {
-      return state.directLogin
-    },
     getAccessToken: state => {
-      let accessToken = state.accessToken
-
-      if (!accessToken) {
-        accessToken = window.localStorage.getItem('ag-admin-access-token')
-      }
-
-      return window.localStorage.getItem('ag-admin-client-id') + ' ' + accessToken
+      return state.accessToken
+    },
+    getLoginAction: state => {
+      return state.loginAction
     },
     getCurrentUser: state => {
       return state.currentUser
@@ -39,16 +35,16 @@ const auth = {
     }
   },
   mutations: {
-    TOGGLE_DIRECT_LOGIN: (state, direct) => {
-      state.directLogin = direct
+    TOGGLE_LOGIN_ACTION: (state, action) => {
+      state.loginAction = action
     },
     UPDATE_ACCESS_TOKEN: (state, accessToken) => {
       state.accessToken = accessToken
 
       if (accessToken == null) {
-        window.localStorage.removeItem('ag-admin-access-token')
+        window.localStorage.removeItem(userTokenKey)
       } else {
-        window.localStorage.setItem('ag-admin-access-token', accessToken)
+        window.localStorage.setItem(userTokenKey, accessToken)
       }
     },
     UPDATE_CURRENT_USER: (state, user) => {
@@ -68,11 +64,11 @@ const auth = {
         window.localStorage.setItem('ag-admin-client-id', Math.random().toString(36).substr(2))
       }
     },
-    directLogin ({ commit }, direct) {
-      commit('TOGGLE_DIRECT_LOGIN', direct)
+    setLoginAction ({ commit }, action) {
+      commit('TOGGLE_LOGIN_ACTION', action)
     },
     login ({ commit }, data) {
-      commit('TOGGLE_DIRECT_LOGIN', 'none')
+      commit('TOGGLE_LOGIN_ACTION', 'none')
       commit('UPDATE_ACCESS_TOKEN', data.accessToken)
       commit('UPDATE_CURRENT_USER', data.currentUser)
       commit('UPDATE_GROUP_ACL', data.groupAcl)

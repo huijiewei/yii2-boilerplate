@@ -28,7 +28,7 @@ const app = {
     TOGGLE_SIDEBAR: state => {
       state.sidebar.collapsed = !state.sidebar.collapsed
     },
-    TOGGLE_ERROR_MESSAGE: (state, error) => {
+    TOGGLE_ERROR: (state, error) => {
       state.error = error
     }
   },
@@ -39,11 +39,11 @@ const app = {
     toggleDevice ({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
     },
-    setErrorMessage ({ commit }, error) {
-      commit('TOGGLE_ERROR_MESSAGE', error)
+    setError ({ commit }, error) {
+      commit('TOGGLE_ERROR', error)
     },
-    clearErrorMessage ({ commit }) {
-      commit('TOGGLE_ERROR_MESSAGE', { message: '', routeBack: false })
+    clearError ({ commit }) {
+      commit('TOGGLE_ERROR', { message: '', routeBack: false })
     }
   }
 }

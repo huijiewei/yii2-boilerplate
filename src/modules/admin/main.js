@@ -17,9 +17,9 @@ Vue.use(ElementUI)
 Vue.use(HttpClient, {
   apiHost: process.env.VUE_APP_ADMIN_API_HOST,
   store,
-  loginDispatch: 'auth/directLogin',
-  accessTokenGetter: 'auth/getAccessToken',
-  errorMessageDispatch: 'setErrorMessage'
+  getAccessTokenGetter: 'auth/getAccessToken',
+  setLoginActionDispatch: 'auth/setLoginAction',
+  setErrorDispatch: 'setError'
 })
 
 Vue.use(AclChecker, {

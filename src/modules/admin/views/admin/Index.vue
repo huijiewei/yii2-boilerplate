@@ -16,6 +16,7 @@
       v-loading="loading"
       :stripe="true"
       :data="admins"
+      border
     >
       <el-table-column
         width="90"
@@ -54,6 +55,7 @@
         label="创建时间"
       />
       <el-table-column
+        width="135"
         fixed="right"
         label="操作"
         align="right"

@@ -16,6 +16,7 @@
       v-loading="loading"
       :stripe="true"
       :data="adminGroups"
+      border
     >
       <el-table-column
         width="90"
@@ -28,6 +29,7 @@
         label="名称"
       />
       <el-table-column
+        width="135"
         fixed="right"
         label="操作"
         align="right"

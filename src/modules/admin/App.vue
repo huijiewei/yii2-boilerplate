@@ -42,26 +42,32 @@ export default {
         )
       }
 
-      self.$store.dispatch('clearErrorMessage')
+      self.$store.dispatch('clearError')
 
       return false
     },
     isLoginModalVisible () {
-      const self = this
-      const router = self.$router
+      const action = this.$store.getters['auth/getLoginAction']
 
-      const direct = this.$store.getters['auth/getDirectLogin']
-
-      if (direct === 'direct') {
+      if (action === 'direct') {
+        const router = this.$router
         const loginUrl = '/login'
-        if (router.currentRoute.path === loginUrl) {
-          router.replace(router.currentRoute.fullPath)
-        } else {
-          router.replace({ path: loginUrl, query: { direct: router.currentRoute.fullPath } })
-        }
+
+        this.$message({
+          message: '需要登录才能访问',
+          type: 'warning',
+          duration: 2000,
+          onClose: () => {
+            if (router.currentRoute.path === loginUrl) {
+              router.replace(router.currentRoute.fullPath)
+            } else {
+              router.replace({ path: loginUrl, query: { direct: router.currentRoute.fullPath } })
+            }
+          }
+        })
       }
 
-      return direct === 'modal'
+      return action === 'modal'
     }
   },
   beforeCreate () {

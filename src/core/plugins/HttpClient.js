@@ -6,11 +6,11 @@ const UnauthorizedHttpCode = 401
 const UnprocessableEntityHttpCode = 422
 
 const HttpClient = {
-  install (Vue, { apiHost, store, loginDispatch, accessTokenGetter, errorMessageDispatch }) {
+  install (Vue, { apiHost, store, getAccessTokenGetter, setLoginActionDispatch, setErrorDispatch }) {
     const request = new Request({
       baseUrl: apiHost,
       getAccessToken: () => {
-        return store.getters[accessTokenGetter]
+        return store.getters[getAccessTokenGetter]
       },
       successHandler: (response) => {
         if (response.config.responseType === 'blob') {
@@ -21,7 +21,7 @@ const HttpClient = {
       },
       errorHandler: (error) => {
         if (!error.response) {
-          store.dispatch(errorMessageDispatch, error.message)
+          store.dispatch(setErrorDispatch, { message: error.message, routeBack: false })
 
           return Promise.reject(error)
         }
@@ -31,9 +31,9 @@ const HttpClient = {
             error.config.__retry = true
 
             if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
-              store.dispatch(loginDispatch, 'direct')
+              store.dispatch(setLoginActionDispatch, 'direct')
             } else {
-              store.dispatch(loginDispatch, 'modal')
+              store.dispatch(setLoginActionDispatch, 'modal')
             }
           }
 
@@ -77,7 +77,7 @@ const HttpClient = {
           routeBack = true
         }
 
-        store.dispatch(errorMessageDispatch, {
+        store.dispatch(setErrorDispatch, {
           message: message,
           routeBack: routeBack
         })
