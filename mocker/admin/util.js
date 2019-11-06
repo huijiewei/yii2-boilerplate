@@ -1,10 +1,5 @@
 exports.authenticationCheck = function (req, res, success) {
-  const authorization = req.get('Authorization') || ''
-
-  const authorizationTokens = authorization.split(' ')
-
-  const clientId = authorizationTokens[1] || ''
-  const accessToken = authorizationTokens[2] || ''
+  const clientId = req.get('X-Client-Id') || ''
 
   if (clientId === '') {
     return res.status(400).json({
@@ -14,6 +9,8 @@ exports.authenticationCheck = function (req, res, success) {
       status: 400
     })
   }
+
+  const accessToken = req.get('X-Access-Token') || ''
 
   if (accessToken !== 'bmq7tDtL5GqT9b64') {
     return res.status(401).json({

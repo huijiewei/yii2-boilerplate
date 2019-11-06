@@ -1,11 +1,11 @@
 import { deepSearch, formatUrl } from '@core/utils/util'
 
-const userTokenKey = 'ag-admin-access-token'
+const clientIdKey = 'ag:admin-client-id'
+const accessTokenKey = 'ag:admin-access-token'
 
 const auth = {
   namespaced: true,
   state: {
-    accessToken: window.localStorage.getItem(userTokenKey) || null,
     loginAction: 'none', // none, modal, direct
     currentUser: null,
     groupAcl: [],
@@ -14,7 +14,10 @@ const auth = {
   },
   getters: {
     getAccessToken: state => {
-      return state.accessToken
+      return {
+        clientId: window.localStorage.getItem(clientIdKey) || '',
+        accessToken: window.localStorage.getItem(accessTokenKey) || ''
+      }
     },
     getLoginAction: state => {
       return state.loginAction
@@ -35,17 +38,12 @@ const auth = {
     }
   },
   mutations: {
+    TOGGLE_CLIENT_ID: (state, clientId) => {
+      state.clientId = clientId
+      window.localStorage.setItem(clientIdKey, clientId)
+    },
     TOGGLE_LOGIN_ACTION: (state, action) => {
       state.loginAction = action
-    },
-    UPDATE_ACCESS_TOKEN: (state, accessToken) => {
-      state.accessToken = accessToken
-
-      if (accessToken == null) {
-        window.localStorage.removeItem(userTokenKey)
-      } else {
-        window.localStorage.setItem(userTokenKey, accessToken)
-      }
     },
     UPDATE_CURRENT_USER: (state, user) => {
       state.currentUser = user
@@ -59,9 +57,9 @@ const auth = {
     }
   },
   actions: {
-    initClientId () {
-      if (window.localStorage.getItem('ag-admin-client-id') == null) {
-        window.localStorage.setItem('ag-admin-client-id', Math.random().toString(36).substr(2))
+    initClientId ({ commit }) {
+      if (window.localStorage.getItem(clientIdKey) == null) {
+        window.localStorage.setItem(clientIdKey, Math.random().toString(36).substr(2))
       }
     },
     setLoginAction ({ commit }, action) {
@@ -69,16 +67,19 @@ const auth = {
     },
     login ({ commit }, data) {
       commit('TOGGLE_LOGIN_ACTION', 'none')
-      commit('UPDATE_ACCESS_TOKEN', data.accessToken)
       commit('UPDATE_CURRENT_USER', data.currentUser)
       commit('UPDATE_GROUP_ACL', data.groupAcl)
       commit('UPDATE_GROUP_MENUS', data.groupMenus)
+
+      window.localStorage.setItem(accessTokenKey, data.accessToken)
     },
     logout ({ commit }) {
       commit('UPDATE_ACCESS_TOKEN', null)
       commit('UPDATE_CURRENT_USER', null)
       commit('UPDATE_GROUP_ACL', [])
       commit('UPDATE_GROUP_MENUS', [])
+
+      window.localStorage.removeItem(accessTokenKey)
     },
     authentication ({ commit }, data) {
       commit('UPDATE_CURRENT_USER', data.currentUser)
