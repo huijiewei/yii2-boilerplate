@@ -23,7 +23,7 @@ exports.userItem = (req, res) => {
 
 exports.userCreate = (req, res) => {
   return res.status(404).json({
-    message: '路径不存在'
+    message: '服务不存在'
   })
 }
 
