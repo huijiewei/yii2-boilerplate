@@ -1,5 +1,5 @@
 const delay = require('mocker-api/utils/delay')
-const { authLogin, authLogout, authAuthentication } = require('./auth/index')
+const { authLogin, authLogout, authAccount } = require('./auth/index')
 const { adminList, adminItem, adminEdit, adminCreate, adminDelete } = require('./admin/index')
 const { adminGroupList, adminGroupItem, adminGroupEdit, adminGroupCreate, adminGroupDelete, adminGroupFilter, adminGroupAclFilter } = require('./admin-group/index')
 const { userList, userItem, userCreate, userDelete } = require('./user/index')
@@ -10,7 +10,7 @@ const proxy = {
   _proxy: {
     changeHost: true
   },
-  'GET /admin/api/auth/authentication': authAuthentication,
+  'GET /admin/api/auth/account': authAccount,
   'POST /admin/api/auth/login': authLogin,
   'POST /admin/api/auth/logout': authLogout,
   'GET /admin/api/admins': adminList,

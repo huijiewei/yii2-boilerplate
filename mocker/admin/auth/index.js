@@ -47,7 +47,7 @@ exports.authLogout = (req, res) => {
   })
 }
 
-exports.authAuthentication = (req, res) => {
+exports.authAccount = (req, res) => {
   const success = {
     currentUser: {
       id: 1021,

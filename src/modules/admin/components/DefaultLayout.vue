@@ -63,10 +63,10 @@ export default {
   },
   async beforeCreate () {
     if (!this.$store.getters['auth/getCurrentUser']) {
-      const { data } = await flatry(AuthService.authentication())
+      const { data } = await flatry(AuthService.account())
 
       if (data) {
-        await this.$store.dispatch('auth/authentication', data)
+        await this.$store.dispatch('auth/account', data)
       }
     }
   },

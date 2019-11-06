@@ -7,8 +7,8 @@ const AuthService = {
   logout () {
     return Vue.http.post('auth/logout')
   },
-  authentication () {
-    return Vue.http.get('auth/authentication')
+  account () {
+    return Vue.http.get('auth/account')
   }
 }
 
