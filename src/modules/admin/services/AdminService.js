@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const AdminService = {
   all () {
-    return Vue.http.get('admins', { expand: 'group' })
+    return Vue.http.get('admins')
   },
 
   groups () {
