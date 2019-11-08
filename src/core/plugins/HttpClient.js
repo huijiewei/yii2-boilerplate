@@ -9,8 +9,15 @@ const HttpClient = {
   install (Vue, { apiHost, store, getAccessTokenGetter, setLoginActionDispatch, setErrorDispatch }) {
     const request = new Request({
       baseUrl: apiHost,
-      getAccessToken: () => {
-        return store.getters[getAccessTokenGetter]
+      beforeRequest: (config) => {
+        const accessToken = store.getters[getAccessTokenGetter]
+
+        if (accessToken) {
+          config.headers['X-Client-Id'] = accessToken.clientId
+          config.headers['X-Access-Token'] = accessToken.accessToken
+        }
+
+        return config
       },
       successHandler: (response) => {
         if (response.config.responseType === 'blob') {

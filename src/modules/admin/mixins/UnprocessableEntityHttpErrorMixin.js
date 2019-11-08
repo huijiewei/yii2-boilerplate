@@ -30,7 +30,8 @@ const UnprocessableEntityHttpErrorMixin = {
         let activeViolation = null
 
         this.violations.forEach(violation => {
-          if (child.prop === violation.field) {
+          const violationFieldPath = violation.field.split('.')
+          if (child.prop === violationFieldPath.pop()) {
             activeViolation = violation
           }
         })

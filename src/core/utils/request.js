@@ -10,9 +10,7 @@ class Request {
         baseUrl: '',
         timeout: 10000,
         withCredentials: false,
-        getAccessToken: () => {
-          return null
-        },
+        beforeRequest: (config) => { return config },
         successHandler: (response) => Promise.resolve(response),
         errorHandler: (error) => Promise.reject(error)
       },
@@ -36,14 +34,7 @@ class Request {
     loadProgressBar({ showSpinner: false }, httpClient)
 
     httpClient.interceptors.request.use((config) => {
-      const accessToken = opt.getAccessToken()
-
-      if (accessToken) {
-        config.headers['X-Client-Id'] = accessToken.clientId
-        config.headers['X-Access-Token'] = accessToken.accessToken
-      }
-
-      return config
+      return opt.beforeRequest(config)
     }, undefined)
 
     httpClient.interceptors.response.use((response) => {
