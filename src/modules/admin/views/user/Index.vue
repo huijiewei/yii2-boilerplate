@@ -51,9 +51,15 @@
         label="电话号码"
       />
       <el-table-column
-        prop="display"
+        prop="email"
+        width="260"
+        class-name="text-mono"
+        label="邮箱"
+      />
+      <el-table-column
+        prop="name"
         width="150"
-        label="显示名"
+        label="名称"
       />
       <el-table-column
         width="60"
@@ -74,60 +80,11 @@
         align="center"
         width="79"
         class-name="text-mono"
-        prop="createdFromName"
+        prop="createdFrom.description"
         label="注册来源"
       />
       <el-table-column
         class-name="text-mono"
-        width="160"
-        prop="createdAt"
-        label="创建时间"
-      />
-      <el-table-column
-        class-name="text-mono"
-        width="160"
-        prop="createdAt"
-        label="创建时间"
-      />
-      <el-table-column
-        class-name="text-mono"
-        width="160"
-        prop="createdAt"
-        label="创建时间"
-      />
-      <el-table-column
-        class-name="text-mono"
-        width="160"
-        prop="createdAt"
-        label="创建时间"
-      />
-      <el-table-column
-        class-name="text-mono"
-        width="160"
-        prop="createdAt"
-        label="创建时间"
-      />
-      <el-table-column
-        class-name="text-mono"
-        width="160"
-        prop="createdAt"
-        label="创建时间"
-      />
-      <el-table-column
-        class-name="text-mono"
-        width="160"
-        prop="createdAt"
-        label="创建时间"
-      />
-      <el-table-column
-        class-name="text-mono"
-        width="160"
-        prop="createdAt"
-        label="创建时间"
-      />
-      <el-table-column
-        class-name="text-mono"
-        width="160"
         prop="createdAt"
         label="创建时间"
       />

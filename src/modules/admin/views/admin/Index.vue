@@ -31,9 +31,15 @@
         label="电话号码"
       />
       <el-table-column
+        width="260"
+        prop="email"
+        class-name="text-mono"
+        label="邮箱"
+      />
+      <el-table-column
         width="150"
-        prop="display"
-        label="显示名"
+        prop="name"
+        label="名称"
       />
       <el-table-column
         width="60"
@@ -47,7 +53,7 @@
       <el-table-column
         align="center"
         width="100"
-        prop="group.name"
+        prop="adminGroup.name"
         label="所属管理组"
       />
       <el-table-column

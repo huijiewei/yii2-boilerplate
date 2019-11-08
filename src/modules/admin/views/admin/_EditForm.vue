@@ -19,6 +19,17 @@
       </el-col>
     </el-form-item>
     <el-form-item
+      label="邮箱"
+      prop="email"
+      :rules="[
+        { required: true, message: '请输入邮箱', trigger: 'blur' }
+      ]"
+    >
+      <el-col :md="9">
+        <el-input v-model.trim="formModel.email" />
+      </el-col>
+    </el-form-item>
+    <el-form-item
       label="密码"
       prop="password"
       :rules="validatePassword"

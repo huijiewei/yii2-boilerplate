@@ -133,7 +133,7 @@ export default {
         ]
       },
       formModel: null,
-      allAcl: []
+      acl: []
     }
   },
   async mounted () {
@@ -146,13 +146,13 @@ export default {
     const { data } = await flatry(AdminGroupService.acl())
 
     if (data) {
-      this.allAcl = data
+      this.acl = data
     }
 
-    const adminGroupAcl = this.adminGroup.acl
+    const permissions = this.adminGroup.permissions
     const result = []
 
-    this.allAcl.forEach(acl => {
+    this.acl.forEach(acl => {
       const group = {
         name: acl.name,
         checkAll: false,
@@ -166,13 +166,13 @@ export default {
         if (child.children) {
           child.children.forEach(item => {
             group.aclCount++
-            if (adminGroupAcl.includes(item.actionId)) {
+            if (permissions.includes(item.actionId)) {
               group.checkedAcl.push(item.actionId)
             }
           })
         } else {
           group.aclCount++
-          if (adminGroupAcl.includes(child.actionId)) {
+          if (permissions.includes(child.actionId)) {
             group.checkedAcl.push(child.actionId)
           }
         }

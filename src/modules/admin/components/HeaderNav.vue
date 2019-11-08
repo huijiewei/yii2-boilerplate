@@ -34,12 +34,21 @@
           <span class="el-dropdown-link">
             <ag-avatar :avatar="getCurrentUser.avatar" />
             <span class="bp-display">
-              {{ getCurrentUser.display || getCurrentUser.phone }}
+              {{ getCurrentUser.name || getCurrentUser.phone }}
             </span>
             <i class="el-icon-arrow-down el-icon--right" />
           </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="userProfile">
+          <el-dropdown-menu
+            slot="dropdown"
+            class="profile-dropdown-menu"
+          >
+            <el-dropdown-item disabled>
+              {{ getCurrentUser.adminGroup.name }}
+            </el-dropdown-item>
+            <el-dropdown-item
+              command="userProfile"
+              divided
+            >
               <ag-icon type="user" />
               个人资料
             </el-dropdown-item>
@@ -113,10 +122,10 @@ export default {
       }
 
       if (command === 'userRefresh') {
-        const { data } = await flatry(AuthService.authentication())
+        const { data } = await flatry(AuthService.account())
 
         if (data) {
-          await this.$store.dispatch('auth/authentication', data)
+          await this.$store.dispatch('auth/account', data)
         }
       }
     }
@@ -184,5 +193,11 @@ export default {
             }
         }
     }
+}
+
+.profile-dropdown-menu {
+  .el-dropdown-menu__item.is-disabled {
+    text-align: center;
+  }
 }
 </style>

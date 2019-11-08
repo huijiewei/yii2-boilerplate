@@ -9,8 +9,8 @@ import store from './store'
 import App from './App.vue'
 
 import HttpClient from '@core/plugins/HttpClient'
-import AclChecker from './plugins/AclChecker'
 import DeleteDialog from './plugins/DeleteDialog'
+import PermissionCheck from './plugins/PermissionCheck'
 
 Vue.use(ElementUI)
 
@@ -22,7 +22,7 @@ Vue.use(HttpClient, {
   setErrorDispatch: 'setError'
 })
 
-Vue.use(AclChecker, {
+Vue.use(PermissionCheck, {
   store
 })
 
