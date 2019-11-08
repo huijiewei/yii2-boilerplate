@@ -8,9 +8,9 @@ const auth = {
   state: {
     loginAction: 'none', // none, modal, direct
     currentUser: null,
-    groupAcl: [],
     groupMenus: [],
-    groupMenusUrl: []
+    groupMenusUrl: [],
+    groupPermissions: []
   },
   getters: {
     getAccessToken: state => {
@@ -29,7 +29,7 @@ const auth = {
       return state.groupMenus
     },
     isRouteInAcl: state => (route) => {
-      return state.groupAcl.includes(route)
+      return state.groupPermissions.includes(route)
     },
     isRouteInMenus: state => (route) => {
       const path = route.startsWith('/') ? route.substr(1) : route
@@ -48,12 +48,12 @@ const auth = {
     UPDATE_CURRENT_USER: (state, user) => {
       state.currentUser = user
     },
-    UPDATE_GROUP_ACL: (state, acl) => {
-      state.groupAcl = acl
-    },
     UPDATE_GROUP_MENUS: (state, menus) => {
       state.groupMenus = menus
       state.groupMenusUrl = deepSearch('url', menus)
+    },
+    UPDATE_GROUP_PERMISSIONS: (state, permissions) => {
+      state.groupPermissions = permissions
     }
   },
   actions: {
@@ -68,23 +68,23 @@ const auth = {
     login ({ commit }, data) {
       commit('TOGGLE_LOGIN_ACTION', 'none')
       commit('UPDATE_CURRENT_USER', data.currentUser)
-      commit('UPDATE_GROUP_ACL', data.groupAcl)
       commit('UPDATE_GROUP_MENUS', data.groupMenus)
+      commit('UPDATE_GROUP_PERMISSIONS', data.groupPermissions)
 
       window.localStorage.setItem(accessTokenKey, data.accessToken)
     },
     logout ({ commit }) {
       commit('UPDATE_ACCESS_TOKEN', null)
       commit('UPDATE_CURRENT_USER', null)
-      commit('UPDATE_GROUP_ACL', [])
       commit('UPDATE_GROUP_MENUS', [])
+      commit('UPDATE_GROUP_PERMISSIONS', [])
 
       window.localStorage.removeItem(accessTokenKey)
     },
     account ({ commit }, data) {
       commit('UPDATE_CURRENT_USER', data.currentUser)
-      commit('UPDATE_GROUP_ACL', data.groupAcl)
       commit('UPDATE_GROUP_MENUS', data.groupMenus)
+      commit('UPDATE_GROUP_PERMISSIONS', data.groupPermissions)
     }
   }
 }
