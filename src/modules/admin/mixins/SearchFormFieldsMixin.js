@@ -6,7 +6,7 @@ const SearchFormFieldsMixin = {
   },
   methods: {
     buildRouteQuery (query) {
-      return this.searchFields !== false ? query : Object.assign({}, query, { searchFields: true })
+      return this.searchFields !== false ? query : Object.assign({}, query, { withSearchFields: true })
     },
     setSearchFields (searchFields) {
       if (this.searchFields === false) {

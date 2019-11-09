@@ -33,7 +33,7 @@ export default {
       const { data } = await flatry(this.$http.download(
         'GET',
         this.api,
-        Object.assign({}, this.$route.query, { page: null })))
+        Object.assign({}, this.$route.query, { page: null, size: null })))
 
       if (data === false) {
         this.$message({
