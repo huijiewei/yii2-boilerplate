@@ -6,6 +6,7 @@ const accessTokenKey = 'ag:admin-access-token'
 const auth = {
   namespaced: true,
   state: {
+    accessToken: window.localStorage.getItem(accessTokenKey) || '',
     loginAction: 'none', // none, modal, direct
     currentUser: null,
     groupMenus: [],
@@ -15,8 +16,8 @@ const auth = {
   getters: {
     getAccessToken: state => {
       return {
-        clientId: window.localStorage.getItem(clientIdKey) || '',
-        accessToken: window.localStorage.getItem(accessTokenKey) || ''
+        clientId: window.localStorage.getItem(clientIdKey),
+        accessToken: state.accessToken
       }
     },
     getLoginAction: state => {
@@ -38,9 +39,13 @@ const auth = {
     }
   },
   mutations: {
-    TOGGLE_CLIENT_ID: (state, clientId) => {
-      state.clientId = clientId
-      window.localStorage.setItem(clientIdKey, clientId)
+    TOGGLE_ACCESS_TOKEN: (state, accessToken) => {
+      state.accessToken = accessToken
+      if (accessToken !== '') {
+        window.localStorage.setItem(accessTokenKey, accessToken)
+      } else {
+        window.localStorage.removeItem(accessTokenKey)
+      }
     },
     TOGGLE_LOGIN_ACTION: (state, action) => {
       state.loginAction = action
@@ -67,19 +72,16 @@ const auth = {
     },
     login ({ commit }, data) {
       commit('TOGGLE_LOGIN_ACTION', 'none')
+      commit('TOGGLE_ACCESS_TOKEN', data.accessToken)
       commit('UPDATE_CURRENT_USER', data.currentUser)
       commit('UPDATE_GROUP_MENUS', data.groupMenus)
       commit('UPDATE_GROUP_PERMISSIONS', data.groupPermissions)
-
-      window.localStorage.setItem(accessTokenKey, data.accessToken)
     },
     logout ({ commit }) {
-      commit('UPDATE_ACCESS_TOKEN', null)
+      commit('TOGGLE_ACCESS_TOKEN', '')
       commit('UPDATE_CURRENT_USER', null)
       commit('UPDATE_GROUP_MENUS', [])
       commit('UPDATE_GROUP_PERMISSIONS', [])
-
-      window.localStorage.removeItem(accessTokenKey)
     },
     account ({ commit }, data) {
       commit('UPDATE_CURRENT_USER', data.currentUser)

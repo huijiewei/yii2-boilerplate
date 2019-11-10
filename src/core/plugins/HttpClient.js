@@ -57,7 +57,7 @@ const HttpClient = {
         const contentType = error.response.headers['content-type']
 
         if (contentType.startsWith('application/problem+json')) {
-          message = error.response.data.detail
+          message = error.response.data.detail || error.response.data.title
         } else if (contentType.startsWith('application/json')) {
           if (error.response.data.message) {
             message = error.response.data.message
