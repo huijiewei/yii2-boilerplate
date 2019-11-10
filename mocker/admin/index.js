@@ -10,9 +10,9 @@ const proxy = {
   _proxy: {
     changeHost: true
   },
-  'GET /admin/api/auth/account': authAccount,
   'POST /admin/api/auth/login': authLogin,
   'POST /admin/api/auth/logout': authLogout,
+  'GET /admin/api/auth/account': authAccount,
   'GET /admin/api/admins': adminList,
   'POST /admin/api/admins': adminCreate,
   'GET /admin/api/admins/:id(\\d+)': adminItem,

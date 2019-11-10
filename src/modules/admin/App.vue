@@ -56,15 +56,14 @@ export default {
         this.$message({
           message: '需要登录才能访问',
           type: 'warning',
-          duration: 2000,
-          onClose: () => {
-            if (router.currentRoute.path === loginUrl) {
-              router.replace(router.currentRoute.fullPath)
-            } else {
-              router.replace({ path: loginUrl, query: { direct: router.currentRoute.fullPath } })
-            }
-          }
+          duration: 2000
         })
+
+        if (router.currentRoute.path === loginUrl) {
+          router.replace(router.currentRoute.fullPath)
+        } else {
+          router.replace({ path: loginUrl, query: { direct: router.currentRoute.fullPath } })
+        }
       }
 
       return action === 'modal'
