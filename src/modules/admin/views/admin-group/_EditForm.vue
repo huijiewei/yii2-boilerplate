@@ -28,19 +28,20 @@
               v-model="group.checkAll"
               :label="group.name"
               :indeterminate="group.checkIndeterminate"
-              @change="handleCheckAllChange(group)"
+              @change="handleCheckAclAllChange(group)"
             />
           </div>
           <div class="cgb-body">
             <el-checkbox-group
               v-model="group.checkedAcl"
               v-same-width
-              @change="handleCheckedAclChange(group)"
+              @change="handleCheckedAclGroupChange(group)"
             >
               <template v-for="(child, childIndex) in group.children">
                 <el-checkbox
                   v-if="!child.children"
                   :key="index + '-' + childIndex"
+                  :ref="child.actionId"
                   :label="child.actionId"
                 >
                   {{ child.name }}
@@ -53,7 +54,9 @@
                   <el-checkbox
                     v-for="(checkbox, checkboxIndex) in child.children"
                     :key="index + '-' + childIndex + '-' + checkboxIndex"
+                    :ref="checkbox.actionId"
                     :label="checkbox.actionId"
+                    @change="handleCheckedAclItemChange(checkbox)"
                   >
                     {{ checkbox.name }}
                   </el-checkbox>
@@ -218,7 +221,7 @@ export default {
         })
       })
     },
-    handleCheckAllChange (group) {
+    handleCheckAclAllChange (group) {
       group.checkIndeterminate = false
 
       if (group.checkAll === true) {
@@ -235,11 +238,56 @@ export default {
         group.checkedAcl = []
       }
     },
-    handleCheckedAclChange (group) {
+    handleCheckedAclGroupChange (group) {
       const checkedCount = group.checkedAcl.length
 
       group.checkAll = group.aclCount === checkedCount
       group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
+    },
+    handleCheckedAclItemChange (item) {
+      if (item.combines && item.combines.length > 0) {
+        const refs = this.$refs
+        const checked = refs[item.actionId][0].$el.getElementsByTagName('input')[0].checked
+
+        if (!checked) {
+          item.combines.forEach((combine) => {
+            if (refs[combine] && refs[combine][0] &&
+              refs[combine][0].$el && refs[combine][0].$el.getElementsByTagName('input') &&
+              refs[combine][0].$el.getElementsByTagName('input')[0]) {
+              refs[combine][0].$el.getElementsByTagName('input')[0].disabled = false
+            }
+          })
+
+          return
+        }
+
+        const acl = this.formModel.acl
+        item.combines.forEach((combine) => {
+          if (refs[combine] && refs[combine][0] &&
+            refs[combine][0].$el && refs[combine][0].$el.getElementsByTagName('input') &&
+            refs[combine][0].$el.getElementsByTagName('input')[0]) {
+            refs[combine][0].$el.getElementsByTagName('input')[0].disabled = true
+          }
+
+          acl.forEach((aclGroup) => {
+            if (aclGroup.children && aclGroup.children.length > 0) {
+              aclGroup.children.forEach((aclChild) => {
+                if (aclChild.actionId && aclChild.actionId === combine && !aclGroup.checkedAcl.includes(combine)) {
+                  aclGroup.checkedAcl.push(combine)
+                }
+
+                if (aclChild.children && aclChild.children.length > 0) {
+                  aclChild.children.forEach((aclItem) => {
+                    if (aclItem.actionId && aclItem.actionId === combine && !aclGroup.checkedAcl.includes(combine)) {
+                      aclGroup.checkedAcl.push(combine)
+                    }
+                  })
+                }
+              })
+            }
+          })
+        })
+      }
     }
   }
 }
