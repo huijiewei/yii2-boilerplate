@@ -1,5 +1,4 @@
 import axios from 'axios'
-import axiosRetry from 'axios-retry'
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
 
@@ -21,13 +20,27 @@ class Request {
       baseURL: opt.baseUrl,
       timeout: opt.timeout,
       withCredentials: opt.withCredentials,
-      responseType: 'json'
-    })
+      responseType: 'json',
+      paramsSerializer: (params) => {
+        const keys = Object.keys(params)
+        let options = ''
 
-    axiosRetry(httpClient, {
-      retries: 3,
-      retryDelay: () => {
-        return 1000
+        keys.forEach((key) => {
+          const isParamTypeObject = typeof params[key] === 'object'
+          const isParamTypeArray = isParamTypeObject && (params[key].length >= 0)
+
+          if (!isParamTypeObject) {
+            options += `${key}=${params[key]}&`
+          }
+
+          if (isParamTypeObject && isParamTypeArray) {
+            params[key].forEach((element) => {
+              options += `${key}=${element}&`
+            })
+          }
+        })
+
+        return options ? options.slice(0, -1) : options
       }
     })
 

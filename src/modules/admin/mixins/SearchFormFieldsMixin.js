@@ -10,7 +10,7 @@ const SearchFormFieldsMixin = {
     },
     setSearchFields (searchFields) {
       if (this.searchFields === false) {
-        this.searchFields = searchFields || null
+        this.searchFields = searchFields || []
       }
     }
   }

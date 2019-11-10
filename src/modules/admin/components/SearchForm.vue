@@ -56,12 +56,13 @@
     </template>
     <el-form-item v-if="getKeywordFields.length > 0">
       <el-input
-        v-model="formModel.keyword"
+        v-model="keywordValue"
         placeholder="请输入内容"
+        clearable
       >
         <el-select
           slot="prepend"
-          v-model="formModel.field"
+          v-model="keywordField"
           :style="{width: '100px'}"
           value=""
         >
@@ -111,7 +112,9 @@ export default {
   data () {
     return {
       formInit: false,
-      formModel: {}
+      formModel: {},
+      keywordField: '',
+      keywordValue: ''
     }
   },
   computed: {
@@ -127,7 +130,7 @@ export default {
         return []
       }
 
-      return this.searchFields.filter(item => (item.type !== 'keyword' && item.type !== 'hidden'))
+      return this.searchFields.filter(item => item.type !== 'keyword')
     }
   },
   watch: {
@@ -140,28 +143,46 @@ export default {
     }
   },
   methods: {
+    isPageQuery (query) {
+      return query !== 'page' && query !== 'size'
+    },
     updateFormModel () {
       const routeQuery = this.$route.query
       const formModel = {}
 
-      if (this.getKeywordFields.length > 0) {
-        formModel.field = routeQuery.field || this.getKeywordFields[0].field
-        formModel.keyword = routeQuery.keyword || ''
+      const keywordFields = this.getKeywordFields
+
+      if (this.keywordField === '' && keywordFields.length > 0) {
+        this.keywordField = keywordFields[0].field
       }
 
-      if (this.getOtherFields.length > 0) {
-        this.getOtherFields.forEach((item) => {
-          if (item.type !== 'br') {
-            if (routeQuery[item.field]) {
-              formModel[item.field] = item.multiple && typeof (routeQuery[item.field]) === 'string'
-                ? [routeQuery[item.field]]
-                : routeQuery[item.field]
-            } else {
-              formModel[item.field] = item.multiple ? [] : ''
-            }
+      Object.keys(routeQuery).every((item) => {
+        const field = item
+        const value = routeQuery[field]
+
+        if (keywordFields.some((keyField) => {
+          return keyField.field === field
+        })) {
+          this.keywordField = field
+          this.keywordValue = value
+
+          return true
+        }
+
+        if (this.getOtherFields.length === 0) {
+          return true
+        }
+
+        this.getOtherFields.every((otherField) => {
+          if (otherField.type === 'br') {
+            return true
           }
+
+          formModel[field] = otherField.multiple && typeof value === 'string' ? [value] : value
         })
-      }
+
+        return true
+      })
 
       this.formInit = true
       this.formModel = formModel
@@ -170,18 +191,20 @@ export default {
       const queryFields = {}
 
       Object.keys(this.formModel).forEach((key) => {
-        if (key !== 'field' && this.formModel[key] && this.formModel[key].length > 0) { queryFields[key] = this.formModel[key] }
+        if (this.formModel[key] && this.formModel[key].length > 0) {
+          queryFields[key] = this.formModel[key]
+        }
       })
 
-      if (queryFields['keyword'] && queryFields['keyword'].length > 0) {
-        queryFields['field'] = this.formModel['field']
-      }
-
       Object.keys(this.$route.query).forEach((key) => {
-        if (!Object.prototype.hasOwnProperty.call(this.formModel, key) && key !== 'page') {
+        if (!Object.prototype.hasOwnProperty.call(this.formModel, key) && !this.isPageQuery(key)) {
           queryFields[key] = this.$route.query[key]
         }
       })
+
+      if (this.keywordField !== '' && this.keywordValue !== '') {
+        queryFields[this.keywordField] = this.keywordValue
+      }
 
       return queryFields
     },
@@ -189,7 +212,7 @@ export default {
       const defaultQuery = {}
 
       Object.keys(this.$route.query).forEach((key) => {
-        if (!Object.prototype.hasOwnProperty.call(this.formModel, key) && key !== 'page') {
+        if (!Object.prototype.hasOwnProperty.call(this.formModel, key) && !this.isPageQuery(key)) {
           defaultQuery[key] = this.$route.query[key]
         }
       })
