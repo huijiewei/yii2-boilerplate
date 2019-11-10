@@ -245,49 +245,59 @@ export default {
       group.checkIndeterminate = checkedCount > 0 && checkedCount < group.aclCount
     },
     handleCheckedAclItemChange (item) {
-      if (item.combines && item.combines.length > 0) {
-        const refs = this.$refs
-        const checked = refs[item.actionId][0].$el.getElementsByTagName('input')[0].checked
+      if (!item.combines || item.combines.length === 0) {
+        return
+      }
 
-        if (!checked) {
-          item.combines.forEach((combine) => {
-            if (refs[combine] && refs[combine][0] &&
-              refs[combine][0].$el && refs[combine][0].$el.getElementsByTagName('input') &&
-              refs[combine][0].$el.getElementsByTagName('input')[0]) {
-              refs[combine][0].$el.getElementsByTagName('input')[0].disabled = false
-            }
-          })
+      const refs = this.$refs
+      const checked = refs[item.actionId][0].$el.getElementsByTagName('input')[0].checked
 
-          return
-        }
-
-        const acl = this.formModel.acl
+      if (!checked) {
         item.combines.forEach((combine) => {
           if (refs[combine] && refs[combine][0] &&
+              refs[combine][0].$el && refs[combine][0].$el.getElementsByTagName('input') &&
+              refs[combine][0].$el.getElementsByTagName('input')[0]) {
+            refs[combine][0].$el.getElementsByTagName('input')[0].disabled = false
+          }
+        })
+
+        return
+      }
+
+      const acl = this.formModel.acl
+      item.combines.forEach((combine) => {
+        if (refs[combine] && refs[combine][0] &&
             refs[combine][0].$el && refs[combine][0].$el.getElementsByTagName('input') &&
             refs[combine][0].$el.getElementsByTagName('input')[0]) {
-            refs[combine][0].$el.getElementsByTagName('input')[0].disabled = true
+          refs[combine][0].$el.getElementsByTagName('input')[0].disabled = true
+        }
+
+        acl.forEach((aclGroup) => {
+          if (aclGroup.children && aclGroup.children.length > 0) {
+            aclGroup.children.every((aclChild) => {
+              if (aclChild.actionId && aclChild.actionId === combine && !aclGroup.checkedAcl.includes(combine)) {
+                aclGroup.checkedAcl.push(combine)
+
+                return true
+              }
+
+              if (aclChild.children && aclChild.children.length > 0) {
+                aclChild.children.every((aclItem) => {
+                  if (aclItem.actionId && aclItem.actionId === combine && !aclGroup.checkedAcl.includes(combine)) {
+                    aclGroup.checkedAcl.push(combine)
+
+                    return true
+                  }
+
+                  return true
+                })
+              }
+
+              return true
+            })
           }
-
-          acl.forEach((aclGroup) => {
-            if (aclGroup.children && aclGroup.children.length > 0) {
-              aclGroup.children.forEach((aclChild) => {
-                if (aclChild.actionId && aclChild.actionId === combine && !aclGroup.checkedAcl.includes(combine)) {
-                  aclGroup.checkedAcl.push(combine)
-                }
-
-                if (aclChild.children && aclChild.children.length > 0) {
-                  aclChild.children.forEach((aclItem) => {
-                    if (aclItem.actionId && aclItem.actionId === combine && !aclGroup.checkedAcl.includes(combine)) {
-                      aclGroup.checkedAcl.push(combine)
-                    }
-                  })
-                }
-              })
-            }
-          })
         })
-      }
+      })
     }
   }
 }
