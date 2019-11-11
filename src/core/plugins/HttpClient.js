@@ -28,7 +28,7 @@ const HttpClient = {
       },
       errorHandler: (error) => {
         if (!error.response) {
-          store.dispatch(setErrorDispatch, { message: error.message, routeBack: false })
+          store.dispatch(setErrorDispatch, { message: error.message, routeBack: true })
 
           return Promise.reject(error)
         }

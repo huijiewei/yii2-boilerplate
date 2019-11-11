@@ -36,9 +36,9 @@ export default {
 
       if (data) {
         this.$message.success(data.message)
-        await this.$router.replace({ path: '/admin/edit', query: { id: data.adminId } })
-
         done()
+
+        await this.$router.replace({ path: '/admin' })
       }
 
       if (error) {

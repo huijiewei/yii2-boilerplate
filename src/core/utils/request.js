@@ -1,4 +1,5 @@
 import axios from 'axios'
+import axiosRetry from 'axios-retry'
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
 
@@ -41,6 +42,34 @@ class Request {
         })
 
         return options ? options.slice(0, -1) : options
+      }
+    })
+
+    let retries = 0
+
+    axiosRetry(httpClient, {
+      retries: 3,
+      retryDelay: () => {
+        return 1000
+      },
+      retryCondition: (error) => {
+        let config = error.config
+
+        if (!config) {
+          return false
+        }
+
+        if (error.response && error.response.status < 500) {
+          return false
+        }
+
+        retries = retries + 1
+        if (retries >= 3) {
+          retries = 0
+          return false
+        }
+
+        return true
       }
     })
 

@@ -152,7 +152,7 @@ export default {
       this.acl = data
     }
 
-    const permissions = this.adminGroup.permissions
+    const permissions = this.adminGroup.permissions || []
     const result = []
 
     this.acl.forEach(acl => {
@@ -203,12 +203,12 @@ export default {
         const adminGroup = {
           id: this.formModel.id,
           name: this.formModel.name,
-          acl: []
+          permissions: []
         }
 
         this.formModel.acl.forEach(group => {
           group.checkedAcl.forEach(acl => {
-            adminGroup.acl.push(acl)
+            adminGroup.permissions.push(acl)
           })
         })
 

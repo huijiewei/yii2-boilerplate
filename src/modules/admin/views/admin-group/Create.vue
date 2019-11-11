@@ -31,21 +31,17 @@ export default {
     }
   },
   async created () {
-    const { data } = await flatry(AdminGroupService.create())
-
-    if (data) {
-      this.adminGroup = data
-    }
+    this.adminGroup = {}
   },
   methods: {
     async createAdminGroup (adminGroup, done, fail, always) {
       const { data, error } = await flatry(AdminGroupService.create(adminGroup))
 
       if (data) {
-        this.$message.success(data.message)
-        await this.$router.replace({ path: '/admin-group/edit', query: { id: data.adminGroupId } })
-
+        this.$message.success('新建管理组成功')
         done()
+
+        await this.$router.replace({ path: '/admin-group' })
       }
 
       if (error) {

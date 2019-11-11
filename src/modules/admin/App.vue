@@ -15,6 +15,9 @@
 <script>
 import LoginModal from '@admin/components/LoginModal'
 
+let lastLoginAction = ''
+let lastErrorMessage = ''
+
 export default {
   name: 'App',
   spinnerTimeoutId: 0,
@@ -24,16 +27,19 @@ export default {
       const self = this
       const error = self.$store.state.error
 
-      if (error.message.length > 0) {
+      if (error.message.length > 0 && error.message !== lastErrorMessage) {
+        lastErrorMessage = error.message
         self.$alert(
           error.message,
           {
-            dangerouslyUseHTMLString: true,
             center: true,
             confirmButtonText: '确定',
             type: 'warning',
             showClose: false,
             callback: () => {
+              lastErrorMessage = ''
+              self.$store.dispatch('clearError')
+
               if (error.routeBack === true) {
                 self.$router.back()
               }
@@ -42,12 +48,16 @@ export default {
         )
       }
 
-      self.$store.dispatch('clearError')
-
       return false
     },
     isLoginModalVisible () {
       const action = this.$store.getters['auth/getLoginAction']
+
+      if (lastLoginAction === action) {
+        return false
+      }
+
+      lastLoginAction = action
 
       if (action === 'direct') {
         const router = this.$router
