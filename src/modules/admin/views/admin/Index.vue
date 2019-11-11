@@ -28,13 +28,13 @@
         width="150"
         prop="phone"
         class-name="text-mono"
-        label="电话号码"
+        label="手机号码"
       />
       <el-table-column
-        width="260"
+        width="300"
         prop="email"
         class-name="text-mono"
-        label="邮箱"
+        label="电子邮箱"
       />
       <el-table-column
         width="150"

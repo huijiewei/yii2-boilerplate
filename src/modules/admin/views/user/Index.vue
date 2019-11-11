@@ -48,13 +48,13 @@
         prop="phone"
         width="150"
         class-name="text-mono"
-        label="电话号码"
+        label="手机号码"
       />
       <el-table-column
         prop="email"
         width="300"
         class-name="text-mono"
-        label="邮箱"
+        label="电子邮箱"
       />
       <el-table-column
         prop="name"
@@ -80,7 +80,7 @@
         align="center"
         width="79"
         class-name="text-mono"
-        prop="createdFrom.description"
+        prop="createdFrom.label"
         label="注册来源"
       />
       <el-table-column

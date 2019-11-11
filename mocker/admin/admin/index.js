@@ -39,7 +39,7 @@ exports.adminCreate = (req, res) => {
     })
 
     if (admin) {
-      errors.push({ field: 'phone', message: '电话号码 ' + phone + ' 已被占用' })
+      errors.push({ field: 'phone', message: '手机号码 ' + phone + ' 已被占用' })
     }
 
     if (password.length < 6) {

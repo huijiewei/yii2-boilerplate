@@ -9,7 +9,7 @@
     @submit.native.stop.prevent="handleFormSubmit('formModel')"
   >
     <el-form-item
-      label="电话号码"
+      label="手机号码"
       prop="phone"
     >
       <el-col :md="9">
@@ -47,11 +47,11 @@
       </el-col>
     </el-form-item>
     <el-form-item
-      label="显示名"
-      prop="display"
+      label="姓名"
+      prop="name"
     >
       <el-col :md="3">
-        <el-input v-model.trim="formModel.display" />
+        <el-input v-model.trim="formModel.name" />
       </el-col>
     </el-form-item>
     <el-form-item>
@@ -119,7 +119,7 @@ export default {
       submitLoading: false,
       formRules: {
         phone: [
-          { required: true, message: '请输入电话号码', trigger: 'blur' }
+          { required: true, message: '请输入手机号码', trigger: 'blur' }
         ],
         password: validatePassword,
         passwordRepeat: validatePasswordRepeat

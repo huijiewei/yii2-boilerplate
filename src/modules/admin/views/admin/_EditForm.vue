@@ -8,10 +8,10 @@
     @submit.native.stop.prevent="handleFormSubmit('formModel')"
   >
     <el-form-item
-      label="电话号码"
+      label="手机号码"
       prop="phone"
       :rules="[
-        { required: true, message: '请输入电话号码', trigger: 'blur' }
+        { required: true, message: '请输入手机号码', trigger: 'blur' }
       ]"
     >
       <el-col :md="9">
@@ -19,10 +19,10 @@
       </el-col>
     </el-form-item>
     <el-form-item
-      label="邮箱"
+      label="电子邮箱"
       prop="email"
       :rules="[
-        { required: true, message: '请输入邮箱', trigger: 'blur' }
+        { required: true, message: '请输入电子邮箱', trigger: 'blur' }
       ]"
     >
       <el-col :md="9">
@@ -50,13 +50,13 @@
       </el-col>
     </el-form-item>
     <el-form-item
-      label="重复密码"
-      prop="passwordRepeat"
-      :rules="validatePasswordRepeat"
+      label="密码确认"
+      prop="passwordConfirm"
+      :rules="validatePasswordConfirm"
     >
       <el-col :md="6">
         <el-input
-          v-model.trim="formModel.passwordRepeat"
+          v-model.trim="formModel.passwordConfirm"
           type="password"
           auto-complete="new-password"
           show-password
@@ -64,37 +64,38 @@
       </el-col>
     </el-form-item>
     <el-form-item
-      label="显示名"
-      prop="display"
+      label="姓名"
+      prop="name"
     >
       <el-col :md="3">
-        <el-input v-model.trim="formModel.display" />
+        <el-input v-model.trim="formModel.name" />
       </el-col>
     </el-form-item>
     <el-form-item
       label="头像"
-      prop="displayIcon"
+      prop="avatar"
     />
     <el-form-item
       label="管理组"
-      prop="groupId"
+      prop="adminGroup.id"
       :rules="[
         { required: true, message: '请选择所属管理组', trigger: 'change' }
       ]"
     >
       <el-col :md="5">
         <el-select
-          v-model="formModel.groupId"
+          v-model="formModel.adminGroup.id"
           :disabled="getCurrentUserId === formModel.id"
           placeholder="所属管理组"
           value=""
         >
-          <el-option
-            v-for="item in adminGroups"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+          <template v-for="adminGroup in adminGroupOptions">
+            <el-option
+              :key="adminGroup.id"
+              :label="adminGroup.name"
+              :value="adminGroup.id"
+            />
+          </template>
         </el-select>
       </el-col>
     </el-form-item>
@@ -111,7 +112,7 @@
 </template>
 
 <script>
-import AdminService from '@admin/services/AdminService'
+import OpenService from '@admin/services/OpenService'
 import flatry from '@core/utils/flatry'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
@@ -135,27 +136,27 @@ export default {
   },
   data () {
     const validatePassword = []
-    const validatePasswordRepeat = []
+    const validatePasswordConfirm = []
 
     if (!this.isEdit) {
       validatePassword.push({ required: !this.isEdit, message: '请输入密码', trigger: 'blur' })
-      validatePasswordRepeat.push({ required: !this.isEdit, message: '请输入重复密码', trigger: 'blur' })
+      validatePasswordConfirm.push({ required: !this.isEdit, message: '请输入密码确认', trigger: 'blur' })
     }
 
     validatePassword.push({
       validator: (rule, value, callback) => {
-        if (this.formModel.passwordRepeat !== '') {
-          this.$refs.formModel.validateField('passwordRepeat')
+        if (this.formModel.passwordConfirm !== '') {
+          this.$refs.formModel.validateField('passwordConfirm')
         }
         callback()
       },
       trigger: 'blur'
     })
 
-    validatePasswordRepeat.push({
+    validatePasswordConfirm.push({
       validator: (rule, value, callback) => {
         if (value !== this.formModel.password) {
-          callback(new Error('两次输入密码不一致!'))
+          callback(new Error('密码与密码确认不一致!'))
         } else {
           callback()
         }
@@ -166,9 +167,9 @@ export default {
     return {
       submitLoading: false,
       validatePassword: validatePassword,
-      validatePasswordRepeat: validatePasswordRepeat,
+      validatePasswordConfirm: validatePasswordConfirm,
       formModel: null,
-      adminGroups: []
+      adminGroupOptions: []
     }
   },
   computed: {
@@ -177,12 +178,12 @@ export default {
     }
   },
   async mounted () {
-    this.formModel = Object.assign({ password: '', passwordRepeat: '' }, this.admin)
+    this.formModel = Object.assign({ password: '', passwordConfirm: '' }, this.admin)
 
-    const { data } = await flatry(AdminService.groups())
+    const { data } = await flatry(OpenService.adminGroupOptions())
 
     if (data) {
-      this.adminGroups = data
+      this.adminGroupOptions = data
     }
   },
   methods: {

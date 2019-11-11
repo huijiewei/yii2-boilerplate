@@ -28,14 +28,14 @@ export default {
     }
   },
   created () {
-    this.admin = {}
+    this.admin = { adminGroup: { id: null } }
   },
   methods: {
     async createAdmin (admin, done, fail, always) {
       const { data, error } = await flatry(AdminService.create(admin))
 
       if (data) {
-        this.$message.success(data.message)
+        this.$message.success('新建管理员成功')
         done()
 
         await this.$router.replace({ path: '/admin' })

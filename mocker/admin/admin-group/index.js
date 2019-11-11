@@ -73,13 +73,13 @@ exports.adminGroupDelete = (req, res) => {
   })
 }
 
-exports.adminGroupAclFilter = (req, res) => {
+exports.adminGroupAcl = (req, res) => {
   return authenticationCheck(req, res, () => {
     return res.json(adminGroupAcl)
   })
 }
 
-exports.adminGroupFilter = (req, res) => {
+exports.adminGroupOptions = (req, res) => {
   return authenticationCheck(req, res, () => {
     return res.json(adminGroups)
   })

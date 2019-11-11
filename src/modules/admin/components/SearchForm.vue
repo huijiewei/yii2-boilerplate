@@ -25,11 +25,11 @@
           :placeholder="item.label"
           value=""
         >
-          <template v-for="(optionLabel, optionValue, optionIndex) in item.options">
+          <template v-for="option in item.options">
             <el-option
-              :key="index + '-' + optionIndex"
-              :label="optionLabel"
-              :value="optionValue"
+              :key="option.value"
+              :label="option.label"
+              :value="option.value"
             />
           </template>
         </el-select>
