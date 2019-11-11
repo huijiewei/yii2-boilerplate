@@ -27,8 +27,10 @@ const HttpClient = {
         return Promise.resolve(response.data)
       },
       errorHandler: (error) => {
+        const isGetMethod = HttpGetMethod.includes(error.config.method.toUpperCase())
+
         if (!error.response) {
-          store.dispatch(setErrorDispatch, { message: error.message, routeBack: true })
+          store.dispatch(setErrorDispatch, { message: error.message, routeBack: isGetMethod })
 
           return Promise.reject(error)
         }
@@ -37,7 +39,7 @@ const HttpClient = {
           if (!error.config.__retry) {
             error.config.__retry = true
 
-            if (HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
+            if (isGetMethod) {
               store.dispatch(setLoginActionDispatch, 'direct')
             } else {
               store.dispatch(setLoginActionDispatch, 'modal')
@@ -80,7 +82,7 @@ const HttpClient = {
 
         if (!notBack &&
           RouteBackHttpCodes.includes(error.response.status) &&
-          HttpGetMethod.includes(error.response.config.method.toUpperCase())) {
+          isGetMethod) {
           routeBack = true
         }
 

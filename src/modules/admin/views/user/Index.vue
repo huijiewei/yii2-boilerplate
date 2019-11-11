@@ -52,7 +52,7 @@
       />
       <el-table-column
         prop="email"
-        width="260"
+        width="300"
         class-name="text-mono"
         label="邮箱"
       />
