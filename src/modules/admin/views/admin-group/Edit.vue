@@ -43,7 +43,7 @@ export default {
       const { data, error } = await flatry(AdminGroupService.edit(adminGroup.id, adminGroup))
 
       if (data) {
-        this.$message.success(data.message)
+        this.$message.success('管理组编辑成功')
 
         done()
       }
