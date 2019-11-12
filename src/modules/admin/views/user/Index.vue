@@ -80,7 +80,7 @@
         align="center"
         width="79"
         class-name="text-mono"
-        prop="createdFrom.label"
+        prop="createdFrom.description"
         label="注册来源"
       />
       <el-table-column

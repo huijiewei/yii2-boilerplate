@@ -79,8 +79,12 @@ exports.adminGroupAcl = (req, res) => {
   })
 }
 
-exports.adminGroupOptions = (req, res) => {
+exports.adminGroupMap = (req, res) => {
   return authenticationCheck(req, res, () => {
-    return res.json(adminGroups)
+    const map = {}
+    adminGroups.forEach((adminGroup) => {
+      map[adminGroup.id] = adminGroup.name
+    })
+    return res.json(map)
   })
 }
