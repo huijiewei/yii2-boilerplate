@@ -5,8 +5,8 @@ const OpenService = {
     return Vue.http.get('open/admin-group-acl')
   },
 
-  adminGroupOptions () {
-    return Vue.http.get('open/admin-group-options')
+  adminGroupMap () {
+    return Vue.http.get('open/admin-group-map')
   }
 }
 

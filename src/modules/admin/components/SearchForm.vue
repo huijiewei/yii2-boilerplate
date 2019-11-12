@@ -25,11 +25,11 @@
           :placeholder="item.label"
           value=""
         >
-          <template v-for="option in item.options">
+          <template v-for="(optionLabel, optionValue, optionIndex) in item.options">
             <el-option
-              :key="option.value"
-              :label="option.label"
-              :value="option.value"
+              :key="index + '-' + optionIndex"
+              :label="optionLabel"
+              :value="optionValue"
             />
           </template>
         </el-select>
@@ -178,7 +178,7 @@ export default {
             return true
           }
 
-          formModel[field] = otherField.multiple && typeof value === 'string' ? [value] : value
+          formModel[field] = otherField.multiple && typeof Array.isArray(value) ? value : [value + '']
         })
 
         return true

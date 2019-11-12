@@ -8,7 +8,7 @@ class Request {
     const opt = {
       ...{
         baseUrl: '',
-        timeout: 10000,
+        timeout: 20000,
         withCredentials: false,
         beforeRequest: (config) => { return config },
         successHandler: (response) => Promise.resolve(response),
@@ -131,7 +131,7 @@ class Request {
     const config = {
       url: url,
       method: method,
-      timeout: 20000,
+      timeout: 60000,
       responseType: 'blob',
       headers: { 'X-NOT-BACK': true }
     }

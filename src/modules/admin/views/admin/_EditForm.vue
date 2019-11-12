@@ -89,11 +89,11 @@
           placeholder="所属管理组"
           value=""
         >
-          <template v-for="adminGroup in adminGroupOptions">
+          <template v-for="(adminGroupName, adminGroupId) in adminGroupMap">
             <el-option
-              :key="adminGroup.id"
-              :label="adminGroup.name"
-              :value="adminGroup.id"
+              :key="adminGroupId"
+              :label="adminGroupName"
+              :value="parseInt(adminGroupId)"
             />
           </template>
         </el-select>
@@ -169,7 +169,7 @@ export default {
       validatePassword: validatePassword,
       validatePasswordConfirm: validatePasswordConfirm,
       formModel: null,
-      adminGroupOptions: []
+      adminGroupMap: { }
     }
   },
   computed: {
@@ -180,10 +180,10 @@ export default {
   async mounted () {
     this.formModel = Object.assign({ password: '', passwordConfirm: '' }, this.admin)
 
-    const { data } = await flatry(OpenService.adminGroupOptions())
+    const { data } = await flatry(OpenService.adminGroupMap())
 
     if (data) {
-      this.adminGroupOptions = data
+      this.adminGroupMap = data
     }
   },
   methods: {
