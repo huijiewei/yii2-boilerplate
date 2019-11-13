@@ -7,17 +7,17 @@
     <el-form-item
       prop="account"
       :rules="[
-        { required: true, message: '请输入手机号码', trigger: 'blur' }
+        { required: true, message: '请输入帐号', trigger: 'blur' }
       ]"
     >
       <el-input
         v-model="loginForm.account"
-        placeholder="手机号码"
+        placeholder="手机号码或者电子邮箱"
         type="tel"
         auto-complete="off"
       >
         <template slot="prepend">
-          <ag-icon type="mobile" />
+          <ag-icon type="user" />
         </template>
       </el-input>
     </el-form-item>
