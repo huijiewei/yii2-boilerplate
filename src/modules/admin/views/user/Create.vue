@@ -31,17 +31,22 @@ export default {
     this.user = {}
   },
   methods: {
-    async createUser (user, success, callback) {
-      const { data } = await flatry(UserService.create(user))
+    async createUser (user, done, fail, always) {
+      const { data, error } = await flatry(UserService.create(user))
 
       if (data) {
-        this.$message.success(data.message)
-        await this.$router.replace({ path: '/user/edit', query: { id: data.userId } })
+        done()
 
-        success()
+        this.$message.success(data.message)
+
+        await this.$router.push({ path: '/user/index' })
       }
 
-      callback()
+      if (error) {
+        fail(error)
+      }
+
+      always()
     }
   }
 }

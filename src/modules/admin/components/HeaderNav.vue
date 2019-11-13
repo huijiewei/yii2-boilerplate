@@ -32,8 +32,8 @@
           @command="handleCommand"
         >
           <span class="el-dropdown-link">
-            <ag-avatar :avatar="getCurrentUser.avatar" />
-            <span class="bp-display">
+            <ag-avatar :src="getCurrentUser.avatar" />
+            <span class="ag-display">
               {{ getCurrentUser.name || getCurrentUser.phone }}
             </span>
             <i class="el-icon-arrow-down el-icon--right" />

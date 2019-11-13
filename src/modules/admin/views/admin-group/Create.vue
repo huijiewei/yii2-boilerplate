@@ -41,7 +41,7 @@ export default {
         this.$message.success('新建管理组成功')
         done()
 
-        await this.$router.replace({ path: '/admin-group' })
+        await this.$router.push({ path: '/admin-group' })
       }
 
       if (error) {

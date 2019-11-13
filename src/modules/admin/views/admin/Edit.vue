@@ -40,8 +40,8 @@ export default {
       const { data, error } = await flatry(AdminService.edit(admin.id, admin))
 
       if (data) {
-        this.$message.success(data.message)
         done()
+        this.$message.success('管理员编辑成功')
       }
 
       if (error) {

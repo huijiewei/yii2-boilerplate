@@ -35,10 +35,10 @@ export default {
       const { data, error } = await flatry(AdminService.create(admin))
 
       if (data) {
-        this.$message.success('新建管理员成功')
         done()
 
-        await this.$router.replace({ path: '/admin' })
+        this.$message.success('新建管理员成功')
+        await this.$router.push({ path: '/admin' })
       }
 
       if (error) {

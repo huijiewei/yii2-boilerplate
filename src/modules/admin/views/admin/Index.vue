@@ -47,7 +47,7 @@
         label="头像"
       >
         <template slot-scope="scope">
-          <ag-avatar :avatar="scope.row.avatar" />
+          <ag-avatar :src="scope.row.avatar" />
         </template>
       </el-table-column>
       <el-table-column

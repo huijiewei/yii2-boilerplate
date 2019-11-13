@@ -36,15 +36,19 @@ export default {
     }
   },
   methods: {
-    async editUser (user, success, callback) {
-      const { data } = await flatry(UserService.edit(user.id, user))
+    async editUser (user, done, fail, always) {
+      const { data, error } = await flatry(UserService.edit(user.id, user))
 
       if (data) {
         this.$message.success(data.message)
-        success()
+        done()
       }
 
-      callback()
+      if (error) {
+        fail(error)
+      }
+
+      always()
     }
   }
 }

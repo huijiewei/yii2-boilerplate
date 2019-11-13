@@ -67,10 +67,12 @@
 </template>
 
 <script>
+import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
 export default {
   name: 'UserForm',
   components: { },
+  mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
       type: String,
@@ -144,6 +146,8 @@ export default {
 
         this.$emit('on-submit', this.formModel, () => {
           this.$refs[formName].clearValidate()
+        }, (error) => {
+          this.handleViolationError(error, formName)
         }, () => {
           this.submitLoading = false
         })

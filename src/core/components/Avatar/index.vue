@@ -1,13 +1,15 @@
 <template>
-  <span class="ag-avatar">
+  <span
+    class="ag-avatar"
+  >
     <img
-      v-if="avatar && avatar.length > 0"
-      alt="头像"
-      :src="avatar"
+      v-if="src && src.length > 0"
+      :alt="alt || '头像'"
+      :src="src"
     >
     <img
       v-else
-      alt="头像"
+      :alt="alt || '头像'"
       src="../../assets/images/avatar.png"
     >
   </span>
@@ -17,9 +19,23 @@
 export default {
   name: 'AgAvatar',
   props: {
-    avatar: {
+    src: {
       type: String,
       default: ''
+    },
+    alt: {
+      type: String,
+      default: null
+    }
+  },
+  computed: {
+    sizeStyle () {
+      const size = this.size
+      return typeof size === 'number' ? {
+        height: `${size}px`,
+        width: `${size}px`,
+        lineHeight: `${size}px`
+      } : {}
     }
   }
 }
@@ -27,12 +43,12 @@ export default {
 
 <style lang="scss">
   .ag-avatar {
-    height: 32px;
     display: inline-block;
+    height: 32px;
 
     img {
-      border-radius: 50%;
       height: 32px;
+      border-radius: 50%;
       vertical-align: middle;
     }
   }

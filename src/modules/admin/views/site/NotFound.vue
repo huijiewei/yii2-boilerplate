@@ -30,7 +30,7 @@ export default {
   methods: {
     back () {
       if (this.$routerHistory.hasPrevious()) {
-        this.$router.push({ path: this.$routerHistory.previous().path })
+        this.$router.replace({ path: this.$routerHistory.previous().path })
       } else {
         this.$router.push('/home')
       }
