@@ -87,6 +87,7 @@
         class-name="text-mono"
         prop="createdAt"
         label="创建时间"
+        min-width="200"
       />
       <el-table-column
         width="135"

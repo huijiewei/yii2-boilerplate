@@ -1,5 +1,6 @@
 const path = require('path')
 const apiMocker = require('mocker-api')
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -53,6 +54,16 @@ module.exports = {
     before (app) {
       apiMocker(app, path.resolve(entry.mockerWatchFile))
     }
+  },
+  configureWebpack: {
+    plugins: [
+      new ManifestPlugin({
+        writeToFileEmit: !isProduction,
+        filter: function ({ name, isChunk }) {
+          return isChunk && !name.startsWith('chunk-') && !name.endsWith('.map')
+        }
+      })
+    ]
   },
   chainWebpack: config => {
     config.resolve.alias

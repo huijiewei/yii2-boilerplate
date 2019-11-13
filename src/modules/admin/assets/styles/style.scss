@@ -41,7 +41,7 @@
 
     .el-button--mini,
     .el-button--mini.is-round {
-        padding: 6px 12px;
+        padding: 6px 10px 5px 10px;
     }
 
     .el-dropdown-menu {
@@ -75,7 +75,16 @@
         thead th {
             text-transform: uppercase;
             border-top: 1px solid #dee2e6;
-            border-bottom: 2px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+            background: #f5f7fa;
+        }
+
+        td, th {
+            padding: 10px 0 9px 0;
+        }
+
+        .cell {
+            line-height: 20px;
         }
     }
 

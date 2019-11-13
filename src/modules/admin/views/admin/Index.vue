@@ -23,6 +23,7 @@
         class-name="text-mono"
         prop="id"
         label="Id"
+        fixed
       />
       <el-table-column
         width="150"
@@ -59,6 +60,7 @@
       <el-table-column
         prop="createdAt"
         label="创建时间"
+        min-width="200"
       />
       <el-table-column
         width="135"
