@@ -72,11 +72,10 @@
     }
 
     .el-table {
-        thead th {
+        thead th.is-leaf {
             text-transform: uppercase;
-            border-top: 1px solid #dee2e6;
-            border-bottom: 1px solid #dee2e6;
-            background: #f5f7fa;
+            border-bottom: 1px solid #ebeef5;
+            background: #f9fbfd;
         }
 
         td, th {
