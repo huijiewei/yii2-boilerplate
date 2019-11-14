@@ -14,7 +14,6 @@
     </div>
     <el-table
       v-loading="loading"
-      :stripe="true"
       :data="adminGroups"
       border
     >
