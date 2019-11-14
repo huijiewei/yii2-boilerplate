@@ -11,7 +11,7 @@ const app = {
       routeBack: false
     },
     sidebar: {
-      collapsed: window.matchMedia('(max-width: 991px)'),
+      collapsed: window.matchMedia('(max-width: 991px)').matches,
       hidden: false
     }
   },
