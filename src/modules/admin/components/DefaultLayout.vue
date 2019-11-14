@@ -1,5 +1,5 @@
 <template>
-  <el-container class="ag-layout">
+  <el-container :class="['ag-layout', 'aside-fixed', isCollapsed ? 'aside-icon' : '']">
     <el-header
       class="ag-header"
       height="50px"
@@ -8,8 +8,8 @@
     </el-header>
     <el-container class="ag-wrap">
       <el-aside
-        class="ag-aside"
-        :width="isCollapsed ? '60px' : '200px'"
+        :class="['ag-aside', isCollapsed? '' : 'active']"
+        style="width:auto;"
       >
         <prefect-scrollbar
           :scroll-to="'li.el-menu-item.is-active'"
@@ -23,7 +23,6 @@
         </prefect-scrollbar>
       </el-aside>
       <el-main
-        :style="{ marginLeft: isCollapsed ? '60px' : '200px' }"
         class="ag-main"
       >
         <breadcrumb />

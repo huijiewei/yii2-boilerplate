@@ -10,9 +10,8 @@ const app = {
       message: '',
       routeBack: false
     },
-    device: 'desktop',
     sidebar: {
-      collapsed: false,
+      collapsed: window.matchMedia('(max-width: 991px)'),
       hidden: false
     }
   },
@@ -22,9 +21,6 @@ const app = {
     }
   },
   mutations: {
-    TOGGLE_DEVICE: (state, device) => {
-      state.device = device
-    },
     TOGGLE_SIDEBAR: state => {
       state.sidebar.collapsed = !state.sidebar.collapsed
     },
@@ -35,9 +31,6 @@ const app = {
   actions: {
     toggleSidebar ({ commit }) {
       commit('TOGGLE_SIDEBAR')
-    },
-    toggleDevice ({ commit }, device) {
-      commit('TOGGLE_DEVICE', device)
     },
     setError ({ commit }, error) {
       commit('TOGGLE_ERROR', error)

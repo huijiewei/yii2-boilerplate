@@ -2,7 +2,6 @@
   <nav class="ag-nav">
     <div
       class="ag-logo"
-      :style="{ width: isCollapsed ? '60px' : '200px' }"
     >
       <router-link :to="{ path: '/home' }">
         <img
@@ -18,6 +17,16 @@
       :class="[
         'anticon',
         'trigger',
+        'trigger-left',
+        isCollapsed ? 'anticon-menu-unfold' : 'anticon-menu-fold'
+      ]"
+      @click="toggleSidebar"
+    />
+    <i
+      :class="[
+        'anticon',
+        'trigger',
+        'trigger-right',
         isCollapsed ? 'anticon-menu-unfold' : 'anticon-menu-fold'
       ]"
       @click="toggleSidebar"
@@ -134,70 +143,85 @@ export default {
 </script>
 
 <style lang="scss">
-.ag-nav {
-    i.trigger {
-        font-size: 16px;
-        line-height: 50px;
-        cursor: pointer;
-        transition: all 0.3s, padding 0s;
-        padding: 0 17px;
+  .ag-nav {
+    @media (min-width: 992px) {
+      i.trigger-right {
+        display: none !important;
+      }
+    }
+    @media (max-width: 991px) {
+      i.trigger-left {
+        display: none !important;
+      }
+    }
 
-        &:hover {
-            background: #e6f7ff;
-        }
+    i.trigger {
+      font-size: 16px;
+      line-height: 50px;
+      cursor: pointer;
+      transition: all 0.3s, padding 0s;
+      padding: 0 17px;
+
+      &:hover {
+        background: #e6f7ff;
+      }
+    }
+
+    i.trigger-right {
+      float: right;
     }
 
     .ag-logo {
-        text-align: center;
-        overflow: hidden;
-        height: 50px;
-        line-height: 50px;
-        float: left;
-        transition: width 0.2s;
+      text-align: center;
+      overflow: hidden;
+      height: 50px;
+      line-height: 50px;
+      float: left;
+      transition: width 0.2s;
 
-        a {
-            text-decoration: none;
-        }
+      a {
+        text-decoration: none;
+      }
 
-        img {
-            vertical-align: middle;
-            height: 39px;
-            display: inline-block;
-        }
+      img {
+        vertical-align: middle;
+        height: 39px;
+        display: inline-block;
+      }
     }
 
     .nav {
-        display: flex;
-        list-style: none;
-        margin: 0;
+      display: flex;
+      list-style: none;
+      margin: 0;
     }
 
     .nav-right {
-        float: right;
-        flex-direction: row;
-        align-items: center;
-        justify-content: end;
+      float: right;
+      flex-direction: row;
+      align-items: center;
+      justify-content: end;
 
-        .profile {
-            span.el-dropdown-link {
-                display: block;
-                padding: 9px 16px;
-                cursor: pointer;
-                transition: color 0.1s linear 0s,
-                    background-color 0.1s linear 0s, opacity 0.2s linear 0s !important;
+      .profile {
+        span.el-dropdown-link {
+          display: block;
+          padding: 9px 16px;
+          cursor: pointer;
+          transition: color 0.1s linear 0s,
+          background-color 0.1s linear 0s, opacity 0.2s linear 0s !important;
 
-                .ag-display {
-                    display: inline-block;
-                    margin-left: 3px;
-                }
-            }
+          .ag-display {
+            display: inline-block;
+            margin-left: 3px;
+          }
         }
+      }
     }
-}
-
-.profile-dropdown-menu {
-  .el-dropdown-menu__item.is-disabled {
-    text-align: center;
   }
-}
+
+  .profile-dropdown-menu {
+    .el-dropdown-menu__item.is-disabled {
+      text-align: center;
+    }
+  }
 </style>

@@ -1,3 +1,24 @@
+@media (min-width: 992px) {
+    .aside-fixed {
+        .ag-aside, .ag-logo {
+            width: 200px;
+        }
+        .ag-main {
+            margin-left: 200px;
+        }
+    }
+
+    .aside-icon {
+        .ag-aside, .ag-logo {
+            width: 60px;
+        }
+
+        .ag-main {
+            margin-left: 60px;
+        }
+    }
+}
+
 .ag-layout {
     background: #f4f8fb;
     min-height: 100vh;
@@ -13,6 +34,28 @@
 
     .ag-wrap {
         padding-top: 50px;
+    }
+
+    @media screen and (max-width: 491px) {
+        .ag-logo {
+            width: 50px !important;
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        .ag-logo {
+            width: 200px;
+        }
+        .ag-aside {
+            top: 50px;
+            bottom: 0;
+            right: -200px;
+            width: 200px !important;
+            z-index: 19811223;
+        }
+        .ag-aside.active {
+            right:0;
+        }
     }
 
     .ag-aside {
