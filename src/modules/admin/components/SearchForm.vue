@@ -43,14 +43,15 @@
           :placeholder="item.label"
         />
         <el-date-picker
-          v-if="item.type==='dateRange'"
+          v-if="item.type==='dateTimeRange'"
           v-model="formModel[item.field]"
-          type="daterange"
+          :type="item.rangeType"
           :style="{width:'260px'}"
           :start-placeholder="item.labelStart"
           :end-placeholder="item.labelEnd"
           :editable="false"
           :value-format="'yyyy-MM-dd'"
+          :picker-options="pickerOptions[item.field]"
         />
       </el-form-item>
     </template>
@@ -111,10 +112,12 @@ export default {
   inject: ['reload'],
   data () {
     return {
-      formInit: false,
       formModel: {},
+      formModelInit: false,
       keywordField: '',
-      keywordValue: ''
+      keywordValue: '',
+      pickerOptions: {},
+      pickerOptionsInit: false
     }
   },
   computed: {
@@ -134,17 +137,53 @@ export default {
     }
   },
   watch: {
-    'searchFields': 'updateFormModel',
+    'searchFields': function () {
+      this.updateFormModel()
+      this.updatePickerOptions()
+    },
     '$route.query': 'updateFormModel'
   },
   mounted () {
-    if (!this.formInit) {
+    if (!this.formModelInit) {
       this.updateFormModel()
+    }
+
+    if (!this.pickerOptionsInit) {
+      this.updatePickerOptions()
     }
   },
   methods: {
     isPageQuery (query) {
       return query !== 'page' && query !== 'size'
+    },
+    updatePickerOptions () {
+      const pickerOptions = {}
+
+      for (const otherField of this.getOtherFields) {
+        if (otherField.type !== 'dateTimeRange') {
+          continue
+        }
+
+        if (!otherField.shortcuts || otherField.shortcuts.length === 0) {
+          continue
+        }
+
+        pickerOptions[otherField.field] = {
+          shortcuts: []
+        }
+
+        otherField.shortcuts.forEach((shortcut) => {
+          pickerOptions[otherField.field].shortcuts.push({
+            text: shortcut.text,
+            onClick (picker) {
+              picker.$emit('pick', [shortcut.start, shortcut.end])
+            }
+          })
+        })
+      }
+
+      this.pickerOptions = pickerOptions
+      this.pickerOptionsInit = true
     },
     updateFormModel () {
       const routeQuery = this.$route.query
@@ -152,12 +191,14 @@ export default {
 
       const keywordFields = this.getKeywordFields
 
+      this.keywordValue = ''
+
       if (this.keywordField === '' && keywordFields.length > 0) {
         this.keywordField = keywordFields[0].field
       }
 
-      Object.keys(routeQuery).every((item) => {
-        const field = item
+      for (const key of Object.keys(routeQuery)) {
+        const field = key
         const value = routeQuery[field]
 
         if (keywordFields.some((keyField) => {
@@ -166,26 +207,30 @@ export default {
           this.keywordField = field
           this.keywordValue = value
 
-          return true
+          continue
         }
 
-        if (this.getOtherFields.length === 0) {
-          return true
+        const otherFields = this.getOtherFields
+
+        if (otherFields.length === 0) {
+          continue
         }
 
-        this.getOtherFields.every((otherField) => {
+        for (const otherField of otherFields) {
           if (otherField.type === 'br') {
-            return true
+            continue
           }
 
-          formModel[field] = otherField.multiple && typeof Array.isArray(value) ? value : [value + '']
-        })
+          if (otherField.field !== field) {
+            continue
+          }
 
-        return true
-      })
+          formModel[field] = Array.isArray(value) ? value : [value + '']
+        }
+      }
 
-      this.formInit = true
       this.formModel = formModel
+      this.formModelInit = true
     },
     getQueryFields () {
       const queryFields = {}
