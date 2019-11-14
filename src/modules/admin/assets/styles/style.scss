@@ -131,3 +131,15 @@
         }
     }
 }
+
+
+@media screen and (max-width: 630px) {
+    .ag .box-toolbar .box-toolbar-search .br {
+        height: 0;
+        display: none !important;
+    }
+    .ag .box-toolbar .box-toolbar-search .el-form-item {
+        margin-bottom: 3px !important;
+        display: block;
+    }
+}
