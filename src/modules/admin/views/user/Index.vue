@@ -61,7 +61,7 @@
         label="名称"
       />
       <el-table-column
-        width="50"
+        width="55"
         align="center"
         label="头像"
       >

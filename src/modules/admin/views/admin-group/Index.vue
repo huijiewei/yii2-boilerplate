@@ -28,7 +28,7 @@
         label="名称"
       />
       <el-table-column
-        width="135"
+        width="130"
         fixed="right"
         label="操作"
         align="right"

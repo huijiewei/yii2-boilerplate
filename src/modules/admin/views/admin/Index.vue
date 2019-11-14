@@ -42,7 +42,7 @@
         label="名称"
       />
       <el-table-column
-        width="50"
+        width="55"
         align="center"
         label="头像"
       >
@@ -52,7 +52,7 @@
       </el-table-column>
       <el-table-column
         align="center"
-        width="100"
+        width="120"
         prop="adminGroup.name"
         label="所属管理组"
       />
