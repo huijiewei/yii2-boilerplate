@@ -10,7 +10,7 @@ VUE + ELEMENT.UI 演示项目
 
 3. 使用 .env 配置环境变量
 
-4. 使用 process.env.ENTRY 配置入口来分割不同项目
+4. 使用不同配置文件来分割不同项目入口
 
 ### 教程
 
@@ -21,7 +21,7 @@ npm install
 ```
 
 #### vue.config.js 配置说明
-可以根据 package.json 文件 scripts 内命令行 ENTRY 参数改变应用入口
+可以根据 package.json 文件 scripts 内命令行 VUE_CLI_SERVICE_CONFIG_PATH 参数使用不同项目入口配置文件
 
 
 #### 运行本地开发
