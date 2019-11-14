@@ -4,6 +4,13 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
   configureWebpack: {
+    resolve: {
+      alias: {
+        '@core': path.resolve('src/core'),
+        '@admin': path.resolve('src/modules/admin'),
+        '@mobile': path.resolve('src/modules/mobile')
+      }
+    },
     plugins: [
       new ManifestPlugin({
         writeToFileEmit: !isProduction,

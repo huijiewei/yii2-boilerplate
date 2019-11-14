@@ -18,17 +18,9 @@ const customConfig = {
     }
   },
   devServer: {
-    port: process.env.DEV_SERVER_MOBILE_PORT,
+    port: 8081,
     before (app) {
       apiMocker(app, path.resolve('./mocker/mobile/index.js'))
-    }
-  },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@core': path.resolve('src/core'),
-        '@mobile': path.resolve('src/modules/mobile')
-      }
     }
   }
 }
