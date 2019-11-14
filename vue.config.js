@@ -1,6 +1,4 @@
-const ManifestPlugin = require('webpack-manifest-plugin')
-
-const isProduction = process.env.NODE_ENV === 'production'
+const path = require('path')
 
 module.exports = {
   configureWebpack: {
@@ -10,15 +8,7 @@ module.exports = {
         '@admin': path.resolve('src/modules/admin'),
         '@mobile': path.resolve('src/modules/mobile')
       }
-    },
-    plugins: [
-      new ManifestPlugin({
-        writeToFileEmit: !isProduction,
-        filter: function ({ name, isChunk }) {
-          return isChunk && !name.startsWith('chunk-') && !name.endsWith('.map')
-        }
-      })
-    ]
+    }
   },
   chainWebpack: config => {
     config.optimization.splitChunks(
