@@ -21,4 +21,5 @@ yarn-error.log*
 *.sw?
 
 .env.production
+.env.development
 webpack.entity.*
