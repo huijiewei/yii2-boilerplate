@@ -154,7 +154,7 @@ export default {
   },
   methods: {
     isPageQuery (query) {
-      return query !== 'page' && query !== 'size'
+      return query === 'page' || query === 'size'
     },
     updatePickerOptions () {
       const pickerOptions = {}
