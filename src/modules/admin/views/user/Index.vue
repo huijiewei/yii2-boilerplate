@@ -45,7 +45,7 @@
       />
       <el-table-column
         prop="phone"
-        width="150"
+        width="130"
         class-name="text-mono"
         label="手机号码"
       />
@@ -57,11 +57,11 @@
       />
       <el-table-column
         prop="name"
-        width="150"
+        width="120"
         label="名称"
       />
       <el-table-column
-        width="60"
+        width="50"
         align="center"
         label="头像"
       >
@@ -86,7 +86,7 @@
         class-name="text-mono"
         prop="createdAt"
         label="创建时间"
-        min-width="200"
+        min-width="160"
       />
       <el-table-column
         width="135"

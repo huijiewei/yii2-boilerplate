@@ -25,7 +25,7 @@
         fixed
       />
       <el-table-column
-        width="150"
+        width="130"
         prop="phone"
         class-name="text-mono"
         label="手机号码"
@@ -37,12 +37,12 @@
         label="电子邮箱"
       />
       <el-table-column
-        width="150"
+        width="120"
         prop="name"
         label="名称"
       />
       <el-table-column
-        width="60"
+        width="50"
         align="center"
         label="头像"
       >
@@ -59,7 +59,7 @@
       <el-table-column
         prop="createdAt"
         label="创建时间"
-        min-width="200"
+        min-width="160"
       />
       <el-table-column
         width="135"
