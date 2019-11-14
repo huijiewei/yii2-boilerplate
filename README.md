@@ -25,6 +25,7 @@ npm install
 
 
 #### 运行本地开发
+复制 .env.example 为 .env.development
 
 ```bash
 npm run serve:admin
