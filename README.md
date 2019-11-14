@@ -35,7 +35,7 @@ npm run serve:mobile
 #### 本地开发访问方法
 http://localhost:8080/admin
 
-http://localhost:8080/mobile
+http://localhost:8081/mobile
 
 #### 构建生产版本
 
