@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import OpenService from '@admin/services/OpenService'
+import MiscService from '@admin/services/MiscService'
 import flatry from '@core/utils/flatry'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
@@ -184,7 +184,7 @@ export default {
   async mounted () {
     this.formModel = Object.assign({ password: '', passwordConfirm: '' }, this.admin)
 
-    const { data } = await flatry(OpenService.adminGroupMap())
+    const { data } = await flatry(MiscService.adminGroupMap())
 
     if (data) {
       this.adminGroupMap = data

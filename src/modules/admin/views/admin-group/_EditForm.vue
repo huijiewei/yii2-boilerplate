@@ -81,7 +81,7 @@
 
 <script>
 import flatry from '@core/utils/flatry'
-import OpenService from '@admin/services/OpenService'
+import MiscService from '@admin/services/MiscService'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
 export default {
@@ -146,7 +146,7 @@ export default {
       acl: []
     }
 
-    const { data } = await flatry(OpenService.adminGroupAcl())
+    const { data } = await flatry(MiscService.adminGroupAcl())
 
     if (data) {
       this.acl = data

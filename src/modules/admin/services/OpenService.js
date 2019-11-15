@@ -1,12 +1,8 @@
 import Vue from 'vue'
 
 const OpenService = {
-  adminGroupAcl () {
-    return Vue.http.get('open/admin-group-acl')
-  },
-
-  adminGroupMap () {
-    return Vue.http.get('open/admin-group-map')
+  adminFaker (count) {
+    return Vue.http.get('open/admin-faker', { count: count })
   }
 }
 
