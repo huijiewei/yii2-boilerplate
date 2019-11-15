@@ -40,8 +40,6 @@ export default {
               lastErrorMessage = ''
               self.$store.dispatch('clearError')
 
-              console.log(self.$router.currentRoute)
-
               if (error.routeBack === true) {
                 self.$router.back()
               }

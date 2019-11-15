@@ -21,7 +21,6 @@ class Request {
       baseURL: opt.baseUrl,
       timeout: opt.timeout,
       withCredentials: opt.withCredentials,
-      responseType: 'json',
       paramsSerializer: (params) => {
         const keys = Object.keys(params)
         let options = ''

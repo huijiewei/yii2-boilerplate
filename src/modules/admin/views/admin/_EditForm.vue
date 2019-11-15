@@ -74,7 +74,12 @@
     <el-form-item
       label="头像"
       prop="avatar"
-    />
+    >
+      <avatar-upload
+        :avatar="formModel.avatar"
+        @on-upload-success="handleUploadSuccess"
+      />
+    </el-form-item>
     <el-form-item
       label="管理组"
       prop="adminGroup.id"
@@ -119,10 +124,11 @@
 import MiscService from '@admin/services/MiscService'
 import flatry from '@core/utils/flatry'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
+import AvatarUpload from '@admin/components/upload/AvatarUpload'
 
 export default {
   name: 'AdminForm',
-  components: { },
+  components: { AvatarUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
