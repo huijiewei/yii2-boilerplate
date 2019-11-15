@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueRouterBackButton from 'vue-router-back-button'
 
-import siteIndex from '@admin/views/site/Index'
 import notFound from '@admin/views/site/NotFound'
+import siteIndex from '@admin/views/site/Index'
 import siteLogin from '@admin/views/site/Login'
+import siteProfile from '@admin/views/site/Profile'
 
 import adminRoutes from './admin'
 import userRoutes from './user'
@@ -27,6 +28,16 @@ const routes = [
         meta: {
           breadcrumb: {
             title: '首页'
+          }
+        }
+      },
+      {
+        path: 'profile',
+        component: siteProfile,
+        alias: '',
+        meta: {
+          breadcrumb: {
+            title: '个人资料'
           }
         }
       }

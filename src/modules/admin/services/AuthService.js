@@ -9,6 +9,15 @@ const AuthService = {
   },
   account () {
     return Vue.http.get('auth/account')
+  },
+  profile (profile = null) {
+    const endpoint = 'auth/profile'
+
+    if (profile === null) {
+      return Vue.http.get(endpoint)
+    }
+
+    return Vue.http.put(endpoint, profile)
   }
 }
 

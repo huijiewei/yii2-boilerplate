@@ -83,7 +83,11 @@
       ]"
     >
       <el-col :md="5">
+        <div v-if="getCurrentUserId === formModel.id">
+          {{ formModel.adminGroup.name }}
+        </div>
         <el-select
+          v-else
           v-model="formModel.adminGroup.id"
           :disabled="getCurrentUserId === formModel.id"
           placeholder="所属管理组"

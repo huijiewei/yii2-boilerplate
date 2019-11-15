@@ -1,7 +1,7 @@
 @media (min-width: 992px) {
     .aside-fixed {
         .ag-aside, .ag-logo {
-            width: 200px;
+            width: 200px !important;
         }
         .ag-main {
             margin-left: 200px;
@@ -10,7 +10,7 @@
 
     .aside-icon {
         .ag-aside, .ag-logo {
-            width: 60px;
+            width: 60px !important;
         }
 
         .ag-main {

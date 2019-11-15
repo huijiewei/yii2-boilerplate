@@ -127,7 +127,9 @@ export default {
       }
 
       if (command === 'userProfile') {
-        return
+        await this.$router.push({
+          path: '/profile'
+        })
       }
 
       if (command === 'userRefresh') {
