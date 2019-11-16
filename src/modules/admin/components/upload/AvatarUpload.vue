@@ -41,9 +41,12 @@ export default {
   },
   data () {
     return {
+      timer: null,
       avatarUrl: this.avatar,
       uploadOptions: {
         url: '',
+        cropUrl: '',
+        timeout: 0,
         params: [],
         headers: [],
         dataType: '',
@@ -54,13 +57,25 @@ export default {
     }
   },
   async mounted () {
-    const { data } = await flatry(this.$http.get('misc/avatar-upload-options'))
-
-    if (data) {
-      this.uploadOptions = data
+    await this.getUrl()
+  },
+  beforeDestroy () {
+    if (this.timer != null) {
+      clearInterval(this.timer)
     }
   },
   methods: {
+    async getUrl () {
+      const { data } = await flatry(this.$http.get('misc/avatar-upload-options'))
+
+      if (data) {
+        this.uploadOptions = data
+
+        if (data.timeout && data.timeout > 0) {
+          this.timer = setTimeout(this.getUrl, data.timeout * 1000)
+        }
+      }
+    },
     httpRequest (option) {
       const request = new Request({
         baseUrl: option.action,
@@ -87,22 +102,24 @@ export default {
 
       const formData = new FormData()
 
-      for (let key in params) {
-        const value = params[key]
-        // eslint-disable-next-line no-template-curly-in-string
-        if (value.toString().indexOf('${filename}') !== -1) {
-          let randomFileName = ''
-
-          if (this.filenameHash === 'original') {
-            randomFileName = Math.random().toString(36).slice(-8) + '_' + option.file.name
-          } else {
-            randomFileName = Math.random().toString(36).substring(2, 16) + '_' + Math.random().toString(36).substring(2, 16) + '.' + option.file.name.split('.').pop()
-          }
-
+      if (params && Array.isArray(params)) {
+        for (let key in params) {
+          const value = params[key]
           // eslint-disable-next-line no-template-curly-in-string
-          formData.append(key, value.toString().replace('${filename}', randomFileName))
-        } else {
-          formData.append(key, value)
+          if (value.toString().indexOf('${filename}') !== -1) {
+            let randomFileName = ''
+
+            if (this.filenameHash === 'original') {
+              randomFileName = Math.random().toString(36).slice(-8) + '_' + option.file.name
+            } else {
+              randomFileName = Math.random().toString(36).substring(2, 16) + '_' + Math.random().toString(36).substring(2, 16) + '.' + option.file.name.split('.').pop()
+            }
+
+            // eslint-disable-next-line no-template-curly-in-string
+            formData.append(key, value.toString().replace('${filename}', randomFileName))
+          } else {
+            formData.append(key, value)
+          }
         }
       }
 
