@@ -27,8 +27,6 @@ const HttpClient = {
         return Promise.resolve(response.data)
       },
       errorHandler: (error) => {
-        console.log(error)
-
         const isGetMethod = HttpGetMethod.includes(error.config.method.toUpperCase())
 
         if (!error.response) {

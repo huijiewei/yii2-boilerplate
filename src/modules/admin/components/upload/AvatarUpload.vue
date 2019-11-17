@@ -1,34 +1,47 @@
 <template>
-  <el-upload
-    class="avatar-upload"
-    :disabled="uploadOptions.url === ''"
-    :action="uploadOptions.url"
-    :accept="'image/*'"
-    :show-file-list="false"
-    :http-request="httpRequest"
-    :before-upload="handleBeforeUpload"
-    :on-success="handleSuccess"
-    :on-error="handleError"
-  >
-    <img
-      v-if="avatarUrl"
-      alt="头像"
-      :src="avatarUrl"
-      class="avatar"
+  <div>
+    <el-upload
+      class="avatar-upload"
+      :disabled="uploadOptions.url === ''"
+      :action="uploadOptions.url"
+      :accept="'image/*'"
+      :show-file-list="false"
+      :http-request="httpRequest"
+      :before-upload="handleBeforeUpload"
+      :on-success="handleSuccess"
+      :on-error="handleError"
     >
-    <i
-      v-else
-      class="el-icon-plus avatar-upload-icon"
+      <img
+        v-if="avatarUrl"
+        alt="头像"
+        :src="avatarUrl"
+        class="avatar"
+      >
+      <i
+        v-else
+        class="el-icon-plus avatar-upload-icon"
+      />
+    </el-upload>
+    <image-cropper
+      v-if="cropperImage!== ''"
+      :image="cropperImage"
+      :crop-url="uploadOptions.cropUrl"
+      :aspect-ratio="1"
+      :cropper-size="[100,100]"
+      @on-cancel="handleImageCropperCancel"
+      @on-success="handleImageCropperSuccess"
     />
-  </el-upload>
+  </div>
 </template>
 
 <script>
 import flatry from '@core/utils/flatry'
 import Request from '@core/utils/request'
+import ImageCropper from '@admin/components/ImageCropper'
 
 export default {
   name: 'AvatarUpload',
+  components: { ImageCropper },
   props: {
     avatar: {
       type: String,
@@ -36,13 +49,14 @@ export default {
     },
     filenameHash: {
       type: String,
-      default: ''
+      default: 'random'
     }
   },
   data () {
     return {
       timer: null,
       avatarUrl: this.avatar,
+      cropperImage: '',
       uploadOptions: {
         url: '',
         cropUrl: '',
@@ -155,9 +169,14 @@ export default {
       const url = responseParse(result)
 
       if (url) {
-        this.avatarUrl = url + (this.uploadOptions.imageProcess !== '' ? (this.uploadOptions.imageProcess + 'avatar') : '')
+        const avatarUrl = url + (this.uploadOptions.imageProcess !== '' ? (this.uploadOptions.imageProcess + 'avatar') : '')
 
-        this.$emit('on-upload-success', this.avatarUrl)
+        if (this.uploadOptions.cropUrl && this.uploadOptions.cropUrl !== '') {
+          this.cropperImage = avatarUrl
+        } else {
+          this.avatarUrl = avatarUrl
+          this.$emit('on-upload-success', avatarUrl)
+        }
       }
     },
     handleError (error) {
@@ -172,6 +191,14 @@ export default {
         message: message,
         duration: 1500
       })
+    },
+    handleImageCropperSuccess (url) {
+      this.cropperImage = ''
+      this.avatarUrl = url
+      this.$emit('on-upload-success', url)
+    },
+    handleImageCropperCancel () {
+      this.cropperImage = ''
     }
   }
 }
