@@ -53,7 +53,9 @@ class Request {
 
     httpClient.interceptors.response.use((response) => {
       return opt.successHandler(response)
-    }, (error) => opt.errorHandler(error))
+    }, (error) => {
+      return opt.errorHandler(error)
+    })
 
     this.httpClient = httpClient
   }

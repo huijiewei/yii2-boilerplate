@@ -161,9 +161,15 @@ export default {
       }
     },
     handleError (error) {
+      const message = error.response.data.detail ||
+        error.response.data.title ||
+        error.response.data.message ||
+        error.response.statusText ||
+        error.message
+
       this.$message({
         type: 'error',
-        message: error.message,
+        message: message,
         duration: 1500
       })
     }
