@@ -75,6 +75,8 @@ export default {
       this.buttonDisabled = false
     },
     async handleSubmit () {
+      this.buttonDisabled = true
+
       const request = new Request({
         withCredentials: true,
         successHandler: (response) => {
@@ -92,6 +94,8 @@ export default {
             message: message,
             duration: 1500
           })
+
+          this.buttonDisabled = false
         }
       })
 
