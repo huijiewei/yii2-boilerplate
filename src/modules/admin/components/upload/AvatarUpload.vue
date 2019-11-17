@@ -27,7 +27,7 @@
       :image="cropperImage"
       :crop-url="uploadOptions.cropUrl"
       :aspect-ratio="1"
-      :cropper-size="[100,100]"
+      :cropper-size="[200,200]"
       @on-cancel="handleImageCropperCancel"
       @on-success="handleImageCropperSuccess"
     />
@@ -104,8 +104,8 @@ export default {
 
       if (headers && Array.isArray(headers)) {
         request.httpClient.interceptors.request.use((config) => {
-          for (let h in headers) {
-            config.headers[h] = headers[h]
+          for (let key in headers) {
+            config.headers[key] = headers[key]
           }
 
           return config
@@ -116,7 +116,7 @@ export default {
 
       const formData = new FormData()
 
-      if (params && Array.isArray(params)) {
+      if (params) {
         for (let key in params) {
           const value = params[key]
           // eslint-disable-next-line no-template-curly-in-string
