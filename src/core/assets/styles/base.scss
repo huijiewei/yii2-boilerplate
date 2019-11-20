@@ -34,7 +34,7 @@ svg {
     white-space: nowrap;
 }
 
-.text-mono {
+td.text-mono, div.text-mono, span.text-mono {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -79,18 +79,21 @@ hr.spacer-xl {
 hr.spacer-xs {
     height: 10px;
 }
+
 ::-webkit-scrollbar {
     width: 9px;
     height: 9px;
 }
+
 ::-webkit-scrollbar-track {
     border-radius: 3px;
-    background: rgba(0,0,0,0.06);
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.08);
+    background: rgba(0, 0, 0, 0.06);
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
 }
+
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    background: rgba(0,0,0,0.12);
-    -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }

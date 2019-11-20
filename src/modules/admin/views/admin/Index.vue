@@ -15,7 +15,6 @@
     <el-table
       v-loading="loading"
       :data="admins"
-      border
     >
       <el-table-column
         width="90"

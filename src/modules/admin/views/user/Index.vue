@@ -34,7 +34,6 @@
     <el-table
       v-loading="loading"
       :data="users"
-      border
     >
       <el-table-column
         fixed
@@ -151,7 +150,7 @@ export default {
     }
   },
   watch: {
-    '$route': 'getUsers'
+    $route: 'getUsers'
   },
   created () {
     this.getUsers()

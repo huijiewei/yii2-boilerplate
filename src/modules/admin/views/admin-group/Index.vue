@@ -15,7 +15,6 @@
     <el-table
       v-loading="loading"
       :data="adminGroups"
-      border
     >
       <el-table-column
         width="90"
