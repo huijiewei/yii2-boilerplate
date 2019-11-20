@@ -71,6 +71,27 @@
         margin-top: 0;
     }
 
+    .el-input-group__append, .el-input-group__prepend {
+        border-radius: 2px 0 0 2px;
+    }
+
+    .el-input-group--prepend .el-input__inner {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .el-input__inner {
+        border-radius: 2px;
+    }
+
+    .el-button--medium {
+        border-radius: 3px;
+    }
+
+    .el-dropdown-menu {
+        border-radius: 3px;
+    }
+
     .el-table {
         thead th.is-leaf {
             text-transform: uppercase;
