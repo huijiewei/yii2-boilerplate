@@ -27,17 +27,19 @@ class Request {
         let options = ''
 
         keys.forEach((key) => {
-          const isParamTypeObject = typeof params[key] === 'object'
-          const isParamTypeArray = isParamTypeObject && (params[key].length >= 0)
+          if (params[key] !== undefined && params[key] !== null) {
+            const isParamTypeObject = typeof params[key] === 'object'
+            const isParamTypeArray = isParamTypeObject && (params[key].length >= 0)
 
-          if (!isParamTypeObject) {
-            options += `${key}=${params[key]}&`
-          }
+            if (!isParamTypeObject) {
+              options += `${key}=${params[key]}&`
+            }
 
-          if (isParamTypeObject && isParamTypeArray) {
-            params[key].forEach((element) => {
-              options += `${key}=${element}&`
-            })
+            if (isParamTypeObject && isParamTypeArray) {
+              params[key].forEach((element) => {
+                options += `${key}=${element}&`
+              })
+            }
           }
         })
 
