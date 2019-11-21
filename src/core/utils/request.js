@@ -109,7 +109,6 @@ class Request {
       url: url,
       method: method,
       timeout: 60000,
-      responseType: 'blob',
       historyBack: back
     }
 

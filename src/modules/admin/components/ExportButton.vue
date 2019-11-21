@@ -44,9 +44,7 @@ export default {
         })
       }
 
-      setTimeout(() => {
-        this.loading = false
-      }, 2000)
+      this.loading = false
     }
   }
 }

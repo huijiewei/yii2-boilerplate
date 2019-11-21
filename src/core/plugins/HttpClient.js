@@ -51,29 +51,11 @@ const HttpClient = {
           return Promise.reject(error)
         }
 
-        let message = '网络错误'
-
-        const contentType = error.response.headers['content-type']
-
-        if (contentType.startsWith('application/problem+json')) {
-          message = error.response.data.detail || error.response.data.title
-        } else if (contentType.startsWith('application/json')) {
-          if (error.response.data.message) {
-            message = error.response.data.message
-          } else {
-            message = error.response.statusText
-          }
-        } else {
-          if (error.response.statusText) {
-            message = error.response.statusText
-          } else {
-            if (error.response.status >= 500) {
-              message = '系统出现错误'
-            } else {
-              message = '网络错误'
-            }
-          }
-        }
+        const message = error.response.data.detail ||
+          error.response.data.message ||
+          error.response.data.title ||
+          error.response.statusText ||
+          (error.response.status >= 500 ? '系统错误' : '请求错误')
 
         store.dispatch(setErrorDispatch, {
           message: message,
