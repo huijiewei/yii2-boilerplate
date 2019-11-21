@@ -8,27 +8,24 @@
         />
       </div>
       <div class="box-toolbar-button">
-        <router-link
-          v-if="$can('user/create')"
-          :to="{ path: '/user/create' }"
-        >
-          <el-button
-            type="primary"
-            size="medium"
-          >
-            新建会员
-          </el-button>
-        </router-link>
-        &nbsp;&nbsp;
         <export-button
           v-if="$can('user/export')"
           :disabled="loading"
-          :api="'user/export'"
+          :api="'users/export'"
           type="default"
           size="small"
         >
           会员导出
         </export-button>
+        &nbsp;&nbsp;
+        <el-button
+          :disabled="!$can('user/create')"
+          type="primary"
+          size="medium"
+          @click.native="handleUserCreate()"
+        >
+          新建会员
+        </el-button>
       </div>
     </div>
     <el-table
@@ -156,6 +153,9 @@ export default {
     this.getUsers()
   },
   methods: {
+    handleUserCreate () {
+      this.$router.push({ path: '/user/create' })
+    },
     handleUserEdit (user) {
       this.$router.push({ path: '/user/edit', query: { id: user.id } })
     },

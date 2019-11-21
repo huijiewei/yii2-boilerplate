@@ -1,6 +1,6 @@
 <template>
   <el-button
-    v-loading.fullscreen.lock="loading"
+    v-loading.fullscreen="loading"
     :type="type"
     :size="size"
     :disabled="disabled"
@@ -33,7 +33,8 @@ export default {
       const { data } = await flatry(this.$http.download(
         'GET',
         this.api,
-        Object.assign({}, this.$route.query, { page: null, size: null })))
+        Object.assign({}, this.$route.query, { page: null, size: null })
+      ))
 
       if (data === false) {
         this.$message({
@@ -43,7 +44,9 @@ export default {
         })
       }
 
-      this.loading = false
+      setTimeout(() => {
+        this.loading = false
+      }, 2000)
     }
   }
 }

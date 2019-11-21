@@ -62,10 +62,11 @@ class Request {
     this.httpClient = httpClient
   }
 
-  request (method, url, params = null, data = null) {
+  request (method, url, params = null, data = null, back = false) {
     const config = {
       url: url,
-      method: method
+      method: method,
+      historyBack: back
     }
 
     if (params) {
@@ -79,37 +80,37 @@ class Request {
     return this.httpClient.request(config)
   }
 
-  get (url, params = []) {
-    return this.request('GET', url, params)
+  get (url, params = null, back = true) {
+    return this.request('GET', url, params, back)
   }
 
-  head (url, params = []) {
+  head (url, params = null) {
     return this.request('HEAD', url, params)
   }
 
-  post (url, data = null, params = null) {
-    return this.request('POST', url, params, data)
+  post (url, data = null, params = null, back = false) {
+    return this.request('POST', url, params, data, back)
   }
 
-  put (url, data = null, params = null) {
-    return this.request('PUT', url, params, data)
+  put (url, data = null, params = null, back = false) {
+    return this.request('PUT', url, params, data, back)
   }
 
-  path (url, data = null, params = null) {
-    return this.request('PATH', url, params, data)
+  path (url, data = null, params = null, back = false) {
+    return this.request('PATH', url, params, data, back)
   }
 
-  delete (url, params = null) {
-    return this.request('DELETE', url, params)
+  delete (url, params = null, back = false) {
+    return this.request('DELETE', url, params, back)
   }
 
-  download (method, url, params = null, data = null) {
+  download (method, url, params = null, data = null, back = false) {
     const config = {
       url: url,
       method: method,
       timeout: 60000,
       responseType: 'blob',
-      headers: { 'X-NOT-BACK': true }
+      historyBack: back
     }
 
     if (params) {

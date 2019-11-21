@@ -8,7 +8,7 @@ const AuthService = {
     return Vue.http.post('auth/logout')
   },
   account () {
-    return Vue.http.get('auth/account')
+    return Vue.http.get('auth/account', null, false)
   },
   profile (profile = null) {
     const endpoint = 'auth/profile'

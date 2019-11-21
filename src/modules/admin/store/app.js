@@ -8,7 +8,7 @@ const app = {
   state: {
     error: {
       message: '',
-      routeBack: false
+      historyBack: false
     },
     sidebar: {
       collapsed: window.matchMedia('(max-width: 991px)').matches,

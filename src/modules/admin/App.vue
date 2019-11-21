@@ -40,7 +40,7 @@ export default {
               lastErrorMessage = ''
               self.$store.dispatch('clearError')
 
-              if (error.routeBack === true) {
+              if (error.historyBack === true) {
                 self.$router.back()
               }
             }

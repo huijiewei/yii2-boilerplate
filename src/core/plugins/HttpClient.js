@@ -1,7 +1,5 @@
 import Request from '../utils/request'
 
-const HttpGetMethod = ['GET', 'HEAD']
-const RouteBackHttpCodes = [404, 400, 403]
 const UnauthorizedHttpCode = 401
 const UnprocessableEntityHttpCode = 422
 
@@ -27,10 +25,10 @@ const HttpClient = {
         return Promise.resolve(response.data)
       },
       errorHandler: (error) => {
-        const isGetMethod = HttpGetMethod.includes(error.config.method.toUpperCase())
+        const historyBack = error.config.historyBack
 
         if (!error.response) {
-          store.dispatch(setErrorDispatch, { message: error.message, routeBack: isGetMethod })
+          store.dispatch(setErrorDispatch, { message: error.message, historyBack: historyBack })
 
           return Promise.reject(error)
         }
@@ -39,7 +37,7 @@ const HttpClient = {
           if (!error.config.__retry) {
             error.config.__retry = true
 
-            if (isGetMethod) {
+            if (historyBack) {
               store.dispatch(setLoginActionDispatch, 'direct')
             } else {
               store.dispatch(setLoginActionDispatch, 'modal')
@@ -54,7 +52,6 @@ const HttpClient = {
         }
 
         let message = '网络错误'
-        let routeBack = false
 
         const contentType = error.response.headers['content-type']
 
@@ -78,17 +75,9 @@ const HttpClient = {
           }
         }
 
-        const notBack = error.config.headers['X-NOT-BACK'] || false
-
-        if (!notBack &&
-          RouteBackHttpCodes.includes(error.response.status) &&
-          isGetMethod) {
-          routeBack = true
-        }
-
         store.dispatch(setErrorDispatch, {
           message: message,
-          routeBack: routeBack
+          historyBack: historyBack
         })
 
         return Promise.reject(error)
