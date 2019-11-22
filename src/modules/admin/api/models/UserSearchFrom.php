@@ -59,6 +59,7 @@ class UserSearchFrom extends SearchForm
     {
         return [
             'title' => '用户列表',
+            'query' => $this->getQuery(),
             'columns' => [
                 'ID' => 'id',
                 '电话号码' => 'phone:text',

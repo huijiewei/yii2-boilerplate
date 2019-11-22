@@ -12,6 +12,7 @@
     "axios": "^0.19.0",
     "axios-progress-bar": "^1.2.0",
     "axios-retry": "^3.1.1",
+    "content-disposition": "^0.5.3",
     "element-ui": "^2.4.6",
     "perfect-scrollbar": "^1.4.0",
     "vue": "^2.5.17",

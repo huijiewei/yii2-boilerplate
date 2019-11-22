@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22333a93869c84534bbce3c20c0199bf",
+    "content-hash": "f106c2eecf533bcced8dab5f47fbcc86",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -857,50 +857,6 @@
                 "nanoid-php"
             ],
             "time": "2019-09-25T07:00:58+00:00"
-        },
-        {
-            "name": "huijiewei/yii2-spreadsheet",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/huijiewei/yii2-spreadsheet.git",
-                "reference": "12426325e6bffcfbd50d03f50a11fe6be04fcbe2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/huijiewei/yii2-spreadsheet/zipball/12426325e6bffcfbd50d03f50a11fe6be04fcbe2",
-                "reference": "12426325e6bffcfbd50d03f50a11fe6be04fcbe2",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "php": "^7.1.3",
-                "phpoffice/phpspreadsheet": "^1.3",
-                "yiisoft/yii2": "^2.0"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "huijiewei\\spreadsheet\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Huijie Wei",
-                    "email": "huijiewei@outlook.com"
-                }
-            ],
-            "description": "Excel 扩展",
-            "time": "2019-06-09T04:36:53+00:00"
         },
         {
             "name": "huijiewei/yii2-swagger",
@@ -3153,6 +3109,66 @@
                 "serialize"
             ],
             "time": "2019-11-18T17:27:11+00:00"
+        },
+        {
+            "name": "yii2tech/spreadsheet",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yii2tech/spreadsheet.git",
+                "reference": "aff93d4eca719e8cba80663dbfcd08dc0e740319"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yii2tech/spreadsheet/zipball/aff93d4eca719e8cba80663dbfcd08dc0e740319",
+                "reference": "aff93d4eca719e8cba80663dbfcd08dc0e740319",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "phpoffice/phpspreadsheet": "~1.1",
+                "yiisoft/yii2": "~2.0.13"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0 || ^6.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii2tech\\spreadsheet\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                }
+            ],
+            "description": "Yii2 extension for export to a spreadsheet, e.g. Excel, LibreOffice etc.",
+            "keywords": [
+                "LibreOffice",
+                "excel",
+                "export",
+                "spreadsheet",
+                "xls",
+                "xlsx",
+                "yii2"
+            ],
+            "time": "2019-09-12T15:07:41+00:00"
         },
         {
             "name": "yiisoft/yii2",

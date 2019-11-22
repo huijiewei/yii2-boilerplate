@@ -1,7 +1,7 @@
 import axios from 'axios'
-import axiosRetry from 'axios-retry'
-import { loadProgressBar } from 'axios-progress-bar'
+import {loadProgressBar} from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
+import contentDisposition from 'content-disposition'
 
 class Request {
   constructor(options) {
@@ -28,14 +28,7 @@ class Request {
       withCredentials: opt.withCredentials
     })
 
-    axiosRetry(httpClient, {
-      retries: 3,
-      retryDelay: () => {
-        return 1000
-      }
-    })
-
-    loadProgressBar({ showSpinner: false }, httpClient)
+    loadProgressBar({showSpinner: false}, httpClient)
 
     httpClient.interceptors.request.use((config) => {
       const clientId = opt.getClientId()
@@ -121,11 +114,9 @@ class Request {
       let filename = response.headers['x-suggested-filename']
 
       if (!filename) {
-        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
-        const matches = filenameRegex.exec(response.headers['content-disposition'])
-        if (matches != null && matches[1]) {
-          filename = matches[1].replace(/['"]/g, '')
-        }
+        const disposition = contentDisposition.parse(response.headers['content-disposition'])
+
+        filename = disposition.parameters.filename
       }
 
       if (filename) {

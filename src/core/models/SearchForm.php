@@ -9,10 +9,10 @@
 namespace app\core\models;
 
 use app\core\components\Model;
-use huijiewei\spreadsheet\Spreadsheet;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveQuery;
+use yii2tech\spreadsheet\Spreadsheet;
 
 abstract class SearchForm extends Model
 {
@@ -44,8 +44,6 @@ abstract class SearchForm extends Model
         if ($options === null || empty($options)) {
             return null;
         }
-
-        $options['query'] = $this->getQuery();
 
         return new Spreadsheet($options);
     }
