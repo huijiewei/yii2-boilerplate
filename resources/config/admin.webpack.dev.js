@@ -5,6 +5,7 @@ const config = require('./admin.base.config')
 
 config.devServerEnable = true
 config.devServerHost = 'www.bp.test'
+config.devServerPort = 8080
 config.devServerCompress = true
 config.devServerHttps = true
 config.devServerHttp2 = true
