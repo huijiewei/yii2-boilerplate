@@ -3,6 +3,8 @@ import Request from '../utils/request'
 const UnauthorizedHttpCode = 401
 const UnprocessableEntityHttpCode = 422
 
+const HttpGetMethod = ['GET', 'HEAD']
+
 const HttpClient = {
   install (Vue, { apiHost, store, getAccessTokenGetter, setLoginActionDispatch, setErrorDispatch }) {
     const request = new Request({
@@ -37,7 +39,7 @@ const HttpClient = {
           if (!error.config.__retry) {
             error.config.__retry = true
 
-            if (historyBack) {
+            if (historyBack || HttpGetMethod.includes(error.config.method.toUpperCase())) {
               store.dispatch(setLoginActionDispatch, 'direct')
             } else {
               store.dispatch(setLoginActionDispatch, 'modal')
