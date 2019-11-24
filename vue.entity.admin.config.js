@@ -1,5 +1,6 @@
 const path = require('path')
 const apiMocker = require('mocker-api')
+const assign = require('assign-deep')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -25,4 +26,6 @@ const customConfig = {
   }
 }
 
-module.exports = Object.assign(vueConfig, customConfig)
+const config = assign(vueConfig, customConfig)
+
+module.exports = config

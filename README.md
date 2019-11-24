@@ -20,6 +20,21 @@ VUE + ELEMENT.UI 演示项目
 npm install
 ```
 
+#### 配置
+
+##### 修改 Hosts
+```text
+127.0.0.1 www.agile.test
+```
+
+##### 生成本地开发环境 SSL 证书
+使用 mkcert 工具生成本地证书，安装请参考：https://github.com/FiloSottile/mkcert
+```bash
+cd cert
+mkcert www.agile.test
+cd ..
+```
+
 #### vue.config.js 配置说明
 可以根据 package.json 文件 scripts 内命令行 VUE_CLI_SERVICE_CONFIG_PATH 参数使用不同项目入口配置文件
 
@@ -31,11 +46,6 @@ npm install
 npm run serve:admin
 npm run serve:mobile
 ```
-
-#### 本地开发访问方法
-http://localhost:8080/admin
-
-http://localhost:8081/mobile
 
 #### 构建生产版本
 
