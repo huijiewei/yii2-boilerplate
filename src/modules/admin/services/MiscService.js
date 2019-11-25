@@ -1,13 +1,13 @@
-import Vue from "vue";
+import Vue from 'vue'
 
 const MiscService = {
   adminGroupAcl() {
-    return Vue.http.get("misc/admin-group-acl");
+    return Vue.http.get('misc/admin-group-acl')
   },
 
   adminGroupMap() {
-    return Vue.http.get("misc/admin-group-map");
+    return Vue.http.get('misc/admin-group-map')
   }
-};
+}
 
-export default MiscService;
+export default MiscService

@@ -1,80 +1,92 @@
-import BlankLayout from "@admin/components/BlankLayout";
+import BlankLayout from '@admin/components/BlankLayout'
 
 const routes = [
   {
-    path: "/admin",
+    path: '/admin',
     component: BlankLayout,
     meta: {
       breadcrumb: {
-        title: "管理员",
-        path: "/admin"
+        title: '管理员',
+        path: '/admin'
       }
     },
     children: [
       {
-        path: "",
+        path: '',
         component: () =>
-          import(/* webpackChunkName: "chunk-admin" */ "@admin/views/admin/Index")
+          import(
+            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index'
+          )
       },
       {
-        path: "create",
+        path: 'create',
         component: () =>
-          import(/* webpackChunkName: "chunk-admin" */ "@admin/views/admin/Create"),
+          import(
+            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Create'
+          ),
         meta: {
           breadcrumb: {
-            title: "新建"
+            title: '新建'
           }
         }
       },
       {
-        path: "edit",
+        path: 'edit',
         component: () =>
-          import(/* webpackChunkName: "chunk-admin" */ "@admin/views/admin/Edit"),
+          import(
+            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Edit'
+          ),
         meta: {
           breadcrumb: {
-            title: "编辑"
+            title: '编辑'
           }
         }
       }
     ]
   },
   {
-    path: "/admin-group",
+    path: '/admin-group',
     component: BlankLayout,
     meta: {
       breadcrumb: {
-        title: "管理组",
-        path: "/admin-group"
+        title: '管理组',
+        path: '/admin-group'
       }
     },
     children: [
       {
-        path: "",
+        path: '',
         component: () =>
-          import(/* webpackChunkName: "chunk-admin" */ "@admin/views/admin-group/Index")
+          import(
+            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Index'
+          )
       },
       {
-        path: "create",
+        path: 'create',
         component: () =>
-          import(/* webpackChunkName: "chunk-admin" */ "@admin/views/admin-group/Create"),
+          import(
+            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Create'
+          ),
         meta: {
           breadcrumb: {
-            title: "新建"
+            title: '新建'
           }
         }
       },
       {
-        path: "edit",
+        path: 'edit',
         component: () =>
-          import(/* webpackChunkName: "chunk-admin" */ "@admin/views/admin-group/Edit"),
+          import(
+            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Edit'
+          ),
         meta: {
           breadcrumb: {
-            title: "编辑"
+            title: '编辑'
           }
         }
       }
     ]
   }
-];
+]
 
-export default routes;
+export default routes

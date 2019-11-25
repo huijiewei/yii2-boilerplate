@@ -1,75 +1,75 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import VueRouterBackButton from "vue-router-back-button";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import VueRouterBackButton from 'vue-router-back-button'
 
-import notFound from "@admin/views/site/NotFound";
-import siteIndex from "@admin/views/site/Index";
-import siteLogin from "@admin/views/site/Login";
-import siteProfile from "@admin/views/site/Profile";
+import notFound from '@admin/views/site/NotFound'
+import siteIndex from '@admin/views/site/Index'
+import siteLogin from '@admin/views/site/Login'
+import siteProfile from '@admin/views/site/Profile'
 
-import adminRoutes from "./admin";
-import userRoutes from "./user";
+import adminRoutes from './admin'
+import userRoutes from './user'
 
-import defaultLayout from "@admin/components/DefaultLayout";
+import defaultLayout from '@admin/components/DefaultLayout'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     component: defaultLayout,
     children: [
       ...adminRoutes,
       ...userRoutes,
       {
-        path: "home",
+        path: 'home',
         component: siteIndex,
-        alias: "",
+        alias: '',
         meta: {
           breadcrumb: {
-            title: "首页"
+            title: '首页'
           }
         }
       },
       {
-        path: "profile",
+        path: 'profile',
         component: siteProfile,
-        alias: "",
+        alias: '',
         meta: {
           breadcrumb: {
-            title: "个人资料"
+            title: '个人资料'
           }
         }
       }
     ]
   },
   {
-    path: "/login",
+    path: '/login',
     component: siteLogin
   },
   {
-    path: "*",
+    path: '*',
     component: notFound
   }
-];
+]
 
 const router = new VueRouter({
-  base: "/admin",
-  mode: "history",
+  base: '/admin',
+  mode: 'history',
   routes: routes,
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
-      return savedPosition;
+      return savedPosition
     }
 
     if (to.hash) {
-      return { selector: to.hash };
+      return { selector: to.hash }
     }
 
-    return { x: 0, y: 0 };
+    return { x: 0, y: 0 }
   }
-});
+})
 
-Vue.use(VueRouterBackButton, { router, ignoreRoutesWithSameName: true });
+Vue.use(VueRouterBackButton, { router, ignoreRoutesWithSameName: true })
 
-export default router;
+export default router
