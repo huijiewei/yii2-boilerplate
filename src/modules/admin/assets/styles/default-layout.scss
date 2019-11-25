@@ -1,6 +1,7 @@
 @media (min-width: 992px) {
     .aside-fixed {
-        .ag-aside, .ag-logo {
+        .ag-aside,
+        .ag-logo {
             width: 200px !important;
         }
         .ag-main {
@@ -9,7 +10,8 @@
     }
 
     .aside-icon {
-        .ag-aside, .ag-logo {
+        .ag-aside,
+        .ag-logo {
             width: 60px !important;
         }
 
@@ -54,7 +56,7 @@
             z-index: 19811223;
         }
         .ag-aside.active {
-            right:0;
+            right: 0;
         }
     }
 

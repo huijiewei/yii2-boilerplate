@@ -1,149 +1,155 @@
-import axios from 'axios'
-import { loadProgressBar } from 'axios-progress-bar'
-import 'axios-progress-bar/dist/nprogress.css'
-import contentDisposition from 'content-disposition'
+import axios from "axios";
+import { loadProgressBar } from "axios-progress-bar";
+import "axios-progress-bar/dist/nprogress.css";
+import contentDisposition from "content-disposition";
 
 class Request {
-  constructor (options) {
+  constructor(options) {
     const opt = {
       ...{
-        baseUrl: '',
+        baseUrl: "",
         timeout: 20000,
         withCredentials: false,
-        beforeRequest: (config) => {
-          return config
+        beforeRequest: config => {
+          return config;
         },
-        successHandler: (response) => Promise.resolve(response),
-        errorHandler: (error) => Promise.reject(error)
+        successHandler: response => Promise.resolve(response),
+        errorHandler: error => Promise.reject(error)
       },
       ...options
-    }
+    };
 
     const httpClient = axios.create({
       baseURL: opt.baseUrl,
       timeout: opt.timeout,
       withCredentials: opt.withCredentials,
-      paramsSerializer: (params) => {
-        const keys = Object.keys(params)
-        let options = ''
+      paramsSerializer: params => {
+        const keys = Object.keys(params);
+        let options = "";
 
-        keys.forEach((key) => {
+        keys.forEach(key => {
           if (params[key] !== undefined && params[key] !== null) {
-            const isParamTypeObject = typeof params[key] === 'object'
-            const isParamTypeArray = isParamTypeObject && (params[key].length >= 0)
+            const isParamTypeObject = typeof params[key] === "object";
+            const isParamTypeArray =
+              isParamTypeObject && params[key].length >= 0;
 
             if (!isParamTypeObject) {
-              options += `${key}=${params[key]}&`
+              options += `${key}=${params[key]}&`;
             }
 
             if (isParamTypeObject && isParamTypeArray) {
-              params[key].forEach((element) => {
-                options += `${key}=${element}&`
-              })
+              params[key].forEach(element => {
+                options += `${key}=${element}&`;
+              });
             }
           }
-        })
+        });
 
-        return options ? options.slice(0, -1) : options
+        return options ? options.slice(0, -1) : options;
       }
-    })
+    });
 
-    loadProgressBar({ showSpinner: false }, httpClient)
+    loadProgressBar({ showSpinner: false }, httpClient);
 
-    httpClient.interceptors.request.use((config) => {
-      return opt.beforeRequest(config)
-    }, undefined)
+    httpClient.interceptors.request.use(config => {
+      return opt.beforeRequest(config);
+    }, undefined);
 
-    httpClient.interceptors.response.use((response) => {
-      return opt.successHandler(response)
-    }, (error) => {
-      return opt.errorHandler(error)
-    })
+    httpClient.interceptors.response.use(
+      response => {
+        return opt.successHandler(response);
+      },
+      error => {
+        return opt.errorHandler(error);
+      }
+    );
 
-    this.httpClient = httpClient
+    this.httpClient = httpClient;
   }
 
-  request (method, url, params = null, data = null, back = false) {
+  request(method, url, params = null, data = null, back = false) {
     const config = {
       url: url,
       method: method,
       historyBack: back
-    }
+    };
 
     if (params) {
-      config.params = params
+      config.params = params;
     }
 
     if (data) {
-      config.data = data
+      config.data = data;
     }
 
-    return this.httpClient.request(config)
+    return this.httpClient.request(config);
   }
 
-  get (url, params = null, back = true) {
-    return this.request('GET', url, params, back)
+  get(url, params = null, back = true) {
+    return this.request("GET", url, params, back);
   }
 
-  head (url, params = null) {
-    return this.request('HEAD', url, params)
+  head(url, params = null) {
+    return this.request("HEAD", url, params);
   }
 
-  post (url, data = null, params = null, back = false) {
-    return this.request('POST', url, params, data, back)
+  post(url, data = null, params = null, back = false) {
+    return this.request("POST", url, params, data, back);
   }
 
-  put (url, data = null, params = null, back = false) {
-    return this.request('PUT', url, params, data, back)
+  put(url, data = null, params = null, back = false) {
+    return this.request("PUT", url, params, data, back);
   }
 
-  path (url, data = null, params = null, back = false) {
-    return this.request('PATH', url, params, data, back)
+  path(url, data = null, params = null, back = false) {
+    return this.request("PATH", url, params, data, back);
   }
 
-  delete (url, params = null, back = false) {
-    return this.request('DELETE', url, params, back)
+  delete(url, params = null, back = false) {
+    return this.request("DELETE", url, params, back);
   }
 
-  download (method, url, params = null, data = null, back = false) {
+  download(method, url, params = null, data = null, back = false) {
     const config = {
       url: url,
       method: method,
       timeout: 60000,
       historyBack: back
-    }
+    };
 
     if (params) {
-      config.params = params
+      config.params = params;
     }
 
     if (data) {
-      config.data = data
+      config.data = data;
     }
 
     return this.httpClient.request(config).then(response => {
-      let filename = response.headers['x-suggested-filename']
+      let filename = response.headers["x-suggested-filename"];
 
       if (!filename) {
-        const disposition = contentDisposition.parse(response.headers['content-disposition'])
+        const disposition = contentDisposition.parse(
+          response.headers["content-disposition"]
+        );
 
-        filename = disposition.parameters.filename
+        filename = disposition.parameters.filename;
       }
 
       if (filename) {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement('a')
-        link.href = url
-        link.setAttribute('download', decodeURIComponent(filename))
-        link.click()
-        window.URL.revokeObjectURL(url)
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", decodeURIComponent(filename));
+        link.click();
+        window.URL.revokeObjectURL(url);
 
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
-    })
+    });
   }
 }
 
-export default Request
+export default Request;

@@ -1,40 +1,43 @@
-import BlankLayout from '@admin/components/BlankLayout'
+import BlankLayout from "@admin/components/BlankLayout";
 
 const routes = [
   {
-    path: '/user',
+    path: "/user",
     component: BlankLayout,
     meta: {
       breadcrumb: {
-        title: '会员',
-        path: '/user'
+        title: "会员",
+        path: "/user"
       }
     },
     children: [
       {
-        path: '',
-        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Index')
+        path: "",
+        component: () =>
+          import(/* webpackChunkName: "chunk-user" */ "@admin/views/user/Index")
       },
       {
-        path: 'create',
-        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Create'),
+        path: "create",
+        component: () =>
+          import(/* webpackChunkName: "chunk-user" */ "@admin/views/user/Create"),
         meta: {
           breadcrumb: {
-            title: '新建'
+            title: "新建"
           }
         }
       },
       {
-        path: 'edit',
-        component: () => import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Edit'),
+        path: "edit",
+        component: () =>
+          import(/* webpackChunkName: "chunk-user" */ "@admin/views/user/Edit"),
         meta: {
           breadcrumb: {
-            title: '编辑'
+            title: "编辑"
           }
         }
       }
     ]
   }
-]
+];
 
-export default routes
+export default routes;

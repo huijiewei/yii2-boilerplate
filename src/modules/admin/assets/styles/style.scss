@@ -67,11 +67,12 @@
         height: 0;
     }
 
-    .el-popper[x-placement^=bottom] {
+    .el-popper[x-placement^="bottom"] {
         margin-top: 0;
     }
 
-    .el-input-group__append, .el-input-group__prepend {
+    .el-input-group__append,
+    .el-input-group__prepend {
         border-radius: 2px 0 0 2px;
     }
 
@@ -99,7 +100,8 @@
             background: #fafafa;
         }
 
-        td, th {
+        td,
+        th {
             padding: 10px 0 9px 0;
         }
 
@@ -152,7 +154,6 @@
         }
     }
 }
-
 
 @media screen and (max-width: 630px) {
     .ag .box-toolbar .box-toolbar-search .br {

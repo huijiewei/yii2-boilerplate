@@ -1,15 +1,15 @@
 <template>
-  <i :class="'anticon anticon-' + icon" />
+    <i :class="'anticon anticon-' + icon" />
 </template>
 
 <script>
 export default {
-  name: 'SiderMenuIcon',
-  props: {
-    icon: {
-      type: String,
-      default: ''
+    name: "SiderMenuIcon",
+    props: {
+        icon: {
+            type: String,
+            default: ""
+        }
     }
-  }
-}
+};
 </script>
