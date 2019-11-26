@@ -28,7 +28,13 @@ export default {
     }
   },
   created() {
-    this.admin = { adminGroup: { id: null } }
+    this.admin = {
+      phone: '',
+      email: '',
+      name: '',
+      avatar: '',
+      adminGroup: { id: null }
+    }
   },
   methods: {
     async createAdmin(admin, done, fail, always) {

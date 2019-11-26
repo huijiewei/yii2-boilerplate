@@ -11,6 +11,10 @@ const MiscService = {
 
   shopCategoryTree() {
     return Vue.http.get('misc/shop-category-tree')
+  },
+
+  shopCategoryRoute(id) {
+    return Vue.http.get('misc/shop-category-route', { id: id })
   }
 }
 

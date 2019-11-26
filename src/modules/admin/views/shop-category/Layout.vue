@@ -103,7 +103,6 @@ export default {
     },
 
     handleContextMenu(event, category) {
-      console.log(category)
       this.$refs.contextMenu.open(event, category)
     },
 

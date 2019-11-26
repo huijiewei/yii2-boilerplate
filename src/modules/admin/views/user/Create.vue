@@ -28,7 +28,7 @@ export default {
     }
   },
   created() {
-    this.user = {}
+    this.user = { phone: '', email: '', name: '', avatar: '' }
   },
   methods: {
     async createUser(user, done, fail, always) {

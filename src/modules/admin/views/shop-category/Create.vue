@@ -20,6 +20,7 @@
 <script>
 import ShopCategoryForm from '@admin/views/shop-category/_EditForm'
 import ShopCategoryService from '@admin/services/ShopCategoryService'
+import MiscService from '@admin/services/MiscService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
@@ -39,44 +40,52 @@ export default {
   },
   async beforeRouteUpdate(to, from, next) {
     this.shopCategory = null
-    await this.getShopCategory(to.query.id)
+    await this.getShopCategoryRoute(to.query.parentId)
     next()
   },
   async created() {
-    await this.getShopCategory(this.$router.currentRoute.query.id)
+    await this.getShopCategoryRoute(this.$router.currentRoute.query.parentId)
   },
   methods: {
-    async getShopCategory(id) {
-      const { data } = await flatry(ShopCategoryService.create(null, id))
+    async getShopCategoryRoute(id) {
+      this.shopCategory = {
+        parentId: 0
+      }
 
-      if (data) {
-        if (data.ancestor && Array.isArray(data.ancestor)) {
-          const ancestor = []
-          data.ancestor.forEach(function(item) {
-            ancestor.push(item.id)
-          })
-          this.categoryParents = ancestor
+      if (id === 0) {
+        this.categoryParents = [0]
+        return
+      }
 
-          this.$emit('on-expanded', ancestor, data.id)
-        }
+      const { data } = await flatry(MiscService.shopCategoryRoute(id))
 
-        this.shopCategory = data
+      if (data && Array.isArray(data)) {
+        const parents = data.map(parent => parent.id)
+        this.categoryParents = parents
+
+        this.$emit('on-expanded', parents, id)
       }
     },
-    async createShopCategory(shopCategory, success, callback) {
-      const { data } = await flatry(ShopCategoryService.create(shopCategory))
+    async createShopCategory(shopCategory, done, fail, always) {
+      const { data, error } = await flatry(
+        ShopCategoryService.create(shopCategory)
+      )
 
       if (data) {
         this.$message.success('新建商品分类成功')
         await this.$router.replace({
           path: '/shop-category/edit',
-          query: { id: data.categoryId }
+          query: { id: data.id }
         })
-        this.$emit('on-updated', data.categoryId)
-        success()
+        this.$emit('on-updated', data.id)
+        done()
       }
 
-      callback()
+      if (error) {
+        fail(error)
+      }
+
+      always()
     }
   }
 }
