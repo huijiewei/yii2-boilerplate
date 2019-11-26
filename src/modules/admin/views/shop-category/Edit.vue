@@ -50,13 +50,15 @@ export default {
       const { data } = await flatry(ShopCategoryService.edit(id))
 
       if (data) {
+        let parents = [0]
+
         if (data.parents && Array.isArray(data.parents)) {
-          const parents = data.parents.map(parent => parent.id)
-
-          this.categoryParents = parents
-
-          this.$emit('on-expanded', parents, data.id)
+          parents = data.parents.map(parent => parent.id)
         }
+
+        this.categoryParents = parents
+
+        this.$emit('on-expanded', parents, data.id)
 
         this.shopCategory = data
       }
@@ -67,10 +69,10 @@ export default {
       )
 
       if (data) {
+        done()
+
         this.$message.success('修改成功')
         this.$emit('on-updated', shopCategory.id)
-
-        done()
       }
 
       if (error) {

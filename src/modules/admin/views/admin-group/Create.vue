@@ -28,16 +28,16 @@ export default {
     }
   },
   async created() {
-    this.adminGroup = {}
+    this.adminGroup = { name: '' }
   },
   methods: {
     async createAdminGroup(adminGroup, done, fail, always) {
       const { data, error } = await flatry(AdminGroupService.create(adminGroup))
 
       if (data) {
-        this.$message.success('新建管理组成功')
         done()
 
+        this.$message.success('新建管理组成功')
         await this.$router.push({ path: '/admin-group' })
       }
 

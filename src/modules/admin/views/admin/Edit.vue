@@ -43,6 +43,7 @@ export default {
 
       if (data) {
         done()
+
         this.$message.success('管理员编辑成功')
       }
 

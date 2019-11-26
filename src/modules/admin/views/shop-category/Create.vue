@@ -48,22 +48,26 @@ export default {
   },
   methods: {
     async getShopCategoryRoute(id) {
+      let parents = [0]
+
+      if (id > 0) {
+        const { data } = await flatry(MiscService.shopCategoryRoute(id))
+
+        if (data && Array.isArray(data)) {
+          parents = data.map(parent => parent.id)
+        }
+      }
+
+      this.categoryParents = parents
+
+      this.$emit('on-expanded', parents, id)
+
       this.shopCategory = {
-        parentId: 0
-      }
-
-      if (id === 0) {
-        this.categoryParents = [0]
-        return
-      }
-
-      const { data } = await flatry(MiscService.shopCategoryRoute(id))
-
-      if (data && Array.isArray(data)) {
-        const parents = data.map(parent => parent.id)
-        this.categoryParents = parents
-
-        this.$emit('on-expanded', parents, id)
+        parentId: id,
+        name: '',
+        icon: '',
+        image: '',
+        description: ''
       }
     },
     async createShopCategory(shopCategory, done, fail, always) {
@@ -72,13 +76,14 @@ export default {
       )
 
       if (data) {
+        done()
+
         this.$message.success('新建商品分类成功')
+        this.$emit('on-updated', data.id)
         await this.$router.replace({
           path: '/shop-category/edit',
           query: { id: data.id }
         })
-        this.$emit('on-updated', data.id)
-        done()
       }
 
       if (error) {

@@ -1,7 +1,6 @@
 <template>
   <el-form
     v-if="formModel"
-    :rules="formRules"
     :model="formModel"
     ref="formModel"
     label-width="100px"
@@ -23,7 +22,12 @@
     </el-form-item>
     <el-form-item label="分类名称" prop="name">
       <el-col :md="7">
-        <el-input v-model.trim="formModel.name"></el-input>
+        <el-input
+          v-model.trim="formModel.name"
+          :rules="[
+            { required: true, message: '请输入商品分类名称', trigger: 'blur' }
+          ]"
+        ></el-input>
       </el-col>
     </el-form-item>
     <el-form-item label="分类图标" prop="icon">
@@ -85,11 +89,6 @@ export default {
   data() {
     return {
       submitLoading: false,
-      formRules: {
-        name: [
-          { required: true, message: '请输入商品分类名称', trigger: 'blur' }
-        ]
-      },
       formModel: null,
       formCategoryParents: []
     }

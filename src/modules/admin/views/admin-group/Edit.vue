@@ -44,9 +44,9 @@ export default {
       )
 
       if (data) {
-        this.$message.success('管理组编辑成功')
-
         done()
+
+        this.$message.success('管理组编辑成功')
       }
 
       if (error) {
