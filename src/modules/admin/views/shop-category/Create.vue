@@ -62,13 +62,15 @@ export default {
 
       this.$emit('on-expanded', parents, id)
 
-      this.shopCategory = {
-        parentId: id,
-        name: '',
-        icon: '',
-        image: '',
-        description: ''
-      }
+      this.$nextTick(() => {
+        this.shopCategory = {
+          parentId: id,
+          name: '',
+          icon: '',
+          image: '',
+          description: ''
+        }
+      })
     },
     async createShopCategory(shopCategory, done, fail, always) {
       const { data, error } = await flatry(
