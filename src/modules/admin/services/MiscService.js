@@ -7,6 +7,10 @@ const MiscService = {
 
   adminGroupMap() {
     return Vue.http.get('misc/admin-group-map')
+  },
+
+  shopCategoryTree() {
+    return Vue.http.get('misc/shop-category-tree')
   }
 }
 

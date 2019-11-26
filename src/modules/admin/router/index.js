@@ -9,6 +9,7 @@ import siteProfile from '@admin/views/site/Profile'
 
 import adminRoutes from './admin'
 import userRoutes from './user'
+import shopRoutes from './shop'
 
 import defaultLayout from '@admin/components/DefaultLayout'
 
@@ -21,6 +22,7 @@ const routes = [
     children: [
       ...adminRoutes,
       ...userRoutes,
+      ...shopRoutes,
       {
         path: 'home',
         component: siteIndex,

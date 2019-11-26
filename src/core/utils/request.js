@@ -86,7 +86,7 @@ class Request {
   }
 
   get(url, params = null, back = true) {
-    return this.request('GET', url, params, back)
+    return this.request('GET', url, params, null, back)
   }
 
   head(url, params = null) {
@@ -106,7 +106,7 @@ class Request {
   }
 
   delete(url, params = null, back = false) {
-    return this.request('DELETE', url, params, back)
+    return this.request('DELETE', url, params, null, back)
   }
 
   download(method, url, params = null, data = null, back = false) {
