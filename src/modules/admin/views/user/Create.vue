@@ -37,9 +37,8 @@ export default {
       if (data) {
         done()
 
-        this.$message.success(data.message)
-
-        await this.$router.push({ path: '/user/index' })
+        this.$message.success('新建用户成功')
+        await this.$router.push({ path: '/user' })
       }
 
       if (error) {

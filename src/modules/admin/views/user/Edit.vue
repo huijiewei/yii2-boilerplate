@@ -42,8 +42,8 @@ export default {
       const { data, error } = await flatry(UserService.edit(user.id, user))
 
       if (data) {
-        this.$message.success(data.message)
         done()
+        this.$message.success('用户编辑成功')
       }
 
       if (error) {

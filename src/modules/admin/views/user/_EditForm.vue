@@ -141,7 +141,7 @@ export default {
   },
   mounted() {
     this.formModel = Object.assign(
-      { password: '', passwordRepeat: '' },
+      { password: '', passwordConfirm: '' },
       this.user
     )
   },
