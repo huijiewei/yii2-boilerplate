@@ -8,7 +8,7 @@
       :submit-text="pageTitle"
       :shop-category="shopCategory"
       :category-tree="categoryTree"
-      :category-ancestor="categoryAncestor"
+      :category-parents="categoryParents"
       :is-edit="true"
       @on-submit="createShopCategory"
     >
@@ -34,7 +34,7 @@ export default {
     return {
       pageTitle: '新建商品分类',
       shopCategory: null,
-      categoryAncestor: []
+      categoryParents: []
     }
   },
   async beforeRouteUpdate(to, from, next) {
@@ -55,7 +55,7 @@ export default {
           data.ancestor.forEach(function(item) {
             ancestor.push(item.id)
           })
-          this.categoryAncestor = ancestor
+          this.categoryParents = ancestor
 
           this.$emit('on-expanded', ancestor, data.id)
         }

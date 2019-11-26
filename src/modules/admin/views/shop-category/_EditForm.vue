@@ -13,11 +13,10 @@
         <el-cascader
           style="width: 100%;"
           placeholder="请选择上级分类"
-          :options="categoryTree"
-          :props="{ value: 'id', label: 'name' }"
-          v-model="formCategoryAncestor"
-          :change-on-select="true"
-          @change="handleCategoryAncestorChange"
+          :options="getCategoryTree"
+          :props="{ value: 'id', label: 'name', checkStrictly: true }"
+          v-model="formCategoryParents"
+          @change="handleCategoryParentsChange"
         >
         </el-cascader>
       </el-col>
@@ -38,10 +37,20 @@
         @on-upload-success="handleUploadSuccess"
       ></avatar-uploader>
     </el-form-item>
+    <el-form-item label="分类介绍" prop="icon">
+      <el-col :md="16">
+        <el-input
+          type="textarea"
+          :rows="2"
+          autosize
+          v-model.trim="formModel.description"
+        ></el-input>
+      </el-col>
+    </el-form-item>
     <el-form-item>
-      <el-button type="primary" native-type="submit" :loading="submitLoading">{{
-        submitText
-      }}</el-button>
+      <el-button type="primary" native-type="submit" :loading="submitLoading"
+        >{{ submitText }}
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -69,7 +78,7 @@ export default {
     categoryTree: {
       type: Array
     },
-    categoryAncestor: {
+    categoryParents: {
       type: Array
     }
   },
@@ -82,18 +91,23 @@ export default {
         ]
       },
       formModel: null,
-      formCategoryAncestor: []
+      formCategoryParents: []
+    }
+  },
+  computed: {
+    getCategoryTree() {
+      return [...[{ id: 0, name: '根分类' }], ...this.categoryTree]
     }
   },
   async mounted() {
     this.formModel = this.shopCategory
-    this.formCategoryAncestor = this.categoryAncestor
+    this.formCategoryParents = this.categoryParents
   },
   methods: {
     handleUploadSuccess(imageUrl) {
       this.formModel.image = imageUrl
     },
-    handleCategoryAncestorChange(value) {
+    handleCategoryParentsChange(value) {
       this.formModel.parentId = value[value.length - 1]
     },
     handleFormSubmit(formName) {

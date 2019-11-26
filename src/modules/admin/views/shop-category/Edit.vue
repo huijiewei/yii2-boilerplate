@@ -8,7 +8,7 @@
       :submit-text="pageTitle"
       :shop-category="shopCategory"
       :category-tree="categoryTree"
-      :category-ancestor="categoryParents"
+      :category-parents="categoryParents"
       :is-edit="true"
       @on-submit="editShopCategory"
     >
@@ -51,10 +51,8 @@ export default {
 
       if (data) {
         if (data.parents && Array.isArray(data.parents)) {
-          const parents = []
-          data.parents.forEach(function(item) {
-            parents.push(item.id)
-          })
+          const parents = data.parents.map(parent => parent.id)
+
           this.categoryParents = parents
 
           this.$emit('on-expanded', parents, data.id)
@@ -63,18 +61,23 @@ export default {
         this.shopCategory = data
       }
     },
-    async editShopCategory(shopCategory, success, callback) {
-      const { data } = await flatry(
+    async editShopCategory(shopCategory, done, fail, always) {
+      const { data, error } = await flatry(
         ShopCategoryService.edit(shopCategory.id, shopCategory)
       )
 
       if (data) {
-        this.$message.success(data.message)
+        this.$message.success('修改成功')
         this.$emit('on-updated', shopCategory.id)
-        success()
+
+        done()
       }
 
-      callback()
+      if (error) {
+        fail(error)
+      }
+
+      always()
     }
   }
 }
