@@ -11,9 +11,10 @@
       :category-parents="categoryParents"
       :is-edit="true"
       @on-submit="editShopCategory"
+      @on-delete="deleteShopCategory"
     >
     </shop-category-form>
-    <placeholder-form v-else></placeholder-form>
+    <placeholder-form v-else />
   </el-row>
 </template>
 
@@ -80,6 +81,27 @@ export default {
       }
 
       always()
+    },
+    async deleteShopCategory(shopCategory) {
+      this.$deleteDialog(`商品分类 ${shopCategory.name}`, async action => {
+        if (action === 'confirm') {
+          this.loading = true
+
+          const { data } = await flatry(
+            ShopCategoryService.delete(shopCategory.id)
+          )
+
+          if (data) {
+            this.$message.success('删除成功')
+            this.$emit('on-updated', shopCategory.parentId)
+            await this.$router.replace({
+              path: '/shop-category'
+            })
+          }
+
+          this.loading = false
+        }
+      })
     }
   }
 }

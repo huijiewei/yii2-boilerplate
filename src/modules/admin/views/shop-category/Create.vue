@@ -9,7 +9,7 @@
       :shop-category="shopCategory"
       :category-tree="categoryTree"
       :category-parents="categoryParents"
-      :is-edit="true"
+      :is-edit="false"
       @on-submit="createShopCategory"
     >
     </shop-category-form>

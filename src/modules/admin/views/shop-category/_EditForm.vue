@@ -27,19 +27,19 @@
           :rules="[
             { required: true, message: '请输入商品分类名称', trigger: 'blur' }
           ]"
-        ></el-input>
+        />
       </el-col>
     </el-form-item>
     <el-form-item label="分类图标" prop="icon">
       <el-col :md="7">
-        <el-input v-model.trim="formModel.icon"></el-input>
+        <el-input v-model.trim="formModel.icon" />
       </el-col>
     </el-form-item>
     <el-form-item label="图片" prop="image">
       <avatar-uploader
         :avatar="formModel.image"
         @on-upload-success="handleUploadSuccess"
-      ></avatar-uploader>
+      />
     </el-form-item>
     <el-form-item label="分类介绍" prop="icon">
       <el-col :md="16">
@@ -48,12 +48,23 @@
           :rows="2"
           autosize
           v-model.trim="formModel.description"
-        ></el-input>
+        />
       </el-col>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" native-type="submit" :loading="submitLoading"
         >{{ submitText }}
+      </el-button>
+
+      <el-button
+        v-if="isEdit"
+        :disabled="!$can('shop-category/delete')"
+        plain
+        type="danger"
+        size="small"
+        @click.native="handleShopCategoryDelete"
+      >
+        删除
       </el-button>
     </el-form-item>
   </el-form>
@@ -108,6 +119,9 @@ export default {
     },
     handleCategoryParentsChange(value) {
       this.formModel.parentId = value[value.length - 1]
+    },
+    handleShopCategoryDelete() {
+      this.$emit('on-delete', this.formModel)
     },
     handleFormSubmit(formName) {
       this.$refs[formName].validate(valid => {

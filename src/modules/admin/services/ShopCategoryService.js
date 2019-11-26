@@ -13,6 +13,10 @@ const ShopCategoryService = {
     }
 
     return Vue.http.put(endpoint, shopCategory)
+  },
+
+  delete(id) {
+    return Vue.http.delete('shop-categories/' + id)
   }
 }
 
