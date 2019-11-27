@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 module.exports = {
+  assetsDir: 'assets',
   devServer: {
     host: 'www.agile.test',
     https: {
