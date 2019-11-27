@@ -157,9 +157,9 @@ export default {
   & ul {
     background-color: #ffffff;
     background-clip: padding-box;
-    border-radius: 3px;
+    border-radius: 2px;
     border: 1px solid #ebeef5;
-    box-shadow: 0 0 15px 1px rgba(69, 65, 78, 0.2);
+    box-shadow: 0 0 9px 1px rgba(69, 65, 78, 0.1);
     display: block;
     margin: 0;
     padding: 0;
@@ -176,11 +176,11 @@ export default {
 
       > span {
         cursor: pointer;
-        font-size: 14px;
+        font-size: 13px;
         display: block;
-        padding: 0 20px;
-        line-height: 36px;
-        height: 36px;
+        padding: 0 15px;
+        line-height: 32px;
+        height: 32px;
         color: #212529;
         text-decoration: none;
         white-space: nowrap;

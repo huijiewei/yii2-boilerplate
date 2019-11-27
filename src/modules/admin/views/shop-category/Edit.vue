@@ -23,6 +23,7 @@ import ShopCategoryForm from '@admin/views/shop-category/_EditForm'
 import ShopCategoryService from '@admin/services/ShopCategoryService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
+import MiscService from '@admin/services/MiscService'
 
 export default {
   components: { PlaceholderForm, ShopCategoryForm },
@@ -63,6 +64,10 @@ export default {
 
         this.shopCategory = data
       }
+
+      const { ids } = await flatry(MiscService.shopCategoryChildren(id))
+
+      console.log(ids)
     },
     async editShopCategory(shopCategory, done, fail, always) {
       const { data, error } = await flatry(

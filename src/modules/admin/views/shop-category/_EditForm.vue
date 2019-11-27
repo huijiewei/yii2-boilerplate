@@ -41,11 +41,11 @@
         @on-upload-success="handleUploadSuccess"
       />
     </el-form-item>
-    <el-form-item label="分类介绍" prop="icon">
+    <el-form-item label="分类介绍" prop="description">
       <el-col :md="16">
         <el-input
           type="textarea"
-          :rows="2"
+          rows="2"
           autosize
           v-model.trim="formModel.description"
         />
