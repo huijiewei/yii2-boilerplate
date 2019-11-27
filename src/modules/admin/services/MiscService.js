@@ -15,10 +15,6 @@ const MiscService = {
 
   shopCategoryRoute(id) {
     return Vue.http.get('misc/shop-category-route', { id: id })
-  },
-
-  shopCategoryChildren(id) {
-    return Vue.http.get('misc/shop-category-children', { id: id })
   }
 }
 

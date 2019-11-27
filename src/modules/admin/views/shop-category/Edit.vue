@@ -64,10 +64,6 @@ export default {
 
         this.shopCategory = data
       }
-
-      const { ids } = await flatry(MiscService.shopCategoryChildren(id))
-
-      console.log(ids)
     },
     async editShopCategory(shopCategory, done, fail, always) {
       const { data, error } = await flatry(
