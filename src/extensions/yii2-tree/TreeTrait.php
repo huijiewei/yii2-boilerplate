@@ -62,22 +62,38 @@ trait TreeTrait
      */
     public static function getDescendantById($id)
     {
-        return static::getItemInTreeById($id, static::getTree());
+        $node = static::getNodeInTreeById($id, static::getTree());
+
+        if ($node && isset($node['children']) && !empty($node['children'])) {
+            return $node['children'];
+        }
+
+        return [];
     }
 
-    private static function getItemInTreeById($id, $tree)
+    /**
+     * @param $id
+     * @param $tree
+     * @return array|null
+     */
+    private static function getNodeInTreeById($id, $tree)
     {
+        $result = null;
+
         foreach ($tree as $item) {
-            if ($item['id'] == $id) {
-                return isset($item['children']) ? $item['children'] : null;
+            if ($result !== null) {
+                break;
             }
 
-            if (isset($item['children']) && is_array($item['children'])) {
-                return static::getItemInTreeById($id, $item['children']);
+            if ($item['id'] == $id) {
+                $result = $item;
+                break;
+            } elseif (isset($item['children']) && !empty($item['children'])) {
+                $result = static::getNodeInTreeById($id, $item['children']);
             }
         }
 
-        return null;
+        return $result;
     }
 
     /**
@@ -207,11 +223,11 @@ trait TreeTrait
 
         $ancestor = [];
 
-        $parent = static::getItemInDataById($id, $data);
+        $parent = static::getItemInListById($id, $data);
 
         while ($parent != null) {
             $ancestor[] = $parent;
-            $parent = static::getItemInDataById($parent['parentId'], $data);
+            $parent = static::getItemInListById($parent['parentId'], $data);
         }
 
         return array_reverse($ancestor);
@@ -219,13 +235,13 @@ trait TreeTrait
 
     /**
      * @param $id
-     * @param $data
+     * @param $list
      *
      * @return null
      */
-    private static function getItemInDataById($id, $data)
+    private static function getItemInListById($id, $list)
     {
-        foreach ($data as $item) {
+        foreach ($list as $item) {
             if ($item['id'] == $id) {
                 return $item;
             }
