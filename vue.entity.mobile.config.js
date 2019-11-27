@@ -12,15 +12,18 @@ const customConfig = {
   pages: {
     admin: {
       entry: 'src/modules/mobile/main.js',
-      template: 'public/index.html',
+      template: '../../public/index.html',
       filename: 'index.html',
       title: 'Agile 移动端',
       chunks: ['vendor', 'element', 'agile', 'mobile']
     }
   },
+  configureWebpack: {
+    context: path.resolve('src/modules/mobile')
+  },
   devServer: {
     port: 8081,
-    before (app) {
+    before(app) {
       apiMocker(app, path.resolve('./mocker/mobile/index.js'))
     }
   }

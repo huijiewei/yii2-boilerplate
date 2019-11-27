@@ -8,6 +8,8 @@ import store from './store'
 
 import App from './App.vue'
 
+import './registerServiceWorker'
+
 import HttpClient from '@core/plugins/HttpClient'
 import DeleteDialog from './plugins/DeleteDialog'
 import PermissionCheck from './plugins/PermissionCheck'
