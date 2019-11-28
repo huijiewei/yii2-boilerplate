@@ -59,9 +59,7 @@
       </el-col>
     </el-form-item>
     <el-form-item label="头像" prop="avatar">
-      <avatar-upload
-        v-model="formModel.avatar"
-      />
+      <avatar-upload v-model="formModel.avatar" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" native-type="submit" :loading="submitLoading">
