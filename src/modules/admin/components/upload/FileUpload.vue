@@ -1,11 +1,8 @@
 <template>
   <upload
-    :action="'misc/image-upload-option'"
+    :action="'misc/file-upload-option'"
     :multiple="multiple"
-    :preview="preview"
     :files="value"
-    :cropper="cropper"
-    :process="'avatar'"
     @on-success="handleSuccess"
   />
 </template>
@@ -14,32 +11,16 @@
 import Upload from '@admin/components/upload/_Upload'
 
 export default {
-  name: 'AvatarUpload',
+  name: 'FileUpload',
   components: { Upload },
   props: {
     value: {
       type: [Array, String],
       default: null
     },
-    cropper: {
-      type: Object,
-      default: function() {
-        return {
-          enable: true,
-          aspectRatio: 1,
-          size: [200, 200]
-        }
-      }
-    },
     multiple: {
       type: Boolean,
       default: false
-    },
-    preview: {
-      type: Array,
-      default: function() {
-        return [90, 90]
-      }
     }
   },
   model: {

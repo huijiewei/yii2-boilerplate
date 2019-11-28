@@ -1,10 +1,4 @@
-@mixin clearfix {
-  &::after {
-    display: block;
-    content: '';
-    clear: both;
-  }
-}
+@import "../../../../core/assets/styles/mixin.scss";
 
 .ag {
   -webkit-font-smoothing: antialiased;

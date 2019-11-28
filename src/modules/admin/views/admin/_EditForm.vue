@@ -58,10 +58,7 @@
       </el-col>
     </el-form-item>
     <el-form-item label="头像" prop="avatar">
-      <avatar-upload
-        :avatar="formModel.avatar"
-        @on-upload-success="handleUploadSuccess"
-      />
+      <avatar-upload v-model.trim="formModel.avatar" />
     </el-form-item>
     <el-form-item
       label="管理组"
@@ -193,9 +190,6 @@ export default {
     }
   },
   methods: {
-    handleUploadSuccess(avatarUrl) {
-      this.formModel.avatar = avatarUrl
-    },
     handleFormSubmit(formName) {
       this.$refs[formName].validate(valid => {
         if (!valid) {

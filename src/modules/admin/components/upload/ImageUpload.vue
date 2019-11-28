@@ -5,7 +5,6 @@
     :preview="preview"
     :files="value"
     :cropper="cropper"
-    :process="'avatar'"
     @on-success="handleSuccess"
   />
 </template>
@@ -14,7 +13,7 @@
 import Upload from '@admin/components/upload/_Upload'
 
 export default {
-  name: 'AvatarUpload',
+  name: 'ImageUpload',
   components: { Upload },
   props: {
     value: {

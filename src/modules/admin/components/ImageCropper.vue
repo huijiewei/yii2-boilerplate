@@ -97,7 +97,7 @@ export default {
 
       const data = this.$refs.cropper.getData()
 
-      request.post(this.cropUrl, {
+      await request.post(this.cropUrl, {
         file: this.image,
         x: data.x,
         y: data.y,
