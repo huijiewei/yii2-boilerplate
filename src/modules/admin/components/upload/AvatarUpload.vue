@@ -38,7 +38,7 @@ export default {
     preview: {
       type: Array,
       default: function() {
-        return [90, 90]
+        return [88, 88]
       }
     }
   },
