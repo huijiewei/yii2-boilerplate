@@ -1,4 +1,9 @@
-新版样板项目
+前后端分类脚手架
+
+大家可以访问新的基于 Vue CLI 和 Spring Boot 的前后端分离项目
+https://github.com/huijiewei/agile-vue
+
+https://github.com/huijiewei/agile-boot
 
 ### 特点
 
