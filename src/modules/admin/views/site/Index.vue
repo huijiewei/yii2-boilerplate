@@ -17,71 +17,74 @@
         >访问 Github 项目地址</a
       >
     </p>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>单文件上传</span>
-      </div>
-      <p><file-upload :multiple="false" v-model="file" /></p>
-    </el-card>
+    <el-row :gutter="15">
+      <el-col :span="8">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>单文件上传</span>
+          </div>
+          <file-upload :multiple="false" v-model="file" />
+        </el-card>
+      </el-col>
+      <el-col :span="8">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>单图片上传</span>
+          </div>
+          <image-upload
+            :multiple="false"
+            :cropper="{ enable: false }"
+            v-model="file"
+          />
+        </el-card>
+      </el-col>
+      <el-col :span="8">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>单图片上传切割</span>
+          </div>
+          <image-upload
+            :multiple="false"
+            :cropper="{ enable: true }"
+            v-model="file"
+          />
+        </el-card>
+      </el-col>
+    </el-row>
     <hr />
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>多文件上传</span>
       </div>
-      <p><file-upload :multiple="true" v-model="files" /></p>
+      <file-upload :multiple="true" v-model="files" />
     </el-card>
     <hr />
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>单图片上传</span>
-      </div>
-      <p>
-        <image-upload
-          :multiple="false"
-          :cropper="{ enable: false }"
-          v-model="file"
-        />
-      </p>
-    </el-card>
-    <hr />
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>多图片上传</span>
-      </div>
-      <p>
-        <image-upload
-          :multiple="true"
-          :cropper="{ enable: false }"
-          v-model="files"
-        />
-      </p>
-    </el-card>
-    <hr />
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>单图片上传切割</span>
-      </div>
-      <p>
-        <image-upload
-          :multiple="false"
-          :cropper="{ enable: true }"
-          v-model="file"
-        />
-      </p>
-    </el-card>
-    <hr />
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>多图片上传切割</span>
-      </div>
-      <p>
-        <image-upload
-          :multiple="true"
-          :cropper="{ enable: true }"
-          v-model="files"
-        />
-      </p>
-    </el-card>
+    <el-row :gutter="15">
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>多图片上传</span>
+          </div>
+          <image-upload
+            :multiple="true"
+            :cropper="{ enable: false }"
+            v-model="files"
+          />
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>多图片上传切割</span>
+          </div>
+          <image-upload
+            :multiple="true"
+            :cropper="{ enable: true }"
+            v-model="files"
+          />
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
