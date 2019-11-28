@@ -306,10 +306,10 @@ export default {
               randomFileName =
                 Math.random()
                   .toString(36)
-                  .substring(1, 12) +
+                  .substring(3, 15) +
                 Math.random()
                   .toString(36)
-                  .substring(1, 12) +
+                  .substring(3, 15) +
                 '.' +
                 option.file.name.split('.').pop()
             }
@@ -433,7 +433,7 @@ export default {
 @import '../../../../core/assets/styles/mixin.scss';
 .upload-widget {
   line-height: 1em;
-  
+
   .el-upload-list--picture-card .el-upload-list__item-actions {
     font-size: 16px;
   }
