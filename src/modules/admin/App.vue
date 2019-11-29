@@ -23,9 +23,10 @@ export default {
 
       if (error.message.length > 0 && error.message !== lastErrorMessage) {
         lastErrorMessage = error.message
+
         self.$alert(error.message, {
           center: true,
-          confirmButtonText: '确定',
+          confirmButtonText: error.historyBack ? '返回' : '确定',
           type: 'warning',
           showClose: false,
           callback: () => {

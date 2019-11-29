@@ -70,8 +70,11 @@ class Request {
   request(method, url, params = null, data = null, back = false) {
     const config = {
       url: url,
-      method: method,
-      historyBack: back
+      method: method
+    }
+
+    if (back === true) {
+      config.historyBack = true
     }
 
     if (params) {
