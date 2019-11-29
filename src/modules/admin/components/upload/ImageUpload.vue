@@ -5,6 +5,7 @@
     :preview="preview"
     :files="value"
     :cropper="cropper"
+    :process="process"
     @on-success="handleSuccess"
   />
 </template>
@@ -19,6 +20,10 @@ export default {
     value: {
       type: [Array, String],
       default: null
+    },
+    process: {
+      type: String,
+      default: ''
     },
     cropper: {
       type: Object,

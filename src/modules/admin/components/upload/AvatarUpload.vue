@@ -1,45 +1,22 @@
 <template>
-  <upload
-    :action="'misc/image-upload-option'"
-    :multiple="multiple"
-    :preview="preview"
-    :files="value"
-    :cropper="cropper"
+  <image-upload
+    :multiple="false"
+    :value="value"
     :process="'avatar'"
-    @on-success="handleSuccess"
+    @change="handleChange"
   />
 </template>
 
 <script>
-import Upload from '@admin/components/upload/_Upload'
+import ImageUpload from '@admin/components/upload/ImageUpload'
 
 export default {
   name: 'AvatarUpload',
-  components: { Upload },
+  components: { ImageUpload },
   props: {
     value: {
       type: [Array, String],
       default: null
-    },
-    cropper: {
-      type: Object,
-      default: function() {
-        return {
-          enable: true,
-          aspectRatio: 1,
-          size: [200, 200]
-        }
-      }
-    },
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    preview: {
-      type: Array,
-      default: function() {
-        return [88, 88]
-      }
     }
   },
   model: {
@@ -47,7 +24,7 @@ export default {
     event: 'change'
   },
   methods: {
-    handleSuccess(files) {
+    handleChange(files) {
       this.$emit('change', files)
     }
   }
