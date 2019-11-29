@@ -1,0 +1,11 @@
+{
+  "include": ["./src/**/*"],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@core/*": ["core/*"],
+      "@admin/*": ["modules/admin/*"],
+      "@mobile/*": ["modules/mobile/*"]
+    }
+  }
+}
