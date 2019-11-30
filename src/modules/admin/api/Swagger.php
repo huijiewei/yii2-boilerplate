@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Huijiewei
@@ -7,16 +8,8 @@
  */
 
 /**
- * @SWG\Swagger(
- *  schemes={"http"},
- *  host=API_HOST,
- *  basePath=API_BASE_PATH,
- *  produces={"application/json"},
- *  consumes={"application/json"},
- *  security={{
- *     "AdminSecurity":{}
- *   }},
- *   @SWG\Info(
+ * @OA\OpenApi(
+ *   @OA\Info(
  *     title="Boilerplate 管理员 API",
  *     description="欢迎使用 Boilerplate 管理员 API",
  *     version="v1"
@@ -25,8 +18,8 @@
  */
 
 /**
- * @SWG\SecurityScheme(
- *   securityDefinition="AdminSecurity",
+ * @OA\SecurityScheme(
+ *   securityScheme="api_key",
  *   type="apiKey",
  *   in="header",
  *   name="ACCESS-TOKEN",
@@ -35,7 +28,7 @@
  */
 
 /**
- * @SWG\Tag(
+ * @OA\Tag(
  *   name="auth",
  *   description="用户认证相关 API"
  * )

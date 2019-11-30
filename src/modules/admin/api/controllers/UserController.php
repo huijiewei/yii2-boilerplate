@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/7/7
- * Time: 23:34
- */
 
 namespace app\modules\admin\api\controllers;
 
@@ -77,6 +71,27 @@ class UserController extends Controller
         return $this->message('会员编辑成功');
     }
 
+    /**
+     * @OA\Get(path="/user",
+     *   tags={"user"},
+     *   summary="用户列表",
+     *   description="用户列表",
+     *   operationId="userIndex",
+     *   @OA\Parameter(
+     *     in="query",
+     *     name="createdFrom",
+     *     description="创建来源",
+     *     required=false,
+     *     @OA\Schema(
+     *       type="array",
+     *       @OA\Items(
+     *        type = "string"
+     *       )
+     *      )
+     *   ),
+     *   @OA\Response(response=200, description="用户列表")
+     * )
+     */
     public function actionIndex()
     {
         return $this->userSearchForm();

@@ -13,31 +13,6 @@ use app\modules\admin\api\models\AdminLoginForm;
 
 class AuthController extends Controller
 {
-    /**
-     * @SWG\Post(path="/auth/login",
-     *   tags={"auth"},
-     *   summary="管理员登陆",
-     *   description="管理员登陆接口",
-     *   operationId="login",
-     *   @SWG\Parameter(
-     *     in="body",
-     *     name="admin",
-     *     description="登陆信息",
-     *     required=true,
-     *     @SWG\Schema(
-     *      @SWG\Property(
-     *         property="account",
-     *         type="string",
-     *      ),
-     *      @SWG\Property(
-     *         property="password",
-     *         type="string",
-     *      )
-     *    )
-     *   ),
-     *   @SWG\Response(response="default", description="成功后会返回一个 accessToken，保存到本地，然后每次请求头里面带上 X-Access-Token")
-     * )
-     */
     public function actionLogin()
     {
         $form = new AdminLoginForm(['clientId' => $this->getClientId()]);
@@ -81,7 +56,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function actionLogout()
     {

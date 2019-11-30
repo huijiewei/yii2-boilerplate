@@ -1,56 +1,56 @@
 {
-    "name": "huijiewei/yii2-boilerplate",
-    "type": "project",
-    "description": "样板项目",
-    "require": {
-        "php": "^7.1.3",
-        "ext-json": "*",
-        "yiisoft/yii2": "^2.0",
-        "symfony/dotenv": "^4.1",
-        "yiisoft/yii2-swiftmailer": "^2.1",
-        "huijiewei/yii2-wechat": "^2.0",
-        "huijiewei/yii2-swagger": "^2.0",
-        "aliyuncs/oss-sdk-php": "^2.3",
-        "hidehalo/nanoid-php": "^1.1",
-        "fzaninotto/faker": "^1.8",
-        "huijiewei/yii2-upload": "^2.0",
-        "yii2tech/spreadsheet": "^1.0"
-    },
-    "require-dev": {
-        "yiisoft/yii2-debug": "^2.0",
-        "symfony/var-dumper": "^4.1",
-        "phpunit/phpunit": "^7"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Huijie Wei",
-            "email": "huijiewei@outlook.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "app\\core\\": "src/core",
-            "app\\modules\\": "src/modules",
-            "huijiewei\\tree\\": "src/extensions/yii2-tree",
-            "huijiewei\\softdelete\\": "src/extensions/yii2-soft-delete",
-            "huijiewei\\closuretable\\": "src/extensions/yii2-closure-table"
-        }
-    },
-    "config": {
-        "process-timeout": 1800,
-        "fxp-asset": {
-            "enabled": false
-        }
-    },
-    "repositories": {
-        "assets": {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        },
-        "packagist": {
-            "type": "composer",
-            "url": "https://mirrors.aliyun.com/composer/"
-        }
+  "name": "huijiewei/yii2-boilerplate",
+  "type": "project",
+  "description": "样板项目",
+  "require": {
+    "php": "^7.1.3",
+    "ext-json": "*",
+    "yiisoft/yii2": "^2.0",
+    "symfony/dotenv": "^4.1",
+    "yiisoft/yii2-swiftmailer": "^2.1",
+    "huijiewei/yii2-wechat": "^2.0",
+    "huijiewei/yii2-swagger": "^3.0",
+    "aliyuncs/oss-sdk-php": "^2.3",
+    "hidehalo/nanoid-php": "^1.1",
+    "fzaninotto/faker": "^1.8",
+    "huijiewei/yii2-upload": "^2.0",
+    "yii2tech/spreadsheet": "^1.0"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "^2.0",
+    "symfony/var-dumper": "^4.1",
+    "phpunit/phpunit": "^7"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Huijie Wei",
+      "email": "huijiewei@outlook.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "app\\core\\": "src/core",
+      "app\\modules\\": "src/modules",
+      "huijiewei\\tree\\": "src/extensions/yii2-tree",
+      "huijiewei\\softdelete\\": "src/extensions/yii2-soft-delete",
+      "huijiewei\\closuretable\\": "src/extensions/yii2-closure-table"
+    }
+  },
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    }
+  },
+  "repositories": {
+    "assets": {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    },
+    "packagist": {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    }
+  }
 }
