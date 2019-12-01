@@ -47,11 +47,11 @@
           <template slot-scope="child">
             <li>
               <span
-                v-if="$can('shop-category/edit')"
+                v-if="$can('shop-category/view')"
                 @click="handleCategoryEdit(child.data)"
-                >编辑</span
+                >查看编辑</span
               >
-              <span v-else class="disabled">编辑</span>
+              <span v-else class="disabled">查看编辑</span>
             </li>
             <li>
               <span

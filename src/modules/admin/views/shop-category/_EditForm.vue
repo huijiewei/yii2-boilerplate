@@ -52,7 +52,11 @@
       </el-col>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" native-type="submit" :loading="submitLoading"
+      <el-button
+        type="primary"
+        :disabled="isEdit && !$can('shop-category/edit')"
+        native-type="submit"
+        :loading="submitLoading"
         >{{ submitText }}
       </el-button>
 

@@ -86,6 +86,7 @@
 import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
+import AuthService from '@admin/services/AuthService'
 
 export default {
   name: 'AdminGroupForm',
@@ -213,8 +214,18 @@ export default {
         this.$emit(
           'on-submit',
           adminGroup,
-          () => {
+          async () => {
             this.$refs[formName].clearValidate()
+            if (
+              this.adminGroup.id ===
+              this.$store.getters['auth/getCurrentUser'].adminGroup.id
+            ) {
+              const { data } = await flatry(AuthService.account())
+
+              if (data) {
+                await this.$store.dispatch('auth/account', data)
+              }
+            }
           },
           error => {
             this.handleViolationError(error, formName)
@@ -255,6 +266,7 @@ export default {
       }
 
       const refs = this.$refs
+
       const checked = refs[item.actionId][0].$el.getElementsByTagName(
         'input'
       )[0].checked
@@ -278,6 +290,7 @@ export default {
       }
 
       const acl = this.formModel.acl
+
       item.combines.forEach(combine => {
         if (
           refs[combine] &&
