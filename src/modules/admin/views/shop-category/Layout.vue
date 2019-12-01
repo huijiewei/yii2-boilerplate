@@ -12,12 +12,13 @@
         <hr class="spacer-xs" />
         <div class="text-right">
           <el-button
+            :disabled="!$can('shop-category/create')"
             title="创建根分类"
             type="text"
             size="mini"
             @click.native="handleCategoryCreate(0)"
           >
-            <ag-icon type="file-add"></ag-icon>
+            <ag-icon type="file-add" />
             创建根分类
           </el-button>
         </div>
@@ -34,9 +35,9 @@
         >
           <span class="category-tree-node" slot-scope="{ node, data }">
             <span>
-              <ag-icon v-if="data.icon" :type="data.icon"></ag-icon>
-              <ag-icon v-else-if="data.children" type="folder"></ag-icon>
-              <ag-icon v-else type="file"></ag-icon>
+              <ag-icon v-if="data.icon" :type="data.icon" />
+              <ag-icon v-else-if="data.children" type="folder" />
+              <ag-icon v-else type="file" />
               {{ data.name }}
             </span>
             <span class="help">右键操作</span>
@@ -45,12 +46,20 @@
         <vue-context ref="contextMenu">
           <template slot-scope="child">
             <li>
-              <span @click.prevent="handleCategoryEdit(child.data)">编辑</span>
+              <span
+                v-if="$can('shop-category/edit')"
+                @click="handleCategoryEdit(child.data)"
+                >编辑</span
+              >
+              <span v-else class="disabled">编辑</span>
             </li>
             <li>
-              <span @click.prevent="handleCategoryCreate(child.data.id)"
+              <span
+                v-if="$can('shop-category/create')"
+                @click="handleCategoryCreate(child.data.id)"
                 >新建子分类</span
               >
+              <span v-else class="disabled">新建子分类</span>
             </li>
           </template>
         </vue-context>
@@ -60,7 +69,7 @@
           :category-tree="this.categoryTree"
           @on-expanded="expandedCategoryTree"
           @on-updated="updatedCategoryTree"
-        ></router-view>
+        />
       </el-col>
     </el-row>
   </div>
@@ -69,8 +78,8 @@
 <script>
 import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
-import AgIcon from '@core/components/Icon/index'
-import { VueContext } from 'vue-context'
+import AgIcon from '@core/components/Icon'
+import VueContext from '@admin/components/ContextMenu'
 
 export default {
   watch: {
@@ -150,71 +159,6 @@ export default {
   .help {
     font-size: 12px;
     color: #a6a9ad;
-  }
-}
-.v-context {
-  &,
-  & ul {
-    background-color: #ffffff;
-    background-clip: padding-box;
-    border-radius: 2px;
-    border: 1px solid #ebeef5;
-    box-shadow: 0 0 9px 1px rgba(69, 65, 78, 0.1);
-    display: block;
-    margin: 0;
-    padding: 0;
-    z-index: 1500;
-    position: fixed;
-    list-style: none;
-    box-sizing: border-box;
-    max-height: calc(100% - 50px);
-    overflow-y: auto;
-
-    > li {
-      margin: 0;
-      position: relative;
-
-      > span {
-        cursor: pointer;
-        font-size: 13px;
-        display: block;
-        padding: 0 15px;
-        line-height: 32px;
-        height: 32px;
-        color: #212529;
-        text-decoration: none;
-        white-space: nowrap;
-        background-color: transparent;
-        border: 0;
-
-        &:hover,
-        &:focus {
-          text-decoration: none;
-          color: #66b1ff;
-          background-color: #ecf5ff;
-        }
-
-        &:focus {
-          outline: 0;
-        }
-      }
-    }
-
-    &:focus {
-      outline: 0;
-    }
-  }
-
-  &__sub {
-    > span:after {
-      content: '\2bc8';
-      float: right;
-      padding-left: 1rem;
-    }
-
-    > ul {
-      display: none;
-    }
   }
 }
 </style>
