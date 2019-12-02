@@ -16,8 +16,8 @@
             title="创建根分类"
             size="mini"
             @click.native="handleCategoryCreate(0)"
+            icon="el-icon-folder-add"
           >
-            <ag-icon type="file-add" />
             创建根分类
           </el-button>
         </div>
@@ -31,13 +31,16 @@
           ref="categoryTree"
           node-key="id"
         >
-          <span class="category-tree-node" slot-scope="{ node, data }">
-            <span>
-              <ag-icon v-if="data.icon" :type="data.icon" />
-              <ag-icon v-else-if="data.children" type="folder" />
-              <ag-icon v-else type="file" />
+          <div class="category-tree-node" slot-scope="{ node, data }">
+            <div class="category-tree-icon">
+              <ag-icon
+                v-if="data.icon"
+                :path="data.icon"
+              />
+              <i v-else-if="data.children" class="el-icon-folder" />
+              <i v-else class="el-icon-document" />
               {{ data.name }}
-            </span>
+            </div>
             <el-button-group class="operate">
               <el-button
                 size="mini"
@@ -54,7 +57,7 @@
                 title="新建子分类"
               />
             </el-button-group>
-          </span>
+          </div>
         </el-tree>
       </el-col>
       <el-col :span="18">
@@ -143,6 +146,14 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding-right: 7px;
+
+  .category-tree-icon {
+    vertical-align: baseline;
+  }
+
+  .ag-icon {
+    vertical-align: baseline;
+  }
 
   &:hover {
     .operate {

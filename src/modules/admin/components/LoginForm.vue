@@ -13,11 +13,8 @@
         placeholder="手机号码或者电子邮箱"
         type="tel"
         auto-complete="off"
-      >
-        <template slot="prepend">
-          <ag-icon type="user" />
-        </template>
-      </el-input>
+        prefix-icon="el-icon-user"
+      />
     </el-form-item>
     <el-form-item
       prop="password"
@@ -29,11 +26,8 @@
         type="password"
         auto-complete="off"
         show-password
-      >
-        <template slot="prepend">
-          <ag-icon type="lock" />
-        </template>
-      </el-input>
+        prefix-icon="el-icon-lock"
+      />
     </el-form-item>
     <el-form-item>
       <el-button
@@ -49,14 +43,12 @@
 </template>
 
 <script>
-import AgIcon from '@core/components/Icon/index'
 import flatry from '@core/utils/flatry'
 import AuthService from '@admin/services/AuthService'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
 export default {
   name: 'LoginForm',
-  components: { AgIcon },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     inModal: {

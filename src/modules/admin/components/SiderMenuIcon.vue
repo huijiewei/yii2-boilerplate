@@ -1,10 +1,12 @@
 <template>
-  <i :class="'anticon anticon-' + icon" />
+  <ag-icon :class="'sider-menu-icon'" :path="icon" />
 </template>
 
 <script>
+import AgIcon from '@core/components/Icon/index'
 export default {
   name: 'SiderMenuIcon',
+  components: { AgIcon },
   props: {
     icon: {
       type: String,
@@ -13,3 +15,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.sider-menu-icon {
+  margin-right: 3px;
+}
+</style>

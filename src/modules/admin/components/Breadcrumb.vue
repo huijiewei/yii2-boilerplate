@@ -1,7 +1,7 @@
 <template>
   <el-breadcrumb class="ag-breadcrumb">
     <el-breadcrumb-item :to="{ path: '/home' }">
-      <ag-icon type="home" />&nbsp;
+      <i class="el-icon-s-home" />&nbsp;
       <span>管理后台</span>
     </el-breadcrumb-item>
     <template v-for="(breadcrumb, index) in breadcrumbs">
@@ -14,11 +14,8 @@
 </template>
 
 <script>
-import AgIcon from '@core/components/Icon/index'
-
 export default {
   name: 'Breadcrumb',
-  components: { AgIcon },
   data() {
     return {
       breadcrumbs: [],

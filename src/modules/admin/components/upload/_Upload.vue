@@ -15,7 +15,9 @@
           }"
         >
           <div class="blank">
-            <ag-icon :type="preview ? 'picture' : 'file'" />
+            <i
+              :class="preview ? 'el-icon-picture-outline' : 'el-icon-document'"
+            />
           </div>
         </li>
         <li
@@ -60,7 +62,9 @@
           }"
         >
           <div class="blank">
-            <ag-icon :type="preview ? 'picture' : 'file'" />
+            <i
+              :class="preview ? 'el-icon-picture-outline' : 'el-icon-document'"
+            />
           </div>
         </li>
         <li
@@ -104,9 +108,7 @@
       :on-success="handleSuccess"
       :on-error="handleError"
     >
-      <el-button size="mini" plain>
-        <ag-icon type="cloud-upload" /> 点击上传
-      </el-button>
+      <el-button size="mini" plain icon="el-icon-upload">点击上传</el-button>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
       <img width="100%" :src="dialogImageUrl" alt="" />
@@ -127,11 +129,10 @@
 import Request from '@core/utils/request'
 import flatry from '@core/utils/flatry'
 import ImageCropper from '@admin/components/ImageCropper'
-import AgIcon from '@core/components/Icon/index'
 
 export default {
   name: 'Upload',
-  components: { AgIcon, ImageCropper },
+  components: { ImageCropper },
   props: {
     files: {
       type: [Array, String],

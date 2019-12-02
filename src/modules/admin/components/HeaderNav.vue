@@ -41,15 +41,15 @@
               {{ getCurrentUser.adminGroup.name }}
             </el-dropdown-item>
             <el-dropdown-item command="userProfile" divided>
-              <ag-icon type="user" />
+              <i class="el-icon-user" />
               个人资料
             </el-dropdown-item>
             <el-dropdown-item command="userRefresh">
-              <ag-icon type="sync" />
+              <i class="el-icon-refresh" />
               刷新资料
             </el-dropdown-item>
             <el-dropdown-item command="userLogout" divided>
-              <ag-icon type="logout" />
+              <i class="el-icon-switch-button" />
               退出登陆
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -61,13 +61,12 @@
 
 <script>
 import flatry from '@core/utils/flatry'
-import AgIcon from '@core/components/Icon/index'
 import AgAvatar from '@core/components/Avatar'
 import AuthService from '@admin/services/AuthService'
 
 export default {
   name: 'HeaderNav',
-  components: { AgIcon, AgAvatar },
+  components: { AgAvatar },
   props: {
     isCollapsed: {
       type: Boolean,
