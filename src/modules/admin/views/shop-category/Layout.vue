@@ -14,7 +14,6 @@
           <el-button
             :disabled="!$can('shop-category/create')"
             title="创建根分类"
-            type="text"
             size="mini"
             @click.native="handleCategoryCreate(0)"
           >
@@ -29,7 +28,6 @@
           :highlight-current="true"
           :default-expanded-keys="categoryExpanded"
           :filter-node-method="filterCategoryNode"
-          @node-contextmenu="handleContextMenu"
           ref="categoryTree"
           node-key="id"
         >
@@ -40,29 +38,24 @@
               <ag-icon v-else type="file" />
               {{ data.name }}
             </span>
-            <span class="help">右键操作</span>
+            <el-button-group class="operate">
+              <el-button
+                size="mini"
+                @click.stop="handleCategoryEdit(data)"
+                :disabled="!$can('shop-category/view')"
+                icon="el-icon-edit-outline"
+                title="查看编辑"
+              />
+              <el-button
+                size="mini"
+                @click.stop="handleCategoryCreate(data.id)"
+                :disabled="!$can('shop-category/create')"
+                icon="el-icon-folder-add"
+                title="新建子分类"
+              />
+            </el-button-group>
           </span>
         </el-tree>
-        <vue-context ref="contextMenu">
-          <template slot-scope="child">
-            <li>
-              <span
-                v-if="$can('shop-category/view')"
-                @click="handleCategoryEdit(child.data)"
-                >查看编辑</span
-              >
-              <span v-else class="disabled">查看编辑</span>
-            </li>
-            <li>
-              <span
-                v-if="$can('shop-category/create')"
-                @click="handleCategoryCreate(child.data.id)"
-                >新建子分类</span
-              >
-              <span v-else class="disabled">新建子分类</span>
-            </li>
-          </template>
-        </vue-context>
       </el-col>
       <el-col :span="18">
         <router-view
@@ -79,7 +72,6 @@
 import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
 import AgIcon from '@core/components/Icon'
-import VueContext from '@admin/components/ContextMenu'
 
 export default {
   watch: {
@@ -87,7 +79,7 @@ export default {
       this.$refs.categoryTree.filter(keyword)
     }
   },
-  components: { AgIcon, VueContext },
+  components: { AgIcon },
   data() {
     return {
       loading: true,
@@ -109,10 +101,6 @@ export default {
         path: '/shop-category/edit',
         query: { id: category.id }
       })
-    },
-
-    handleContextMenu(event, category) {
-      this.$refs.contextMenu.open(event, category)
     },
 
     filterCategoryNode(value, data) {
@@ -156,9 +144,20 @@ export default {
   justify-content: space-between;
   padding-right: 7px;
 
-  .help {
+  &:hover {
+    .operate {
+      display: inline-block;
+    }
+  }
+
+  .operate {
+    display: none;
     font-size: 12px;
     color: #a6a9ad;
+
+    .el-button {
+      padding: 3px 5px 2px 5px;
+    }
   }
 }
 </style>
