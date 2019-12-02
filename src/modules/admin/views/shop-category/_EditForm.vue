@@ -36,10 +36,7 @@
       </el-col>
     </el-form-item>
     <el-form-item label="图片" prop="image">
-      <avatar-uploader
-        :avatar="formModel.image"
-        @on-upload-success="handleUploadSuccess"
-      />
+      <image-upload v-model="formModel.image" />
     </el-form-item>
     <el-form-item label="分类介绍" prop="description">
       <el-col :md="16">
@@ -75,12 +72,12 @@
 </template>
 
 <script>
-import AvatarUploader from '@admin/components/upload/AvatarUpload'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
+import ImageUpload from '@admin/components/upload/ImageUpload'
 
 export default {
   name: 'ShopCategoryForm',
-  components: { AvatarUploader },
+  components: { ImageUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
@@ -118,9 +115,6 @@ export default {
     this.formCategoryParents = this.categoryParents
   },
   methods: {
-    handleUploadSuccess(imageUrl) {
-      this.formModel.image = imageUrl
-    },
     handleCategoryParentsChange(value) {
       this.formModel.parentId = value[value.length - 1]
     },
