@@ -1,14 +1,13 @@
 <template>
-  <span class="ag-icon">
+  <i class="ag-icon">
     <svg
       viewBox="0 0 1024 1024"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      fill="currentColor"
       v-html="path"
     />
-  </span>
+  </i>
 </template>
 
 <script>
@@ -18,26 +17,27 @@ export default {
     path: {
       type: String,
       required: true
-    },
-    width: {
-      type: [Number, String],
-      default: 16
-    },
-    height: {
-      type: [Number, String],
-      default: 16
     }
   }
 }
 </script>
 <style lang="scss">
 .ag-icon {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  line-height: 0;
+  font-style: normal;
   display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
+  color: inherit;
+  text-align: center;
+  margin-right: 3px;
 
   svg {
-    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: -0.125em;
+    width: 1em;
+    height: 1em;
   }
 }
 </style>

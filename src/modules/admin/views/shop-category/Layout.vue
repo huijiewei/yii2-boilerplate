@@ -33,13 +33,10 @@
         >
           <div class="category-tree-node" slot-scope="{ node, data }">
             <div class="category-tree-icon">
-              <ag-icon
-                v-if="data.icon"
-                :path="data.icon"
-              />
+              <ag-icon v-if="data.icon" :path="data.icon" />
               <i v-else-if="data.children" class="el-icon-folder" />
               <i v-else class="el-icon-document" />
-              {{ data.name }}
+              <span>{{ data.name }}</span>
             </div>
             <el-button-group class="operate">
               <el-button
@@ -148,11 +145,9 @@ export default {
   padding-right: 7px;
 
   .category-tree-icon {
-    vertical-align: baseline;
-  }
-
-  .ag-icon {
-    vertical-align: baseline;
+    [class^='el-icon-'] {
+      margin-right: 3px;
+    }
   }
 
   &:hover {
