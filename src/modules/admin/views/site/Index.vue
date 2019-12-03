@@ -106,10 +106,6 @@ export default {
     }
   },
   methods: {
-    handleChange(files) {
-      this.$emit('change', files)
-    },
-
     handleUploadSuccess(file) {
       console.log(file)
     }
