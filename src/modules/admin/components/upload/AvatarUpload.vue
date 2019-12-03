@@ -4,6 +4,7 @@
     :value="value"
     :process="'avatar'"
     @change="handleChange"
+    @on-upload-success="handleUploadSuccess"
   />
 </template>
 
@@ -26,6 +27,10 @@ export default {
   methods: {
     handleChange(files) {
       this.$emit('change', files)
+    },
+
+    handleUploadSuccess(file) {
+      this.$emit('on-upload-success', file)
     }
   }
 }

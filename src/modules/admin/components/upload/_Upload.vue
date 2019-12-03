@@ -243,11 +243,15 @@ export default {
     },
 
     updateFiles(url) {
+      const file = { name: this.getFilename(url), url: url }
+
       if (this.multiple) {
-        this.uploadFiles.push({ name: this.getFilename(url), url: url })
+        this.uploadFiles.push(file)
       } else {
-        this.uploadFiles = { name: this.getFilename(url), url: url }
+        this.uploadFiles = file
       }
+
+      this.$emit('on-upload-success', file)
 
       this.updateValue()
     },

@@ -70,6 +70,7 @@
             :multiple="true"
             :cropper="{ enable: false }"
             v-model="files"
+            @on-upload-success="handleUploadSuccess"
           />
         </el-card>
       </el-col>
@@ -104,6 +105,14 @@ export default {
       message: ''
     }
   },
-  created() {}
+  methods: {
+    handleChange(files) {
+      this.$emit('change', files)
+    },
+
+    handleUploadSuccess(file) {
+      console.log(file)
+    }
+  }
 }
 </script>

@@ -4,6 +4,7 @@
     :multiple="multiple"
     :files="value"
     @on-success="handleSuccess"
+    @on-upload-success="handleUploadSuccess"
   />
 </template>
 
@@ -30,6 +31,10 @@ export default {
   methods: {
     handleSuccess(files) {
       this.$emit('change', files)
+    },
+
+    handleUploadSuccess(file) {
+      this.$emit('on-upload-success', file)
     }
   }
 }
