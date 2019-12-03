@@ -1,17 +1,17 @@
 <template>
   <el-menu-item :index="'/' + menuUrl">
-    <ag-icon v-if="menu.icon" :path="menu.icon" />
+    <sider-menu-icon v-if="menu.icon" :icon="menu.icon" />
     <span slot="title">{{ menu.label }}</span>
   </el-menu-item>
 </template>
 
 <script>
+import SiderMenuIcon from './SiderMenuIcon'
 import { formatUrl } from '@core/utils/util'
-import AgIcon from '@core/components/Icon/index'
 
 export default {
   name: 'SiderMenuItem',
-  components: { AgIcon },
+  components: { SiderMenuIcon },
   props: {
     menu: {
       type: Object,

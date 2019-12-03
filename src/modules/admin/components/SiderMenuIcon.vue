@@ -17,6 +17,6 @@ export default {
 </script>
 <style lang="scss">
 .sider-menu-icon {
-  margin-right: 3px;
+  margin-right: 5px;
 }
 </style>
