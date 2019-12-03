@@ -468,8 +468,8 @@ export default {
   }
   &.upload-widget-preview {
     .blank {
-      .anticon {
-        font-size: 36px;
+      i {
+        font-size: 39px;
       }
     }
   }

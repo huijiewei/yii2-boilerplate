@@ -23,7 +23,7 @@ export default {
   components: { UserForm, PlaceholderForm },
   data() {
     return {
-      pageTitle: '新建会员',
+      pageTitle: '用户新建',
       user: null
     }
   },
@@ -37,7 +37,7 @@ export default {
       if (data) {
         done()
 
-        this.$message.success('新建用户成功')
+        this.$message.success('用户新建成功')
         await this.$router.push({ path: '/user' })
       }
 

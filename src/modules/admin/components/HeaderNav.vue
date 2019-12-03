@@ -10,19 +10,17 @@
     </div>
     <i
       :class="[
-        'anticon',
         'trigger',
         'trigger-left',
-        isCollapsed ? 'anticon-menu-unfold' : 'anticon-menu-fold'
+        isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold'
       ]"
       @click="toggleSidebar"
     />
     <i
       :class="[
-        'anticon',
         'trigger',
         'trigger-right',
-        isCollapsed ? 'anticon-menu-unfold' : 'anticon-menu-fold'
+        isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold'
       ]"
       @click="toggleSidebar"
     />

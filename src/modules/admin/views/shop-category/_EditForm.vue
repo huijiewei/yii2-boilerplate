@@ -31,8 +31,8 @@
       </el-col>
     </el-form-item>
     <el-form-item label="分类图标" prop="icon">
-      <el-col :md="7">
-        <el-input v-model.trim="formModel.icon" />
+      <el-col :md="16">
+        <el-input type="textarea" autosize v-model="formModel.icon" />
       </el-col>
     </el-form-item>
     <el-form-item label="图片" prop="image">
@@ -41,10 +41,10 @@
     <el-form-item label="分类介绍" prop="description">
       <el-col :md="16">
         <el-input
-          type="textarea"
-          rows="2"
           autosize
-          v-model.trim="formModel.description"
+          type="textarea"
+          :rows="5"
+          v-model="formModel.description"
         />
       </el-col>
     </el-form-item>

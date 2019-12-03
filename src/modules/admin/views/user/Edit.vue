@@ -24,7 +24,7 @@ export default {
   components: { UserForm, PlaceholderForm },
   data() {
     return {
-      pageTitle: '编辑会员',
+      pageTitle: '用户编辑',
       user: null
     }
   },

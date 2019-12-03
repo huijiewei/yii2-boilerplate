@@ -6,7 +6,7 @@ const routes = [
     component: BlankLayout,
     meta: {
       breadcrumb: {
-        title: '会员',
+        title: '用户',
         path: '/user'
       }
     },
