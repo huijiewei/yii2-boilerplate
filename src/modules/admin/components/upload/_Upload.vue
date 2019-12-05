@@ -374,7 +374,7 @@ export default {
       return true
     },
 
-    imageAppendStyle(url, imageStyle) {
+    appendImageStyle(url, imageStyle) {
       if (imageStyle.length === 0 || this.option.imageProcess.length === 0) {
         return url
       }
@@ -385,7 +385,7 @@ export default {
         this.option.imageProcess
       )
 
-      return imageProcess(url, this.imageStyle)
+      return imageProcess(url, imageStyle)
     },
 
     handleSuccess(response) {
@@ -409,7 +409,7 @@ export default {
         ) {
           this.cropperImage = url
         } else {
-          this.updateFiles(this.imageAppendStyle(url, this.imageStyle))
+          this.updateFiles(this.appendImageStyle(url, this.imageStyle))
         }
       }
     },
@@ -450,7 +450,7 @@ export default {
 
     handleImageCropperSuccess(url) {
       this.cropperImage = null
-      this.updateFiles(this.imageAppendStyle(url, this.imageStyle))
+      this.updateFiles(this.appendImageStyle(url, this.imageStyle))
     },
 
     handleImageCropperCancel() {

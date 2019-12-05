@@ -67,6 +67,7 @@
             <span>多图片上传</span>
           </div>
           <image-upload
+            ref="imageUpload"
             :multiple="true"
             :cropper="{ enable: false }"
             v-model="files"
@@ -108,6 +109,9 @@ export default {
   methods: {
     handleUploadSuccess(file) {
       console.log(file)
+      const imageUrl = this.$refs.imageUpload.appendImageStyle(file.url, 'test')
+
+      console.log(imageUrl)
     }
   }
 }

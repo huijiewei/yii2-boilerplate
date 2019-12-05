@@ -1,5 +1,6 @@
 <template>
   <upload
+    ref="upload"
     :action="'misc/image-upload-option'"
     :multiple="multiple"
     :preview="preview"
@@ -58,6 +59,10 @@ export default {
 
     handleUploadSuccess(file) {
       this.$emit('on-upload-success', file)
+    },
+
+    appendImageStyle(url, imageStyle) {
+      return this.$refs.upload.appendImageStyle(url, imageStyle)
     }
   }
 }
