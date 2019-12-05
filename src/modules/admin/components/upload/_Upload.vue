@@ -98,7 +98,7 @@
       </template>
     </ul>
     <el-upload
-      :disabled="option.url === ''"
+      :disabled="buttonDisabled"
       :action="option.url"
       :accept="option.typesLimit.map(type => '.' + type).join(', ')"
       :multiple="false"
@@ -108,7 +108,13 @@
       :on-success="handleSuccess"
       :on-error="handleError"
     >
-      <el-button size="mini" plain icon="el-icon-upload">点击上传</el-button>
+      <el-button
+        :disabled="buttonDisabled"
+        size="mini"
+        plain
+        icon="el-icon-upload"
+        >点击上传</el-button
+      >
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
       <img width="100%" :src="dialogImageUrl" alt="" />
@@ -137,6 +143,10 @@ export default {
     files: {
       type: [Array, String],
       default: null
+    },
+    filenameHash: {
+      type: String,
+      default: 'random'
     },
     action: {
       type: String,
@@ -182,6 +192,7 @@ export default {
         sizeLimit: 0,
         typesLimit: []
       },
+      buttonDisabled: true,
       uploadFiles: this.multiple ? [] : { name: '', url: '' },
       cropperImage: null,
       dialogVisible: false,
@@ -221,10 +232,13 @@ export default {
   },
   methods: {
     async updateOption() {
+      this.buttonDisabled = true
+
       const { data } = await flatry(this.$http.get(this.action))
 
       if (data) {
         this.option = data
+        this.buttonDisabled = false
 
         if (data.timeout && data.timeout > 0) {
           this.timer = setTimeout(this.updateOption, data.timeout * 1000)
@@ -271,10 +285,8 @@ export default {
       const request = new Request({
         baseUrl: option.action,
         withCredentials: option.withCredentials,
-        successHandler: response => {
-          option.onSuccess(response.data)
-        },
-        errorHandler: error => option.onError(error)
+        onSuccess: response => option.onSuccess(response.data),
+        onError: error => option.onError(error)
       })
 
       const headers = this.option.headers
@@ -332,6 +344,8 @@ export default {
 
       formData.append(this.option.paramName, option.file, option.file.name)
 
+      this.buttonDisabled = true
+
       request.post(option.action, formData)
     },
 
@@ -361,6 +375,8 @@ export default {
     },
 
     handleSuccess(response) {
+      this.buttonDisabled = false
+
       let result = ''
 
       if (this.option.dataType === 'xml') {
@@ -392,6 +408,8 @@ export default {
     },
 
     handleError(error) {
+      this.buttonDisabled = false
+
       const message =
         error.response.data.detail ||
         error.response.data.title ||

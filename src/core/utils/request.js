@@ -13,8 +13,8 @@ class Request {
         beforeRequest: config => {
           return config
         },
-        successHandler: response => Promise.resolve(response),
-        errorHandler: error => Promise.reject(error)
+        onSuccess: response => Promise.resolve(response),
+        onError: error => Promise.reject(error)
       },
       ...options
     }
@@ -57,10 +57,10 @@ class Request {
 
     httpClient.interceptors.response.use(
       response => {
-        return opt.successHandler(response)
+        return opt.onSuccess(response)
       },
       error => {
-        return opt.errorHandler(error)
+        return opt.onError(error)
       }
     )
 

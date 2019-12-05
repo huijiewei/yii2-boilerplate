@@ -28,14 +28,14 @@ const HttpClient = {
 
         return config
       },
-      successHandler: response => {
+      onSuccess: response => {
         if (response.config.responseType === 'blob') {
           return Promise.resolve(response)
         }
 
         return Promise.resolve(response.data)
       },
-      errorHandler: error => {
+      onError: error => {
         const historyBack = error.config.historyBack
 
         if (!error.response) {
