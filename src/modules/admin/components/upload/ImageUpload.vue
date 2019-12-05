@@ -5,7 +5,7 @@
     :preview="preview"
     :files="value"
     :cropper="cropper"
-    :process="process"
+    :image-style="imageStyle"
     @on-success="handleSuccess"
     @on-upload-success="handleUploadSuccess"
   />
@@ -22,7 +22,7 @@ export default {
       type: [Array, String],
       default: null
     },
-    process: {
+    imageStyle: {
       type: String,
       default: ''
     },

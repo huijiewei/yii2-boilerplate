@@ -2,7 +2,7 @@
   <image-upload
     :multiple="false"
     :value="value"
-    :process="'avatar'"
+    :image-style="'avatar'"
     @change="handleChange"
     @on-upload-success="handleUploadSuccess"
   />

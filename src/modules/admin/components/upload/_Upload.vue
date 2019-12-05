@@ -170,7 +170,7 @@ export default {
         }
       }
     },
-    process: {
+    imageStyle: {
       type: String,
       default: ''
     }
@@ -374,16 +374,27 @@ export default {
       return true
     },
 
+    imageAppendStyle(url, imageStyle) {
+      if (imageStyle.length === 0 || this.option.imageProcess.length === 0) {
+        return url
+      }
+
+      const imageProcess = new Function(
+        'url',
+        'imageStyle',
+        this.option.imageProcess
+      )
+
+      return imageProcess(url, this.imageStyle)
+    },
+
     handleSuccess(response) {
       this.buttonDisabled = false
 
-      let result = ''
-
-      if (this.option.dataType === 'xml') {
-        result = new DOMParser().parseFromString(response, 'application/xml')
-      } else {
-        result = response
-      }
+      const result =
+        this.option.dataType === 'xml'
+          ? new DOMParser().parseFromString(response, 'application/xml')
+          : response
 
       // eslint-disable-next-line no-new-func
       const responseParse = new Function('result', this.option.responseParse)
@@ -391,10 +402,6 @@ export default {
       let url = responseParse(result)
 
       if (url) {
-        if (this.process.length > 0 && this.option.imageProcess.length > 0) {
-          url += this.option.imageProcess + this.process
-        }
-
         if (
           this.cropper.enable &&
           this.option.cropUrl &&
@@ -402,7 +409,7 @@ export default {
         ) {
           this.cropperImage = url
         } else {
-          this.updateFiles(url)
+          this.updateFiles(this.imageAppendStyle(url, this.imageStyle))
         }
       }
     },
@@ -443,7 +450,7 @@ export default {
 
     handleImageCropperSuccess(url) {
       this.cropperImage = null
-      this.updateFiles(url)
+      this.updateFiles(this.imageAppendStyle(url, this.imageStyle))
     },
 
     handleImageCropperCancel() {
