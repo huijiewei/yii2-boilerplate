@@ -71,7 +71,7 @@
             :multiple="true"
             :cropper="{ enable: false }"
             v-model="files"
-            @on-upload-success="handleUploadSuccess"
+            @change="handleChange"
           />
         </el-card>
       </el-col>
@@ -107,11 +107,8 @@ export default {
     }
   },
   methods: {
-    handleUploadSuccess(file) {
-      console.log(file)
-      const imageUrl = this.$refs.imageUpload.appendImageStyle(file.url, 'test')
-
-      console.log(imageUrl)
+    handleChange(value) {
+      console.log(value)
     }
   }
 }
