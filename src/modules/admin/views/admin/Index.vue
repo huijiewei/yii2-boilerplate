@@ -102,8 +102,7 @@ export default {
     },
     handleAdminDelete(admin) {
       this.$deleteDialog({
-        title: '你确定要删除这个管理员吗？',
-        message: `请输入管理员电话 <strong>${admin.phone}</strong> 以确认执行删除操作`,
+        message: `输入管理员电话 <strong>${admin.phone}</strong> 以确认删除`,
         promptLabel: '管理员电话',
         promptValue: admin.phone,
         callback: async () => {

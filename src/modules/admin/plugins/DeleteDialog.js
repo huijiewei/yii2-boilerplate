@@ -32,7 +32,7 @@ const DeleteDialog = {
                 dialogOption.callback()
               }
             },
-            inputPlaceholder: '请输入' + dialogOption.promptLabel,
+            inputPlaceholder: '' + dialogOption.promptLabel,
             inputValidator: value => {
               return dialogOption.promptValue === value
             },
