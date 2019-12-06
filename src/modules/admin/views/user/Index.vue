@@ -77,7 +77,7 @@
             plain
             type="primary"
             size="mini"
-            @click.native="handleUserEdit(scope.row)"
+            @click="handleUserEdit(scope.row)"
           >
             编辑
           </el-button>
@@ -86,7 +86,7 @@
             plain
             type="danger"
             size="mini"
-            @click.native="handleUserDelete(scope.row)"
+            @click="handleUserDelete(scope.row)"
           >
             删除
           </el-button>
@@ -138,8 +138,9 @@ export default {
       this.$router.push({ path: '/user/edit', query: { id: user.id } })
     },
     handleUserDelete(user) {
-      this.$deleteDialog(`用户 ${user.display || user.phone}`, async action => {
-        if (action === 'confirm') {
+      this.$deleteDialog({
+        message: `删除用户 <strong>${user.name || user.phone}</strong>`,
+        callback: async () => {
           this.loading = true
 
           const { data } = await flatry(UserService.delete(user.id))

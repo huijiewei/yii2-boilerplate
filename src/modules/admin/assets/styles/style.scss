@@ -1,4 +1,4 @@
-@import "../../../../core/assets/styles/mixin.scss";
+@import '../../../../core/assets/styles/mixin.scss';
 
 .ag {
   -webkit-font-smoothing: antialiased;
@@ -7,19 +7,56 @@
     padding-left: 6px;
   }
 
+  .el-message-box {
+    border-radius: 2px;
+  }
+
   .delete-dialog {
+    padding: 20px 15px;
+    width: 360px;
+
+    .el-message-box__header {
+      display: none;
+    }
+
     .el-message-box__status {
-      font-size: 66px !important;
-      color: #e6a23c;
+      font-size: 39px !important;
+      color: #ff4d51;
+      top: 20px;
     }
 
     .el-message-box__message {
-      h3 {
-        margin-top: 0;
+      margin-left: 19px;
+
+      p {
+        line-height: 1.5em;
       }
 
-      div {
+      h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+
+      div.message {
         color: #6f727d;
+        font-size: 13px;
+      }
+    }
+
+    .el-message-box__input {
+      .el-input {
+        height: 32px;
+        line-height: 32px;
+
+        .el-input__inner {
+          height: 32px;
+          line-height: 32px;
+          padding: 0 10px;
+        }
+
+        input {
+          font-size: 13px;
+        }
       }
     }
   }
@@ -75,7 +112,8 @@
     border-bottom-left-radius: 0;
   }
 
-  .el-input__inner, .el-textarea__inner {
+  .el-input__inner,
+  .el-textarea__inner {
     border-radius: 2px;
   }
 

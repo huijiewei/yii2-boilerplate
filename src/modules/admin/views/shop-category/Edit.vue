@@ -84,8 +84,9 @@ export default {
       always()
     },
     async deleteShopCategory(shopCategory) {
-      this.$deleteDialog(`商品分类 ${shopCategory.name}`, async action => {
-        if (action === 'confirm') {
+      this.$deleteDialog({
+        message: `删除商品分类 <strong>${shopCategory.name}</strong>`,
+        callback: async () => {
           this.loading = true
 
           const { data } = await flatry(

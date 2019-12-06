@@ -52,7 +52,7 @@
             plain
             type="primary"
             size="mini"
-            @click.native="handleAdminEdit(scope.row)"
+            @click="handleAdminEdit(scope.row)"
           >
             编辑
           </el-button>
@@ -61,7 +61,7 @@
             plain
             type="danger"
             size="mini"
-            @click.native="handleAdminDelete(scope.row)"
+            @click="handleAdminDelete(scope.row)"
           >
             删除
           </el-button>
@@ -101,33 +101,32 @@ export default {
       this.$router.push({ path: '/admin/edit', query: { id: admin.id } })
     },
     handleAdminDelete(admin) {
-      this.$deleteDialog(
-        `管理员 ${admin.display || admin.phone}`,
-        async action => {
-          if (action === 'confirm') {
-            this.loading = true
+      this.$deleteDialog({
+        title: '你确定要删除这个管理员吗？',
+        message: `请输入管理员电话 <strong>${admin.phone}</strong> 以确认执行删除操作`,
+        promptLabel: '管理员电话',
+        promptValue: admin.phone,
+        callback: async () => {
+          this.loading = true
 
-            const { data } = await flatry(AdminService.delete(admin.id))
+          const { data } = await flatry(AdminService.delete(admin.id))
 
-            if (data) {
-              this.admins.forEach((item, index) => {
-                if (item.id === admin.id) {
-                  this.admins.splice(index, 1)
-                }
-              })
+          if (data) {
+            this.admins.forEach((item, index) => {
+              if (item.id === admin.id) {
+                this.admins.splice(index, 1)
+              }
+            })
 
-              this.$message({
-                type: 'success',
-                message: data.message
-              })
-            }
-
-            this.loading = false
+            this.$message({
+              type: 'success',
+              message: data.message
+            })
           }
-        },
-        admin.phone,
-        '管理员电话'
-      )
+
+          this.loading = false
+        }
+      })
     }
   }
 }

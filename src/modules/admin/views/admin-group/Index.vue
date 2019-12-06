@@ -22,7 +22,7 @@
             plain
             type="primary"
             size="mini"
-            @click.native="handleAdminGroupEdit(scope.row)"
+            @click="handleAdminGroupEdit(scope.row)"
           >
             编辑
           </el-button>
@@ -31,7 +31,7 @@
             plain
             type="danger"
             size="mini"
-            @click.native="handleAdminGroupDelete(scope.row)"
+            @click="handleAdminGroupDelete(scope.row)"
           >
             删除
           </el-button>
@@ -72,8 +72,9 @@ export default {
       })
     },
     handleAdminGroupDelete(adminGroup) {
-      this.$deleteDialog(`管理组 ${adminGroup.name}`, async action => {
-        if (action === 'confirm') {
+      this.$deleteDialog({
+        message: `删除管理组 <strong>${adminGroup.name}</strong>`,
+        callback: async () => {
           this.loading = true
 
           const { data } = await flatry(AdminGroupService.delete(adminGroup.id))
