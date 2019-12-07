@@ -27,23 +27,24 @@ const UnprocessableEntityHttpErrorMixin = {
       }
 
       this.$refs[formName].$children.forEach(child => {
-        let activeViolation = null
+        if (child.prop) {
+          const childProp = child.prop && child.prop.split('.')[0]
 
-        this.violations.forEach(violation => {
-          const violationFieldPath = violation.field.split('.')
-          if (child.prop === violationFieldPath.pop()) {
-            activeViolation = violation
+          const activeViolation = this.violations.find(violation => {
+            const violationFieldPath = violation.field.split('.')
+
+            return childProp === violationFieldPath.pop()
+          })
+
+          if (activeViolation) {
+            child.$data.validateMessage = activeViolation.message
+            child.$data.validateState = activeViolation.message
+              ? 'error'
+              : 'success'
+          } else {
+            child.$data.validateMessage = ''
+            child.$data.validateState = 'success'
           }
-        })
-
-        if (activeViolation) {
-          child.$data.validateMessage = activeViolation.message
-          child.$data.validateState = activeViolation.message
-            ? 'error'
-            : 'success'
-        } else {
-          child.$data.validateMessage = ''
-          child.$data.validateState = 'success'
         }
       })
     }
