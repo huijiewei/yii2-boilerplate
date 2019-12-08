@@ -7,7 +7,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 const vueConfig = require('./vue.config')
 
 const customConfig = {
-  publicPath: isProduction ? './' : '/mobile',
+  publicPath: isProduction ? './mobile' : '/mobile',
   outputDir: 'dist/mobile',
   pages: {
     admin: {
