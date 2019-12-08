@@ -74,10 +74,10 @@ export default {
 
       const request = new Request({
         withCredentials: true,
-        successHandler: response => {
+        onSuccess: response => {
           this.$emit('on-success', response.data.url)
         },
-        errorHandler: error => {
+        onError: error => {
           const message =
             error.response.data.detail ||
             error.response.data.title ||
