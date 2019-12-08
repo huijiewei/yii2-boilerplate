@@ -116,8 +116,8 @@
         >点击上传</el-button
       >
     </el-upload>
-    <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt="" />
+    <el-dialog class="image-view-dialog" :visible.sync="dialogVisible">
+      <img class="image-view" :src="dialogImageUrl" alt="" />
     </el-dialog>
     <image-cropper
       v-if="cropperImage"
@@ -463,6 +463,23 @@ export default {
 @import '../../../../core/assets/styles/mixin.scss';
 .upload-widget {
   line-height: 1em;
+
+  .image-view-dialog {
+    .el-dialog {
+      width: auto;
+      max-width: 50%;
+    }
+
+    .el-dialog__body {
+      text-align: center;
+    }
+
+    .image-view {
+      width: auto;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  }
 
   .el-upload-list--picture-card .el-upload-list__item-actions {
     font-size: 16px;
