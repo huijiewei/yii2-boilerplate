@@ -234,7 +234,7 @@ export default {
     async updateOption() {
       this.buttonDisabled = true
 
-      const { data } = await flatry(this.$http.get(this.action))
+      const { data } = await flatry(this.$http.get(this.action, null, false))
 
       if (data) {
         this.option = data

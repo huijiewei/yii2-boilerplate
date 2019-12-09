@@ -20,6 +20,8 @@ export default {
     isErrorMessageVisible() {
       const self = this
       const error = self.$store.state.error
+      const currentPath = this.$router.currentRoute.path
+      const isHome = currentPath === '/' || currentPath === '/home'
 
       if (error.message.length > 0 && error.message !== lastErrorMessage) {
         lastErrorMessage = error.message
@@ -33,7 +35,7 @@ export default {
             lastErrorMessage = ''
             self.$store.dispatch('clearError')
 
-            if (error.historyBack === true) {
+            if (error.historyBack === true && !isHome) {
               self.$router.back()
             }
           }
