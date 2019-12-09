@@ -44,10 +44,6 @@ export default {
 
       this.breadcrumbs = breadcrumbs
 
-      this.updatePageTitle()
-    },
-    updatePageTitle() {
-      const breadcrumbs = this.breadcrumbs
       const titles = []
 
       for (let i = breadcrumbs.length - 1; i >= 0; i--) {

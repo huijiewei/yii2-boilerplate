@@ -6,11 +6,12 @@ const UnprocessableEntityHttpErrorMixin = {
   },
   methods: {
     handleViolationError(error, formName) {
-      if (!error) {
-        return
-      }
-
-      if (!error.response.status || error.response.status !== 422) {
+      if (
+        !error ||
+        !error.response ||
+        !error.response.status ||
+        error.response.status !== 422
+      ) {
         return
       }
 
