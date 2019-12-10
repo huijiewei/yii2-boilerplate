@@ -23,10 +23,7 @@
       <el-table-column prop="type.description" width="90" label="类型" />
       <el-table-column prop="method" width="70" label="方法" />
       <el-table-column prop="action" width="300" label="操作" />
-      <el-table-column
-        prop="params"
-        label="参数"
-      />
+      <el-table-column prop="params" label="参数" />
       <el-table-column
         width="150"
         class-name="text-mono"
@@ -81,6 +78,7 @@ import flatry from '@core/utils/flatry'
 import AdminService from '@admin/services/AdminService'
 import SearchForm from '@admin/components/SearchForm'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
+import { convertObject } from '@core/utils/util'
 
 export default {
   components: { SearchForm },
@@ -103,10 +101,57 @@ export default {
   methods: {
     handleView(adminLog) {
       this.dialogVisible = true
-
-      Object.entries(adminLog).forEach(([key, value]) => {
-        this.viewAdminLog.push({ name: key, value: value })
-      })
+      this.viewAdminLog = convertObject(adminLog, [
+        {
+          name: 'Id',
+          property: 'id'
+        },
+        {
+          name: '管理员',
+          property: 'admin',
+          callback: admin => {
+            return admin.name || admin.phone
+          }
+        },
+        {
+          name: '状态',
+          property: 'status',
+          callback: status => {
+            return status.description
+          }
+        },
+        {
+          name: '类型',
+          property: 'type',
+          callback: type => {
+            return type.description
+          }
+        },
+        {
+          name: '方法',
+          property: 'method'
+        },
+        {
+          name: '操作',
+          property: 'action'
+        },
+        {
+          name: '参数',
+          property: 'params'
+        },
+        {
+          name: 'IP 地址',
+          property: 'remoteAddr'
+        },
+        {
+          name: '浏览器',
+          property: 'userAgent'
+        },
+        {
+          name: '创建时间',
+          property: 'createdAt'
+        }
+      ])
     },
     handleClose() {
       this.dialogVisible = false

@@ -22,3 +22,25 @@ export const formatUrl = url => {
 
   return url
 }
+
+export const convertObject = (object, options = []) => {
+  const result = []
+
+  Object.entries(object).forEach(([key, value]) => {
+    const option = options.find(option => {
+      return option.property === key
+    })
+
+    if (option) {
+      if (option.callback) {
+        result.push({ name: option.name, value: option.callback(value) })
+      } else {
+        result.push({ name: option.name, value: value })
+      }
+    } else {
+      result.push({ name: key, value: value })
+    }
+  })
+
+  return result
+}
