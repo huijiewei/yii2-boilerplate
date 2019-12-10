@@ -23,7 +23,7 @@ export const formatUrl = url => {
   return url
 }
 
-export const convertObject = (object, options = []) => {
+export const tabledObject = (object, options = []) => {
   const result = []
 
   Object.entries(object).forEach(([key, value]) => {

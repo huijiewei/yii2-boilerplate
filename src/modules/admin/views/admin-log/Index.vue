@@ -78,7 +78,7 @@ import flatry from '@core/utils/flatry'
 import AdminService from '@admin/services/AdminService'
 import SearchForm from '@admin/components/SearchForm'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
-import { convertObject } from '@core/utils/util'
+import { tabledObject } from '@core/utils/util'
 
 export default {
   components: { SearchForm },
@@ -101,7 +101,7 @@ export default {
   methods: {
     handleView(adminLog) {
       this.dialogVisible = true
-      this.viewAdminLog = convertObject(adminLog, [
+      this.viewAdminLog = tabledObject(adminLog, [
         {
           name: 'Id',
           property: 'id'
