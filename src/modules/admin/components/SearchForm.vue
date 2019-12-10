@@ -16,17 +16,13 @@
           :multiple="item.multiple"
           :clearable="true"
           :placeholder="item.label"
-          value=""
         >
-          <template
+          <el-option
             v-for="(optionLabel, optionValue, optionIndex) in item.options"
-          >
-            <el-option
-              :key="index + '-' + optionIndex"
-              :label="optionLabel"
-              :value="optionValue"
-            />
-          </template>
+            :key="index + '-' + optionIndex"
+            :label="optionLabel"
+            :value="optionValue"
+          />
         </el-select>
         <el-date-picker
           v-if="item.type === 'date'"
@@ -58,9 +54,12 @@
           :style="{ width: '100px' }"
           value=""
         >
-          <template v-for="(item, index) in getKeywordFields">
-            <el-option :key="index" :label="item.label" :value="item.field" />
-          </template>
+          <el-option
+            v-for="(item, index) in getKeywordFields"
+            :key="index"
+            :label="item.label"
+            :value="item.field"
+          />
         </el-select>
       </el-input>
     </el-form-item>
@@ -204,7 +203,11 @@ export default {
             continue
           }
 
-          formModel[field] = Array.isArray(value) ? value : [value + '']
+          if (otherField.type === 'select' && otherField.multiple) {
+            formModel[field] = Array.isArray(value) ? value : [value]
+          } else {
+            formModel[field] = value
+          }
         }
       }
 

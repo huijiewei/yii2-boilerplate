@@ -5,6 +5,10 @@ const AdminService = {
     return Vue.http.get('admins')
   },
 
+  log(query) {
+    return Vue.http.get('admin-logs', query)
+  },
+
   delete(id) {
     return Vue.http.delete('admins/' + id)
   },

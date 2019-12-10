@@ -80,15 +80,13 @@
           v-model="formModel.adminGroup.id"
           :disabled="getCurrentUserId === formModel.id"
           placeholder="所属管理组"
-          value=""
         >
-          <template v-for="(adminGroupName, adminGroupId) in adminGroupMap">
-            <el-option
-              :key="adminGroupId"
-              :label="adminGroupName"
-              :value="parseInt(adminGroupId)"
-            />
-          </template>
+          <el-option
+            v-for="(adminGroupName, adminGroupId) in adminGroupMap"
+            :key="adminGroupId"
+            :label="adminGroupName"
+            :value="Number(adminGroupId)"
+          />
         </el-select>
       </el-col>
     </el-form-item>

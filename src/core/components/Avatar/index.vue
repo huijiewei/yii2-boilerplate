@@ -1,5 +1,5 @@
 <template>
-  <span class="ag-avatar">
+  <span class="ag-avatar" :style="sizeStyle">
     <img v-if="src && src.length > 0" :alt="alt || '头像'" :src="src" />
     <img v-else :alt="alt || '头像'" src="../../assets/images/avatar.png" />
   </span>
@@ -16,6 +16,10 @@ export default {
     alt: {
       type: String,
       default: null
+    },
+    size: {
+      type: Number,
+      default: 32
     }
   },
   computed: {
@@ -24,8 +28,7 @@ export default {
       return typeof size === 'number'
         ? {
             height: `${size}px`,
-            width: `${size}px`,
-            lineHeight: `${size}px`
+            width: `${size}px`
           }
         : {}
     }
@@ -36,12 +39,14 @@ export default {
 <style lang="scss">
 .ag-avatar {
   display: inline-block;
-  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: 0;
+  vertical-align: middle;
 
   img {
-    height: 32px;
-    border-radius: 50%;
-    vertical-align: middle;
+    display: block;
+    height: 100%;
   }
 }
 </style>
