@@ -25,7 +25,6 @@
       <el-table-column prop="action" width="300" label="操作" />
       <el-table-column
         prop="params"
-        width="auto"
         label="参数"
       />
       <el-table-column
