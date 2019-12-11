@@ -3,6 +3,10 @@
 .ag {
   -webkit-font-smoothing: antialiased;
 
+  .el-button {
+    border-radius: 2px;
+  }
+
   .el-checkbox__label {
     padding-left: 6px;
   }

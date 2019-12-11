@@ -68,11 +68,8 @@ export default {
 
   .el-menu-item,
   .el-submenu {
-    .anticon {
-      font-size: 15px;
-      vertical-align: middle;
-      text-align: center;
-      width: 22px;
+    .ag-icon {
+      margin-right: 5px;
     }
   }
 

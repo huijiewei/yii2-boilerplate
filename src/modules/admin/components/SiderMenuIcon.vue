@@ -1,5 +1,5 @@
 <template>
-  <ag-icon :class="'sider-menu-icon'" :path="icon" />
+  <ag-icon :path="icon" />
 </template>
 
 <script>
@@ -15,8 +15,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.sider-menu-icon {
-  margin-right: 5px;
-}
-</style>

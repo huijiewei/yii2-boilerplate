@@ -457,7 +457,6 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '../../../../core/assets/styles/mixin.scss';
 .upload-widget {
   line-height: 1em;
 
@@ -506,8 +505,6 @@ export default {
       width: 100%;
       height: 100%;
     }
-  }
-  &.upload-widget-general {
   }
   &.upload-widget-preview {
     .blank {
