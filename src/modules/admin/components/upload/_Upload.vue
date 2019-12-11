@@ -316,14 +316,11 @@ export default {
               randomFileName =
                 Math.random()
                   .toString(36)
-                  .slice(-8) +
+                  .slice(-5) +
                 '_' +
                 option.file.name
             } else {
               randomFileName =
-                Math.random()
-                  .toString(36)
-                  .substring(3, 15) +
                 Math.random()
                   .toString(36)
                   .substring(3, 15) +
