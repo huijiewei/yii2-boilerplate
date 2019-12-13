@@ -21,7 +21,7 @@
       </el-table-column>
       <el-table-column prop="status.description" width="50" label="状态" />
       <el-table-column prop="type.description" width="90" label="类型" />
-      <el-table-column prop="method" width="70" label="方法" />
+      <el-table-column prop="method" width="79" label="方法" />
       <el-table-column prop="action" width="300" label="操作" />
       <el-table-column prop="params" label="参数" />
       <el-table-column

@@ -226,12 +226,19 @@ export default {
     await this.updateOption()
   },
   beforeDestroy() {
-    if (this.timer != null) {
-      clearTimeout(this.timer)
-    }
+    this.destroyTimer()
   },
   methods: {
+    destroyTimer() {
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+    },
+
     async updateOption() {
+      this.destroyTimer()
+
       this.buttonDisabled = true
 
       const { data } = await flatry(this.$http.get(this.action, null, false))
