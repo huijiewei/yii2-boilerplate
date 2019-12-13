@@ -3,16 +3,16 @@
 .ag {
   -webkit-font-smoothing: antialiased;
 
-  .el-button {
+  .el-button,
+  .el-tag,
+  .el-message-box,
+  .el-button--mini,
+  .el-button--small {
     border-radius: 2px;
   }
 
   .el-checkbox__label {
     padding-left: 6px;
-  }
-
-  .el-message-box {
-    border-radius: 2px;
   }
 
   .delete-dialog {
@@ -67,11 +67,6 @@
 
   .v-modal {
     opacity: 0.3;
-  }
-
-  .el-button--mini,
-  .el-button--small {
-    border-radius: 2px;
   }
 
   .el-button--mini,

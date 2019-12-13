@@ -19,9 +19,22 @@
           <span>{{ scope.row.admin.name || scope.row.admin.phone }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="status.description" width="50" label="状态" />
-      <el-table-column prop="type.description" width="90" label="类型" />
-      <el-table-column prop="method" width="79" label="方法" />
+      <el-table-column width="62" align="center" label="状态">
+        <template slot-scope="scope">
+          <el-tag
+            size="small"
+            :type="scope.row.status.status === 1 ? 'success' : 'danger'"
+            >{{ scope.row.status.description }}</el-tag
+          >
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="type.description"
+        align="center"
+        width="90"
+        label="类型"
+      />
+      <el-table-column prop="method" width="79" align="center" label="方法" />
       <el-table-column prop="action" width="300" label="操作" />
       <el-table-column prop="params" label="参数" />
       <el-table-column
