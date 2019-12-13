@@ -12,7 +12,6 @@
         v-model="loginForm.account"
         placeholder="手机号码或者电子邮箱"
         type="tel"
-        auto-complete="off"
         prefix-icon="el-icon-user"
       />
     </el-form-item>
@@ -24,10 +23,25 @@
         v-model="loginForm.password"
         placeholder="密码"
         type="password"
-        auto-complete="off"
-        show-password
         prefix-icon="el-icon-lock"
       />
+    </el-form-item>
+    <el-form-item
+      v-if="captcha"
+      prop="captcha"
+      :rules="[{ required: true, message: '请输入验证码', trigger: 'blur' }]"
+    >
+      <el-input
+        v-model="loginForm.captcha"
+        placeholder="验证码"
+        type="text"
+        auto-complete="off"
+        prefix-icon="el-icon-view"
+      >
+        <template slot="append">
+          <img alt="验证码" :src="captchaImage" />
+        </template>
+      </el-input>
     </el-form-item>
     <el-form-item>
       <el-button
@@ -46,6 +60,7 @@
 import flatry from '@core/utils/flatry'
 import AuthService from '@admin/services/AuthService'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
+import OpenService from '@admin/services/OpenService'
 
 export default {
   name: 'LoginForm',
@@ -60,11 +75,26 @@ export default {
       submitLoading: false,
       loginForm: {
         account: '',
-        password: ''
-      }
+        password: '',
+        captcha: ''
+      },
+      captcha: false,
+      captchaUuid: '',
+      captchaImage: null
     }
   },
   methods: {
+    async updateCaptcha() {
+      const uuid = Math.random()
+        .toString(36)
+        .substring(3, 13)
+
+      const { data } = await flatry(OpenService.captcha(uuid))
+
+      this.captcha = true
+      this.captchaUuid = uuid
+      this.captchaImage = data
+    },
     login(formName) {
       this.$refs[formName].validate(async valid => {
         if (!valid) {
@@ -73,7 +103,11 @@ export default {
 
         this.submitLoading = true
 
-        const { data, error } = await flatry(AuthService.login(this.loginForm))
+        const loginForm = Object.assign({}, this.loginForm, {
+          captcha: this.loginForm.captcha + '_' + this.captchaUuid
+        })
+
+        const { data, error } = await flatry(AuthService.login(loginForm))
 
         if (data) {
           await this.$store.dispatch('auth/login', data)
@@ -88,6 +122,31 @@ export default {
         }
 
         if (error) {
+          if (
+            error &&
+            error.response &&
+            error.response.status &&
+            error.response.status === 422
+          ) {
+            let violations
+
+            if (Array.isArray(error.response.data.violations)) {
+              violations = error.response.data.violations
+            }
+
+            if (Array.isArray(error.response.data)) {
+              violations = error.response.data
+            }
+
+            const violationCaptcha = violations.find(violation => {
+              return violation.field.split('.').pop() === 'captcha'
+            })
+
+            if (violationCaptcha) {
+              this.updateCaptcha()
+            }
+          }
+
           this.handleViolationError(error, formName)
         }
 

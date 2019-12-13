@@ -7,8 +7,24 @@
   .el-tag,
   .el-message-box,
   .el-button--mini,
-  .el-button--small {
+  .el-button--small,
+  .el-input-group__append, .el-input-group__prepend {
     border-radius: 2px;
+  }
+
+  .el-input-group--prepend .el-input__inner {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .el-input-group--append .el-input__inner, .el-input-group__prepend {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .el-input-group--prepend .el-input__inner, .el-input-group__append {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   .el-checkbox__label {
@@ -99,16 +115,6 @@
 
   .el-popper[x-placement^='bottom'] {
     margin-top: 0;
-  }
-
-  .el-input-group__append,
-  .el-input-group__prepend {
-    border-radius: 2px 0 0 2px;
-  }
-
-  .el-input-group--prepend .el-input__inner {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
   }
 
   .el-input__inner,
