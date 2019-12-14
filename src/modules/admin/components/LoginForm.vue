@@ -39,7 +39,13 @@
         prefix-icon="el-icon-view"
       >
         <template slot="append">
-          <img alt="验证码" :src="captchaImage" />
+          <img
+            style="cursor: pointer; vertical-align: middle;"
+            @click="updateCaptcha"
+            alt="点击更新验证码"
+            title="点击更新验证码"
+            :src="captchaImage"
+          />
         </template>
       </el-input>
     </el-form-item>

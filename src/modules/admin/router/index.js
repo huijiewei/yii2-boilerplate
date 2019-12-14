@@ -47,11 +47,21 @@ const routes = [
   },
   {
     path: '/login',
-    component: siteLogin
+    component: siteLogin,
+    meta: {
+      breadcrumb: {
+        title: '登录'
+      }
+    }
   },
   {
     path: '*',
-    component: notFound
+    component: notFound,
+    meta: {
+      breadcrumb: {
+        title: '页面未找到'
+      }
+    }
   }
 ]
 
