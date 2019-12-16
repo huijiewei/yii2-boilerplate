@@ -21,7 +21,7 @@
             v-for="(option, optionIndex) in item.options"
             :key="option.value + '-' + optionIndex"
             :label="option.description"
-            :value="option.value"
+            :value="option.value.toString()"
           />
         </el-select>
         <el-date-picker
