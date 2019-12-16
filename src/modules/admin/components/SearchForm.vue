@@ -204,9 +204,9 @@ export default {
           }
 
           if (otherField.type === 'select' && otherField.multiple) {
-            formModel[field] = Array.isArray(value) ? value : [value]
+            formModel[field] = Array.isArray(value) ? value : [value.toString()]
           } else {
-            formModel[field] = value
+            formModel[field] = value.toString()
           }
         }
       }
