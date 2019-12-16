@@ -23,7 +23,7 @@
         <template slot-scope="scope">
           <el-tag
             size="small"
-            :type="scope.row.status.status === 1 ? 'success' : 'danger'"
+            :type="scope.row.status.value === 1 ? 'success' : 'danger'"
             >{{ scope.row.status.description }}</el-tag
           >
         </template>

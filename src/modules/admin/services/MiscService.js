@@ -5,8 +5,8 @@ const MiscService = {
     return Vue.http.get('misc/admin-group-acl')
   },
 
-  adminGroupMap() {
-    return Vue.http.get('misc/admin-group-map')
+  adminGroupList() {
+    return Vue.http.get('misc/admin-group-list')
   },
 
   shopCategoryTree() {

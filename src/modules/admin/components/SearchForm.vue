@@ -18,10 +18,10 @@
           :placeholder="item.label"
         >
           <el-option
-            v-for="(optionLabel, optionValue, optionIndex) in item.options"
-            :key="index + '-' + optionIndex"
-            :label="optionLabel"
-            :value="optionValue"
+            v-for="(option, optionIndex) in item.options"
+            :key="option.value + '-' + optionIndex"
+            :label="option.description"
+            :value="option.value"
           />
         </el-select>
         <el-date-picker
@@ -218,7 +218,7 @@ export default {
       const queryFields = {}
 
       Object.keys(this.formModel).forEach(key => {
-        if (this.formModel[key] && this.formModel[key].length > 0) {
+        if (this.formModel[key] !== '') {
           queryFields[key] = this.formModel[key]
         }
       })

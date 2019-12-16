@@ -82,10 +82,10 @@
           placeholder="所属管理组"
         >
           <el-option
-            v-for="(adminGroupName, adminGroupId) in adminGroupMap"
-            :key="adminGroupId"
-            :label="adminGroupName"
-            :value="Number(adminGroupId)"
+            v-for="adminGroup in adminGroupList"
+            :key="adminGroup.id"
+            :label="adminGroup.name"
+            :value="adminGroup.id"
           />
         </el-select>
       </el-col>
@@ -165,7 +165,7 @@ export default {
       validatePassword: validatePassword,
       validatePasswordConfirm: validatePasswordConfirm,
       formModel: null,
-      adminGroupMap: {}
+      adminGroupList: {}
     }
   },
   computed: {
@@ -181,10 +181,10 @@ export default {
       this.admin
     )
 
-    const { data } = await flatry(MiscService.adminGroupMap())
+    const { data } = await flatry(MiscService.adminGroupList())
 
     if (data) {
-      this.adminGroupMap = data
+      this.adminGroupList = data
     }
   },
   methods: {
