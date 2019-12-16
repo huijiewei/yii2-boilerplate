@@ -101,6 +101,11 @@ export default {
       this.captchaUuid = uuid
       this.captchaImage = data
     },
+    removeCaptcha() {
+      this.captcha = false
+      this.captchaUuid = ''
+      this.captchaImage = null
+    },
     login(formName) {
       this.$refs[formName].validate(async valid => {
         if (!valid) {
@@ -150,6 +155,8 @@ export default {
 
             if (violationCaptcha) {
               this.updateCaptcha()
+            } else {
+              this.removeCaptcha()
             }
           }
 
