@@ -2,9 +2,10 @@
   <image-upload
     :multiple="false"
     :value="value"
-    :image-style="'avatar'"
+    :thumbs="['200x200']"
+    :default-thumb="'200x200'"
+    :cropper="{ enable: true }"
     @change="handleChange"
-    @on-upload-success="handleUploadSuccess"
   />
 </template>
 
@@ -27,10 +28,6 @@ export default {
   methods: {
     handleChange(files) {
       this.$emit('change', files)
-    },
-
-    handleUploadSuccess(file) {
-      this.$emit('on-upload-success', file)
     }
   }
 }

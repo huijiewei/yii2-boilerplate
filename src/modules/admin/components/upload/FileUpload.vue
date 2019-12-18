@@ -33,8 +33,8 @@ export default {
       this.$emit('change', files)
     },
 
-    handleUploadSuccess(file) {
-      this.$emit('on-upload-success', file)
+    handleUploadSuccess(upload) {
+      this.$emit('on-upload-success', upload)
     }
   }
 }

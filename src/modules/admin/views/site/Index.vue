@@ -19,7 +19,7 @@
     </p>
     <hr />
     <el-row :gutter="15">
-      <el-col :span="8">
+      <el-col :span="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>单文件上传</span>
@@ -27,25 +27,48 @@
           <file-upload :multiple="false" v-model="file" />
         </el-card>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>单图片上传</span>
           </div>
+          <image-upload :multiple="false" v-model="file" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>缩略图上传</span>
+          </div>
           <image-upload
             :multiple="false"
-            :cropper="{ enable: false }"
+            :thumbs="['200x200', '300x300']"
+            :default-thumb="'200x200'"
             v-model="file"
           />
         </el-card>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>单图片上传切割</span>
           </div>
           <image-upload
             :multiple="false"
+            :cropper="{ enable: true }"
+            v-model="file"
+          />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>单图片上传切割加缩略图</span>
+          </div>
+          <image-upload
+            :multiple="false"
+            :thumbs="['200x200', '300x300']"
+            :default-thumb="'200x200'"
             :cropper="{ enable: true }"
             v-model="file"
           />

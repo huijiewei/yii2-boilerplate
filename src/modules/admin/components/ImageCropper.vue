@@ -75,7 +75,7 @@ export default {
       const request = new Request({
         withCredentials: true,
         onSuccess: response => {
-          this.$emit('on-success', response.data.url)
+          this.$emit('on-success', response.data)
         },
         onError: error => {
           const message =
@@ -102,8 +102,7 @@ export default {
         x: data.x,
         y: data.y,
         w: data.width,
-        h: data.height,
-        size: this.cropperSize
+        h: data.height
       })
     },
     handleCancel() {

@@ -123,8 +123,8 @@
       v-if="cropperImage"
       :image="cropperImage"
       :crop-url="option.cropUrl"
-      :aspect-ratio="1"
-      :cropper-size="[200, 200]"
+      :aspect-ratio="cropper.aspectRatio"
+      :cropper-size="cropper.size"
       @on-cancel="handleImageCropperCancel"
       @on-success="handleImageCropperSuccess"
     />
@@ -143,10 +143,6 @@ export default {
     files: {
       type: [Array, String],
       default: null
-    },
-    filenameHash: {
-      type: String,
-      default: 'random'
     },
     action: {
       type: String,
@@ -170,7 +166,11 @@ export default {
         }
       }
     },
-    imageStyle: {
+    thumbs: {
+      type: Array,
+      default: null
+    },
+    defaultThumb: {
       type: String,
       default: ''
     }
@@ -236,12 +236,28 @@ export default {
       }
     },
 
+    getFilename(url) {
+      return url
+        .split('/')
+        .pop()
+        .split('#')
+        .shift()
+        .split('?')
+        .shift()
+    },
+
     async updateOption() {
       this.destroyTimer()
 
       this.buttonDisabled = true
 
-      const { data } = await flatry(this.$http.get(this.action, null, false))
+      const { data } = await flatry(
+        this.$http.get(
+          this.action,
+          { thumbs: this.thumbs, cropper: this.cropper.enable },
+          false
+        )
+      )
 
       if (data) {
         this.option = data
@@ -253,18 +269,8 @@ export default {
       }
     },
 
-    getFilename(url) {
-      return url
-        .split('/')
-        .pop()
-        .split('#')
-        .shift()
-        .split('?')
-        .shift()
-    },
-
-    updateFiles(url) {
-      const file = { name: this.getFilename(url), url: url }
+    updateFiles(upload) {
+      const file = this.getThumbFile(upload, this.defaultThumb)
 
       if (this.multiple) {
         this.uploadFiles.push(file)
@@ -272,7 +278,7 @@ export default {
         this.uploadFiles = file
       }
 
-      this.$emit('on-upload-success', file)
+      this.$emit('on-upload-success', upload)
 
       this.updateValue()
     },
@@ -317,23 +323,12 @@ export default {
           const value = params[key]
           // eslint-disable-next-line no-template-curly-in-string
           if (value.toString().indexOf('${filename}') !== -1) {
-            let randomFileName = ''
-
-            if (this.filenameHash === 'original') {
-              randomFileName =
-                Math.random()
-                  .toString(36)
-                  .slice(-5) +
-                '_' +
-                option.file.name
-            } else {
-              randomFileName =
-                Math.random()
-                  .toString(36)
-                  .substring(3, 15) +
-                '.' +
-                option.file.name.split('.').pop()
-            }
+            let randomFileName =
+              Math.random()
+                .toString(36)
+                .substring(3, 15) +
+              '.' +
+              option.file.name.split('.').pop()
 
             // eslint-disable-next-line no-template-curly-in-string
             formData.append(
@@ -378,20 +373,6 @@ export default {
       return true
     },
 
-    appendImageStyle(url, imageStyle) {
-      if (imageStyle.length === 0 || this.option.imageProcess.length === 0) {
-        return url
-      }
-
-      const imageProcess = new Function(
-        'url',
-        'imageStyle',
-        this.option.imageProcess
-      )
-
-      return imageProcess(url, imageStyle)
-    },
-
     handleSuccess(response) {
       this.buttonDisabled = false
 
@@ -403,19 +384,37 @@ export default {
       // eslint-disable-next-line no-new-func
       const responseParse = new Function('result', this.option.responseParse)
 
-      let url = responseParse(result)
+      let upload = responseParse(result)
 
-      if (url) {
+      console.log(upload)
+
+      if (upload.original) {
         if (
           this.cropper.enable &&
           this.option.cropUrl &&
           this.option.cropUrl.length > 0
         ) {
-          this.cropperImage = url
+          this.cropperImage = upload.original.url
         } else {
-          this.updateFiles(this.appendImageStyle(url, this.imageStyle))
+          this.updateFiles(upload)
         }
       }
+    },
+
+    getThumbFile(upload, thumb) {
+      let file = null
+
+      if (thumb !== '' && Array.isArray(upload.thumbs)) {
+        file = upload.thumbs.find(uploadThumb => {
+          return uploadThumb.thumb === thumb
+        })
+      }
+
+      if (file === null) {
+        file = upload.original
+      }
+
+      return file
     },
 
     handleError(error) {
@@ -452,9 +451,9 @@ export default {
       this.dialogVisible = true
     },
 
-    handleImageCropperSuccess(url) {
+    handleImageCropperSuccess(data) {
       this.cropperImage = null
-      this.updateFiles(this.appendImageStyle(url, this.imageStyle))
+      this.updateFiles(data)
     },
 
     handleImageCropperCancel() {

@@ -6,7 +6,8 @@
     :preview="preview"
     :files="value"
     :cropper="cropper"
-    :image-style="imageStyle"
+    :thumbs="thumbs"
+    :default-thumb="defaultThumb"
     @on-success="handleSuccess"
     @on-upload-success="handleUploadSuccess"
   />
@@ -23,15 +24,11 @@ export default {
       type: [Array, String],
       default: null
     },
-    imageStyle: {
-      type: String,
-      default: ''
-    },
     cropper: {
       type: Object,
       default: function() {
         return {
-          enable: true,
+          enable: false,
           aspectRatio: 1,
           size: [200, 200]
         }
@@ -46,6 +43,14 @@ export default {
       default: function() {
         return [88, 88]
       }
+    },
+    thumbs: {
+      type: Array,
+      default: null
+    },
+    defaultThumb: {
+      type: String,
+      default: ''
     }
   },
   model: {
@@ -57,12 +62,12 @@ export default {
       this.$emit('change', files)
     },
 
-    handleUploadSuccess(file) {
-      this.$emit('on-upload-success', file)
+    handleUploadSuccess(upload) {
+      this.$emit('on-upload-success', upload)
     },
 
-    appendImageStyle(url, imageStyle) {
-      return this.$refs.upload.appendImageStyle(url, imageStyle)
+    getThumbFile(upload, thumb) {
+      return this.$refs.upload.getThumbFile(upload, thumb)
     }
   }
 }
