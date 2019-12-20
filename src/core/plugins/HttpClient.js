@@ -16,6 +16,13 @@ const HttpClient = {
       setErrorDispatch
     }
   ) {
+    const errorMessage = (message, historyBack) => {
+      store.dispatch(setErrorDispatch, {
+        message: message,
+        historyBack: historyBack
+      })
+    }
+
     const request = new Request({
       baseUrl: apiHost,
       beforeRequest: config => {
@@ -39,10 +46,7 @@ const HttpClient = {
         const historyBack = error.config.historyBack
 
         if (!error.response) {
-          store.dispatch(setErrorDispatch, {
-            message: error.message,
-            historyBack: historyBack
-          })
+          errorMessage(error.message, historyBack)
 
           return Promise.reject(error)
         }
@@ -68,17 +72,36 @@ const HttpClient = {
           return Promise.reject(error)
         }
 
-        const message =
-          error.response.data.detail ||
-          error.response.data.message ||
-          error.response.data.title ||
-          error.response.statusText ||
-          (error.response.status >= 500 ? '系统错误' : '请求错误')
+        if (!error.response.data) {
+          errorMessage(
+            error.response.statusText ||
+              (error.response.status >= 500 ? '系统错误' : '请求错误'),
+            historyBack
+          )
 
-        store.dispatch(setErrorDispatch, {
-          message: message,
-          historyBack: historyBack
-        })
+          return Promise.reject(error)
+        }
+
+        if (error.response.data instanceof Blob) {
+          const reader = new FileReader()
+
+          reader.onloadend = e => {
+            const data = JSON.parse(e.target.result.toString())
+
+            errorMessage(data.detail || data.message || data.title, historyBack)
+          }
+
+          reader.readAsText(new Blob([error.response.data]))
+
+          return Promise.reject(error)
+        }
+
+        errorMessage(
+          error.response.data.detail ||
+            error.response.data.message ||
+            error.response.data.title,
+          historyBack
+        )
 
         return Promise.reject(error)
       }
