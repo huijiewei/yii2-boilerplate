@@ -163,55 +163,52 @@ export default {
     },
     updateFormModel() {
       const routeQuery = this.$route.query
-      const formModel = {}
+      this.formModel = {}
+      this.keywordField = ''
+      this.keywordValue = ''
 
       const keywordFields = this.getKeywordFields
-
-      this.keywordValue = ''
 
       if (this.keywordField === '' && keywordFields.length > 0) {
         this.keywordField = keywordFields[0].field
       }
 
-      for (const key of Object.keys(routeQuery)) {
-        const field = key
-        const value = routeQuery[field]
+      for (const field of keywordFields) {
+        if (routeQuery.hasOwnProperty(field.field)) {
+          this.keywordField = field.field
+          this.keywordValue = routeQuery[field.field]
+          this.formModel[field.field] = routeQuery[field.field]
+        } else {
+          this.formModel[field.field] = ''
+        }
+      }
 
-        if (
-          keywordFields.some(keyField => {
-            return keyField.field === field
-          })
-        ) {
-          this.keywordField = field
-          this.keywordValue = value
+      const otherFields = this.getOtherFields
 
+      for (const field of otherFields) {
+        if (field.type === 'br') {
           continue
         }
 
-        const otherFields = this.getOtherFields
+        if (field.type === 'select' && field.multiple) {
+          if (routeQuery.hasOwnProperty(field.field)) {
+            const routeQueryValue = routeQuery[field.field]
 
-        if (otherFields.length === 0) {
-          continue
-        }
-
-        for (const otherField of otherFields) {
-          if (otherField.type === 'br') {
-            continue
-          }
-
-          if (otherField.field !== field) {
-            continue
-          }
-
-          if (otherField.type === 'select' && otherField.multiple) {
-            formModel[field] = Array.isArray(value) ? value : [value.toString()]
+            this.formModel[field.field] = Array.isArray(routeQueryValue)
+              ? routeQueryValue
+              : [routeQueryValue.toString()]
           } else {
-            formModel[field] = value.toString()
+            this.formModel[field.field] = []
+          }
+        } else {
+          if (routeQuery.hasOwnProperty(field.field)) {
+            this.formModel[field.field] = routeQuery[field.field]
+          } else {
+            this.formModel[field.field] = ''
           }
         }
       }
 
-      this.formModel = formModel
       this.formModelInit = true
     },
     getQueryFields() {
@@ -224,15 +221,12 @@ export default {
       })
 
       Object.keys(this.$route.query).forEach(key => {
-        if (
-          !Object.prototype.hasOwnProperty.call(this.formModel, key) &&
-          !this.isPageQuery(key)
-        ) {
+        if (!this.formModel.hasOwnProperty(key) && !this.isPageQuery(key)) {
           queryFields[key] = this.$route.query[key]
         }
       })
 
-      if (this.keywordField !== '' && this.keywordValue !== '') {
+      if (this.keywordField !== '') {
         queryFields[this.keywordField] = this.keywordValue
       }
 
@@ -242,10 +236,7 @@ export default {
       const defaultQuery = {}
 
       Object.keys(this.$route.query).forEach(key => {
-        if (
-          !Object.prototype.hasOwnProperty.call(this.formModel, key) &&
-          !this.isPageQuery(key)
-        ) {
+        if (!this.formModel.hasOwnProperty(key) && !this.isPageQuery(key)) {
           defaultQuery[key] = this.$route.query[key]
         }
       })
@@ -265,8 +256,6 @@ export default {
       }
     },
     handleFormReset() {
-      this.updateFormModel()
-
       this.$router.push({
         path: this.$route.path,
         query: this.getDefaultQuery()

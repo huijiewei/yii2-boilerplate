@@ -20,19 +20,25 @@
         </el-cascader>
       </el-col>
     </el-form-item>
-    <el-form-item label="分类名称" prop="name">
+    <el-form-item
+      label="分类名称"
+      prop="name"
+      :rules="[
+        { required: true, message: '请输入商品分类名称', trigger: 'blur' }
+      ]"
+    >
       <el-col :md="7">
-        <el-input
-          v-model.trim="formModel.name"
-          :rules="[
-            { required: true, message: '请输入商品分类名称', trigger: 'blur' }
-          ]"
-        />
+        <el-input v-model.trim="formModel.name" />
       </el-col>
     </el-form-item>
     <el-form-item label="分类图标" prop="icon">
       <el-col :md="16">
-        <el-input type="textarea" autosize v-model="formModel.icon" />
+        <el-input
+          placeholder="请填写 SVG 图标的 PATH 节点"
+          type="textarea"
+          :autosize="{ minRows: 2, maxRows: 5 }"
+          v-model="formModel.icon"
+        />
       </el-col>
     </el-form-item>
     <el-form-item label="图片" prop="image">
@@ -41,9 +47,8 @@
     <el-form-item label="分类介绍" prop="description">
       <el-col :md="16">
         <el-input
-          autosize
+          :autosize="{ minRows: 3, maxRows: 6 }"
           type="textarea"
-          :rows="5"
           v-model="formModel.description"
         />
       </el-col>

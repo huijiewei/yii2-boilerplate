@@ -9,6 +9,10 @@ const MiscService = {
     return Vue.http.get('misc/admin-group-list')
   },
 
+  shopBrandList() {
+    return Vue.http.get('misc/shop-brand-list')
+  },
+
   shopCategoryTree() {
     return Vue.http.get('misc/shop-category-tree')
   },

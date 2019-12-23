@@ -7,21 +7,20 @@
     label-suffix="："
     @submit.native.stop.prevent="handleFormSubmit('formModel')"
   >
-    <el-form-item
-      label="名称"
-      prop="name"
-      :rules="[
-        { required: true, message: '请输入管理组名称', trigger: 'blur' },
-        {
-          min: 3,
-          max: 10,
-          message: '管理组名称长度在 3 到 10 个字符',
-          trigger: 'blur'
-        }
-      ]"
-    >
+    <el-form-item label="名称" prop="name">
       <el-col :md="9">
-        <el-input v-model.trim="formModel.name" />
+        <el-input
+          v-model.trim="formModel.name"
+          :rules="[
+            { required: true, message: '请输入管理组名称', trigger: 'blur' },
+            {
+              min: 3,
+              max: 10,
+              message: '管理组名称长度在 3 到 10 个字符',
+              trigger: 'blur'
+            }
+          ]"
+        />
       </el-col>
     </el-form-item>
     <el-form-item label="权限">

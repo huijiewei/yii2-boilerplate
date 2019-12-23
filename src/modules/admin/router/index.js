@@ -7,9 +7,11 @@ import siteIndex from '@admin/views/site/Index'
 import siteLogin from '@admin/views/site/Login'
 import siteProfile from '@admin/views/site/Profile'
 
-import adminRoutes from './admin'
+import adminRoutes from './admin/admin'
+import adminGroupRoutes from './admin/group'
 import userRoutes from './user'
-import shopRoutes from './shop'
+import shopCategoryRoutes from './shop/category'
+import shopBrandRoutes from './shop/brand'
 
 import defaultLayout from '@admin/components/DefaultLayout'
 
@@ -21,8 +23,10 @@ const routes = [
     component: defaultLayout,
     children: [
       ...adminRoutes,
+      ...adminGroupRoutes,
       ...userRoutes,
-      ...shopRoutes,
+      ...shopBrandRoutes,
+      ...shopCategoryRoutes,
       {
         path: 'home',
         component: siteIndex,

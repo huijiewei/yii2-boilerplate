@@ -5,11 +5,22 @@
 
   .el-button,
   .el-tag,
+  .el-card,
+  .el-message,
   .el-message-box,
   .el-button--mini,
   .el-button--small,
-  .el-input-group__append, .el-input-group__prepend {
+  .el-input-group__append,
+  .el-input-group__prepend {
     border-radius: 2px;
+  }
+
+  .el-input__inner {
+    padding: 0 10px;
+  }
+
+  .el-textarea__inner {
+    padding: 5px 10px;
   }
 
   .el-input-group--prepend .el-input__inner {
@@ -17,12 +28,14 @@
     border-bottom-left-radius: 0;
   }
 
-  .el-input-group--append .el-input__inner, .el-input-group__prepend {
+  .el-input-group--append .el-input__inner,
+  .el-input-group__prepend {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
 
-  .el-input-group--prepend .el-input__inner, .el-input-group__append {
+  .el-input-group--prepend .el-input__inner,
+  .el-input-group__append {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
