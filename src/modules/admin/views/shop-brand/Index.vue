@@ -15,26 +15,33 @@
         </el-button>
       </div>
     </div>
-    <el-row :gutter="12">
-      <el-col
-        :span="6"
+    <div class="shop-brand-list clearfix">
+      <div
+        class="brand"
         v-for="shopBrand in shopBrands"
         v-bind:key="shopBrand.id"
       >
-        <el-card shadow="hover" :body-style="{ padding: '10px' }">
+        <el-card shadow="hover">
           <img
-            width="88"
-            height="31"
             :alt="shopBrand.name"
             v-if="shopBrand.logo"
             :src="shopBrand.logo"
-            class="brand-logo"
+            class="logo"
           />
-          <img :alt="shopBrand.name" v-else src="" class="image" />
-          <div style="padding: 10px 0; text-align: center">
+          <img
+            :alt="shopBrand.name"
+            v-else
+            src="../../assets/images/banner.png"
+            class="logo"
+          />
+          <div class="body">
             <div>
-              <ag-icon v-if="shopBrand.icon" :path="shopBrand.icon" />
-              <i v-else class="el-icon-folder" />
+              <ag-icon
+                v-if="shopBrand.icon"
+                class="icon"
+                :path="shopBrand.icon"
+              />
+              <i v-else class="el-icon-eleme icon" />
               <span>{{ shopBrand.name }}</span>
             </div>
             <div class="bottom clearfix">
@@ -57,8 +64,8 @@
             </div>
           </div>
         </el-card>
-      </el-col>
-    </el-row>
+      </div>
+    </div>
     <el-dialog
       :title="this.dialogTitle"
       :close-on-click-modal="false"
@@ -263,7 +270,32 @@ export default {
 }
 </script>
 <style lang="scss">
-.brand-logo {
-  border: 1px solid #dddddd;
+.shop-brand-list {
+  .brand {
+    float: left;
+    margin-right: 12px;
+
+    .logo {
+      border: 1px solid #dddddd;
+      width: 88px;
+      height: 31px;
+    }
+
+    .body {
+      padding: 10px 0;
+    }
+
+    .icon {
+      margin-right: 5px;
+    }
+
+    .bottom {
+      padding-top: 10px;
+    }
+  }
+
+  .el-card__body {
+    text-align: center;
+  }
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <upload
     ref="upload"
+    :value="value"
     :action="'misc/image-upload-option'"
     :multiple="multiple"
     :preview="preview"
-    :files="value"
     :cropper="cropper"
     :thumbs="thumbs"
     :default-thumb="defaultThumb"
-    @on-success="handleSuccess"
+    @change="handleChange"
     @on-upload-success="handleUploadSuccess"
   />
 </template>
@@ -58,8 +58,8 @@ export default {
     event: 'change'
   },
   methods: {
-    handleSuccess(files) {
-      this.$emit('change', files)
+    handleChange(value) {
+      this.$emit('change', value)
     },
 
     handleUploadSuccess(upload) {

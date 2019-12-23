@@ -45,6 +45,7 @@
             :thumbs="['200x200', '300x300']"
             :default-thumb="'200x200'"
             v-model="file"
+            @on-upload-success="handleChange"
           />
         </el-card>
       </el-col>

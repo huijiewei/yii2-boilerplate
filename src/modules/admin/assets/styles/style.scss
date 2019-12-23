@@ -3,6 +3,10 @@
 .ag {
   -webkit-font-smoothing: antialiased;
 
+  .clearfix {
+    @include clearfix;
+  }
+
   .el-button,
   .el-tag,
   .el-card,
@@ -194,7 +198,7 @@
       }
 
       .el-form-item {
-        margin: 0 0 0 5px;
+        margin: 0 5px 0 0;
         vertical-align: bottom;
       }
 

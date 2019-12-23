@@ -2,8 +2,8 @@
   <upload
     :action="'misc/file-upload-option'"
     :multiple="multiple"
-    :files="value"
-    @on-success="handleSuccess"
+    :value="value"
+    @change="handleChange"
     @on-upload-success="handleUploadSuccess"
   />
 </template>
@@ -29,8 +29,8 @@ export default {
     event: 'change'
   },
   methods: {
-    handleSuccess(files) {
-      this.$emit('change', files)
+    handleChange(value) {
+      this.$emit('change', value)
     },
 
     handleUploadSuccess(upload) {

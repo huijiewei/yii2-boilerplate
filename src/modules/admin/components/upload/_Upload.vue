@@ -7,7 +7,7 @@
       <template v-if="multiple">
         <li
           class="el-upload-list__item is-ready"
-          v-if="uploadFiles.length === 0"
+          v-if="files.length === 0"
           :style="{
             width: box.width,
             minWidth: box.height,
@@ -24,7 +24,7 @@
           class="el-upload-list__item is-ready"
           v-else
           :style="{ width: box.width, height: box.height }"
-          v-for="file of uploadFiles"
+          v-for="file of files"
           v-bind:key="file.name"
         >
           <img
@@ -38,13 +38,13 @@
             <span
               v-if="preview"
               class="el-upload-list__item-preview"
-              @click="handlePreview(file)"
+              @click="handlePreview(file.url)"
             >
               <i class="el-icon-zoom-in" />
             </span>
             <span
               class="el-upload-list__item-delete"
-              @click="handleRemove(file)"
+              @click="handleRemove(file.url)"
             >
               <i class="el-icon-delete" />
             </span>
@@ -54,7 +54,7 @@
       <template v-else>
         <li
           class="el-upload-list__item is-ready"
-          v-if="uploadFiles.url.length === 0"
+          v-if="files.url.length === 0"
           :style="{
             width: box.width,
             minWidth: box.height,
@@ -75,21 +75,21 @@
           <img
             class="preview"
             v-if="preview"
-            :alt="uploadFiles.name"
-            :src="uploadFiles.url"
+            :alt="files.name"
+            :src="files.url"
           />
-          <span class="generate" v-else>{{ uploadFiles.name }}</span>
+          <span class="generate" v-else>{{ files.name }}</span>
           <span class="el-upload-list__item-actions">
             <span
               v-if="preview"
               class="el-upload-list__item-preview"
-              @click="handlePreview(uploadFiles)"
+              @click="handlePreview(files.url)"
             >
               <i class="el-icon-zoom-in" />
             </span>
             <span
               class="el-upload-list__item-delete"
-              @click="handleRemove(uploadFiles)"
+              @click="handleRemove(files.url)"
             >
               <i class="el-icon-delete" />
             </span>
@@ -140,7 +140,7 @@ export default {
   name: 'Upload',
   components: { ImageCropper },
   props: {
-    files: {
+    value: {
       type: [Array, String],
       default: null
     },
@@ -175,6 +175,10 @@ export default {
       default: ''
     }
   },
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
   data() {
     return {
       box: { width: 'auto', height: '32px' },
@@ -193,10 +197,27 @@ export default {
         typesLimit: []
       },
       buttonDisabled: true,
-      uploadFiles: this.multiple ? [] : { name: '', url: '' },
+      uploadFiles: this.multiple ? [] : null,
       cropperImage: null,
       dialogVisible: false,
       dialogImageUrl: ''
+    }
+  },
+  computed: {
+    files: function() {
+      if (this.multiple) {
+        return this.value.map(url => {
+          return {
+            name: this.getFilename(url),
+            url: url
+          }
+        })
+      } else {
+        return {
+          name: this.getFilename(this.value),
+          url: this.value
+        }
+      }
     }
   },
   async mounted() {
@@ -204,22 +225,6 @@ export default {
       this.box = {
         width: this.preview[0] - 2 + 'px',
         height: this.preview[1] - 2 + 'px'
-      }
-    }
-
-    if (this.files) {
-      if (this.multiple) {
-        this.uploadFiles = this.files.map(url => {
-          return {
-            name: this.getFilename(url),
-            url: url
-          }
-        })
-      } else {
-        this.uploadFiles = {
-          name: this.getFilename(this.files),
-          url: this.files
-        }
       }
     }
 
@@ -284,14 +289,7 @@ export default {
     },
 
     updateValue() {
-      if (this.multiple) {
-        this.$emit(
-          'on-success',
-          this.uploadFiles.map(file => file.url)
-        )
-      } else {
-        this.$emit('on-success', this.uploadFiles.url)
-      }
+      this.$emit('change', this.uploadFiles)
     },
 
     getHttpRequest(option) {
@@ -306,7 +304,7 @@ export default {
 
       if (headers && Array.isArray(headers)) {
         request.httpClient.interceptors.request.use(config => {
-          for (let key in headers) {
+          for (const key in headers) {
             config.headers[key] = headers[key]
           }
 
@@ -319,7 +317,7 @@ export default {
       const formData = new FormData()
 
       if (params) {
-        for (let key in params) {
+        for (const key in params) {
           const value = params[key]
           // eslint-disable-next-line no-template-curly-in-string
           if (value.toString().indexOf('${filename}') !== -1) {
@@ -386,15 +384,13 @@ export default {
 
       let upload = responseParse(result)
 
-      console.log(upload)
-
       if (upload.original) {
         if (
           this.cropper.enable &&
           this.option.cropUrl &&
           this.option.cropUrl.length > 0
         ) {
-          this.cropperImage = upload.original.url
+          this.cropperImage = upload.original
         } else {
           this.updateFiles(upload)
         }
@@ -412,6 +408,8 @@ export default {
 
       if (file === null) {
         file = upload.original
+      } else {
+        file = file.url
       }
 
       return file
@@ -435,19 +433,20 @@ export default {
     },
 
     handleRemove(file) {
+      console.log(file)
       if (Array.isArray(this.uploadFiles)) {
         this.uploadFiles = this.uploadFiles.filter(uploadFile => {
-          return uploadFile.url !== file.url
+          return uploadFile !== file
         })
       } else {
-        this.uploadFiles = { name: '', url: '' }
+        this.uploadFiles = null
       }
 
       this.updateValue()
     },
 
     handlePreview(file) {
-      this.dialogImageUrl = file.url
+      this.dialogImageUrl = file
       this.dialogVisible = true
     },
 
