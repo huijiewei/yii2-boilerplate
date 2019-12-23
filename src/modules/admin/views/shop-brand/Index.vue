@@ -259,6 +259,7 @@ export default {
   .brand {
     float: left;
     margin-right: 12px;
+    margin-bottom: 12px;
 
     .logo {
       border: 1px solid #dddddd;
