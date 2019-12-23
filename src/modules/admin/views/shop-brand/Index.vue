@@ -35,15 +35,7 @@
             class="logo"
           />
           <div class="body">
-            <div>
-              <ag-icon
-                v-if="shopBrand.icon"
-                class="icon"
-                :path="shopBrand.icon"
-              />
-              <i v-else class="el-icon-eleme icon" />
-              <span>{{ shopBrand.name }}</span>
-            </div>
+            <span>{{ shopBrand.name }}</span>
             <div class="bottom clearfix">
               <el-button
                 type="primary"
@@ -95,16 +87,6 @@
             <el-input v-model.trim="formModel.name" />
           </el-col>
         </el-form-item>
-        <el-form-item label="图标" prop="icon">
-          <el-col :md="20">
-            <el-input
-              placeholder="请填写 SVG 图标的 PATH 节点"
-              type="textarea"
-              :autosize="{ minRows: 2, maxRows: 5 }"
-              v-model.trim="formModel.icon"
-            />
-          </el-col>
-        </el-form-item>
         <el-form-item label="LOGO" prop="logo">
           <el-col :md="10">
             <image-upload
@@ -125,6 +107,7 @@
         </el-form-item>
         <el-form-item>
           <el-button
+            :disabled="!$can('shop-brand/edit')"
             type="primary"
             native-type="submit"
             size="small"
@@ -132,7 +115,10 @@
           >
             确定
           </el-button>
-          <el-button @click="dialogVisible = false" size="small"
+          <el-button
+            :disabled="!$can('shop-brand/delete')"
+            @click="dialogVisible = false"
+            size="small"
             >取消</el-button
           >
         </el-form-item>
@@ -142,7 +128,6 @@
 </template>
 
 <script>
-import AgIcon from '@core/components/Icon'
 import ShopBrandService from '@admin/services/ShopBrandService'
 import flatry from '@core/utils/flatry'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
@@ -151,7 +136,7 @@ import ImageUpload from '@admin/components/upload/ImageUpload'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 
 export default {
-  components: { ImageUpload, SearchForm, AgIcon },
+  components: { ImageUpload, SearchForm },
   mixins: [SearchFormFieldsMixin, UnprocessableEntityHttpErrorMixin],
   data() {
     return {
