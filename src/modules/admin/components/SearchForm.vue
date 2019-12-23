@@ -169,10 +169,6 @@ export default {
 
       const keywordFields = this.getKeywordFields
 
-      if (this.keywordField === '' && keywordFields.length > 0) {
-        this.keywordField = keywordFields[0].field
-      }
-
       for (const field of keywordFields) {
         if (routeQuery.hasOwnProperty(field.field)) {
           this.keywordField = field.field
@@ -181,6 +177,10 @@ export default {
         } else {
           this.formModel[field.field] = ''
         }
+      }
+
+      if (this.keywordField === '' && keywordFields.length > 0) {
+        this.keywordField = keywordFields[0].field
       }
 
       const otherFields = this.getOtherFields
