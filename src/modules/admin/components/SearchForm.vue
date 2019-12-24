@@ -162,10 +162,12 @@ export default {
       this.pickerOptionsInit = true
     },
     updateFormModel() {
-      const routeQuery = this.$route.query
       this.formModel = {}
       this.keywordField = ''
       this.keywordValue = ''
+
+      const routeQuery = this.$route.query
+      const formModel = {}
 
       const keywordFields = this.getKeywordFields
 
@@ -173,9 +175,9 @@ export default {
         if (routeQuery.hasOwnProperty(field.field)) {
           this.keywordField = field.field
           this.keywordValue = routeQuery[field.field]
-          this.formModel[field.field] = routeQuery[field.field]
+          formModel[field.field] = routeQuery[field.field]
         } else {
-          this.formModel[field.field] = ''
+          formModel[field.field] = ''
         }
       }
 
@@ -194,21 +196,22 @@ export default {
           if (routeQuery.hasOwnProperty(field.field)) {
             const routeQueryValue = routeQuery[field.field]
 
-            this.formModel[field.field] = Array.isArray(routeQueryValue)
+            formModel[field.field] = Array.isArray(routeQueryValue)
               ? routeQueryValue
               : [routeQueryValue.toString()]
           } else {
-            this.formModel[field.field] = []
+            formModel[field.field] = []
           }
         } else {
           if (routeQuery.hasOwnProperty(field.field)) {
-            this.formModel[field.field] = routeQuery[field.field]
+            formModel[field.field] = routeQuery[field.field]
           } else {
-            this.formModel[field.field] = ''
+            formModel[field.field] = ''
           }
         }
       }
 
+      this.formModel = formModel
       this.formModelInit = true
     },
     getQueryFields() {
