@@ -247,6 +247,10 @@ export default {
     },
 
     getFilename(url) {
+      if (url.length === 0) {
+        return ''
+      }
+
       return url
         .split('/')
         .pop()
@@ -438,13 +442,12 @@ export default {
     },
 
     handleRemove(file) {
-      console.log(file)
       if (Array.isArray(this.uploadFiles)) {
         this.uploadFiles = this.uploadFiles.filter(uploadFile => {
           return uploadFile !== file
         })
       } else {
-        this.uploadFiles = null
+        this.uploadFiles = ''
       }
 
       this.updateValue()
