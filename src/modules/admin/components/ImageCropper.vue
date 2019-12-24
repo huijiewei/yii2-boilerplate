@@ -5,6 +5,7 @@
     :visible="true"
     :show-close="false"
     center
+    append-to-body
   >
     <vue-cropper
       ref="cropper"

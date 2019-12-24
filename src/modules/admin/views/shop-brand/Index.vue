@@ -62,7 +62,6 @@
       :title="this.dialogTitle"
       :close-on-click-modal="false"
       :visible.sync="dialogVisible"
-      width="30%"
     >
       <el-form
         v-if="formModel"
@@ -85,6 +84,21 @@
         >
           <el-col :md="10">
             <el-input v-model.trim="formModel.name" />
+          </el-col>
+        </el-form-item>
+        <el-form-item
+          label="别名"
+          prop="alias"
+          :rules="[
+            {
+              required: true,
+              message: '请输入品牌别名',
+              trigger: 'blur'
+            }
+          ]"
+        >
+          <el-col :md="6">
+            <el-input v-model.trim="formModel.alias" />
           </el-col>
         </el-form-item>
         <el-form-item label="LOGO" prop="logo">

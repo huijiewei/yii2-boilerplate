@@ -116,7 +116,12 @@
         >点击上传</el-button
       >
     </el-upload>
-    <el-dialog class="image-view-dialog" :visible.sync="dialogVisible">
+    <el-dialog
+      append-to-body
+      class="image-view-dialog"
+      :visible.sync="dialogVisible"
+      center
+    >
       <img class="image-view" :src="dialogImageUrl" alt="" />
     </el-dialog>
     <image-cropper
@@ -462,25 +467,25 @@ export default {
 }
 </script>
 <style lang="scss">
+.image-view-dialog {
+  .el-dialog {
+    width: auto;
+    max-width: 50%;
+  }
+
+  .el-dialog__body {
+    text-align: center;
+  }
+
+  .image-view {
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
 .upload-widget {
   line-height: 1em;
-
-  .image-view-dialog {
-    .el-dialog {
-      width: auto;
-      max-width: 50%;
-    }
-
-    .el-dialog__body {
-      text-align: center;
-    }
-
-    .image-view {
-      width: auto;
-      max-width: 100%;
-      margin: 0 auto;
-    }
-  }
 
   .el-upload-list--picture-card .el-upload-list__item-actions {
     font-size: 16px;
