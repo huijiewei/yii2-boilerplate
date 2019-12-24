@@ -75,7 +75,6 @@
     <el-dialog
       title="日志详情"
       :visible.sync="dialogVisible"
-      width="30%"
       :before-close="handleClose"
     >
       <el-table :data="viewAdminLog" :show-header="false">
