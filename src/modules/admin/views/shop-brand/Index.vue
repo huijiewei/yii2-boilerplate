@@ -38,6 +38,7 @@
             <span>{{ shopBrand.name }}</span>
             <div class="bottom clearfix">
               <el-button
+                :disabled="!$can('shop-brand/edit')"
                 type="primary"
                 size="mini"
                 plain
@@ -46,6 +47,7 @@
                 >编辑</el-button
               >
               <el-button
+                :disabled="!$can('shop-brand/delete')"
                 type="danger"
                 size="mini"
                 plain
@@ -62,6 +64,7 @@
       :title="this.dialogTitle"
       :close-on-click-modal="false"
       :visible.sync="dialogVisible"
+      @closed="handleDialogClosed('formModel')"
     >
       <el-form
         v-if="formModel"
@@ -121,7 +124,6 @@
         </el-form-item>
         <el-form-item>
           <el-button
-            :disabled="!$can('shop-brand/edit')"
             type="primary"
             native-type="submit"
             size="small"
@@ -130,7 +132,6 @@
             确定
           </el-button>
           <el-button
-            :disabled="!$can('shop-brand/delete')"
             @click="dialogVisible = false"
             size="small"
             >取消</el-button
@@ -194,6 +195,9 @@ export default {
         logo: '',
         description: ''
       }
+    },
+    handleDialogClosed(formName) {
+      this.clearViolationError(formName)
     },
     handleFormSubmit(formName) {
       const self = this
