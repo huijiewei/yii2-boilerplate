@@ -314,6 +314,10 @@ export default {
       if (headers && Array.isArray(headers)) {
         request.httpClient.interceptors.request.use(config => {
           for (const key in headers) {
+            if (!headers.hasOwnProperty(key)) {
+              continue
+            }
+
             config.headers[key] = headers[key]
           }
 
@@ -327,7 +331,12 @@ export default {
 
       if (params) {
         for (const key in params) {
+          if (!params.hasOwnProperty(key)) {
+            continue
+          }
+
           const value = params[key]
+
           // eslint-disable-next-line no-template-curly-in-string
           if (value.toString().indexOf('${filename}') !== -1) {
             let randomFileName =
@@ -391,7 +400,7 @@ export default {
       // eslint-disable-next-line no-new-func
       const responseParse = new Function('result', this.option.responseParse)
 
-      let upload = responseParse(result)
+      const upload = responseParse(result)
 
       if (upload.original) {
         if (
@@ -407,21 +416,17 @@ export default {
     },
 
     getThumbFile(upload, thumb) {
-      let file = null
-
       if (thumb !== '' && Array.isArray(upload.thumbs)) {
-        file = upload.thumbs.find(uploadThumb => {
+        const file = upload.thumbs.find(uploadThumb => {
           return uploadThumb.thumb === thumb
         })
+
+        if (file !== null) {
+          return file.url
+        }
       }
 
-      if (file === null) {
-        file = upload.original
-      } else {
-        file = file.url
-      }
-
-      return file
+      return upload.original
     },
 
     handleError(error) {
