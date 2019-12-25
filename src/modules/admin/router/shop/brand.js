@@ -17,30 +17,6 @@ const routes = [
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-brand/Index'
           )
-      },
-      {
-        path: 'create',
-        component: () =>
-          import(
-            /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-brand/Create'
-          ),
-        meta: {
-          breadcrumb: {
-            title: '新建'
-          }
-        }
-      },
-      {
-        path: 'edit',
-        component: () =>
-          import(
-            /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-brand/Edit'
-          ),
-        meta: {
-          breadcrumb: {
-            title: '编辑'
-          }
-        }
       }
     ]
   }

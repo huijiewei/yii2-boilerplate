@@ -225,6 +225,8 @@ export default {
             self.$message.success('新建品牌成功')
             self.shopBrands.push(data)
           }
+
+          self.dialogVisible = false
         }
 
         if (error) {
@@ -232,7 +234,6 @@ export default {
         }
 
         self.submitLoading = false
-        self.dialogVisible = false
       })
     },
     handleShopBrandEdit(shopBrand) {
