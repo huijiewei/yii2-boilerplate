@@ -152,6 +152,10 @@ export default {
           property: 'params'
         },
         {
+          name: '异常信息',
+          property: 'exception'
+        },
+        {
           name: 'IP 地址',
           property: 'remoteAddr'
         },

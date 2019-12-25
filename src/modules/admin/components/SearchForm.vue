@@ -132,6 +132,13 @@ export default {
     isPageQuery(query) {
       return query === 'page' || query === 'size'
     },
+    isKeywordField(field) {
+      return (
+        this.getKeywordFields.find(keywordField => {
+          return keywordField.field === field
+        }) !== undefined
+      )
+    },
     updatePickerOptions() {
       const pickerOptions = {}
 
@@ -218,7 +225,7 @@ export default {
       const queryFields = {}
 
       Object.keys(this.formModel).forEach(key => {
-        if (this.formModel[key] !== '') {
+        if (this.formModel[key] !== '' && !this.isKeywordField(key)) {
           queryFields[key] = this.formModel[key]
         }
       })
@@ -229,7 +236,7 @@ export default {
         }
       })
 
-      if (this.keywordField !== '') {
+      if (this.keywordField !== '' && this.keywordValue !== '') {
         queryFields[this.keywordField] = this.keywordValue
       }
 

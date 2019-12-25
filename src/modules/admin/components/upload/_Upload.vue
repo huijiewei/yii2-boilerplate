@@ -421,7 +421,7 @@ export default {
           return uploadThumb.thumb === thumb
         })
 
-        if (file !== null) {
+        if (file) {
           return file.url
         }
       }
