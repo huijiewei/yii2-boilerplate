@@ -19,6 +19,10 @@
     border-radius: 2px;
   }
 
+  .el-input--prefix .el-input__inner {
+    padding-left: 30px;
+  }
+
   .el-input__inner {
     padding: 0 10px;
   }
