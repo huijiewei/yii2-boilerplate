@@ -62,7 +62,7 @@
     </el-form-item>
     <el-form-item
       label="管理组"
-      prop="adminGroup.id"
+      prop="adminGroupId"
       :rules="[
         {
           required: true,
@@ -72,12 +72,8 @@
       ]"
     >
       <el-col :md="5">
-        <div v-if="getCurrentUserId === formModel.id">
-          {{ formModel.adminGroup.name }}
-        </div>
         <el-select
-          v-else
-          v-model="formModel.adminGroup.id"
+          v-model="formModel.adminGroupId"
           :disabled="getCurrentUserId === formModel.id"
           placeholder="所属管理组"
         >
