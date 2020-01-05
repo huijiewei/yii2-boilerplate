@@ -51,7 +51,7 @@ export default {
       let parents = [0]
 
       if (id > 0) {
-        const { data } = await flatry(MiscService.shopCategoryRoute(id))
+        const { data } = await flatry(MiscService.shopCategoryPath(id))
 
         if (data && Array.isArray(data)) {
           parents = data.map(parent => parent.id)
