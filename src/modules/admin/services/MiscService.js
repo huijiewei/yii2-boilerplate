@@ -19,7 +19,7 @@ const MiscService = {
 
   shopCategoryPath(id) {
     return Vue.http.get('misc/shop-category-path', { id: id })
-  }
+  },
 }
 
 export default MiscService

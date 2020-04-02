@@ -12,7 +12,7 @@
       :class="[
         'trigger',
         'trigger-left',
-        isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold'
+        isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold',
       ]"
       @click="toggleSidebar"
     />
@@ -20,7 +20,7 @@
       :class="[
         'trigger',
         'trigger-right',
-        isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold'
+        isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold',
       ]"
       @click="toggleSidebar"
     />
@@ -68,13 +68,13 @@ export default {
   props: {
     isCollapsed: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     getCurrentUser() {
       return this.$store.getters['auth/getCurrentUser']
-    }
+    },
   },
   methods: {
     async toggleSidebar() {
@@ -94,9 +94,9 @@ export default {
             onClose: () => {
               this.$router.push({
                 path: '/login',
-                query: { direct: this.$route.fullPath }
+                query: { direct: this.$route.fullPath },
               })
-            }
+            },
           })
         }
 
@@ -105,7 +105,7 @@ export default {
 
       if (command === 'userProfile') {
         await this.$router.push({
-          path: '/profile'
+          path: '/profile',
         })
       }
 
@@ -116,8 +116,8 @@ export default {
           await this.$store.dispatch('auth/account', data)
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

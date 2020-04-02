@@ -33,9 +33,9 @@ const routes = [
         alias: '',
         meta: {
           breadcrumb: {
-            title: '首页'
-          }
-        }
+            title: '首页',
+          },
+        },
       },
       {
         path: 'profile',
@@ -43,30 +43,30 @@ const routes = [
         alias: '',
         meta: {
           breadcrumb: {
-            title: '个人资料'
-          }
-        }
-      }
-    ]
+            title: '个人资料',
+          },
+        },
+      },
+    ],
   },
   {
     path: '/login',
     component: siteLogin,
     meta: {
       breadcrumb: {
-        title: '登录'
-      }
-    }
+        title: '登录',
+      },
+    },
   },
   {
     path: '*',
     component: notFound,
     meta: {
       breadcrumb: {
-        title: '页面未找到'
-      }
-    }
-  }
+        title: '页面未找到',
+      },
+    },
+  },
 ]
 
 const router = new VueRouter({
@@ -83,7 +83,7 @@ const router = new VueRouter({
     }
 
     return { x: 0, y: 0 }
-  }
+  },
 })
 
 Vue.use(VueRouterBackButton, { router, ignoreRoutesWithSameName: true })

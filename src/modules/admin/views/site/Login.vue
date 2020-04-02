@@ -27,8 +27,8 @@ export default {
       } else {
         this.$router.replace('/home')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">

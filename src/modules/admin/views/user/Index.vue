@@ -121,11 +121,11 @@ export default {
     return {
       loading: true,
       users: [],
-      pages: null
+      pages: null,
     }
   },
   watch: {
-    $route: 'getUsers'
+    $route: 'getUsers',
   },
   created() {
     this.getUsers()
@@ -154,18 +154,18 @@ export default {
 
             this.$message({
               type: 'success',
-              message: data.message
+              message: data.message,
             })
           }
 
           this.loading = false
-        }
+        },
       })
     },
     handleCurrentChange(page) {
       this.$router.push({
         path: this.$route.fullPath,
-        query: { page: page }
+        query: { page: page },
       })
     },
     async getUsers() {
@@ -183,7 +183,7 @@ export default {
       }
 
       this.loading = false
-    }
-  }
+    },
+  },
 }
 </script>

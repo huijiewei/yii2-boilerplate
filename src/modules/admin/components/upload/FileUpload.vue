@@ -17,16 +17,16 @@ export default {
   props: {
     value: {
       type: [Array, String],
-      default: null
+      default: null,
     },
     multiple: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   model: {
     prop: 'value',
-    event: 'change'
+    event: 'change',
   },
   methods: {
     handleChange(value) {
@@ -35,7 +35,7 @@ export default {
 
     handleUploadSuccess(upload) {
       this.$emit('on-upload-success', upload)
-    }
-  }
+    },
+  },
 }
 </script>

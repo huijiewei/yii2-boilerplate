@@ -1,5 +1,5 @@
 export const deepSearch = (needle, haystack, found = []) => {
-  Object.keys(haystack).forEach(key => {
+  Object.keys(haystack).forEach((key) => {
     if (key === needle) {
       found.push(haystack[key])
       return found
@@ -11,7 +11,7 @@ export const deepSearch = (needle, haystack, found = []) => {
   return found
 }
 
-export const formatUrl = url => {
+export const formatUrl = (url) => {
   if (url === 'site/index') {
     return 'home'
   }
@@ -27,7 +27,7 @@ export const tabledObject = (object, options = []) => {
   const result = []
 
   Object.entries(object).forEach(([key, value]) => {
-    const option = options.find(option => {
+    const option = options.find((option) => {
       return option.property === key
     })
 

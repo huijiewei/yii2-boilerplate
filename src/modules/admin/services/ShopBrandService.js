@@ -21,7 +21,7 @@ const ShopBrandService = {
 
   delete(id) {
     return Vue.http.delete('shop-brands/' + id)
-  }
+  },
 }
 
 export default ShopBrandService

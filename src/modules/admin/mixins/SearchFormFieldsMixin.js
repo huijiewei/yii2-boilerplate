@@ -1,7 +1,7 @@
 const SearchFormFieldsMixin = {
   data() {
     return {
-      searchFields: false
+      searchFields: false,
     }
   },
   methods: {
@@ -14,8 +14,8 @@ const SearchFormFieldsMixin = {
       if (this.searchFields === false) {
         this.searchFields = searchFields || []
       }
-    }
-  }
+    },
+  },
 }
 
 export default SearchFormFieldsMixin

@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       pageTitle: '新建管理组',
-      adminGroup: null
+      adminGroup: null,
     }
   },
   async created() {
@@ -46,7 +46,7 @@ export default {
       }
 
       always()
-    }
-  }
+    },
+  },
 }
 </script>

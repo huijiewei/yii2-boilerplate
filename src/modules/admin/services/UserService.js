@@ -21,7 +21,7 @@ const UserService = {
     }
 
     return Vue.http.put(endpoint, user)
-  }
+  },
 }
 
 export default UserService

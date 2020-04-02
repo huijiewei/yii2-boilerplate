@@ -7,14 +7,16 @@ const routes = [
     meta: {
       breadcrumb: {
         title: '用户',
-        path: '/user'
-      }
+        path: '/user',
+      },
     },
     children: [
       {
         path: '',
         component: () =>
-          import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Index')
+          import(
+            /* webpackChunkName: "chunk-user" */ '@admin/views/user/Index'
+          ),
       },
       {
         path: 'create',
@@ -24,9 +26,9 @@ const routes = [
           ),
         meta: {
           breadcrumb: {
-            title: '新建'
-          }
-        }
+            title: '新建',
+          },
+        },
       },
       {
         path: 'edit',
@@ -34,12 +36,12 @@ const routes = [
           import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Edit'),
         meta: {
           breadcrumb: {
-            title: '编辑'
-          }
-        }
-      }
-    ]
-  }
+            title: '编辑',
+          },
+        },
+      },
+    ],
+  },
 ]
 
 export default routes

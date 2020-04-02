@@ -23,7 +23,7 @@ export default {
     if (this.spinnerTimeoutId) {
       clearTimeout(this.spinnerTimeoutId)
     }
-  }
+  },
 }
 </script>
 

@@ -10,24 +10,24 @@ class Request {
         baseUrl: '',
         timeout: 20000,
         withCredentials: false,
-        beforeRequest: config => {
+        beforeRequest: (config) => {
           return config
         },
-        onSuccess: response => Promise.resolve(response),
-        onError: error => Promise.reject(error)
+        onSuccess: (response) => Promise.resolve(response),
+        onError: (error) => Promise.reject(error),
       },
-      ...options
+      ...options,
     }
 
     const httpClient = axios.create({
       baseURL: opt.baseUrl,
       timeout: opt.timeout,
       withCredentials: opt.withCredentials,
-      paramsSerializer: params => {
+      paramsSerializer: (params) => {
         const keys = Object.keys(params)
         let options = ''
 
-        keys.forEach(key => {
+        keys.forEach((key) => {
           if (params[key] !== undefined && params[key] !== null) {
             const isParamTypeObject = typeof params[key] === 'object'
             const isParamTypeArray =
@@ -38,7 +38,7 @@ class Request {
             }
 
             if (isParamTypeObject && isParamTypeArray) {
-              params[key].forEach(element => {
+              params[key].forEach((element) => {
                 options += `${key}=${element}&`
               })
             }
@@ -46,20 +46,20 @@ class Request {
         })
 
         return options ? options.slice(0, -1) : options
-      }
+      },
     })
 
     loadProgressBar({ showSpinner: false }, httpClient)
 
-    httpClient.interceptors.request.use(config => {
+    httpClient.interceptors.request.use((config) => {
       return opt.beforeRequest(config)
     }, undefined)
 
     httpClient.interceptors.response.use(
-      response => {
+      (response) => {
         return opt.onSuccess(response)
       },
-      error => {
+      (error) => {
         return opt.onError(error)
       }
     )
@@ -70,7 +70,7 @@ class Request {
   request(method, url, params = null, data = null, back = false) {
     const config = {
       url: url,
-      method: method
+      method: method,
     }
 
     if (back === true) {
@@ -118,7 +118,7 @@ class Request {
       method: method,
       timeout: 60000,
       responseType: 'blob',
-      historyBack: back
+      historyBack: back,
     }
 
     if (params) {
@@ -129,7 +129,7 @@ class Request {
       config.data = data
     }
 
-    return this.httpClient.request(config).then(response => {
+    return this.httpClient.request(config).then((response) => {
       let filename = response.headers['x-suggested-filename']
 
       if (!filename) {

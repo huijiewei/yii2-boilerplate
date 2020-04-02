@@ -29,14 +29,14 @@ export default {
   components: { PlaceholderForm, ShopCategoryForm },
   props: {
     categoryTree: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   data() {
     return {
       pageTitle: '编辑商品分类',
       shopCategory: null,
-      categoryParents: []
+      categoryParents: [],
     }
   },
   async beforeRouteUpdate(to, from, next) {
@@ -55,7 +55,7 @@ export default {
         let parents = [0]
 
         if (data.parents && Array.isArray(data.parents)) {
-          parents = data.parents.map(parent => parent.id)
+          parents = data.parents.map((parent) => parent.id)
         }
 
         this.categoryParents = parents
@@ -97,14 +97,14 @@ export default {
             this.$message.success('删除成功')
             this.$emit('on-updated', shopCategory.parentId)
             await this.$router.replace({
-              path: '/shop-category'
+              path: '/shop-category',
             })
           }
 
           this.loading = false
-        }
+        },
       })
-    }
-  }
+    },
+  },
 }
 </script>

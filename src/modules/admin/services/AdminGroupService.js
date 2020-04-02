@@ -21,7 +21,7 @@ const AdminGroupService = {
     }
 
     return Vue.http.put(endpoint, adminGroup)
-  }
+  },
 }
 
 export default AdminGroupService

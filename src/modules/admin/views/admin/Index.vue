@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       loading: true,
-      admins: []
+      admins: [],
     }
   },
   async created() {
@@ -119,14 +119,14 @@ export default {
 
             this.$message({
               type: 'success',
-              message: data.message
+              message: data.message,
             })
           }
 
           this.loading = false
-        }
+        },
       })
-    }
-  }
+    },
+  },
 }
 </script>

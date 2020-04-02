@@ -1,5 +1,5 @@
 const SameWidth = {
-  inserted: function(el, binding) {
+  inserted: function (el, binding) {
     const itemList = el.getElementsByClassName(binding.value)
 
     if (itemList.length < 2) {
@@ -19,7 +19,7 @@ const SameWidth = {
     for (const item of itemList) {
       item.style.width = maxWidth + 2 + 'px'
     }
-  }
+  },
 }
 
 export default SameWidth

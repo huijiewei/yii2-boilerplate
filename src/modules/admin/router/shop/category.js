@@ -8,8 +8,8 @@ const routes = [
     meta: {
       breadcrumb: {
         title: '商品分类',
-        path: '/shop-category'
-      }
+        path: '/shop-category',
+      },
     },
     children: [
       {
@@ -17,7 +17,7 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Index'
-          )
+          ),
       },
       {
         path: 'create',
@@ -27,9 +27,9 @@ const routes = [
           ),
         meta: {
           breadcrumb: {
-            title: '新建'
-          }
-        }
+            title: '新建',
+          },
+        },
       },
       {
         path: 'edit',
@@ -39,12 +39,12 @@ const routes = [
           ),
         meta: {
           breadcrumb: {
-            title: '编辑'
-          }
-        }
-      }
-    ]
-  }
+            title: '编辑',
+          },
+        },
+      },
+    ],
+  },
 ]
 
 export default routes

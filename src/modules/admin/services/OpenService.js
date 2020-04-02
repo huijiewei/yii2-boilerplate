@@ -6,7 +6,7 @@ const OpenService = {
   },
   captcha(uuid) {
     return Vue.http.get('open/captcha', { uuid: uuid })
-  }
+  },
 }
 
 export default OpenService

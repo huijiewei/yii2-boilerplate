@@ -18,17 +18,17 @@ export default {
   props: {
     value: {
       type: [Array, String],
-      default: null
-    }
+      default: null,
+    },
   },
   model: {
     prop: 'value',
-    event: 'change'
+    event: 'change',
   },
   methods: {
     handleChange(files) {
       this.$emit('change', files)
-    }
-  }
+    },
+  },
 }
 </script>

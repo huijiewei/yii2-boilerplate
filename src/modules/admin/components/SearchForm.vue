@@ -82,8 +82,8 @@ export default {
       type: Array,
       default: () => {
         return []
-      }
-    }
+      },
+    },
   },
   inject: ['reload'],
   data() {
@@ -93,7 +93,7 @@ export default {
       keywordField: '',
       keywordValue: '',
       pickerOptions: {},
-      pickerOptionsInit: false
+      pickerOptionsInit: false,
     }
   },
   computed: {
@@ -102,22 +102,22 @@ export default {
         return []
       }
 
-      return this.searchFields.filter(item => item.type === 'keyword')
+      return this.searchFields.filter((item) => item.type === 'keyword')
     },
     getOtherFields() {
       if (this.searchFields === null) {
         return []
       }
 
-      return this.searchFields.filter(item => item.type !== 'keyword')
-    }
+      return this.searchFields.filter((item) => item.type !== 'keyword')
+    },
   },
   watch: {
-    searchFields: function() {
+    searchFields: function () {
       this.updateFormModel()
       this.updatePickerOptions()
     },
-    '$route.query': 'updateFormModel'
+    '$route.query': 'updateFormModel',
   },
   mounted() {
     if (!this.formModelInit) {
@@ -134,7 +134,7 @@ export default {
     },
     isKeywordField(field) {
       return (
-        this.getKeywordFields.find(keywordField => {
+        this.getKeywordFields.find((keywordField) => {
           return keywordField.field === field
         }) !== undefined
       )
@@ -152,15 +152,15 @@ export default {
         }
 
         pickerOptions[otherField.field] = {
-          shortcuts: []
+          shortcuts: [],
         }
 
-        otherField.shortcuts.forEach(shortcut => {
+        otherField.shortcuts.forEach((shortcut) => {
           pickerOptions[otherField.field].shortcuts.push({
             text: shortcut.text,
             onClick(picker) {
               picker.$emit('pick', [shortcut.start, shortcut.end])
-            }
+            },
           })
         })
       }
@@ -224,13 +224,13 @@ export default {
     getQueryFields() {
       const queryFields = {}
 
-      Object.keys(this.formModel).forEach(key => {
+      Object.keys(this.formModel).forEach((key) => {
         if (this.formModel[key] !== '' && !this.isKeywordField(key)) {
           queryFields[key] = this.formModel[key]
         }
       })
 
-      Object.keys(this.$route.query).forEach(key => {
+      Object.keys(this.$route.query).forEach((key) => {
         if (!this.formModel.hasOwnProperty(key) && !this.isPageQuery(key)) {
           queryFields[key] = this.$route.query[key]
         }
@@ -245,7 +245,7 @@ export default {
     getDefaultQuery() {
       const defaultQuery = {}
 
-      Object.keys(this.$route.query).forEach(key => {
+      Object.keys(this.$route.query).forEach((key) => {
         if (!this.formModel.hasOwnProperty(key) && !this.isPageQuery(key)) {
           defaultQuery[key] = this.$route.query[key]
         }
@@ -261,16 +261,16 @@ export default {
       } else {
         this.$router.push({
           path: this.$route.path,
-          query: queryFields
+          query: queryFields,
         })
       }
     },
     handleFormReset() {
       this.$router.push({
         path: this.$route.path,
-        query: this.getDefaultQuery()
+        query: this.getDefaultQuery(),
       })
-    }
-  }
+    },
+  },
 }
 </script>

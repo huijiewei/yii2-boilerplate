@@ -10,7 +10,7 @@
 export default {
   name: 'DefaultLayout',
   computed: {},
-  async beforeCreate() {}
+  async beforeCreate() {},
 }
 </script>
 <style lang="scss"></style>

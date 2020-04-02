@@ -29,7 +29,7 @@
         class="placeholder-form-field"
         :style="{
           width: '100%',
-          marginLeft: formLabelWidth + 10 + 'px'
+          marginLeft: formLabelWidth + 10 + 'px',
         }"
       >
         <placeholder-text-row
@@ -51,34 +51,34 @@ export default {
   props: {
     rows: {
       type: Number,
-      default: 6
+      default: 6,
     },
     color: {
       type: String,
-      default: ''
+      default: '',
     },
     widths: {
       type: Array,
       default: () => {
         return [65, 70, 55, 35, 50, 60]
-      }
+      },
     },
     labelWidth: {
       type: Number,
-      default: 90
+      default: 90,
     },
     lineSpacing: {
       type: String,
-      default: '22px'
-    }
+      default: '22px',
+    },
   },
   data() {
     return {
       rowArray: new Array(this.rows || 6),
       rowWidths: this.widths || [65, 70, 55, 35, 50, 60],
-      formLabelWidth: this.labelWidth || 90
+      formLabelWidth: this.labelWidth || 90,
     }
-  }
+  },
 }
 </script>
 

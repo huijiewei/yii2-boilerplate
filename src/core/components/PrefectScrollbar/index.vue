@@ -24,8 +24,8 @@ export default {
   props: {
     settings: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   mounted() {
     this.ps = new PrefectScrollbar(
@@ -48,8 +48,8 @@ export default {
     },
     update() {
       this.ps.update()
-    }
-  }
+    },
+  },
 }
 </script>
 

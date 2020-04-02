@@ -16,8 +16,8 @@
           min: 3,
           max: 10,
           message: '管理组名称长度在 3 到 10 个字符',
-          trigger: 'blur'
-        }
+          trigger: 'blur',
+        },
       ]"
     >
       <el-col :md="9">
@@ -93,35 +93,35 @@ import SameWidth from '@core/directives/SameWidth'
 export default {
   name: 'AdminGroupForm',
   directives: {
-    sameWidth: SameWidth
+    sameWidth: SameWidth,
   },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
       type: String,
-      required: true
+      required: true,
     },
     isEdit: {
       type: Boolean,
-      default: false
+      default: false,
     },
     adminGroup: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
       submitLoading: false,
       formModel: null,
-      acl: []
+      acl: [],
     }
   },
   async mounted() {
     this.formModel = {
       id: this.adminGroup.id,
       name: this.adminGroup.name,
-      acl: []
+      acl: [],
     }
 
     const { data } = await flatry(MiscService.adminGroupAcl())
@@ -133,19 +133,19 @@ export default {
     const permissions = this.adminGroup.permissions || []
     const result = []
 
-    this.acl.forEach(acl => {
+    this.acl.forEach((acl) => {
       const group = {
         name: acl.name,
         checkAll: false,
         checkIndeterminate: false,
         checkedAcl: [],
         aclCount: 0,
-        children: acl.children
+        children: acl.children,
       }
 
-      acl.children.forEach(child => {
+      acl.children.forEach((child) => {
         if (child.children) {
-          child.children.forEach(item => {
+          child.children.forEach((item) => {
             group.aclCount++
             if (permissions.includes(item.actionId)) {
               group.checkedAcl.push(item.actionId)
@@ -172,7 +172,7 @@ export default {
   },
   methods: {
     handleFormSubmit(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!valid) {
           return false
         }
@@ -182,11 +182,11 @@ export default {
         const adminGroup = {
           id: this.formModel.id,
           name: this.formModel.name,
-          permissions: []
+          permissions: [],
         }
 
-        this.formModel.acl.forEach(group => {
-          group.checkedAcl.forEach(acl => {
+        this.formModel.acl.forEach((group) => {
+          group.checkedAcl.forEach((acl) => {
             adminGroup.permissions.push(acl)
           })
         })
@@ -207,7 +207,7 @@ export default {
               }
             }
           },
-          error => {
+          (error) => {
             this.handleViolationError(error, formName)
           },
           () => {
@@ -220,9 +220,9 @@ export default {
       group.checkIndeterminate = false
 
       if (group.checkAll === true) {
-        group.children.forEach(child => {
+        group.children.forEach((child) => {
           if (child.children) {
-            child.children.forEach(item => {
+            child.children.forEach((item) => {
               group.checkedAcl.push(item.actionId)
             })
           } else {
@@ -252,7 +252,7 @@ export default {
       )[0].checked
 
       if (!checked) {
-        item.combines.forEach(combine => {
+        item.combines.forEach((combine) => {
           if (
             refs[combine] &&
             refs[combine][0] &&
@@ -271,7 +271,7 @@ export default {
 
       const acl = this.formModel.acl
 
-      item.combines.forEach(combine => {
+      item.combines.forEach((combine) => {
         if (
           refs[combine] &&
           refs[combine][0] &&
@@ -282,9 +282,9 @@ export default {
           refs[combine][0].$el.getElementsByTagName('input')[0].disabled = true
         }
 
-        acl.forEach(aclGroup => {
+        acl.forEach((aclGroup) => {
           if (aclGroup.children && aclGroup.children.length > 0) {
-            aclGroup.children.every(aclChild => {
+            aclGroup.children.every((aclChild) => {
               if (
                 aclChild.actionId &&
                 aclChild.actionId === combine &&
@@ -296,7 +296,7 @@ export default {
               }
 
               if (aclChild.children && aclChild.children.length > 0) {
-                aclChild.children.every(aclItem => {
+                aclChild.children.every((aclItem) => {
                   if (
                     aclItem.actionId &&
                     aclItem.actionId === combine &&
@@ -316,8 +316,8 @@ export default {
           }
         })
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

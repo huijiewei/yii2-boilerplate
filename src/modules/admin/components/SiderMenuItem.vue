@@ -15,13 +15,13 @@ export default {
   props: {
     menu: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
   computed: {
     menuUrl() {
       return formatUrl(this.menu.url)
-    }
-  }
+    },
+  },
 }
 </script>

@@ -28,14 +28,14 @@ export default {
   components: { PlaceholderForm, ShopCategoryForm },
   props: {
     categoryTree: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   data() {
     return {
       pageTitle: '新建商品分类',
       shopCategory: null,
-      categoryParents: []
+      categoryParents: [],
     }
   },
   async beforeRouteUpdate(to, from, next) {
@@ -54,7 +54,7 @@ export default {
         const { data } = await flatry(MiscService.shopCategoryPath(id))
 
         if (data && Array.isArray(data)) {
-          parents = data.map(parent => parent.id)
+          parents = data.map((parent) => parent.id)
         }
       }
 
@@ -68,7 +68,7 @@ export default {
           name: '',
           icon: '',
           image: '',
-          description: ''
+          description: '',
         }
       })
     },
@@ -84,7 +84,7 @@ export default {
         this.$emit('on-updated', data.id)
         await this.$router.replace({
           path: '/shop-category/edit',
-          query: { id: data.id }
+          query: { id: data.id },
         })
       }
 
@@ -93,7 +93,7 @@ export default {
       }
 
       always()
-    }
-  }
+    },
+  },
 }
 </script>

@@ -36,26 +36,26 @@ export default {
   props: {
     menu: {
       type: Object,
-      default: null
+      default: null,
     },
     depth: {
       type: Number,
-      default: 0
+      default: 0,
     },
     index: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
     return {
-      opened: false
+      opened: false,
     }
   },
   methods: {
     changeOpened(opened) {
       this.opened = opened
-    }
-  }
+    },
+  },
 }
 </script>

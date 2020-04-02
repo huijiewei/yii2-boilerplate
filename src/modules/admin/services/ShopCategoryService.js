@@ -17,7 +17,7 @@ const ShopCategoryService = {
 
   delete(id) {
     return Vue.http.delete('shop-categories/' + id)
-  }
+  },
 }
 
 export default ShopCategoryService

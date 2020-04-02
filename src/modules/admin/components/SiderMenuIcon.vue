@@ -10,8 +10,8 @@ export default {
   props: {
     icon: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>

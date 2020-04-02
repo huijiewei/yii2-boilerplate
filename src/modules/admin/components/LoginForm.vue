@@ -73,8 +73,8 @@ export default {
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     inModal: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -82,18 +82,16 @@ export default {
       loginForm: {
         account: '',
         password: '',
-        captcha: ''
+        captcha: '',
       },
       captcha: false,
       captchaUuid: '',
-      captchaImage: null
+      captchaImage: null,
     }
   },
   methods: {
     async updateCaptcha() {
-      const uuid = Math.random()
-        .toString(36)
-        .substring(3, 13)
+      const uuid = Math.random().toString(36).substring(3, 13)
 
       const { data } = await flatry(OpenService.captcha(uuid))
 
@@ -107,7 +105,7 @@ export default {
       this.captchaImage = null
     },
     login(formName) {
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (!valid) {
           return false
         }
@@ -115,7 +113,7 @@ export default {
         this.submitLoading = true
 
         const loginForm = Object.assign({}, this.loginForm, {
-          captcha: this.loginForm.captcha + '_' + this.captchaUuid
+          captcha: this.loginForm.captcha + '_' + this.captchaUuid,
         })
 
         const { data, error } = await flatry(AuthService.login(loginForm))
@@ -126,7 +124,7 @@ export default {
           this.$notify.success({
             title: data.message,
             message: '欢迎光临 Agile 管理系统',
-            duration: 2000
+            duration: 2000,
           })
 
           this.$emit('on-success')
@@ -149,7 +147,7 @@ export default {
               violations = error.response.data
             }
 
-            const violationCaptcha = violations.find(violation => {
+            const violationCaptcha = violations.find((violation) => {
               return violation.field.split('.').pop() === 'captcha'
             })
 
@@ -165,7 +163,7 @@ export default {
 
         this.submitLoading = false
       })
-    }
-  }
+    },
+  },
 }
 </script>

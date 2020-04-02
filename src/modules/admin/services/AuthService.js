@@ -18,7 +18,7 @@ const AuthService = {
     }
 
     return Vue.http.put(endpoint, profile)
-  }
+  },
 }
 
 export default AuthService

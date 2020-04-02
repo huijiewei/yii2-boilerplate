@@ -21,15 +21,15 @@ Vue.use(HttpClient, {
   store,
   getAccessTokenGetter: 'auth/getAccessToken',
   setLoginActionDispatch: 'auth/setLoginAction',
-  setErrorDispatch: 'setError'
+  setErrorDispatch: 'setError',
 })
 
 Vue.use(PermissionCheck, {
-  store
+  store,
 })
 
 Vue.use(DeleteDialog, {
-  MessageBox: ElementUI.MessageBox
+  MessageBox: ElementUI.MessageBox,
 })
 
 Vue.config.productionTip = false
@@ -37,5 +37,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#root')

@@ -8,20 +8,20 @@ export default {
   props: {
     color: {
       type: String,
-      default: ''
+      default: '',
     },
     width: {
       type: [String, Number],
-      default: '100%'
+      default: '100%',
     },
     height: {
       type: [String, Number],
-      default: '100%'
+      default: '100%',
     },
     lineSpacing: {
       type: String,
-      default: '0.7em'
-    }
+      default: '0.7em',
+    },
   },
   data() {
     return {
@@ -29,10 +29,10 @@ export default {
         width: this.width || '100%',
         height: this.height || '1em',
         backgroundColor: this.color || '#f3f3f3',
-        marginTop: this.lineSpacing || '0.7em'
-      }
+        marginTop: this.lineSpacing || '0.7em',
+      },
     }
-  }
+  },
 }
 </script>
 

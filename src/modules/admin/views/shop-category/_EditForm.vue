@@ -24,7 +24,7 @@
       label="分类名称"
       prop="name"
       :rules="[
-        { required: true, message: '请输入商品分类名称', trigger: 'blur' }
+        { required: true, message: '请输入商品分类名称', trigger: 'blur' },
       ]"
     >
       <el-col :md="7">
@@ -87,33 +87,33 @@ export default {
   props: {
     submitText: {
       type: String,
-      required: true
+      required: true,
     },
     isEdit: {
       type: Boolean,
-      default: false
+      default: false,
     },
     shopCategory: {
-      type: Object
+      type: Object,
     },
     categoryTree: {
-      type: Array
+      type: Array,
     },
     categoryParents: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   data() {
     return {
       submitLoading: false,
       formModel: null,
-      formCategoryParents: []
+      formCategoryParents: [],
     }
   },
   computed: {
     getCategoryTree() {
       return [...[{ id: 0, name: '根分类' }], ...this.categoryTree]
-    }
+    },
   },
   async mounted() {
     this.formModel = this.shopCategory
@@ -127,7 +127,7 @@ export default {
       this.$emit('on-delete', this.formModel)
     },
     handleFormSubmit(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!valid) {
           return false
         }
@@ -140,7 +140,7 @@ export default {
           () => {
             this.$refs[formName].clearValidate()
           },
-          error => {
+          (error) => {
             this.handleViolationError(error, formName)
           },
           () => {
@@ -148,7 +148,7 @@ export default {
           }
         )
       })
-    }
-  }
+    },
+  },
 }
 </script>

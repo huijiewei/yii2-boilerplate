@@ -24,13 +24,13 @@ export default {
     back() {
       if (this.$routerHistory.hasPrevious()) {
         this.$router.push({
-          path: this.$routerHistory.previous().path
+          path: this.$routerHistory.previous().path,
         })
       } else {
         this.$router.push('/home')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">

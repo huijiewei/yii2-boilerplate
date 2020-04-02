@@ -20,16 +20,16 @@ const routes = [
         alias: '',
         meta: {
           breadcrumb: {
-            title: '首页'
-          }
-        }
-      }
-    ]
+            title: '首页',
+          },
+        },
+      },
+    ],
   },
   {
     path: '*',
-    component: notFound
-  }
+    component: notFound,
+  },
 ]
 
 const router = new VueRouter({
@@ -46,7 +46,7 @@ const router = new VueRouter({
     }
 
     return { x: 0, y: 0 }
-  }
+  },
 })
 
 Vue.use(VueRouterBackButton, { router })

@@ -11,7 +11,7 @@
           :style="{
             width: box.width,
             minWidth: box.height,
-            height: box.height
+            height: box.height,
           }"
         >
           <div class="blank">
@@ -58,7 +58,7 @@
           :style="{
             width: box.width,
             minWidth: box.height,
-            height: box.height
+            height: box.height,
           }"
         >
           <div class="blank">
@@ -100,7 +100,7 @@
     <el-upload
       :disabled="buttonDisabled"
       :action="option.url"
-      :accept="option.typesLimit.map(type => '.' + type).join(', ')"
+      :accept="option.typesLimit.map((type) => '.' + type).join(', ')"
       :multiple="false"
       :show-file-list="false"
       :http-request="getHttpRequest"
@@ -147,42 +147,42 @@ export default {
   props: {
     value: {
       type: [Array, String],
-      default: null
+      default: null,
     },
     action: {
       type: String,
-      default: ''
+      default: '',
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     preview: {
       type: Array,
-      default: null
+      default: null,
     },
     cropper: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           enable: false,
           aspectRatio: 1,
-          size: [200, 200]
+          size: [200, 200],
         }
-      }
+      },
     },
     thumbs: {
       type: Array,
-      default: null
+      default: null,
     },
     defaultThumb: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   model: {
     prop: 'value',
-    event: 'change'
+    event: 'change',
   },
   data() {
     return {
@@ -199,37 +199,37 @@ export default {
         imageProcess: '',
         responseParse: '',
         sizeLimit: 0,
-        typesLimit: []
+        typesLimit: [],
       },
       buttonDisabled: true,
       uploadFiles: this.multiple ? [] : null,
       cropperImage: null,
       dialogVisible: false,
-      dialogImageUrl: ''
+      dialogImageUrl: '',
     }
   },
   computed: {
-    files: function() {
+    files: function () {
       if (this.multiple) {
-        return this.value.map(url => {
+        return this.value.map((url) => {
           return {
             name: this.getFilename(url),
-            url: url
+            url: url,
           }
         })
       } else {
         return {
           name: this.getFilename(this.value),
-          url: this.value
+          url: this.value,
         }
       }
-    }
+    },
   },
   async mounted() {
     if (this.preview) {
       this.box = {
         width: this.preview[0] - 2 + 'px',
-        height: this.preview[1] - 2 + 'px'
+        height: this.preview[1] - 2 + 'px',
       }
     }
 
@@ -251,13 +251,7 @@ export default {
         return ''
       }
 
-      return url
-        .split('/')
-        .pop()
-        .split('#')
-        .shift()
-        .split('?')
-        .shift()
+      return url.split('/').pop().split('#').shift().split('?').shift()
     },
 
     async updateOption() {
@@ -305,14 +299,14 @@ export default {
       const request = new Request({
         baseUrl: option.action,
         withCredentials: option.withCredentials,
-        onSuccess: response => option.onSuccess(response.data),
-        onError: error => option.onError(error)
+        onSuccess: (response) => option.onSuccess(response.data),
+        onError: (error) => option.onError(error),
       })
 
       const headers = this.option.headers
 
       if (headers && Array.isArray(headers)) {
-        request.httpClient.interceptors.request.use(config => {
+        request.httpClient.interceptors.request.use((config) => {
           for (const key in headers) {
             if (!headers.hasOwnProperty(key)) {
               continue
@@ -340,9 +334,7 @@ export default {
           // eslint-disable-next-line no-template-curly-in-string
           if (value.toString().indexOf('${filename}') !== -1) {
             let randomFileName =
-              Math.random()
-                .toString(36)
-                .substring(3, 15) +
+              Math.random().toString(36).substring(3, 15) +
               '.' +
               option.file.name.split('.').pop()
 
@@ -380,7 +372,7 @@ export default {
           type: 'error',
           message:
             '你选择的文件大小超出上传限制:' + this.humanFileSize(sizeLimit),
-          duration: 1500
+          duration: 1500,
         })
 
         return false
@@ -417,7 +409,7 @@ export default {
 
     getThumbFile(upload, thumb) {
       if (thumb !== '' && Array.isArray(upload.thumbs)) {
-        const file = upload.thumbs.find(uploadThumb => {
+        const file = upload.thumbs.find((uploadThumb) => {
           return uploadThumb.thumb === thumb
         })
 
@@ -442,13 +434,13 @@ export default {
       this.$message({
         type: 'error',
         message: message,
-        duration: 1500
+        duration: 1500,
       })
     },
 
     handleRemove(file) {
       if (Array.isArray(this.uploadFiles)) {
-        this.uploadFiles = this.uploadFiles.filter(uploadFile => {
+        this.uploadFiles = this.uploadFiles.filter((uploadFile) => {
           return uploadFile !== file
         })
       } else {
@@ -470,8 +462,8 @@ export default {
 
     handleImageCropperCancel() {
       this.cropperImage = null
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">

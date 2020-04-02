@@ -44,26 +44,26 @@ export default {
   props: {
     image: {
       type: String,
-      default: ''
+      default: '',
     },
     aspectRatio: {
       type: Number,
-      default: 1
+      default: 1,
     },
     cropperSize: {
       type: Array,
-      default: function() {
+      default: function () {
         return [100, 100]
-      }
+      },
     },
     cropUrl: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
-      buttonDisabled: true
+      buttonDisabled: true,
     }
   },
   methods: {
@@ -75,10 +75,10 @@ export default {
 
       const request = new Request({
         withCredentials: true,
-        onSuccess: response => {
+        onSuccess: (response) => {
           this.$emit('on-success', response.data)
         },
-        onError: error => {
+        onError: (error) => {
           const message =
             error.response.data.detail ||
             error.response.data.title ||
@@ -89,11 +89,11 @@ export default {
           this.$message({
             type: 'error',
             message: message,
-            duration: 1500
+            duration: 1500,
           })
 
           this.buttonDisabled = false
-        }
+        },
       })
 
       const data = this.$refs.cropper.getData()
@@ -103,13 +103,13 @@ export default {
         x: data.x,
         y: data.y,
         w: data.width,
-        h: data.height
+        h: data.height,
       })
     },
     handleCancel() {
       this.$emit('on-cancel')
-    }
-  }
+    },
+  },
 }
 </script>
 

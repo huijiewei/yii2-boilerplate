@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       loading: true,
-      adminGroups: []
+      adminGroups: [],
     }
   },
   async created() {
@@ -68,7 +68,7 @@ export default {
     handleAdminGroupEdit(adminGroup) {
       this.$router.push({
         path: '/admin-group/edit',
-        query: { id: adminGroup.id }
+        query: { id: adminGroup.id },
       })
     },
     handleAdminGroupDelete(adminGroup) {
@@ -88,14 +88,14 @@ export default {
 
             this.$message({
               type: 'success',
-              message: data.message
+              message: data.message,
             })
           }
 
           this.loading = false
-        }
+        },
       })
-    }
-  }
+    },
+  },
 }
 </script>

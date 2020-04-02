@@ -1,13 +1,13 @@
 const DeleteDialog = {
   install(Vue, { MessageBox }) {
-    Vue.prototype.$deleteDialog = option => {
+    Vue.prototype.$deleteDialog = (option) => {
       const dialogOption = Object.assign(
         {
           title: '你确定吗？',
           message: '记录将被删除',
           callback: null,
           promptLabel: '',
-          promptValue: ''
+          promptValue: '',
         },
         option
       )
@@ -27,16 +27,16 @@ const DeleteDialog = {
             customClass: 'delete-dialog',
             dangerouslyUseHTMLString: true,
             center: false,
-            callback: action => {
+            callback: (action) => {
               if (action === 'confirm') {
                 dialogOption.callback()
               }
             },
             inputPlaceholder: '' + dialogOption.promptLabel,
-            inputValidator: value => {
+            inputValidator: (value) => {
               return dialogOption.promptValue === value
             },
-            inputErrorMessage: dialogOption.promptLabel + '不匹配'
+            inputErrorMessage: dialogOption.promptLabel + '不匹配',
           }
         )
       } else {
@@ -54,16 +54,16 @@ const DeleteDialog = {
             customClass: 'delete-dialog',
             dangerouslyUseHTMLString: true,
             center: false,
-            callback: action => {
+            callback: (action) => {
               if (action === 'confirm') {
                 dialogOption.callback()
               }
-            }
+            },
           }
         )
       }
     }
-  }
+  },
 }
 
 export default DeleteDialog

@@ -22,40 +22,40 @@ export default {
   props: {
     value: {
       type: [Array, String],
-      default: null
+      default: null,
     },
     cropper: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           enable: false,
           aspectRatio: 1,
-          size: [200, 200]
+          size: [200, 200],
         }
-      }
+      },
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     preview: {
       type: Array,
-      default: function() {
+      default: function () {
         return [88, 88]
-      }
+      },
     },
     thumbs: {
       type: Array,
-      default: null
+      default: null,
     },
     defaultThumb: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   model: {
     prop: 'value',
-    event: 'change'
+    event: 'change',
   },
   methods: {
     handleChange(value) {
@@ -68,7 +68,7 @@ export default {
 
     getThumbFile(upload, thumb) {
       return this.$refs.upload.getThumbFile(upload, thumb)
-    }
-  }
+    },
+  },
 }
 </script>

@@ -23,13 +23,13 @@ export default {
   props: {
     visible: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     async loginSuccess() {
       await flatry(this.$store.dispatch('auth/hideLoginModal'))
-    }
-  }
+    },
+  },
 }
 </script>

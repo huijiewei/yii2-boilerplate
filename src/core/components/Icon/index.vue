@@ -16,9 +16,9 @@ export default {
   props: {
     path: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 <style lang="scss">

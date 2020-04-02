@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       loading: false,
-      loadingText: ''
+      loadingText: '',
     }
   },
   methods: {
@@ -36,7 +36,7 @@ export default {
           this.api,
           Object.assign({}, this.$route.query, {
             page: null,
-            size: null
+            size: null,
           })
         )
       )
@@ -45,12 +45,12 @@ export default {
         this.$message({
           type: 'warning',
           message: '下载文件失败',
-          duration: 1500
+          duration: 1500,
         })
       }
 
       this.loading = false
-    }
-  }
+    },
+  },
 }
 </script>

@@ -80,8 +80,8 @@
             {
               required: true,
               message: '请输入品牌名称',
-              trigger: 'blur'
-            }
+              trigger: 'blur',
+            },
           ]"
         >
           <el-col :md="10">
@@ -95,8 +95,8 @@
             {
               required: true,
               message: '请输入品牌别名',
-              trigger: 'blur'
-            }
+              trigger: 'blur',
+            },
           ]"
         >
           <el-col :md="6">
@@ -151,7 +151,7 @@ import SameWidth from '@core/directives/SameWidth'
 export default {
   components: { ImageUpload, SearchForm },
   directives: {
-    sameWidth: SameWidth
+    sameWidth: SameWidth,
   },
   mixins: [SearchFormFieldsMixin, UnprocessableEntityHttpErrorMixin],
   data() {
@@ -161,14 +161,14 @@ export default {
       shopBrands: [],
       dialogVisible: false,
       dialogTitle: '',
-      formModel: null
+      formModel: null,
     }
   },
   created() {
     this.getShopBrands()
   },
   watch: {
-    $route: 'getShopBrands'
+    $route: 'getShopBrands',
   },
   methods: {
     async getShopBrands() {
@@ -194,7 +194,7 @@ export default {
         name: '',
         icon: '',
         logo: '',
-        description: ''
+        description: '',
       }
     },
     handleDialogClosed(formName) {
@@ -203,7 +203,7 @@ export default {
     handleFormSubmit(formName) {
       const self = this
 
-      self.$refs[formName].validate(async valid => {
+      self.$refs[formName].validate(async (valid) => {
         if (!valid) {
           return false
         }
@@ -263,15 +263,15 @@ export default {
 
             this.$message({
               type: 'success',
-              message: '删除成功'
+              message: '删除成功',
             })
           }
 
           this.loading = false
-        }
+        },
       })
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">

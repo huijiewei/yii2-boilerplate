@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       pageTitle: '新建管理员',
-      admin: null
+      admin: null,
     }
   },
   created() {
@@ -33,7 +33,7 @@ export default {
       email: '',
       name: '',
       avatar: '',
-      adminGroup: { id: null }
+      adminGroup: { id: null },
     }
   },
   methods: {
@@ -52,7 +52,7 @@ export default {
       }
 
       always()
-    }
-  }
+    },
+  },
 }
 </script>

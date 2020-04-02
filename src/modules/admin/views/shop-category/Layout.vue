@@ -77,7 +77,7 @@ export default {
   watch: {
     keyword(keyword) {
       this.$refs.categoryTree.filter(keyword)
-    }
+    },
   },
   components: { AgIcon },
   data() {
@@ -85,21 +85,21 @@ export default {
       loading: true,
       keyword: '',
       categoryTree: [],
-      categoryExpanded: []
+      categoryExpanded: [],
     }
   },
   methods: {
     handleCategoryCreate(parentId) {
       this.$router.push({
         path: '/shop-category/create',
-        query: { parentId: parentId }
+        query: { parentId: parentId },
       })
     },
 
     handleCategoryEdit(category) {
       this.$router.push({
         path: '/shop-category/edit',
-        query: { id: category.id }
+        query: { id: category.id },
       })
     },
 
@@ -126,13 +126,13 @@ export default {
       if (data) {
         this.categoryTree = data
       }
-    }
+    },
   },
   async created() {
     await this.loadCategoryTree()
 
     this.loading = false
-  }
+  },
 }
 </script>
 <style lang="scss">

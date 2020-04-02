@@ -1,12 +1,12 @@
 const UnprocessableEntityHttpErrorMixin = {
   data() {
     return {
-      violations: []
+      violations: [],
     }
   },
   methods: {
     clearViolationError(formName) {
-      this.$refs[formName].$children.forEach(child => {
+      this.$refs[formName].$children.forEach((child) => {
         child.$data.validateMessage = ''
         child.$data.validateState = 'success'
       })
@@ -33,11 +33,11 @@ const UnprocessableEntityHttpErrorMixin = {
         return
       }
 
-      this.$refs[formName].$children.forEach(child => {
+      this.$refs[formName].$children.forEach((child) => {
         if (child.prop) {
           const childProp = child.prop && child.prop.split('.')[0]
 
-          const activeViolation = this.violations.find(violation => {
+          const activeViolation = this.violations.find((violation) => {
             const violationFieldPath = violation.field.split('.')
 
             return childProp === violationFieldPath.pop()
@@ -54,8 +54,8 @@ const UnprocessableEntityHttpErrorMixin = {
           }
         }
       })
-    }
-  }
+    },
+  },
 }
 
 export default UnprocessableEntityHttpErrorMixin

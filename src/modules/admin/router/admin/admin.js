@@ -7,8 +7,8 @@ const routes = [
     meta: {
       breadcrumb: {
         title: '管理员',
-        path: '/admin'
-      }
+        path: '/admin',
+      },
     },
     children: [
       {
@@ -16,7 +16,7 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index'
-          )
+          ),
       },
       {
         path: 'create',
@@ -26,9 +26,9 @@ const routes = [
           ),
         meta: {
           breadcrumb: {
-            title: '新建'
-          }
-        }
+            title: '新建',
+          },
+        },
       },
       {
         path: 'edit',
@@ -38,11 +38,11 @@ const routes = [
           ),
         meta: {
           breadcrumb: {
-            title: '编辑'
-          }
-        }
-      }
-    ]
+            title: '编辑',
+          },
+        },
+      },
+    ],
   },
   {
     path: '/admin-log',
@@ -50,8 +50,8 @@ const routes = [
     meta: {
       breadcrumb: {
         title: '操作日志',
-        path: '/admin-log'
-      }
+        path: '/admin-log',
+      },
     },
     children: [
       {
@@ -59,10 +59,10 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-log/Index'
-          )
-      }
-    ]
-  }
+          ),
+      },
+    ],
+  },
 ]
 
 export default routes

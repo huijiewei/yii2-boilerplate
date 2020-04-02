@@ -101,11 +101,11 @@ export default {
       logs: [],
       pages: null,
       dialogVisible: false,
-      viewAdminLog: []
+      viewAdminLog: [],
     }
   },
   watch: {
-    $route: 'getLogs'
+    $route: 'getLogs',
   },
   created() {
     this.getLogs()
@@ -116,57 +116,57 @@ export default {
       this.viewAdminLog = tabledObject(adminLog, [
         {
           name: 'Id',
-          property: 'id'
+          property: 'id',
         },
         {
           name: '管理员',
           property: 'admin',
-          callback: admin => {
+          callback: (admin) => {
             return admin.name || admin.phone
-          }
+          },
         },
         {
           name: '状态',
           property: 'status',
-          callback: status => {
+          callback: (status) => {
             return status.description
-          }
+          },
         },
         {
           name: '类型',
           property: 'type',
-          callback: type => {
+          callback: (type) => {
             return type.description
-          }
+          },
         },
         {
           name: '方法',
-          property: 'method'
+          property: 'method',
         },
         {
           name: '操作',
-          property: 'action'
+          property: 'action',
         },
         {
           name: '参数',
-          property: 'params'
+          property: 'params',
         },
         {
           name: '异常信息',
-          property: 'exception'
+          property: 'exception',
         },
         {
           name: 'IP 地址',
-          property: 'remoteAddr'
+          property: 'remoteAddr',
         },
         {
           name: '浏览器',
-          property: 'userAgent'
+          property: 'userAgent',
         },
         {
           name: '创建时间',
-          property: 'createdAt'
-        }
+          property: 'createdAt',
+        },
       ])
     },
     handleClose() {
@@ -176,7 +176,7 @@ export default {
     handleCurrentChange(page) {
       this.$router.push({
         path: this.$route.fullPath,
-        query: { page: page }
+        query: { page: page },
       })
     },
     async getLogs() {
@@ -194,7 +194,7 @@ export default {
       }
 
       this.loading = false
-    }
-  }
+    },
+  },
 }
 </script>

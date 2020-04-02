@@ -11,32 +11,32 @@ const auth = {
     currentUser: null,
     groupMenus: [],
     groupMenusUrl: [],
-    groupPermissions: []
+    groupPermissions: [],
   },
   getters: {
-    getAccessToken: state => {
+    getAccessToken: (state) => {
       return {
         clientId: window.localStorage.getItem(clientIdKey),
-        accessToken: state.accessToken
+        accessToken: state.accessToken,
       }
     },
-    getLoginAction: state => {
+    getLoginAction: (state) => {
       return state.loginAction
     },
-    getCurrentUser: state => {
+    getCurrentUser: (state) => {
       return state.currentUser
     },
-    getGroupMenus: state => {
+    getGroupMenus: (state) => {
       return state.groupMenus
     },
-    isRouteInAcl: state => route => {
+    isRouteInAcl: (state) => (route) => {
       return state.groupPermissions.includes(route)
     },
-    isRouteInMenus: state => route => {
+    isRouteInMenus: (state) => (route) => {
       const path = route.startsWith('/') ? route.substr(1) : route
 
-      return state.groupMenusUrl.map(menu => formatUrl(menu)).includes(path)
-    }
+      return state.groupMenusUrl.map((menu) => formatUrl(menu)).includes(path)
+    },
   },
   mutations: {
     TOGGLE_ACCESS_TOKEN: (state, accessToken) => {
@@ -59,16 +59,14 @@ const auth = {
     },
     UPDATE_GROUP_PERMISSIONS: (state, permissions) => {
       state.groupPermissions = permissions
-    }
+    },
   },
   actions: {
     initClientId({ commit }) {
       if (window.localStorage.getItem(clientIdKey) == null) {
         window.localStorage.setItem(
           clientIdKey,
-          Math.random()
-            .toString(36)
-            .substr(2)
+          Math.random().toString(36).substr(2)
         )
       }
     },
@@ -92,8 +90,8 @@ const auth = {
       commit('UPDATE_CURRENT_USER', data.currentUser)
       commit('UPDATE_GROUP_MENUS', data.groupMenus)
       commit('UPDATE_GROUP_PERMISSIONS', data.groupPermissions)
-    }
-  }
+    },
+  },
 }
 
 export default auth

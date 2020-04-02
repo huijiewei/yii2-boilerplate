@@ -13,19 +13,19 @@ const HttpClient = {
       store,
       getAccessTokenGetter,
       setLoginActionDispatch,
-      setErrorDispatch
+      setErrorDispatch,
     }
   ) {
     const errorMessage = (message, historyBack) => {
       store.dispatch(setErrorDispatch, {
         message: message,
-        historyBack: historyBack
+        historyBack: historyBack,
       })
     }
 
     const request = new Request({
       baseUrl: apiHost,
-      beforeRequest: config => {
+      beforeRequest: (config) => {
         const accessToken = store.getters[getAccessTokenGetter]
 
         if (accessToken) {
@@ -35,14 +35,14 @@ const HttpClient = {
 
         return config
       },
-      onSuccess: response => {
+      onSuccess: (response) => {
         if (response.config.responseType === 'blob') {
           return Promise.resolve(response)
         }
 
         return Promise.resolve(response.data)
       },
-      onError: error => {
+      onError: (error) => {
         const historyBack = error.config.historyBack
 
         if (!error.response) {
@@ -85,7 +85,7 @@ const HttpClient = {
         if (error.response.data instanceof Blob) {
           const reader = new FileReader()
 
-          reader.onloadend = e => {
+          reader.onloadend = (e) => {
             const data = JSON.parse(e.target.result.toString())
 
             errorMessage(data.detail || data.message || data.title, historyBack)
@@ -104,12 +104,12 @@ const HttpClient = {
         )
 
         return Promise.reject(error)
-      }
+      },
     })
 
     Vue.http = request
     Vue.prototype.$http = request
-  }
+  },
 }
 
 export default HttpClient

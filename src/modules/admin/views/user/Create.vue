@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       pageTitle: '用户新建',
-      user: null
+      user: null,
     }
   },
   created() {
@@ -46,7 +46,7 @@ export default {
       }
 
       always()
-    }
-  }
+    },
+  },
 }
 </script>

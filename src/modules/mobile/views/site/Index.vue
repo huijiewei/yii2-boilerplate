@@ -33,13 +33,13 @@
 <script>
 export default {
   metaInfo: {
-    title: '首页'
+    title: '首页',
   },
   data() {
     return {
-      message: ''
+      message: '',
     }
   },
-  created() {}
+  created() {},
 }
 </script>

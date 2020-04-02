@@ -11,16 +11,16 @@ export default {
   props: {
     src: {
       type: String,
-      default: ''
+      default: '',
     },
     alt: {
       type: String,
-      default: null
+      default: null,
     },
     size: {
       type: Number,
-      default: 32
-    }
+      default: 32,
+    },
   },
   computed: {
     sizeStyle() {
@@ -28,11 +28,11 @@ export default {
       return typeof size === 'number'
         ? {
             height: `${size}px`,
-            width: `${size}px`
+            width: `${size}px`,
           }
         : {}
-    }
-  }
+    },
+  },
 }
 </script>
 

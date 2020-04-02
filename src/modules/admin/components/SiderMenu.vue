@@ -30,13 +30,13 @@ export default {
   name: 'SiderMenu',
   components: {
     SiderMenuSub,
-    SiderMenuItem
+    SiderMenuItem,
   },
   props: {
     isCollapsed: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     getMenus() {
@@ -56,8 +56,8 @@ export default {
       }
 
       return ''
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">

@@ -67,8 +67,8 @@
         {
           required: true,
           message: '请选择所属管理组',
-          trigger: 'change'
-        }
+          trigger: 'change',
+        },
       ]"
     >
       <el-col :md="5">
@@ -107,16 +107,16 @@ export default {
   props: {
     submitText: {
       type: String,
-      required: true
+      required: true,
     },
     isEdit: {
       type: Boolean,
-      default: false
+      default: false,
     },
     admin: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     const validatePassword = []
@@ -126,12 +126,12 @@ export default {
       validatePassword.push({
         required: !this.isEdit,
         message: '请输入密码',
-        trigger: 'blur'
+        trigger: 'blur',
       })
       validatePasswordConfirm.push({
         required: !this.isEdit,
         message: '请输入密码确认',
-        trigger: 'blur'
+        trigger: 'blur',
       })
     }
 
@@ -142,7 +142,7 @@ export default {
         }
         callback()
       },
-      trigger: 'blur'
+      trigger: 'blur',
     })
 
     validatePasswordConfirm.push({
@@ -153,7 +153,7 @@ export default {
           callback()
         }
       },
-      trigger: 'blur'
+      trigger: 'blur',
     })
 
     return {
@@ -161,7 +161,7 @@ export default {
       validatePassword: validatePassword,
       validatePasswordConfirm: validatePasswordConfirm,
       formModel: null,
-      adminGroupList: {}
+      adminGroupList: {},
     }
   },
   computed: {
@@ -169,7 +169,7 @@ export default {
       return this.$store.getters['auth/getCurrentUser']
         ? this.$store.getters['auth/getCurrentUser'].id
         : 0
-    }
+    },
   },
   async mounted() {
     this.formModel = Object.assign(
@@ -185,7 +185,7 @@ export default {
   },
   methods: {
     handleFormSubmit(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!valid) {
           return false
         }
@@ -198,7 +198,7 @@ export default {
           () => {
             this.$refs[formName].clearValidate()
           },
-          error => {
+          (error) => {
             this.handleViolationError(error, formName)
           },
           () => {
@@ -206,7 +206,7 @@ export default {
           }
         )
       })
-    }
-  }
+    },
+  },
 }
 </script>

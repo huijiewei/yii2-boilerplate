@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       pageTitle: '编辑个人资料',
-      admin: null
+      admin: null,
     }
   },
   async created() {
@@ -55,7 +55,7 @@ export default {
       }
 
       always()
-    }
-  }
+    },
+  },
 }
 </script>

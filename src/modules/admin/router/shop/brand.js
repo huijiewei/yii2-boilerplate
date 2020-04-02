@@ -7,8 +7,8 @@ const routes = [
     meta: {
       breadcrumb: {
         title: '商品品牌',
-        path: '/shop-brand'
-      }
+        path: '/shop-brand',
+      },
     },
     children: [
       {
@@ -16,10 +16,10 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-brand/Index'
-          )
-      }
-    ]
-  }
+          ),
+      },
+    ],
+  },
 ]
 
 export default routes

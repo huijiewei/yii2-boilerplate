@@ -19,13 +19,13 @@ export default {
   data() {
     return {
       breadcrumbs: [],
-      documentTitle: '%s - ' + document.title
+      documentTitle: '%s - ' + document.title,
     }
   },
   watch: {
     $route() {
       this.updateBreadcrumbs()
-    }
+    },
   },
   mounted() {
     this.updateBreadcrumbs()
@@ -34,7 +34,7 @@ export default {
     updateBreadcrumbs() {
       const breadcrumbs = []
 
-      this.$route.matched.forEach(route => {
+      this.$route.matched.forEach((route) => {
         const breadcrumb = route.meta.breadcrumb
 
         if (breadcrumb) {
@@ -53,8 +53,8 @@ export default {
       }
 
       document.title = this.documentTitle.replace('%s', titles.join(' - '))
-    }
-  }
+    },
+  },
 }
 </script>
 

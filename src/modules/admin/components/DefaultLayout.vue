@@ -8,7 +8,7 @@
     <el-container class="ag-wrap">
       <el-aside
         :class="['ag-aside', isCollapsed ? '' : 'active']"
-        style="width:auto;"
+        style="width: auto;"
       >
         <prefect-scrollbar
           :scroll-to="'li.el-menu-item.is-active'"
@@ -41,18 +41,18 @@ export default {
   components: { PrefectScrollbar, HeaderNav, SiderMenu, Breadcrumb },
   provide() {
     return {
-      reload: this.reload
+      reload: this.reload,
     }
   },
   data() {
     return {
-      isRouterAlive: true
+      isRouterAlive: true,
     }
   },
   computed: {
     isCollapsed() {
       return this.$store.getters.isSidebarCollapsed
-    }
+    },
   },
   async beforeCreate() {
     if (!this.$store.getters['auth/getCurrentUser']) {
@@ -67,8 +67,8 @@ export default {
     reload() {
       this.isRouterAlive = false
       this.$nextTick(() => (this.isRouterAlive = true))
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">

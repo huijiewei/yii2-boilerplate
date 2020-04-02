@@ -38,7 +38,7 @@ export default {
             if (error.historyBack === true && !isHome) {
               self.$router.back()
             }
-          }
+          },
         })
       }
 
@@ -60,7 +60,7 @@ export default {
         this.$message({
           message: '需要登录才能访问',
           type: 'warning',
-          duration: 2000
+          duration: 2000,
         })
 
         if (router.currentRoute.path === loginUrl) {
@@ -68,13 +68,13 @@ export default {
         } else {
           router.replace({
             path: loginUrl,
-            query: { direct: router.currentRoute.fullPath }
+            query: { direct: router.currentRoute.fullPath },
           })
         }
       }
 
       return action === 'modal'
-    }
+    },
   },
   beforeCreate() {
     this.$store.dispatch('auth/initClientId')
@@ -94,7 +94,7 @@ export default {
     if (this.spinnerTimeoutId > 0) {
       clearTimeout(this.spinnerTimeoutId)
     }
-  }
+  },
 }
 </script>
 

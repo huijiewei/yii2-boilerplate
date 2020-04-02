@@ -121,19 +121,19 @@ import ImageUpload from '@admin/components/upload/ImageUpload'
 export default {
   components: { ImageUpload, FileUpload },
   metaInfo: {
-    title: '首页'
+    title: '首页',
   },
   data() {
     return {
       file: '',
       files: [],
-      message: ''
+      message: '',
     }
   },
   methods: {
     handleChange(value) {
       console.log(value)
-    }
-  }
+    },
+  },
 }
 </script>

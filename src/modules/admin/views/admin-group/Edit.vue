@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       pageTitle: '编辑管理组',
-      adminGroup: null
+      adminGroup: null,
     }
   },
   async created() {
@@ -54,7 +54,7 @@ export default {
       }
 
       always()
-    }
-  }
+    },
+  },
 }
 </script>

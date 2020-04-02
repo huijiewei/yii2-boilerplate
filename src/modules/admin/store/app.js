@@ -3,30 +3,30 @@ import auth from './auth'
 const app = {
   strict: process.env.NODE_ENV !== 'production',
   modules: {
-    auth: auth
+    auth: auth,
   },
   state: {
     error: {
       message: '',
-      historyBack: false
+      historyBack: false,
     },
     sidebar: {
       collapsed: window.matchMedia('(max-width: 991px)').matches,
-      hidden: false
-    }
+      hidden: false,
+    },
   },
   getters: {
-    isSidebarCollapsed: state => {
+    isSidebarCollapsed: (state) => {
       return state.sidebar.collapsed
-    }
+    },
   },
   mutations: {
-    TOGGLE_SIDEBAR: state => {
+    TOGGLE_SIDEBAR: (state) => {
       state.sidebar.collapsed = !state.sidebar.collapsed
     },
     TOGGLE_ERROR: (state, error) => {
       state.error = error
-    }
+    },
   },
   actions: {
     toggleSidebar({ commit }) {
@@ -37,8 +37,8 @@ const app = {
     },
     clearError({ commit }) {
       commit('TOGGLE_ERROR', { message: '', routeBack: false })
-    }
-  }
+    },
+  },
 }
 
 export default app
