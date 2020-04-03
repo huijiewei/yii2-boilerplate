@@ -10,8 +10,8 @@ const users = [
     createdIp: '97.133.61.30',
     createdFrom: {
       name: 'SYSTEM',
-      description: '系统'
-    }
+      description: '系统',
+    },
   },
   {
     id: 11132,
@@ -24,8 +24,8 @@ const users = [
     createdIp: '28.115.8.77',
     createdFrom: {
       name: 'SYSTEM',
-      description: '系统'
-    }
+      description: '系统',
+    },
   },
   {
     id: 11131,
@@ -38,8 +38,8 @@ const users = [
     createdIp: '70.6.146.225',
     createdFrom: {
       name: 'APP',
-      description: 'APP'
-    }
+      description: 'APP',
+    },
   },
   {
     id: 11130,
@@ -52,8 +52,8 @@ const users = [
     createdIp: '108.210.187.23',
     createdFrom: {
       name: 'WECHAT',
-      description: '微信'
-    }
+      description: '微信',
+    },
   },
   {
     id: 11129,
@@ -65,8 +65,8 @@ const users = [
     createdIp: '44.125.11.125',
     createdFrom: {
       name: 'WEB',
-      description: '网站'
-    }
+      description: '网站',
+    },
   },
   {
     id: 11128,
@@ -79,8 +79,8 @@ const users = [
     createdIp: '74.84.179.112',
     createdFrom: {
       name: 'APP',
-      description: 'APP'
-    }
+      description: 'APP',
+    },
   },
   {
     id: 11127,
@@ -93,8 +93,8 @@ const users = [
     createdIp: '138.120.222.74',
     createdFrom: {
       name: 'WEB',
-      description: '网站'
-    }
+      description: '网站',
+    },
   },
   {
     id: 11126,
@@ -107,8 +107,8 @@ const users = [
     createdIp: '17.54.25.122',
     createdFrom: {
       name: 'WECHAT',
-      description: '微信'
-    }
+      description: '微信',
+    },
   },
   {
     id: 11125,
@@ -121,8 +121,8 @@ const users = [
     createdIp: '227.180.32.22',
     createdFrom: {
       name: 'WECHAT',
-      description: '微信'
-    }
+      description: '微信',
+    },
   },
   {
     id: 11124,
@@ -135,8 +135,8 @@ const users = [
     createdIp: '170.227.48.252',
     createdFrom: {
       name: 'SYSTEM',
-      description: '系统'
-    }
+      description: '系统',
+    },
   },
   {
     id: 11123,
@@ -149,8 +149,8 @@ const users = [
     createdIp: '27.39.216.182',
     createdFrom: {
       name: 'SYSTEM',
-      description: '系统'
-    }
+      description: '系统',
+    },
   },
   {
     id: 11122,
@@ -162,8 +162,8 @@ const users = [
     createdIp: '174.145.225.158',
     createdFrom: {
       name: 'WECHAT',
-      description: '微信'
-    }
+      description: '微信',
+    },
   },
   {
     id: 11121,
@@ -176,8 +176,8 @@ const users = [
     createdIp: '72.31.86.86',
     createdFrom: {
       name: 'WECHAT',
-      description: '微信'
-    }
+      description: '微信',
+    },
   },
   {
     id: 11120,
@@ -189,8 +189,8 @@ const users = [
     createdIp: '172.205.75.47',
     createdFrom: {
       name: 'WECHAT',
-      description: '微信'
-    }
+      description: '微信',
+    },
   },
   {
     id: 11119,
@@ -203,8 +203,8 @@ const users = [
     createdIp: '144.241.245.50',
     createdFrom: {
       name: 'WECHAT',
-      description: '微信'
-    }
+      description: '微信',
+    },
   },
   {
     id: 11118,
@@ -216,8 +216,8 @@ const users = [
     createdIp: '8.244.112.86',
     createdFrom: {
       name: 'WEB',
-      description: '网站'
-    }
+      description: '网站',
+    },
   },
   {
     id: 11117,
@@ -230,8 +230,8 @@ const users = [
     createdIp: '164.169.176.216',
     createdFrom: {
       name: 'WECHAT',
-      description: '微信'
-    }
+      description: '微信',
+    },
   },
   {
     id: 11116,
@@ -244,8 +244,8 @@ const users = [
     createdIp: '53.189.56.226',
     createdFrom: {
       name: 'APP',
-      description: 'APP'
-    }
+      description: 'APP',
+    },
   },
   {
     id: 11115,
@@ -258,8 +258,8 @@ const users = [
     createdIp: '136.188.202.106',
     createdFrom: {
       name: 'APP',
-      description: 'APP'
-    }
+      description: 'APP',
+    },
   },
   {
     id: 11114,
@@ -272,9 +272,9 @@ const users = [
     createdIp: '77.100.123.206',
     createdFrom: {
       name: 'APP',
-      description: 'APP'
-    }
-  }
+      description: 'APP',
+    },
+  },
 ]
 
 module.exports = users

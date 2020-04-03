@@ -5,7 +5,7 @@ const {
   adminItem,
   adminEdit,
   adminCreate,
-  adminDelete
+  adminDelete,
 } = require('./admin/index')
 const {
   adminGroupList,
@@ -14,7 +14,7 @@ const {
   adminGroupCreate,
   adminGroupDelete,
   adminGroupOptions,
-  adminGroupAcl
+  adminGroupAcl,
 } = require('./admin-group/index')
 const { userList, userItem, userCreate, userDelete } = require('./user/index')
 
@@ -22,7 +22,7 @@ const noProxy = process.env.NO_PROXY === 'true'
 
 const proxy = {
   _proxy: {
-    changeHost: true
+    changeHost: true,
   },
   'POST /admin/api/auth/login': authLogin,
   'POST /admin/api/auth/logout': authLogout,
@@ -42,7 +42,7 @@ const proxy = {
   'GET /admin/api/users': userList,
   'POST /admin/api/users': userCreate,
   'GET /admin/api/users/:id(\\d+)': userItem,
-  'DELETE /admin/api/users/:id(\\d+)': userDelete
+  'DELETE /admin/api/users/:id(\\d+)': userDelete,
 }
 
 module.exports = noProxy ? {} : delay(proxy, 500)

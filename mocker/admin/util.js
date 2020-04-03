@@ -1,4 +1,4 @@
-exports.authenticationCheck = function(req, res, success) {
+exports.authenticationCheck = function (req, res, success) {
   const clientId = req.get('X-Client-Id') || ''
 
   if (clientId === '') {
@@ -6,7 +6,7 @@ exports.authenticationCheck = function(req, res, success) {
       name: 'BadRequest',
       message: '无效的 Client Id，请刷新页面重新操作',
       code: 0,
-      status: 400
+      status: 400,
     })
   }
 
@@ -17,20 +17,20 @@ exports.authenticationCheck = function(req, res, success) {
       name: 'Unauthorized',
       message: '必须登陆才能进行操作',
       code: 0,
-      status: 401
+      status: 401,
     })
   }
 
   return success()
 }
 
-exports.notFoundCheck = function(item, message, res, success) {
+exports.notFoundCheck = function (item, message, res, success) {
   if (item === null) {
     return res.status(404).json({
       name: 'Not Found',
       message: message,
       code: 0,
-      status: 404
+      status: 404,
     })
   } else {
     return success()

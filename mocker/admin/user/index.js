@@ -10,7 +10,7 @@ exports.userList = (req, res) => {
       totalCount: 1200,
       pageCount: 120,
       currentPage: Number(page),
-      perPage: 10
+      perPage: 10,
     },
     searchFields: withSearchFields
       ? [
@@ -25,8 +25,8 @@ exports.userList = (req, res) => {
               SYSTEM: '系统',
               APP: '应用',
               WEB: '网站',
-              WECHAT: '微信'
-            }
+              WECHAT: '微信',
+            },
           },
           {
             type: 'dateTimeRange',
@@ -38,18 +38,18 @@ exports.userList = (req, res) => {
               {
                 text: '最近一周',
                 start: '2019-11-07',
-                end: '2019-11-14'
+                end: '2019-11-14',
               },
               {
                 text: '最近一个月',
                 start: '2019-10-14',
-                end: '2019-11-14'
-              }
-            ]
+                end: '2019-11-14',
+              },
+            ],
           },
-          { type: 'br' }
+          { type: 'br' },
         ]
-      : null
+      : null,
   }
 
   return authenticationCheck(req, res, () => {
@@ -59,18 +59,18 @@ exports.userList = (req, res) => {
 
 exports.userItem = (req, res) => {
   return res.status(404).json({
-    message: '用户不存在'
+    message: '用户不存在',
   })
 }
 
 exports.userCreate = (req, res) => {
   return res.status(404).json({
-    message: '服务不存在'
+    message: '服务不存在',
   })
 }
 
 exports.userDelete = (req, res) => {
   return res.status(401).json({
-    message: '请先登录'
+    message: '请先登录',
   })
 }

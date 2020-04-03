@@ -31,7 +31,7 @@ const groupAcl = [
   'shop-category/delete',
   'shop/property',
   'shop/feature',
-  'shop/brand'
+  'shop/brand',
 ]
 
 module.exports = groupAcl

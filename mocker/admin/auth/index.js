@@ -39,17 +39,17 @@ exports.authLogin = (req, res) => {
       name: '开发账号',
       avatar:
         'https://yuncars-other.oss-cn-shanghai.aliyuncs.com//boilerplate/201903/v4md41vswd_7477uudbmg.jpg?x-oss-process=style/avatar',
-      adminGroup: { id: 101, name: '开发组' }
+      adminGroup: { id: 101, name: '开发组' },
     },
     accessToken: 'bmq7tDtL5GqT9b64',
     groupMenus: groupMenus,
-    groupPermissions: groupAcl
+    groupPermissions: groupAcl,
   })
 }
 
 exports.authLogout = (req, res) => {
   return res.json({
-    message: '退出登录成功'
+    message: '退出登录成功',
   })
 }
 
@@ -62,10 +62,10 @@ exports.authAccount = (req, res) => {
       name: '开发账号',
       avatar:
         'https://yuncars-other.oss-cn-shanghai.aliyuncs.com//boilerplate/201903/v4md41vswd_7477uudbmg.jpg?x-oss-process=style/avatar',
-      adminGroup: { id: 101, name: '开发组' }
+      adminGroup: { id: 101, name: '开发组' },
     },
     groupMenus: groupMenus,
-    groupPermissions: groupAcl
+    groupPermissions: groupAcl,
   }
 
   return authenticationCheck(req, res, () => {

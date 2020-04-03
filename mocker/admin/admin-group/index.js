@@ -4,7 +4,7 @@ const adminGroupAcl = require('./_admin-group-acl')
 
 exports.adminGroupList = (req, res) => {
   const success = {
-    items: adminGroups
+    items: adminGroups,
   }
 
   return authenticationCheck(req, res, () => {
@@ -16,7 +16,7 @@ exports.adminGroupItem = (req, res) => {
   const { id } = req.params
 
   return authenticationCheck(req, res, () => {
-    const adminGroup = adminGroups.find(item => {
+    const adminGroup = adminGroups.find((item) => {
       return item.id === Number(id)
     })
 
@@ -50,7 +50,7 @@ exports.adminGroupItem = (req, res) => {
         'shop-category/index',
         'shop-category/create',
         'shop-category/edit',
-        'shop-category/delete'
+        'shop-category/delete',
       ]
 
       return res.json(result)
@@ -64,7 +64,7 @@ exports.adminGroupCreate = (req, res) => {
 
     const errors = []
 
-    const adminGroup = adminGroups.find(item => {
+    const adminGroup = adminGroups.find((item) => {
       return item.name === name
     })
 
@@ -101,7 +101,7 @@ exports.adminGroupAcl = (req, res) => {
 exports.adminGroupMap = (req, res) => {
   return authenticationCheck(req, res, () => {
     const map = {}
-    adminGroups.forEach(adminGroup => {
+    adminGroups.forEach((adminGroup) => {
       map[adminGroup.id] = adminGroup.name
     })
     return res.json(map)

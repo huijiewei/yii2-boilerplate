@@ -4,7 +4,7 @@ const adminGroups = require('../admin-group/_admin-groups')
 
 exports.adminList = (req, res) => {
   const success = {
-    items: admins
+    items: admins,
   }
 
   return authenticationCheck(req, res, () => {
@@ -16,7 +16,7 @@ exports.adminItem = (req, res) => {
   const { id } = req.params
 
   return authenticationCheck(req, res, () => {
-    const admin = admins.find(item => {
+    const admin = admins.find((item) => {
       return item.id === Number(id)
     })
 
@@ -34,14 +34,14 @@ exports.adminCreate = (req, res) => {
 
     const errors = []
 
-    const admin = admins.find(item => {
+    const admin = admins.find((item) => {
       return item.phone === phone
     })
 
     if (admin) {
       errors.push({
         field: 'phone',
-        message: '手机号码 ' + phone + ' 已被占用'
+        message: '手机号码 ' + phone + ' 已被占用',
       })
     }
 
@@ -49,7 +49,7 @@ exports.adminCreate = (req, res) => {
       errors.push({ field: 'password', message: '密码不能少于 6 位' })
     }
 
-    const group = adminGroups.find(item => {
+    const group = adminGroups.find((item) => {
       return item.id === Number(groupId)
     })
 
