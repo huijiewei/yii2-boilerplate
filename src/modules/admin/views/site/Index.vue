@@ -13,7 +13,7 @@
       </li>
     </ol>
     <p>
-      <a href="https://github.com/huijiewei/agile-ui" target="_blank"
+      <a href="https://github.com/huijiewei/agile-vue" target="_blank"
         >访问 Github 项目地址</a
       >
     </p>
