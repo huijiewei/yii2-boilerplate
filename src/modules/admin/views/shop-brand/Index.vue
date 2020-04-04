@@ -32,6 +32,14 @@
           />
           <div class="body">
             <span>{{ shopBrand.name }}</span>
+            <div>
+              <el-popover
+                trigger="click"
+                width="500"
+                :content="shopBrand.description">
+                <el-button type="text" slot="reference" icon="el-icon-info" size="mini"></el-button>
+              </el-popover>
+            </div>
             <div class="bottom clearfix">
               <el-button
                 :disabled="!$can('shop-brand/edit')"
@@ -40,8 +48,8 @@
                 plain
                 class="button"
                 @click="handleShopBrandEdit(shopBrand)"
-                >编辑</el-button
-              >
+                >编辑
+              </el-button>
               <el-button
                 :disabled="!$can('shop-brand/delete')"
                 type="danger"
@@ -49,8 +57,8 @@
                 plain
                 class="button"
                 @click="handleShopBrandDelete(shopBrand)"
-                >删除</el-button
-              >
+                >删除
+              </el-button>
             </div>
           </div>
         </el-card>
@@ -118,6 +126,23 @@
             />
           </el-col>
         </el-form-item>
+        <el-form-item label="分类" prop="shopCategories">
+          <el-col :md="20">
+            <el-cascader
+              style="width: 100%;"
+              placeholder="品牌绑定分类"
+              v-model="formModel.shopCategories"
+              :options="categoryTree"
+              :props="{
+                value: 'id',
+                label: 'name',
+                multiple: true,
+                checkStrictly: true,
+              }"
+            >
+            </el-cascader>
+          </el-col>
+        </el-form-item>
         <el-form-item>
           <el-button
             type="primary"
@@ -128,8 +153,8 @@
             确定
           </el-button>
           <el-button @click="dialogVisible = false" size="small"
-            >取消</el-button
-          >
+            >取消
+          </el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -144,6 +169,7 @@ import SearchForm from '@admin/components/SearchForm'
 import ImageUpload from '@admin/components/upload/ImageUpload'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 import SameWidth from '@core/directives/SameWidth'
+import MiscService from '@admin/services/MiscService'
 
 export default {
   components: { ImageUpload, SearchForm },
@@ -159,15 +185,24 @@ export default {
       dialogVisible: false,
       dialogTitle: '',
       formModel: null,
+      categoryTree: [],
     }
   },
   created() {
     this.getShopBrands()
+    this.loadCategoryTree()
   },
   watch: {
     $route: 'getShopBrands',
   },
   methods: {
+    async loadCategoryTree() {
+      const { data } = await flatry(MiscService.shopCategoryTree())
+
+      if (data) {
+        this.categoryTree = data
+      }
+    },
     async getShopBrands() {
       this.loading = true
 
