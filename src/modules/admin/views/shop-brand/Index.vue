@@ -138,7 +138,7 @@
             <el-cascader
               style="width: 100%;"
               placeholder="品牌绑定分类"
-              v-model="formModel.shopCategories"
+              v-model="formModel.shopCategoryIds"
               :options="categoryTree"
               :props="{
                 value: 'id',
@@ -233,7 +233,9 @@ export default {
         name: '',
         icon: '',
         logo: '',
+        alias: '',
         description: '',
+        shopCategoryIds: [],
       }
     },
     handleDialogClosed(formName) {
@@ -251,10 +253,27 @@ export default {
 
         const editShopBrandId = self.formModel.id
 
+        const shopBrand = Object.assign({}, self.formModel)
+
+        if (Array.isArray(self.formModel.shopCategoryIds)) {
+          const shopCategoryIds = []
+
+          self.formModel.shopCategoryIds.forEach(function (ids) {
+            if (Array.isArray(ids)) {
+              shopCategoryIds.push(ids[ids.length - 1])
+            }
+          })
+          if (shopCategoryIds.length > 0) {
+            shopBrand.shopCategoryIds = shopCategoryIds
+          } else {
+            shopBrand.shopCategoryIds = []
+          }
+        }
+
         const { data, error } = await flatry(
           editShopBrandId > 0
-            ? ShopBrandService.edit(editShopBrandId, self.formModel)
-            : ShopBrandService.create(self.formModel)
+            ? ShopBrandService.edit(editShopBrandId, shopBrand)
+            : ShopBrandService.create(shopBrand)
         )
 
         if (data) {
@@ -283,7 +302,31 @@ export default {
     handleShopBrandEdit(shopBrand) {
       this.dialogTitle = '编辑品牌'
       this.dialogVisible = true
-      this.formModel = Object.assign({}, shopBrand)
+
+      const editShopBrand = {
+        id: shopBrand.id,
+        name: shopBrand.name,
+        icon: shopBrand.icon,
+        logo: shopBrand.logo,
+        alias: shopBrand.alias,
+        description: shopBrand.description,
+        shopCategoryIds: [],
+      }
+
+      if (Array.isArray(shopBrand.shopCategories)) {
+        shopBrand.shopCategories.forEach(function (category) {
+          if (Array.isArray(category.parents)) {
+            const parentIds = []
+            category.parents.forEach(function (parent) {
+              parentIds.push(parent.id)
+            })
+
+            editShopBrand.shopCategoryIds.push(parentIds)
+          }
+        })
+      }
+
+      this.formModel = editShopBrand
     },
     handleShopBrandDelete(shopBrand) {
       this.$deleteDialog({
