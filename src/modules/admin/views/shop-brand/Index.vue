@@ -46,6 +46,28 @@
                   size="mini"
                 ></el-button>
               </el-popover>
+              <el-popover trigger="click" width="500">
+                <div class="brand-category-tags">
+                  <template v-for="shopCategory in shopBrand.shopCategories">
+                    <el-tag
+                      size="medium"
+                      :key="shopBrand.id + '-' + shopCategory.id"
+                    >
+                      {{ shopCategory.name }} </el-tag
+                    >&nbsp;&nbsp;
+                  </template>
+                </div>
+                <el-button
+                  :disabled="
+                    !shopBrand.shopCategories ||
+                    shopBrand.shopCategories.length === 0
+                  "
+                  type="text"
+                  slot="reference"
+                  icon="el-icon-s-shop"
+                  size="mini"
+                ></el-button>
+              </el-popover>
             </div>
             <div class="bottom clearfix">
               <el-button
@@ -384,6 +406,15 @@ export default {
 
   .el-card__body {
     text-align: center;
+  }
+}
+
+.brand-category-tags {
+  margin-left: -9px;
+  margin-top: -9px;
+  .el-tag {
+    margin-left: 9px;
+    margin-top: 9px;
   }
 }
 </style>
