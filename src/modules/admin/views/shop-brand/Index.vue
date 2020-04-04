@@ -35,7 +35,7 @@
             <div>
               <el-popover
                 trigger="click"
-                width="500"
+                popper-class="brand-popover"
                 :content="shopBrand.description"
               >
                 <el-button
@@ -46,7 +46,7 @@
                   size="mini"
                 ></el-button>
               </el-popover>
-              <el-popover trigger="click" width="500">
+              <el-popover trigger="click" popper-class="brand-popover">
                 <div class="brand-category-tags">
                   <template v-for="shopCategory in shopBrand.shopCategories">
                     <el-tag
@@ -407,6 +407,11 @@ export default {
   .el-card__body {
     text-align: center;
   }
+}
+
+.brand-popover {
+  min-width: auto;
+  max-width: 500px;
 }
 
 .brand-category-tags {
