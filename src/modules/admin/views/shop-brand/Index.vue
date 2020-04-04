@@ -36,8 +36,15 @@
               <el-popover
                 trigger="click"
                 width="500"
-                :content="shopBrand.description">
-                <el-button type="text" slot="reference" icon="el-icon-info" size="mini"></el-button>
+                :content="shopBrand.description"
+              >
+                <el-button
+                  :disabled="shopBrand.description.length === 0"
+                  type="text"
+                  slot="reference"
+                  icon="el-icon-info"
+                  size="mini"
+                ></el-button>
               </el-popover>
             </div>
             <div class="bottom clearfix">
