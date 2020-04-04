@@ -16,48 +16,45 @@
       </div>
     </div>
     <div class="shop-brand-list clearfix" v-same-width="'brand'">
-      <el-card
-        class="brand"
-        v-for="shopBrand in shopBrands"
-        :key="shopBrand.id"
-        shadow="hover"
-      >
-        <img
-          :alt="shopBrand.name"
-          v-if="shopBrand.logo"
-          :src="shopBrand.logo"
-          class="logo"
-        />
-        <img
-          :alt="shopBrand.name"
-          v-else
-          src="../../assets/images/banner.png"
-          class="logo"
-        />
-        <div class="body">
-          <span>{{ shopBrand.name }}</span>
-          <div class="bottom clearfix">
-            <el-button
-              :disabled="!$can('shop-brand/edit')"
-              type="primary"
-              size="mini"
-              plain
-              class="button"
-              @click="handleShopBrandEdit(shopBrand)"
-              >编辑</el-button
-            >
-            <el-button
-              :disabled="!$can('shop-brand/delete')"
-              type="danger"
-              size="mini"
-              plain
-              class="button"
-              @click="handleShopBrandDelete(shopBrand)"
-              >删除</el-button
-            >
+      <template v-for="shopBrand in shopBrands">
+        <el-card class="brand" :key="shopBrand.id" shadow="hover">
+          <img
+            :alt="shopBrand.name"
+            v-if="shopBrand.logo"
+            :src="shopBrand.logo"
+            class="logo"
+          />
+          <img
+            :alt="shopBrand.name"
+            v-else
+            src="../../assets/images/banner.png"
+            class="logo"
+          />
+          <div class="body">
+            <span>{{ shopBrand.name }}</span>
+            <div class="bottom clearfix">
+              <el-button
+                :disabled="!$can('shop-brand/edit')"
+                type="primary"
+                size="mini"
+                plain
+                class="button"
+                @click="handleShopBrandEdit(shopBrand)"
+                >编辑</el-button
+              >
+              <el-button
+                :disabled="!$can('shop-brand/delete')"
+                type="danger"
+                size="mini"
+                plain
+                class="button"
+                @click="handleShopBrandDelete(shopBrand)"
+                >删除</el-button
+              >
+            </div>
           </div>
-        </div>
-      </el-card>
+        </el-card>
+      </template>
     </div>
     <el-dialog
       :title="this.dialogTitle"
