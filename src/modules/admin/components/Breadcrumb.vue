@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       breadcrumbs: [],
-      documentTitle: '%s - ' + document.title,
+      documentTitle: '%s - ' + '管理后台',
     }
   },
   watch: {

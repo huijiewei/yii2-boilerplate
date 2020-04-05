@@ -18,7 +18,7 @@ import flatry from '@core/utils/flatry'
 export default {
   name: 'ExportButton',
   // eslint-disable-next-line vue/require-prop-types
-  props: ['api', 'type', 'size', 'disabled'],
+  props: ['api', 'type', 'size', 'disabled', 'confirm'],
   data() {
     return {
       loading: false,
@@ -26,7 +26,7 @@ export default {
     }
   },
   methods: {
-    async handleClick() {
+    async export() {
       this.loading = true
       this.loadingText = '正在导出 Excel'
 
@@ -50,6 +50,19 @@ export default {
       }
 
       this.loading = false
+    },
+    handleClick() {
+      if (this.confirm && this.confirm.length > 0) {
+        this.$confirm(this.confirm, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          this.export()
+        })
+      } else {
+        this.export()
+      }
     },
   },
 }
