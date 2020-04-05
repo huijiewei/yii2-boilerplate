@@ -155,7 +155,7 @@
             />
           </el-col>
         </el-form-item>
-        <el-form-item label="分类" prop="shopCategories">
+        <el-form-item label="分类" prop="shopCategoryIds">
           <el-col :md="20">
             <el-cascader
               style="width: 100%;"
