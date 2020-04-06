@@ -15,7 +15,11 @@
         </el-button>
       </div>
     </div>
-    <div class="shop-brand-list clearfix" v-same-width="'brand'">
+    <div
+      class="shop-brand-list clearfix"
+      v-same-width="'brand'"
+      v-loading="loading"
+    >
       <template v-for="shopBrand in shopBrands">
         <el-card class="brand" :key="shopBrand.id" shadow="hover">
           <img

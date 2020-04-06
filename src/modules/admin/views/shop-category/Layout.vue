@@ -23,6 +23,7 @@
         </div>
         <hr class="spacer-xs" />
         <el-tree
+          v-loading="loading"
           :data="categoryTree"
           :loading="loading"
           :highlight-current="true"
