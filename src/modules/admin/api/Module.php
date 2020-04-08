@@ -24,6 +24,18 @@ class Module extends AbstractModule
         return 'admin/api';
     }
 
+    public static function getRouteRules()
+    {
+        return [
+            'GET <controller>s' => '<controller>/index',
+            'GET <controller>s/<id:\d+>' => '<controller>/view',
+            'POST <controller>s' => '<controller>/create',
+            'PUT <controller>s/<id:\d+>' => '<controller>/edit',
+            'DELETE <controller>s/<id:\d+>' => '<controller>/delete',
+            '<controller>/<action>' => '<controller>/<action>',
+        ];
+    }
+
     public static function getUserComponent()
     {
         return [

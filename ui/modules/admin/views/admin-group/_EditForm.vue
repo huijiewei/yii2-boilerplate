@@ -251,6 +251,8 @@ export default {
         'input'
       )[0].checked
 
+      console.log(checked)
+
       if (!checked) {
         item.combines.forEach((combine) => {
           if (

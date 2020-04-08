@@ -158,7 +158,7 @@ class AdminGroup extends ActiveRecord
     public function extraFields()
     {
         return [
-            'acl' => function () {
+            'permissions' => function () {
                 return AdminGroup::getPermissionsById($this->id);
             },
         ];
@@ -167,7 +167,7 @@ class AdminGroup extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'acl'], 'trim'],
+            [['name', 'permissions'], 'trim'],
             ['name', 'required'],
             ['name', 'string', 'length' => [3, 10]],
             ['name', 'unique']

@@ -53,6 +53,11 @@ class UserController extends Controller
         return $user;
     }
 
+    public function actionView($id)
+    {
+        return $this->getUserById($id);
+    }
+
     public function actionEdit($id)
     {
         $user = $this->getUserById($id);

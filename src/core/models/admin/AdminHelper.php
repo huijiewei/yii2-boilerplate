@@ -34,30 +34,35 @@ class AdminHelper
                 ],
             ],
             [
-                'name' => '会员管理',
+                'name' => '用户管理',
                 'children' => [
                     [
-                        'name' => '会员列表',
+                        'name' => '用户列表',
                         'actionId' => 'user/index',
                     ],
                     [
-                        'name' => '会员导出',
+                        'name' => '用户导出',
                         'actionId' => 'user/export',
                     ],
                     [
-                        'name' => '会员新建',
+                        'name' => '用户新建',
                         'actionId' => 'user/create',
                     ],
                     [
-                        'name' => '会员编辑',
-                        'actionId' => 'user/edit',
+                        'name' => '用户查看',
+                        'actionId' => 'user/view',
                     ],
                     [
-                        'name' => '会员删除',
+                        'name' => '用户编辑',
+                        'actionId' => 'user/edit',
+                        'combines' => ['user/view']
+                    ],
+                    [
+                        'name' => '用户删除',
                         'actionId' => 'user/delete',
                     ],
                     [
-                        'name' => '会员导入',
+                        'name' => '用户导入',
                         'actionId' => 'user/import',
                     ],
                 ],
@@ -137,8 +142,13 @@ class AdminHelper
                                 'actionId' => 'admin/create',
                             ],
                             [
+                                'name' => '管理员查看',
+                                'actionId' => 'admin/view',
+                            ],
+                            [
                                 'name' => '管理员编辑',
                                 'actionId' => 'admin/edit',
+                                'combines' => ['admin/view']
                             ],
                             [
                                 'name' => '管理员删除',
@@ -157,8 +167,13 @@ class AdminHelper
                                 'actionId' => 'admin-group/create',
                             ],
                             [
+                                'name' => '管理组查看',
+                                'actionId' => 'admin-group/view',
+                            ],
+                            [
                                 'name' => '管理组编辑',
                                 'actionId' => 'admin-group/edit',
+                                'combines' => ['admin-group/view']
                             ],
                             [
                                 'name' => '管理组删除',

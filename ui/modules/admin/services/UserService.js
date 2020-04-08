@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const UserService = {
   all(query) {
-    return Vue.http.get('user/index', query)
+    return Vue.http.get('users', query)
   },
 
   delete(id) {
@@ -21,7 +21,7 @@ const UserService = {
     }
 
     return Vue.http.put(endpoint, user)
-  },
+  }
 }
 
 export default UserService

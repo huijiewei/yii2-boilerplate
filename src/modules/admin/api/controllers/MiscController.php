@@ -9,12 +9,12 @@ use app\modules\admin\api\Controller;
 
 class MiscController extends Controller
 {
-    public function actionAdminGroups()
+    public function actionAdminGroupList()
     {
         return AdminGroup::find()->select(['id', 'name'])->orderBy(['id' => SORT_ASC])->all();
     }
 
-    public function actionAdminAllAcl()
+    public function actionAdminGroupAcl()
     {
         return AdminHelper::getAllPermissions();
     }
