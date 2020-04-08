@@ -24,7 +24,7 @@ class AdminAccessToken extends ActiveRecord
         static::deleteAll(['adminId' => $adminId, 'clientId' => $clientId]);
     }
 
-    public static function generateAccessToken($adminId, $clientId)
+    public static function generateAccessToken($adminId, $clientId, $remoteAddr, $userAgent)
     {
         /* @var $adminAccessToken AdminAccessToken|null */
         $adminAccessToken = AdminAccessToken::find()
@@ -43,6 +43,8 @@ class AdminAccessToken extends ActiveRecord
         $accessToken = \Yii::$app->getSecurity()->generatePasswordHash($randomString);
 
         $adminAccessToken->accessToken = $accessToken;
+        $adminAccessToken->remoteAddr = $remoteAddr;
+        $adminAccessToken->userAgent = $userAgent;
 
         $adminAccessToken->save(false);
 

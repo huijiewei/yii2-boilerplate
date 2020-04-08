@@ -21,9 +21,10 @@ class m180726_011105_create_user_table extends Migration
         $this->createTable($this->userTableName, [
             'id' => $this->primaryKey(),
             'phone' => $this->string(20)->notNull()->defaultValue(''),
+            'email' => $this->string(60)->notNull()->defaultValue(''),
             'password' => $this->string(90)->notNull()->defaultValue(''),
             'authKey' => $this->string(60)->notNull()->defaultValue(''),
-            'display' => $this->string(20)->notNull()->defaultValue(''),
+            'name' => $this->string(20)->notNull()->defaultValue(''),
             'avatar' => $this->string(255)->notNull()->defaultValue(''),
             'createdAt' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'createdIp' => $this->string(32)->notNull()->defaultValue(''),
@@ -31,6 +32,7 @@ class m180726_011105_create_user_table extends Migration
         ], $tableOptions . ' AUTO_INCREMENT=10021');
 
         $this->createIndex('phone', $this->userTableName, 'phone', true);
+        $this->createIndex('email', $this->userTableName, 'email', true);
         $this->createIndex('createdFrom', $this->userTableName, 'createdFrom');
     }
 

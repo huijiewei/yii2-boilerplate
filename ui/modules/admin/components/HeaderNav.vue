@@ -36,7 +36,7 @@
           </span>
           <el-dropdown-menu slot="dropdown" class="profile-dropdown-menu">
             <el-dropdown-item disabled>
-              {{ getCurrentUser.adminGroup || getCurrentUser.adminGroup.name }}
+              {{ getCurrentUser.adminGroup.name }}
             </el-dropdown-item>
             <el-dropdown-item command="userProfile" divided>
               <i class="el-icon-user" />

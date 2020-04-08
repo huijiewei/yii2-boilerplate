@@ -12,6 +12,8 @@ class AuthController extends Controller
         $form = new AdminLoginForm(['clientId' => $this->getClientId()]);
 
         $form->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $form->remoteAddr = \Yii::$app->getRequest()->getRemoteIP();
+        $form->userAgent = \Yii::$app->getRequest()->getUserAgent();
 
         if (!$form->login()) {
             return $form;
@@ -26,7 +28,7 @@ class AuthController extends Controller
     public function actionAccount()
     {
         return [
-            'currentUser' => $this->getIdentity(),
+            'currentUser' => $this->getIdentity()->toArray([], ['adminGroup']),
             'groupMenus' => $this->getIdentity()->getGroupMenus(),
             'groupPermissions' => $this->getIdentity()->getGroupPermissions(),
         ];

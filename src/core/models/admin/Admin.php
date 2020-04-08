@@ -2,7 +2,6 @@
 
 namespace app\core\models\admin;
 
-use app\core\components\ActiveRecord;
 use app\core\models\Identity;
 use app\core\validators\PhoneNumberValidator;
 
@@ -118,12 +117,14 @@ class Admin extends Identity
 
     /**
      * @param string $clientId
+     * @param string $remoteAddr
+     * @param string $userAgent
      *
      * @return AdminAccessToken
      */
-    public function generateAccessToken($clientId = '')
+    public function generateAccessToken($clientId = '', $remoteAddr = '', $userAgent = '')
     {
-        return AdminAccessToken::generateAccessToken($this->id, $clientId);
+        return AdminAccessToken::generateAccessToken($this->id, $clientId, $remoteAddr, $userAgent);
     }
 
     public function deleteAccessToken($clientId = '')

@@ -18,6 +18,9 @@ class AdminLoginForm extends Model
 {
     public $clientId;
 
+    public $remoteAddr;
+    public $userAgent;
+
     public $account;
     public $password;
 
@@ -61,7 +64,7 @@ class AdminLoginForm extends Model
             return false;
         }
 
-        $this->accessToken = $this->admin->generateAccessToken($this->clientId);
+        $this->accessToken = $this->admin->generateAccessToken($this->clientId, $this->remoteAddr, $this->userAgent);
 
         \Yii::$app->getUser()->login($this->admin);
 
