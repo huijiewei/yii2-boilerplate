@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/21
- * Time: 12:47
- */
 
 namespace app\core\models\admin;
 
@@ -14,9 +8,11 @@ use app\core\components\ActiveRecord;
  * Class AdminAccessToken
  *
  * @property integer $id
- * @property integer $adminId
  * @property string $clientId
- * @property string $token
+ * @property integer $adminId
+ * @property string $accessToken
+ * @property string $remoteAddr
+ * @property string $userAgent
  * @property string $updatedAt
  *
  * @package app\core\models\admin
@@ -46,7 +42,7 @@ class AdminAccessToken extends ActiveRecord
 
         $accessToken = \Yii::$app->getSecurity()->generatePasswordHash($randomString);
 
-        $adminAccessToken->token = $accessToken;
+        $adminAccessToken->accessToken = $accessToken;
 
         $adminAccessToken->save(false);
 

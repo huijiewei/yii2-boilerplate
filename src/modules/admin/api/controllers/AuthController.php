@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/21
- * Time: 11:45
- */
 
 namespace app\modules\admin\api\controllers;
 
@@ -23,41 +17,21 @@ class AuthController extends Controller
             return $form;
         }
 
-        return $this->message('登陆成功', [
-            'accessToken' => $form->accessToken->token,
-            'currentUser' => $this->actionCurrentUser(),
-            'groupAcl' => $this->actionGroupAcl(),
-            'groupMenus' => $this->actionGroupMenus(),
-        ]);
+        $account = $this->actionAccount();
+        $account['accessToken'] = $form->accessToken->accessToken;
+
+        return $this->message('登陆成功', $account);
     }
 
-    public function actionCurrentUser()
-    {
-        return $this->getIdentity();
-    }
-
-    public function actionGroupAcl()
-    {
-        return $this->getIdentity()->getGroupAcl();
-    }
-
-    public function actionGroupMenus()
-    {
-        return $this->getIdentity()->getGroupMenus();
-    }
-
-    public function actionAuthentication()
+    public function actionAccount()
     {
         return [
-            'currentUser' => $this->actionCurrentUser(),
-            'groupAcl' => $this->actionGroupAcl(),
-            'groupMenus' => $this->actionGroupMenus(),
+            'currentUser' => $this->getIdentity(),
+            'groupMenus' => $this->getIdentity()->getGroupMenus(),
+            'groupPermissions' => $this->getIdentity()->getGroupPermissions(),
         ];
     }
 
-    /**
-     * @return array
-     */
     public function actionLogout()
     {
         $this->getIdentity()->deleteAccessToken($this->getClientId());
@@ -71,7 +45,7 @@ class AuthController extends Controller
     {
         return [
             'login' => ['POST'],
-            'user' => ['GET'],
+            'account' => ['GET'],
             'logout' => ['POST'],
         ];
     }

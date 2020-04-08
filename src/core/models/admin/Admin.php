@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/21
- * Time: 00:06
- */
 
 namespace app\core\models\admin;
 
@@ -14,28 +8,29 @@ use app\core\validators\PhoneNumberValidator;
 /**
  * Class Admin
  *
- * @property integer $groupId
+ * @property integer $adminGroupId
  * @property string $phone
- * @property string $display
+ * @property string $email
+ * @property string $name
  * @property string $avatar
  *
- * @property AdminGroup $group
+ * @property AdminGroup $adminGroup
  *
  * @package app\core\models\admin
  */
 class Admin extends Identity
 {
     /**
-     * @param mixed $token
+     * @param mixed $accessToken
      * @param string $clientId
      *
      * @return Admin|null
      */
-    public static function findByAccessToken($token, $clientId = '')
+    public static function findByAccessToken($accessToken, $clientId = '')
     {
         return static::findOne([
             'id' => AdminAccessToken::find()
-                ->where(['clientId' => $clientId, 'token' => $token])
+                ->where(['clientId' => $clientId, 'accessToken' => $accessToken])
                 ->select('adminId')
         ]);
     }
@@ -43,7 +38,7 @@ class Admin extends Identity
     public function rules()
     {
         return [
-            [['groupId', 'phone', 'display', 'avatar', 'password', 'passwordRepeat'], 'trim'],
+            [['adminGroupId', 'phone', 'email', 'name', 'avatar', 'password', 'passwordRepeat'], 'trim'],
             [['password', 'passwordRepeat'], 'required', 'on' => 'create'],
             [
                 ['password', 'passwordRepeat'],
@@ -55,18 +50,20 @@ class Admin extends Identity
                 }
             ],
             ['password', 'compare', 'compareAttribute' => 'passwordRepeat'],
-            ['groupId', 'required', 'on' => ['create', 'edit']],
+            ['adminGroupId', 'required', 'on' => ['create', 'edit']],
             [
-                'groupId',
+                'adminGroupId',
                 'exist',
                 'targetClass' => AdminGroup::class,
                 'targetAttribute' => 'id',
                 'on' => ['create', 'edit'],
             ],
-            ['phone', 'required'],
+            [['phone', 'email'], 'required'],
             ['phone', PhoneNumberValidator::class],
             ['phone', 'unique'],
-            ['display', 'string', 'length' => [2, 6]],
+            ['email', 'email'],
+            ['email', 'unique'],
+            ['name', 'string', 'length' => [2, 6]],
 
         ];
     }
@@ -74,43 +71,44 @@ class Admin extends Identity
     public function scenarios()
     {
         return [
-            'create' => ['groupId', 'password', 'passwordRepeat', 'phone', 'display', 'avatar'],
-            'edit' => ['groupId', 'password', 'passwordRepeat', 'phone', 'display', 'avatar'],
-            'profile' => ['groupId', 'password', 'passwordRepeat', 'phone', 'display', 'avatar'],
+            'create' => ['adminGroupId', 'password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
+            'edit' => ['adminGroupId', 'password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
+            'profile' => ['password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'groupId' => '所属管理组',
-            'phone' => '电话号码',
+            'adminGroupId' => '所属管理组',
+            'phone' => '电话',
+            'email' => '邮箱',
             'password' => '密码',
             'passwordRepeat' => '重复密码',
-            'display' => '显示名',
+            'name' => '名称',
             'avatar' => '头像',
         ];
     }
 
     public function can($actionId)
     {
-        return in_array($actionId, $this->getGroupAcl());
+        return in_array($actionId, $this->getGroupPermissions());
     }
 
-    public function getGroupAcl()
+    public function getGroupPermissions()
     {
-        return AdminGroup::getAclByGroupId($this->groupId);
+        return AdminGroup::getPermissionsById($this->adminGroupId);
     }
 
     public function getGroupMenus()
     {
-        return AdminGroup::getMenuByGroupId($this->groupId);
+        return AdminGroup::getMenuById($this->adminGroupId);
     }
 
     public function extraFields()
     {
         return [
-            'group',
+            'adminGroup',
         ];
     }
 
@@ -134,18 +132,19 @@ class Admin extends Identity
         return [
             'id',
             'phone',
-            'display',
+            'email',
+            'name',
             'avatar',
             'createdAt',
-            'groupId',
+            'adminGroupId',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGroup()
+    public function getAdminGroup()
     {
-        return $this->hasOne(AdminGroup::class, ['id' => 'groupId']);
+        return $this->hasOne(AdminGroup::class, ['id' => 'adminGroupId']);
     }
 }

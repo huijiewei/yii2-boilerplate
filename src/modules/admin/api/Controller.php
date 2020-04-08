@@ -69,7 +69,8 @@ abstract class Controller extends RestController
                 'except' => [
                     'site/*',
                     'auth/*',
-                    'filter/*',
+                    'misc/*',
+                    'open/*',
                 ],
             ],
             'rate' => [

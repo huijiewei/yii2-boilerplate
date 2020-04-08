@@ -40,7 +40,7 @@ abstract class Identity extends ActiveRecord implements IdentityInterface
         return static::findByAccessToken($token, $clientId);
     }
 
-    abstract public static function findByAccessToken($token, $clientId);
+    abstract public static function findByAccessToken($accessToken, $clientId);
 
     abstract public function can($actionId);
 

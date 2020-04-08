@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/21
- * Time: 12:26
- */
 
 namespace app\core\models\admin;
 
@@ -20,17 +14,19 @@ use app\core\components\ActiveRecord;
  */
 class AdminGroup extends ActiveRecord
 {
-    const ACL_CACHE_PREFIX = 'BP_ADMIN_GROUP_ACL_';
+    public const PERMISSIONS_CACHE_PREFIX = 'BP_ADMIN_GROUP_PERMISSIONS_';
 
-    public $acl;
+    public $permissions;
 
-    public static function getMenuByGroupId($groupId)
+    public static function getMenuById($id)
     {
-        function getMenu($menu, $acl)
+        function getMenu($menu, $permissions)
         {
-            if (isset($menu['url'])
-                && !in_array($menu['url'], $acl)
-                && (!isset($menu['public']) || !$menu['public'])) {
+            if (
+                isset($menu['url']) &&
+                !in_array($menu['url'], $permissions) &&
+                (!isset($menu['open']) || !$menu['open'])
+            ) {
                 return false;
             }
 
@@ -40,7 +36,7 @@ class AdminGroup extends ActiveRecord
                 $children = [];
 
                 foreach ($menu['children'] as $child) {
-                    $item = getMenu($child, $acl);
+                    $item = getMenu($child, $permissions);
 
                     if ($item !== false) {
                         $children[] = $item;
@@ -68,12 +64,12 @@ class AdminGroup extends ActiveRecord
         }
 
         $allMenus = AdminHelper::getAllMenus();
-        $groupAcl = AdminGroup::getAclByGroupId($groupId);
+        $groupPermissions = AdminGroup::getPermissionsById($id);
 
         $menus = [];
 
         foreach ($allMenus as $menu) {
-            $item = getMenu($menu, $groupAcl);
+            $item = getMenu($menu, $groupPermissions);
 
             if ($item !== false) {
                 $menus[] = $item;
@@ -88,9 +84,9 @@ class AdminGroup extends ActiveRecord
      *
      * @return array
      */
-    public static function getAclByGroupId($groupId)
+    public static function getPermissionsById($groupId)
     {
-        $cacheKey = static::ACL_CACHE_PREFIX . $groupId;
+        $cacheKey = static::PERMISSIONS_CACHE_PREFIX . $groupId;
 
         $acl = \Yii::$app->getCache()->get($cacheKey);
 
@@ -98,8 +94,8 @@ class AdminGroup extends ActiveRecord
             return $acl;
         }
 
-        $acl = AdminGroupAcl::find()
-            ->where(['groupId' => $groupId])
+        $acl = AdminGroupPermission::find()
+            ->where(['adminGroupId' => $groupId])
             ->select('actionId')
             ->column();
 
@@ -108,25 +104,25 @@ class AdminGroup extends ActiveRecord
         return $acl;
     }
 
-    public static function clearAclCache($groupId)
+    public static function clearPermissionsCache($groupId)
     {
-        \Yii::$app->getCache()->delete(static::ACL_CACHE_PREFIX . $groupId);
+        \Yii::$app->getCache()->delete(static::PERMISSIONS_CACHE_PREFIX . $groupId);
     }
 
     public function afterDelete()
     {
         parent::afterDelete();
 
-        AdminGroupAcl::deleteAll(['groupId' => $this->id]);
+        AdminGroupPermission::deleteAll(['adminGroupId' => $this->id]);
     }
 
     public function afterSave($insert, $changedAttributes)
     {
-        if (is_array($this->acl)) {
-            AdminGroupAcl::updateAcl(
+        if (is_array($this->permissions)) {
+            AdminGroupPermission::updatePermissions(
                 $this->id,
-                $this->acl,
-                $insert ? [] : AdminGroup::getAclByGroupId($this->id)
+                $this->permissions,
+                $insert ? [] : AdminGroup::getPermissionsById($this->id)
             );
         }
 
@@ -142,7 +138,7 @@ class AdminGroup extends ActiveRecord
 
     public function beforeDelete()
     {
-        if (Admin::find()->where(['groupId' => $this->id])->exists()) {
+        if (Admin::find()->where(['adminGroupId' => $this->id])->exists()) {
             $this->addError('id', '管理组内还有管理员，无法删除');
 
             return false;
@@ -163,7 +159,7 @@ class AdminGroup extends ActiveRecord
     {
         return [
             'acl' => function () {
-                return AdminGroup::getAclByGroupId($this->id);
+                return AdminGroup::getPermissionsById($this->id);
             },
         ];
     }

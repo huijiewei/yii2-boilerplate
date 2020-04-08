@@ -29,7 +29,7 @@ class User extends Identity
     const CREATED_FROM_APP = 'APP';
     const CREATED_FROM_WECHAT = 'WECHAT';
 
-    public static function findByAccessToken($token, $clientId)
+    public static function findByAccessToken($accessToken, $clientId)
     {
         return null;
     }

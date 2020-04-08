@@ -8,23 +8,5 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.js]
-indent_size = 2
-
-[*.css]
-indent_size = 2
-
-[*.scss]
-indent_size = 2
-
-[*.less]
-indent_size = 2
-
-[*.json]
-indent_size = 2
-
-[*.babelrc]
-indent_size = 2
-
-[*.vue]
+[*.{js, jsx, ts, tsx, vue, json, scss, css, less}]
 indent_size = 2

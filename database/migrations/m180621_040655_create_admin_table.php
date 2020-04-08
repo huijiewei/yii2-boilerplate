@@ -62,15 +62,15 @@ class m180621_040655_create_admin_table extends Migration
 
         $adminGroup = new \app\core\models\admin\AdminGroup();
         $adminGroup->name = '开发组';
-        $adminGroup->acl = \app\core\models\admin\AdminHelper::getFlattenAcl();
+        $adminGroup->permissions = \app\core\models\admin\AdminHelper::getFlattenPermissions();
 
         $adminGroup->save(false);
 
         $admin = new \app\core\models\admin\Admin();
         $admin->phone = '13012345678';
-        $admin->groupId = $adminGroup->id;
+        $admin->adminGroupId = $adminGroup->id;
         $admin->password = '123456';
-        $admin->display = '演示账号';
+        $admin->name = '演示账号';
 
         $admin->save(false);
     }
