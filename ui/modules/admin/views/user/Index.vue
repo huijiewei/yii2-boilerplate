@@ -8,7 +8,7 @@
         <export-button
           v-if="$can('user/export')"
           :disabled="loading"
-          :api="'users/export'"
+          :api="'user/export'"
           type="default"
           size="small"
           :confirm="'你确定导出所有用户吗？'"

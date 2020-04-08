@@ -82,7 +82,7 @@ class AdminLoginForm extends Model
             return;
         }
 
-        $admin = Admin::find()->where(['phone' => $account])->one();
+        $admin = Admin::find()->with(['adminGroup'])->where(['phone' => $account])->one();
 
         if ($admin == null) {
             $this->addError($attribute, '管理员: ' . $account . ' 不存在');

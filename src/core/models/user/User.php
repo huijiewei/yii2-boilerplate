@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/7/25
- * Time: 22:17
- */
 
 namespace app\core\models\user;
 
@@ -15,7 +9,8 @@ use app\core\validators\PhoneNumberValidator;
  * Class User
  *
  * @property string $phone
- * @property string $display
+ * @property string $email
+ * @property string $name
  * @property string $avatar
  * @property string $createdIp
  * @property string $createdFrom
@@ -24,20 +19,51 @@ use app\core\validators\PhoneNumberValidator;
  */
 class User extends Identity
 {
-    const CREATED_FROM_SYSTEM = 'SYSTEM';
-    const CREATED_FROM_WEB = 'WEB';
-    const CREATED_FROM_APP = 'APP';
-    const CREATED_FROM_WECHAT = 'WECHAT';
+    public const CREATED_FROM_SYSTEM = 'SYSTEM';
+    public const CREATED_FROM_WEB = 'WEB';
+    public const CREATED_FROM_APP = 'APP';
+    public const CREATED_FROM_WECHAT = 'WECHAT';
+
+    private $createdFromCache = null;
 
     public static function findByAccessToken($accessToken, $clientId)
     {
         return null;
     }
 
+    /**
+     * @return array
+     */
+    public static function createdFromValues()
+    {
+        $createdFromList = static::createdFromList();
+
+        $createdFromValues = [];
+
+        foreach ($createdFromList as $item) {
+            $createdFromValues[] = $item->value;
+        }
+
+        return $createdFromValues;
+    }
+
+    /**
+     * @return UserCreatedFrom[]
+     */
+    public static function createdFromList()
+    {
+        return [
+            new UserCreatedFrom(static::CREATED_FROM_APP, 'APP'),
+            new UserCreatedFrom(static::CREATED_FROM_WEB, '网站'),
+            new UserCreatedFrom(static::CREATED_FROM_WECHAT, '微信'),
+            new UserCreatedFrom(static::CREATED_FROM_SYSTEM, '系统'),
+        ];
+    }
+
     public function rules()
     {
         return [
-            [['phone', 'display', 'avatar', 'password', 'passwordRepeat'], 'trim'],
+            [['phone', 'email', 'name', 'avatar', 'password', 'passwordRepeat'], 'trim'],
             [['password', 'passwordRepeat'], 'required', 'on' => 'create'],
             [
                 ['password', 'passwordRepeat'],
@@ -49,10 +75,12 @@ class User extends Identity
                 }
             ],
             ['password', 'compare', 'compareAttribute' => 'passwordRepeat'],
-            ['phone', 'required'],
+            [['phone', 'email'], 'required'],
             ['phone', PhoneNumberValidator::class],
             ['phone', 'unique'],
-            ['display', 'string', 'length' => [2, 6]],
+            ['email', 'email'],
+            ['email', 'unique'],
+            ['name', 'string', 'length' => [2, 6]],
 
         ];
     }
@@ -60,42 +88,23 @@ class User extends Identity
     public function scenarios()
     {
         return [
-            'create' => ['password', 'passwordRepeat', 'phone', 'display', 'avatar'],
-            'edit' => ['password', 'passwordRepeat', 'phone', 'display', 'avatar'],
-            'profile' => ['password', 'passwordRepeat', 'phone', 'display', 'avatar'],
+            'create' => ['password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
+            'edit' => ['password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
+            'profile' => ['password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'phone' => '电话号码',
+            'phone' => '电话',
+            'email' => '邮箱',
             'password' => '密码',
             'passwordRepeat' => '重复密码',
-            'display' => '显示名',
+            'name' => '姓名',
             'avatar' => '头像',
-        ];
-    }
-
-    public function getCreatedFromName()
-    {
-        return User::getCreatedFromNameByFrom($this->createdFrom);
-    }
-
-    public static function getCreatedFromNameByFrom($from)
-    {
-        $list = User::createdFromNameList();
-
-        return isset($list[$from]) ? $list[$from] : $from;
-    }
-
-    public static function createdFromNameList()
-    {
-        return [
-            static::CREATED_FROM_SYSTEM => '系统',
-            static::CREATED_FROM_WEB => '网站',
-            static::CREATED_FROM_APP => 'APP',
-            static::CREATED_FROM_WECHAT => '微信',
+            'createdAt' => '注册时间',
+            'createdIp' => '注册 IP',
         ];
     }
 
@@ -104,15 +113,40 @@ class User extends Identity
         return [
             'id',
             'phone',
-            'display',
+            'email',
+            'name',
             'avatar',
             'createdAt' => function ($user) {
+                /* @var $user User */
                 return \Yii::$app->getFormatter()->asDatetime($user->createdAt);
             },
             'createdIp',
-            'createdFrom',
-            'createdFromName'
+            'createdFrom' => function ($user) {
+                /* @var $user User */
+                return $user->getUserCreatedFrom();
+            },
         ];
+    }
+
+    /**
+     * @return UserCreatedFrom
+     */
+    public function getUserCreatedFrom()
+    {
+        if ($this->createdFromCache == null) {
+            $createdFrom = new UserCreatedFrom('', '未知');
+
+            foreach (static::createdFromList() as $item) {
+                if ($item->value == $this->createdFrom) {
+                    $createdFrom = $item;
+                    break;
+                }
+            }
+
+            $this->createdFromCache = $createdFrom;
+        }
+
+        return $this->createdFromCache;
     }
 
     public function can($actionId)

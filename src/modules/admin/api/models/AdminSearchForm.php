@@ -35,6 +35,6 @@ class AdminSearchForm extends SearchForm
 
     protected function getQuery()
     {
-        return Admin::find()->with(['group'])->orderBy(['id' => SORT_ASC]);
+        return Admin::find()->with(['adminGroup'])->orderBy(['id' => SORT_ASC]);
     }
 }

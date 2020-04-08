@@ -2,15 +2,15 @@ import Vue from 'vue'
 
 const UserService = {
   all(query) {
-    return Vue.http.get('users', query)
+    return Vue.http.get('user/index', query)
   },
 
   delete(id) {
-    return Vue.http.delete('users/' + id)
+    return Vue.http.delete('user/delete' + id)
   },
 
   create(user) {
-    return Vue.http.post('users', user)
+    return Vue.http.post('user/post', user)
   },
 
   edit(id, user = null) {

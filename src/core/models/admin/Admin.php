@@ -2,6 +2,7 @@
 
 namespace app\core\models\admin;
 
+use app\core\components\ActiveRecord;
 use app\core\models\Identity;
 use app\core\validators\PhoneNumberValidator;
 
@@ -21,18 +22,21 @@ use app\core\validators\PhoneNumberValidator;
 class Admin extends Identity
 {
     /**
-     * @param mixed $accessToken
+     * @param string $accessToken
      * @param string $clientId
      *
-     * @return Admin|null
+     * @return Admin|null|array
      */
     public static function findByAccessToken($accessToken, $clientId = '')
     {
-        return static::findOne([
-            'id' => AdminAccessToken::find()
-                ->where(['clientId' => $clientId, 'accessToken' => $accessToken])
-                ->select('adminId')
-        ]);
+        return static::find()
+            ->with(['adminGroup'])
+            ->where([
+                'id' => AdminAccessToken::find()
+                    ->where(['clientId' => $clientId, 'accessToken' => $accessToken])
+                    ->select('adminId')
+            ])
+            ->one();
     }
 
     public function rules()

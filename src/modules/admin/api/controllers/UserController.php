@@ -72,7 +72,7 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Get(path="/user",
+     * @OA\Get(path="/users",
      *   tags={"user"},
      *   summary="用户列表",
      *   description="用户列表",

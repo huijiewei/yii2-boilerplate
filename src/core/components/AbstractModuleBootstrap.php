@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/21
- * Time: 08:53
- */
 
 namespace app\core\components;
 
@@ -18,6 +12,8 @@ abstract class AbstractModuleBootstrap implements BootstrapInterface
 
     /**
      * @param Application $app
+     * @throws \ReflectionException
+     * @throws \yii\base\InvalidConfigException
      */
     public function bootstrap($app)
     {

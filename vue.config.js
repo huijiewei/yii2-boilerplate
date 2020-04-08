@@ -15,6 +15,7 @@ module.exports = {
     },
     http2: true,
     compress: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
   },
   configureWebpack: {
     resolve: {

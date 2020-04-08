@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/19
- * Time: 16:46
- */
 
 namespace app\modules\admin\spa;
 

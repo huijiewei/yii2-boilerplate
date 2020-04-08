@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/19
- * Time: 15:44
- */
 
 return [
     'class' => yii\db\Connection::class,

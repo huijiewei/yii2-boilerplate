@@ -61,7 +61,7 @@ abstract class Controller extends RestController
                 'optional' => [
                     'auth/login',
                     'site/error',
-                    'site/upload',
+                    'open/*',
                 ]
             ],
             'access' => [
@@ -70,7 +70,6 @@ abstract class Controller extends RestController
                     'site/*',
                     'auth/*',
                     'misc/*',
-                    'open/*',
                 ],
             ],
             'rate' => [

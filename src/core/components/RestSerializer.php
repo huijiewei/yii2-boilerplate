@@ -85,7 +85,7 @@ class RestSerializer extends Component
 
         $result = $this->serializeDataProvider($dataProvider);
 
-        if ($form->searchFields) {
+        if ($form->withSearchFields) {
             $result['searchFields'] = $form->searchFields();
         }
 
