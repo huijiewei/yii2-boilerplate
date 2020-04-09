@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/7/26
- * Time: 10:10
- */
 
 namespace app\core\models;
 
@@ -18,7 +12,7 @@ abstract class SearchForm extends Model
 {
     public $isPagination = true;
 
-    public $defaultPageSize = 10;
+    public $defaultPageSize = 20;
 
     public $withSearchFields = false;
 

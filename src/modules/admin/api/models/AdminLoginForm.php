@@ -11,6 +11,7 @@ namespace app\modules\admin\api\models;
 use app\core\helpers\StringHelper;
 use app\core\models\admin\Admin;
 use app\core\models\admin\AdminAccessToken;
+use app\core\models\admin\AdminLog;
 use yii\base\InvalidArgumentException;
 use yii\base\Model;
 
@@ -29,6 +30,9 @@ class AdminLoginForm extends Model
 
     /* @var Admin|null */
     private $admin;
+
+    /* @var $adminLog AdminLog */
+    private $adminLog;
 
     public function init()
     {
@@ -85,6 +89,7 @@ class AdminLoginForm extends Model
             return;
         }
 
+        /* @var $admin Admin */
         $admin = Admin::find()->with(['adminGroup'])->where(['phone' => $account])->one();
 
         if ($admin == null) {
@@ -94,6 +99,16 @@ class AdminLoginForm extends Model
         }
 
         $this->admin = $admin;
+
+        $this->adminLog = $admin->createLog();
+
+        if ($this->adminLog != null) {
+            $this->adminLog->type = AdminLog::TYPE_LOGIN;
+            $this->adminLog->remoteAddr = $this->remoteAddr;
+            $this->adminLog->userAgent = $this->userAgent;
+            $this->adminLog->method = 'POST';
+            $this->adminLog->action = 'Login';
+        }
     }
 
     public function validatePassword($attribute)
@@ -105,9 +120,20 @@ class AdminLoginForm extends Model
         $password = $this->$attribute;
 
         if (!$this->admin->validatePassword($password)) {
-            $this->addError($attribute, '无效的管理员密码');
+            $this->addError($attribute, '密码错误');
 
-            return;
+            if ($this->adminLog != null) {
+                $this->adminLog->status = AdminLog::STATUS_FAIL;
+                $this->adminLog->exception = '密码错误';
+            }
+        } else {
+            if ($this->adminLog != null) {
+                $this->adminLog->status = AdminLog::STATUS_SUCCESS;
+            }
+        }
+
+        if ($this->adminLog != null) {
+            $this->adminLog->save(false);
         }
     }
 }

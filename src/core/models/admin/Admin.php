@@ -129,9 +129,26 @@ class Admin extends Identity
         return AdminAccessToken::generateAccessToken($this->id, $clientId, $remoteAddr, $userAgent);
     }
 
-    public function deleteAccessToken($clientId = '')
+    public function logout($clientId, $remoteAddr, $userAgent)
     {
+        $adminLog = $this->createLog();
+        $adminLog->type = AdminLog::TYPE_LOGIN;
+        $adminLog->remoteAddr = $remoteAddr;
+        $adminLog->userAgent = $userAgent;
+        $adminLog->method = 'POST';
+        $adminLog->action = 'Logout';
+        $adminLog->status = AdminLog::STATUS_SUCCESS;
+        $adminLog->save(false);
+
         AdminAccessToken::deleteAccessToken($this->id, $clientId);
+    }
+
+    public function createLog()
+    {
+        $adminLog = new AdminLog();
+        $adminLog->adminId = $this->id;
+
+        return $adminLog;
     }
 
     public function fields()

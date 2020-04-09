@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/7/7
- * Time: 12:56
- */
 
 namespace app\core\models;
 
@@ -113,4 +107,9 @@ abstract class Identity extends ActiveRecord implements IdentityInterface
     {
         $this->password = \Yii::$app->getSecurity()->generatePasswordHash($this->password);
     }
+
+    /**
+     * @return IdentityLog|null
+     */
+    abstract public function createLog();
 }

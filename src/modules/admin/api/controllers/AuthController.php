@@ -54,7 +54,11 @@ class AuthController extends Controller
 
     public function actionLogout()
     {
-        $this->getIdentity()->deleteAccessToken($this->getClientId());
+        $this->getIdentity()->logout(
+            $this->getClientId(),
+            \Yii::$app->getRequest()->getRemoteIP(),
+            \Yii::$app->getRequest()->getUserAgent()
+        );
 
         \Yii::$app->getUser()->logout();
 
