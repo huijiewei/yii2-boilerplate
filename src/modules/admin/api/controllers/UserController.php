@@ -13,13 +13,9 @@ class UserController extends Controller
     public function actionCreate()
     {
         $user = new User();
-
-        if (!\Yii::$app->getRequest()->getIsPost()) {
-            return $user;
-        }
-
         $user->setScenario('create');
         $user->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
         $user->createdFrom = User::CREATED_FROM_SYSTEM;
         $user->createdIp = \Yii::$app->getRequest()->getUserIP();
 
@@ -27,7 +23,7 @@ class UserController extends Controller
             return $user;
         }
 
-        return $this->message('会员新建成功', ['userId' => $user->id]);
+        return $user;
     }
 
     public function actionDelete($id)
@@ -36,9 +32,9 @@ class UserController extends Controller
 
         if (!$user->delete()) {
             return $user;
-        } else {
-            return $this->message('会员删除成功');
         }
+
+        return $this->message('用户删除成功');
     }
 
     private function getUserById($id)
@@ -61,11 +57,6 @@ class UserController extends Controller
     public function actionEdit($id)
     {
         $user = $this->getUserById($id);
-
-        if (!\Yii::$app->getRequest()->getIsPut()) {
-            return $user;
-        }
-
         $user->setScenario('edit');
         $user->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
@@ -73,7 +64,7 @@ class UserController extends Controller
             return $user;
         }
 
-        return $this->message('会员编辑成功');
+        return $user;
     }
 
     /**
@@ -112,9 +103,7 @@ class UserController extends Controller
 
     public function actionExport()
     {
-        $form = $this->userSearchForm();
-
-        $export = $form->export();
+        $export = $this->userSearchForm()->export();
 
         if ($export == null) {
             throw new BadRequestHttpException('不支持导出');
@@ -126,12 +115,12 @@ class UserController extends Controller
     public function verbs()
     {
         return [
-            'index' => ['GET', 'HEAD'],
-            'create' => ['GET', 'HEAD', 'POST'],
-            'view' => ['GET', 'HEAD'],
-            'edit' => ['GET', 'HEAD', 'PUT'],
+            'index' => ['GET'],
+            'create' => ['POST'],
+            'view' => ['GET'],
+            'edit' => ['PUT'],
             'delete' => ['DELETE'],
-            'export' => ['GET', 'HEAD'],
+            'export' => ['GET'],
         ];
     }
 }

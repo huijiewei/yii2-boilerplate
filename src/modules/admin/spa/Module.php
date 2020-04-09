@@ -6,8 +6,6 @@ use app\core\components\AbstractModule;
 
 class Module extends AbstractModule
 {
-    public $disableDebugModule = true;
-
     public static function getModuleId()
     {
         return 'spa';

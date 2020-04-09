@@ -12,8 +12,6 @@ use yii\web\User;
 
 class Module extends AbstractModule
 {
-    public $disableDebugModule = true;
-
     public static function getModuleId()
     {
         return 'api';

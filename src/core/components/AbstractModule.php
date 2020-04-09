@@ -9,8 +9,6 @@ use yii\web\GroupUrlRule;
 
 abstract class AbstractModule extends \yii\base\Module
 {
-    public $disableDebugModule = false;
-
     abstract public static function getUserComponent();
 
     public static function getUrlRules()
@@ -67,15 +65,6 @@ abstract class AbstractModule extends \yii\base\Module
 
         if (\Yii::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = (new \ReflectionClass(get_called_class()))->getNamespaceName() . '\\commands';
-        }
-
-        if ($this->disableDebugModule) {
-            /* @var $debug \yii\debug\Module|null */
-            $debug = \Yii::$app->getModule('debug');
-
-            if ($debug) {
-                $debug->allowedIPs = [];
-            }
         }
     }
 }

@@ -36,7 +36,20 @@ class AuthController extends Controller
 
     public function actionProfile()
     {
-        return $this->getIdentity();
+        $profile = $this->getIdentity();
+
+        if (\Yii::$app->getRequest()->getIsPut()) {
+            $profile->setScenario('profile');
+            $profile->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+            if (!$profile->save()) {
+                return $profile;
+            }
+
+            return $profile;
+        }
+
+        return $profile;
     }
 
     public function actionLogout()
@@ -53,6 +66,7 @@ class AuthController extends Controller
         return [
             'login' => ['POST'],
             'account' => ['GET'],
+            'profile' => ['GET', 'PUT'],
             'logout' => ['POST'],
         ];
     }

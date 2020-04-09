@@ -18,18 +18,13 @@ class AdminGroupController extends Controller
     public function actionCreate()
     {
         $adminGroup = new AdminGroup();
-
-        if (!\Yii::$app->getRequest()->getIsPost()) {
-            return $adminGroup->toArray([], ['permissions']);
-        }
-
         $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
         if (!$adminGroup->save()) {
             return $adminGroup;
         }
 
-        return $this->message('管理组新建成功', ['adminGroupId' => $adminGroup->id]);
+        return $adminGroup;
     }
 
     public function actionDelete($id)
@@ -38,9 +33,9 @@ class AdminGroupController extends Controller
 
         if (!$adminGroup->delete()) {
             return $adminGroup;
-        } else {
-            return $this->message('管理组删除成功');
         }
+
+        return $this->message('管理组删除成功');
     }
 
     private function getAdminGroupById($id)
@@ -58,18 +53,13 @@ class AdminGroupController extends Controller
     public function actionEdit($id)
     {
         $adminGroup = $this->getAdminGroupById($id);
-
-        if (!\Yii::$app->getRequest()->getIsPut()) {
-            return $adminGroup->toArray([], ['permissions']);
-        }
-
         $adminGroup->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
         if (!$adminGroup->save()) {
             return $adminGroup;
         }
 
-        return $this->message('管理组编辑成功');
+        return $adminGroup;
     }
 
     public function actionIndex()
@@ -90,10 +80,10 @@ class AdminGroupController extends Controller
     public function verbs()
     {
         return [
-            'index' => ['GET', 'HEAD'],
-            'create' => ['HEAD', 'POST'],
-            'view' => ['GET', 'HEAD'],
-            'edit' => ['HEAD', 'PUT'],
+            'index' => ['GET'],
+            'create' => ['POST'],
+            'view' => ['GET'],
+            'edit' => ['PUT'],
             'delete' => ['DELETE'],
         ];
     }

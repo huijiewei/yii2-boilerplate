@@ -12,11 +12,6 @@ class AdminController extends Controller
     public function actionCreate()
     {
         $admin = new Admin();
-
-        if (!\Yii::$app->getRequest()->getIsPost()) {
-            return $admin;
-        }
-
         $admin->setScenario('create');
         $admin->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
@@ -24,7 +19,7 @@ class AdminController extends Controller
             return $admin;
         }
 
-        return $this->message('管理员新建成功', ['adminId' => $admin->id]);
+        return $admin;
     }
 
     public function actionDelete($id)
@@ -33,9 +28,9 @@ class AdminController extends Controller
 
         if (!$admin->delete()) {
             return $admin;
-        } else {
-            return $this->message('管理员删除成功');
         }
+
+        return $this->message('管理员删除成功');
     }
 
     private function getAdminById($id)
@@ -54,10 +49,6 @@ class AdminController extends Controller
     {
         $admin = $this->getAdminById($id);
 
-        if (!\Yii::$app->getRequest()->getIsPut()) {
-            return $admin;
-        }
-
         $admin->setScenario('edit');
         $admin->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
@@ -65,11 +56,13 @@ class AdminController extends Controller
             return $admin;
         }
 
-        return $this->message('管理员编辑成功');
+        return $admin;
     }
 
     public function actionIndex()
     {
+        \Yii::$app->getRequest()->setQueryParams(['expand' => 'adminGroup']);
+
         $form = new AdminSearchForm();
         $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
 
@@ -84,10 +77,10 @@ class AdminController extends Controller
     public function verbs()
     {
         return [
-            'index' => ['GET', 'HEAD'],
-            'create' => ['GET', 'HEAD', 'POST'],
-            'view' => ['GET', 'HEAD'],
-            'edit' => ['GET', 'HEAD', 'PUT'],
+            'index' => ['GET'],
+            'create' => ['POST'],
+            'view' => ['GET'],
+            'edit' => ['PUT'],
             'delete' => ['DELETE'],
         ];
     }

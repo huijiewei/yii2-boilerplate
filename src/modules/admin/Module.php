@@ -8,8 +8,6 @@ use app\modules\admin\spa\Module as SpaModule;
 
 class Module extends AbstractModule
 {
-    public $disableDebugModule = true;
-
     public static function getUserComponent()
     {
         return null;

@@ -20,6 +20,8 @@ use app\core\validators\PhoneNumberValidator;
  */
 class Admin extends Identity
 {
+    public $authKey;
+
     /**
      * @param string $accessToken
      * @param string $clientId

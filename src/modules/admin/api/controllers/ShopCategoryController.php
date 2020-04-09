@@ -76,12 +76,11 @@ class ShopCategoryController extends Controller
     public function verbs()
     {
         return [
-            'index' => ['GET', 'HEAD'],
-            'create' => ['GET', 'HEAD', 'POST'],
-            'view' => ['GET', 'HEAD'],
-            'edit' => ['GET', 'HEAD', 'PUT'],
+            'index' => ['GET'],
+            'create' => ['POST'],
+            'view' => ['GET'],
+            'edit' => ['PUT'],
             'delete' => ['DELETE'],
         ];
     }
 }
-

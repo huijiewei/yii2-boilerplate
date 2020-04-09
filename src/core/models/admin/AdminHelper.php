@@ -74,23 +74,28 @@ class AdminHelper
                         'children' => [
                             [
                                 'name' => '商品列表',
-                                'actionId' => 'good/index'
+                                'actionId' => 'shop-good/index'
                             ],
                             [
                                 'name' => '商品导入',
-                                'actionId' => 'good/export',
+                                'actionId' => 'shop-good/import',
                             ],
                             [
-                                'name' => '新建商品',
-                                'actionId' => 'good/new'
+                                'name' => '商品新建',
+                                'actionId' => 'shop-good/create'
                             ],
                             [
-                                'name' => '编辑商品',
-                                'actionId' => 'good/edit'
+                                'name' => '商品查看',
+                                'actionId' => 'shop-good/view'
                             ],
                             [
-                                'name' => '删除商品',
-                                'actionId' => 'good/delete'
+                                'name' => '商品编辑',
+                                'actionId' => 'shop-good/edit',
+                                'combines' => ['shop-good/view']
+                            ],
+                            [
+                                'name' => '商品删除',
+                                'actionId' => 'shop-good/delete'
                             ],
                         ]
                     ],
@@ -105,8 +110,13 @@ class AdminHelper
                                 'actionId' => 'shop-category/create'
                             ],
                             [
+                                'name' => '商品分类查看',
+                                'actionId' => 'shop-category/view'
+                            ],
+                            [
                                 'name' => '商品分类编辑',
-                                'actionId' => 'shop-category/edit'
+                                'actionId' => 'shop-category/edit',
+                                'combines' => ['shop-category/view']
                             ],
                             [
                                 'name' => '商品分类删除',
@@ -115,17 +125,30 @@ class AdminHelper
                         ]
                     ],
                     [
-                        'name' => '商品属性',
-                        'actionId' => 'shop/property'
+                        'children' => [
+                            [
+                                'name' => '商品品牌',
+                                'actionId' => 'shop-brand/index'
+                            ],
+                            [
+                                'name' => '商品品牌新建',
+                                'actionId' => 'shop-brand/create'
+                            ],
+                            [
+                                'name' => '商品品牌查看',
+                                'actionId' => 'shop-brand/view'
+                            ],
+                            [
+                                'name' => '商品品牌编辑',
+                                'actionId' => 'shop-brand/edit',
+                                'combines' => ['shop-brand/view']
+                            ],
+                            [
+                                'name' => '商品品牌删除',
+                                'actionId' => 'shop-brand/delete'
+                            ],
+                        ]
                     ],
-                    [
-                        'name' => '商品特点',
-                        'actionId' => 'shop/feature'
-                    ],
-                    [
-                        'name' => '商品品牌',
-                        'actionId' => 'shop/brand'
-                    ]
                 ],
             ],
             [
@@ -221,17 +244,8 @@ class AdminHelper
                         'url' => 'user/index'
                     ],
                     [
-                        'label' => '新建会员',
-                        'children' => [
-                            [
-                                'label' => '新建会员',
-                                'url' => 'user/create'
-                            ],
-                            [
-                                'label' => '批量导入',
-                                'url' => 'user/import'
-                            ]
-                        ]
+                        'label' => '批量导入',
+                        'url' => 'user/import'
                     ]
                 ]
             ],
@@ -240,81 +254,17 @@ class AdminHelper
                 'icon' => '<path d="M832 312H696v-16c0-101.6-82.4-184-184-184s-184 82.4-184 184v16H192c-17.7 0-32 14.3-32 32v536c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V344c0-17.7-14.3-32-32-32z m-432-16c0-61.9 50.1-112 112-112s112 50.1 112 112v16H400v-16z m392 544H232V384h96v88c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-88h224v88c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-88h96v456z" p-id="8310"></path>',
                 'children' => [
                     [
-                        'label' => '新建商品',
-                        'url' => 'good/new'
-                    ],
-                    [
                         'label' => '商品列表',
-                        'url' => 'good/index'
+                        'url' => 'shop-good/index'
                     ],
                     [
                         'label' => '商品分类',
                         'url' => 'shop-category/index'
                     ],
                     [
-                        'label' => '商品属性',
-                        'url' => 'shop/property'
-                    ],
-                    [
-                        'label' => '商品特点',
-                        'url' => 'shop/feature'
-                    ],
-                    [
                         'label' => '商品品牌',
-                        'url' => 'shop/brand'
+                        'url' => 'shop-brand/index'
                     ]
-                ],
-            ],
-            [
-                'label' => '订单管理',
-                'icon' => 'book',
-                'children' => [
-                    [
-                        'label' => '订单列表',
-                        'url' => 'order/index'
-                    ],
-                    [
-                        'label' => '运费设置',
-                        'url' => 'order/freight'
-                    ],
-                    [
-                        'label' => '快递查询',
-                        'url' => 'order/express'
-                    ],
-                ],
-            ],
-            [
-                'label' => '运营管理',
-                'icon' => 'coffee',
-                'children' => [
-                    [
-                        'label' => '运营管理',
-                        'url' => 'business/index'
-                    ],
-                ],
-            ],
-            [
-                'label' => '报表管理',
-                'icon' => 'line-chart',
-                'children' => [
-                    [
-                        'label' => '商品报表',
-                        'url' => 'report/good'
-                    ],
-                    [
-                        'label' => '订单报表',
-                        'url' => 'report/order'
-                    ],
-                ],
-            ],
-            [
-                'label' => '财务管理',
-                'icon' => 'pay-circle-o',
-                'children' => [
-                    [
-                        'label' => '财务管理',
-                        'url' => 'finance/index'
-                    ],
                 ],
             ],
             [

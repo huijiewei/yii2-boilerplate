@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const AdminService = {
   all() {
-    return Vue.http.get('admins', { expand: 'adminGroup' })
+    return Vue.http.get('admins')
   },
 
   log(query) {
@@ -25,7 +25,7 @@ const AdminService = {
     }
 
     return Vue.http.put(endpoint, admin)
-  },
+  }
 }
 
 export default AdminService
