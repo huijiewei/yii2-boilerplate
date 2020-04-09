@@ -1,11 +1,5 @@
 前后端分类脚手架
 
-大家可以访问新的基于 Vue CLI 和 Spring Boot 的前后端分离项目
-
-https://github.com/huijiewei/agile-vue
-
-https://github.com/huijiewei/agile-boot
-
 ### 特点
 
 1. 模块化开发模版
@@ -18,7 +12,7 @@ https://github.com/huijiewei/agile-boot
 
 5. 代码风格规范符合 PSR-2,PSR-12
 
-6. 后台管理系统使用 Vue.js + Element UI + webpack 4 构建
+6. 后台管理系统使用 Vue.js + Element UI + Vue Cli 构建
 
 7. 默认开启本地开发环境 HTTPS 和 HTTP2 支持（webpack-serve 未开启 HTTP2）
 
@@ -41,7 +35,7 @@ composer install
 
 ##### 开发服务器环境
 
-###### 修改 Hosts 
+###### 修改 Hosts
 ```text
 127.0.0.1 www.bp.test
 ```
@@ -65,7 +59,7 @@ cd certs
 mkcert www.bp.test
 cd ..
 ```
-      
+
 ###### Nginx 配置，启用 HTTPS 和 HTTP2
 ```text
 server {
@@ -105,13 +99,11 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 ```
 ├── bin // yii 命令
 ├── config // 后端配置
-├── database 
+├── database
 │   └── migrations // 数据迁移脚本
 ├── public // 网站根目录
 │   └── statics // 静态资源
-├── resources // 前端开发
-│   ├── config // webpack4 配置文件
-│   │   ├── webpack // 配置生成器
+├── ui // 前端开发
 │   ├── core // 公用核心模块
 │   │   ├── assets
 │   │   ├── components
@@ -152,7 +144,7 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 ```
 
 ### 前端相关说明
-##### 
+#####
 初始化开发环境
 ```bash
 yarn install
@@ -187,7 +179,7 @@ server {
 
     root {项目根目录}/public;
     index index.php index.html index.htm;
-    
+
     rewrite ^/(.*)/$ /$1 permanent;
 
     location / {
