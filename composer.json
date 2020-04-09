@@ -14,7 +14,7 @@
     "hidehalo/nanoid-php": "^1.1",
     "fzaninotto/faker": "^1.8",
     "yii2tech/spreadsheet": "^1.0",
-    "huijiewei/yii2-upload": "@dev"
+    "huijiewei/yii2-upload": "^3.0"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0",
@@ -51,10 +51,6 @@
     "packagist": {
       "type": "composer",
       "url": "https://mirrors.aliyun.com/composer/"
-    },
-    "upload": {
-      "type": "path",
-      "url": "/Users/huijiewei/Develop/YII2/yii2-upload"
     }
   }
 }

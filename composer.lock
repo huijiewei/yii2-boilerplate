@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e74c3116a4ae3612701a42dbb91d109",
+    "content-hash": "d9cc3ea0896a8ad00480dd7bf1201464",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -894,11 +894,23 @@
         },
         {
             "name": "huijiewei/yii2-upload",
-            "version": "dev-master",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/huijiewei/yii2-upload.git",
+                "reference": "e30369badb28d2cbb2a3a4b8e0ec30bf16e586ec"
+            },
             "dist": {
-                "type": "path",
-                "url": "/Users/huijiewei/Develop/YII2/yii2-upload",
-                "reference": "5417d133fab20ce88bd175715d430b93d7507f8c"
+                "type": "zip",
+                "url": "https://api.github.com/repos/huijiewei/yii2-upload/zipball/e30369badb28d2cbb2a3a4b8e0ec30bf16e586ec",
+                "reference": "e30369badb28d2cbb2a3a4b8e0ec30bf16e586ec",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "ext-json": "*",
@@ -915,6 +927,7 @@
                     "huijiewei\\upload\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -931,7 +944,8 @@
                 "extension",
                 "uploader",
                 "yii2"
-            ]
+            ],
+            "time": "2020-04-09T10:34:38+00:00"
         },
         {
             "name": "huijiewei/yii2-wechat",
@@ -5777,9 +5791,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "huijiewei/yii2-upload": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
