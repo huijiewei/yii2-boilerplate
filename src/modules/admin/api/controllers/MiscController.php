@@ -27,7 +27,7 @@ class MiscController extends Controller
 
     public function actionShopCategoryPath($id)
     {
-
+        return ShopCategory::getParentsById($id);
     }
 
     public function actionImageUploadOption()

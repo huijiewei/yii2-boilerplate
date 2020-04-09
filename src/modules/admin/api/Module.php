@@ -27,6 +27,11 @@ class Module extends AbstractModule
     public static function getRouteRules()
     {
         return [
+            'GET <controller>ies' => '<controller>/index',
+            'GET <controller>ies/<id:\d+>' => '<controller>y/view',
+            'POST <controller>ies' => '<controller>y/create',
+            'PUT <controller>ies/<id:\d+>' => '<controller>y/edit',
+            'DELETE <controller>ies/<id:\d+>' => '<controller>y/delete',
             'GET <controller>s' => '<controller>/index',
             'GET <controller>s/<id:\d+>' => '<controller>/view',
             'POST <controller>s' => '<controller>/create',

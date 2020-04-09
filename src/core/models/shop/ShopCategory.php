@@ -19,6 +19,7 @@ use huijiewei\tree\TreeTrait;
  * @property string $name
  * @property string $icon
  * @property string $image
+ * @property string $description
  *
  * @package app\core\models\shop
  */
@@ -29,7 +30,7 @@ class ShopCategory extends ActiveRecord
     public function rules()
     {
         return [
-            [['parentId', 'name', 'icon', 'image'], 'trim'],
+            [['parentId', 'name', 'icon', 'image', 'description'], 'trim'],
             [['parentId', 'name'], 'required'],
         ];
     }
@@ -41,6 +42,7 @@ class ShopCategory extends ActiveRecord
             'name',
             'icon',
             'image',
+            'description',
             'parentId',
         ];
     }
@@ -52,6 +54,20 @@ class ShopCategory extends ActiveRecord
             'name' => '分类名称',
             'icon' => '分类图标',
             'image' => '分类图片',
+            'description' => '分类介绍',
         ];
+    }
+
+    public function delete()
+    {
+        $childrenIds = $this->getChildrenIds(true);
+
+        if (ShopProduct::find()->where(['shopCategoryId' => $childrenIds])->exists()) {
+            return false;
+        }
+
+        ShopCategory::deleteAll(['id' => $childrenIds]);
+
+        return true;
     }
 }

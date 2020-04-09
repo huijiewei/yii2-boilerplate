@@ -10,6 +10,7 @@ namespace app\modules\admin\api\controllers;
 
 use app\core\models\shop\ShopCategory;
 use app\modules\admin\api\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 class ShopCategoryController extends Controller
@@ -23,14 +24,18 @@ class ShopCategoryController extends Controller
             return $shopCategory;
         }
 
-        return $this->message('商品分类新建成功', ['categoryId' => $shopCategory->id]);
+        return $shopCategory;
     }
 
-    public function actionView($id)
+    public function actionView($id, $withParents = false)
     {
         $shopCategory = $this->getShopCategoryById($id);
 
-        return $shopCategory->toArray([], ['ancestor']);
+        if ($withParents) {
+            return $shopCategory->toArray([], ['parents']);
+        } else {
+            return $shopCategory;
+        }
     }
 
     private function getShopCategoryById($id)
@@ -45,6 +50,17 @@ class ShopCategoryController extends Controller
         return $shopCategory;
     }
 
+    public function actionDelete($id)
+    {
+        $shopCategory = $this->getShopCategoryById($id);
+
+        if (!$shopCategory->delete()) {
+            throw new ForbiddenHttpException('分类删除失败');
+        }
+
+        return $this->message('商品分类删除成功');
+    }
+
     public function actionEdit($id)
     {
         $shopCategory = $this->getShopCategoryById($id);
@@ -54,7 +70,7 @@ class ShopCategoryController extends Controller
             return $shopCategory;
         }
 
-        return $this->message('商品分类编辑成功');
+        return $shopCategory;
     }
 
     public function verbs()

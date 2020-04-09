@@ -35,9 +35,9 @@ trait TreeTrait
      *
      * @return array
      */
-    public function getDescendantIds($withSelf = false)
+    public function getChildrenIds($withSelf = false)
     {
-        return static::getDescendantIdsById($this->id, $withSelf);
+        return static::getChildrenIdsById($this->id, $withSelf);
     }
 
     /**
@@ -46,11 +46,11 @@ trait TreeTrait
      *
      * @return array
      */
-    public static function getDescendantIdsById($id, $withSelf = false)
+    public static function getChildrenIdsById($id, $withSelf = false)
     {
         $ids = $withSelf ? [$id] : [];
 
-        $tree = static::getDescendantById($id);
+        $tree = static::getChildrenById($id);
 
         return array_merge($ids, static::getItemIdsInTree($tree));
     }
@@ -60,7 +60,7 @@ trait TreeTrait
      *
      * @return null|array
      */
-    public static function getDescendantById($id)
+    public static function getChildrenById($id)
     {
         $node = static::getNodeInTreeById($id, static::getTree());
 
@@ -191,8 +191,8 @@ trait TreeTrait
     public function extraFields()
     {
         return [
-            'ancestor',
-            'descendant',
+            'parents',
+            'children',
         ];
     }
 
@@ -201,15 +201,15 @@ trait TreeTrait
      */
     public function getDescendant()
     {
-        return static::getDescendantById($this->id);
+        return static::getChildrenById($this->id);
     }
 
     /**
      * @return array
      */
-    public function getAncestor()
+    public function getParents()
     {
-        return static::getAncestorById($this->parentId);
+        return static::getParentsById($this->parentId);
     }
 
     /**
@@ -217,7 +217,7 @@ trait TreeTrait
      *
      * @return array
      */
-    public static function getAncestorById($id)
+    public static function getParentsById($id)
     {
         $data = static::getAll();
 

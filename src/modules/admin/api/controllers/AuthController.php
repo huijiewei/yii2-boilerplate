@@ -34,6 +34,11 @@ class AuthController extends Controller
         ];
     }
 
+    public function actionProfile()
+    {
+        return $this->getIdentity();
+    }
+
     public function actionLogout()
     {
         $this->getIdentity()->deleteAccessToken($this->getClientId());
