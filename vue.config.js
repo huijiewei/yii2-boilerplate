@@ -5,18 +5,7 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-module.exports = {
-  devServer: {
-    host: 'www.bp.test',
-    https: {
-      key: fs.readFileSync('certs/www.bp.test-key.pem'),
-      cert: fs.readFileSync('certs/www.bp.test.pem'),
-    },
-    http2: true,
-    compress: true,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    contentBase: path.resolve(__dirname, 'ui'),
-  },
+const config = {
   configureWebpack: {
     context: path.resolve(__dirname, 'ui'),
     resolve: {
@@ -68,3 +57,19 @@ module.exports = {
     })
   },
 }
+
+if (!isProduction) {
+  config.devServer = {
+    host: 'www.bp.test',
+    https: {
+      key: fs.readFileSync('certs/www.bp.test-key.pem'),
+      cert: fs.readFileSync('certs/www.bp.test.pem'),
+    },
+    http2: true,
+    compress: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    contentBase: path.resolve(__dirname, 'ui'),
+  }
+}
+
+module.exports = config
