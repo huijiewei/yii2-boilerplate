@@ -158,4 +158,9 @@ class User extends Identity
     {
         return '';
     }
+
+    public function createLog()
+    {
+        return null;
+    }
 }
