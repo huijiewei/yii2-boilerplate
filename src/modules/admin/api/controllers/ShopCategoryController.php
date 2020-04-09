@@ -14,15 +14,9 @@ use yii\web\NotFoundHttpException;
 
 class ShopCategoryController extends Controller
 {
-    public function actionCreate($parentId = 0)
+    public function actionCreate()
     {
         $shopCategory = new ShopCategory();
-
-        if (!\Yii::$app->getRequest()->getIsPost()) {
-            $shopCategory->parentId = $parentId;
-            return $shopCategory->toArray(['*'], ['ancestor']);
-        }
-
         $shopCategory->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
         if (!$shopCategory->save()) {
@@ -32,21 +26,11 @@ class ShopCategoryController extends Controller
         return $this->message('商品分类新建成功', ['categoryId' => $shopCategory->id]);
     }
 
-    public function actionEdit($id)
+    public function actionView($id)
     {
         $shopCategory = $this->getShopCategoryById($id);
 
-        if (!\Yii::$app->getRequest()->getIsPut()) {
-            return $shopCategory->toArray(['*'], ['ancestor']);
-        }
-
-        $shopCategory->load(\Yii::$app->getRequest()->getBodyParams(), '');
-
-        if (!$shopCategory->save()) {
-            return $shopCategory;
-        }
-
-        return $this->message('商品分类编辑成功');
+        return $shopCategory->toArray([], ['ancestor']);
     }
 
     private function getShopCategoryById($id)
@@ -61,4 +45,27 @@ class ShopCategoryController extends Controller
         return $shopCategory;
     }
 
+    public function actionEdit($id)
+    {
+        $shopCategory = $this->getShopCategoryById($id);
+        $shopCategory->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if (!$shopCategory->save()) {
+            return $shopCategory;
+        }
+
+        return $this->message('商品分类编辑成功');
+    }
+
+    public function verbs()
+    {
+        return [
+            'index' => ['GET', 'HEAD'],
+            'create' => ['GET', 'HEAD', 'POST'],
+            'view' => ['GET', 'HEAD'],
+            'edit' => ['GET', 'HEAD', 'PUT'],
+            'delete' => ['DELETE'],
+        ];
+    }
 }
+

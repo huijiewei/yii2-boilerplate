@@ -27,8 +27,8 @@ use yii\db\ActiveRecord;
  */
 trait TreeTrait
 {
+    private static $allCacheKey = false;
     private static $treeCacheKey = false;
-    private static $dataCacheKey = false;
 
     /**
      * @param bool $withSelf
@@ -109,7 +109,7 @@ trait TreeTrait
             return $tree;
         }
 
-        $tree = static::buildTree(static::getData());
+        $tree = static::buildTree(static::getAll());
 
         \Yii::$app->getCache()->set($cacheKey, $tree);
 
@@ -147,9 +147,9 @@ trait TreeTrait
     /**
      * @return array
      */
-    public static function getData()
+    public static function getAll()
     {
-        $cacheKey = static::getDataCacheKey();
+        $cacheKey = static::getAllCacheKey();
 
         $data = \Yii::$app->getCache()->get($cacheKey);
 
@@ -164,13 +164,13 @@ trait TreeTrait
         return $data;
     }
 
-    protected static function getDataCacheKey()
+    protected static function getAllCacheKey()
     {
-        if (static::$dataCacheKey === false) {
-            static::$dataCacheKey = get_called_class() . '\dataCache';
+        if (static::$allCacheKey === false) {
+            static::$allCacheKey = get_called_class() . '\allCache';
         }
 
-        return static::$dataCacheKey;
+        return static::$allCacheKey;
     }
 
     private static function getItemIdsInTree($tree)
@@ -219,7 +219,7 @@ trait TreeTrait
      */
     public static function getAncestorById($id)
     {
-        $data = static::getData();
+        $data = static::getAll();
 
         $ancestor = [];
 
@@ -272,6 +272,6 @@ trait TreeTrait
     protected static function clearCache()
     {
         \Yii::$app->getCache()->delete(static::getTreeCacheKey());
-        \Yii::$app->getCache()->delete(static::getDataCacheKey());
+        \Yii::$app->getCache()->delete(static::getAllCacheKey());
     }
 }

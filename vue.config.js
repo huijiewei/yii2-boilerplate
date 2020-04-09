@@ -6,7 +6,6 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  assetsDir: '',
   devServer: {
     host: 'www.bp.test',
     https: {
@@ -16,8 +15,10 @@ module.exports = {
     http2: true,
     compress: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
+    contentBase: path.resolve(__dirname, 'ui'),
   },
   configureWebpack: {
+    context: path.resolve(__dirname, 'ui'),
     resolve: {
       alias: {
         '@core': path.resolve('ui/core'),

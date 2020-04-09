@@ -65,13 +65,18 @@ return [
             'useFileTransport' => true,
         ],
 
-        'upload' => [
+        'aliyunUpload' => [
             'class' => \huijiewei\upload\drivers\AliyunOSS::class,
             'accessKeyId' => getenv('ALIYUN_OSS_ACCESS_KEY_ID'),
             'accessKeySecret' => getenv('ALIYUN_OSS_ACCESS_KEY_SECRET'),
             'endpoint' => getenv('ALIYUN_OSS_ENDPOINT'),
             'bucket' => getenv('ALIYUN_OSS_BUCKET'),
             'folder' => getenv('ALIYUN_OSS_FOLDER')
+        ],
+
+        'upload' => [
+            'class' => \huijiewei\upload\drivers\LocalFile::class,
+            'path' => 'uploads',
         ],
 
         'log' => [
@@ -81,12 +86,7 @@ return [
                     'class' => \yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                     'except' => [
-                        'yii\web\HttpException:400',
-                        'yii\web\HttpException:401',
-                        'yii\web\HttpException:404',
-                        'yii\web\HttpException:403',
-                        'yii\web\HttpException:405',
-                        'yii\web\HttpException:406',
+                        'yii\web\HttpException:40*',
                         'yii\web\HttpException:422',
                         'yii\web\HttpException:429',
                     ],
