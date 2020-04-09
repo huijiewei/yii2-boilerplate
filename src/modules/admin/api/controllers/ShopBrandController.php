@@ -11,7 +11,7 @@ class ShopBrandController extends Controller
 {
     public function actionIndex()
     {
-        \Yii::$app->getRequest()->setQueryParams(['expand' => 'shopCategories']);
+        \Yii::$app->getRequest()->setQueryParams(['expand' => 'shopCategories.parents']);
 
         $form = new ShopBrandSearchForm();
         $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
@@ -36,6 +36,30 @@ class ShopBrandController extends Controller
         }
 
         return $shopBrand;
+    }
+
+    public function actionCreate()
+    {
+        $shopBrand = new ShopBrand();
+        $shopBrand->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if (!$shopBrand->save()) {
+            return $shopBrand;
+        }
+
+        return $shopBrand->toArray([], ['shopCategories.parents']);
+    }
+
+    public function actionEdit($id)
+    {
+        $shopBrand = $this->getShopBrandById($id);
+        $shopBrand->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if (!$shopBrand->save()) {
+            return $shopBrand;
+        }
+
+        return $shopBrand->toArray([], ['shopCategories.parents']);
     }
 
     public function verbs()

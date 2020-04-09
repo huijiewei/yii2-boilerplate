@@ -341,14 +341,17 @@ export default {
 
       if (Array.isArray(shopBrand.shopCategories)) {
         shopBrand.shopCategories.forEach(function (category) {
+          const parentIds = []
+
           if (Array.isArray(category.parents)) {
-            const parentIds = []
             category.parents.forEach(function (parent) {
               parentIds.push(parent.id)
             })
-
-            editShopBrand.shopCategoryIds.push(parentIds)
           }
+
+          parentIds.push(category.id)
+
+          editShopBrand.shopCategoryIds.push(parentIds)
         })
       }
 
