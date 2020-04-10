@@ -4,7 +4,7 @@
       <router-link :to="{ path: '/home' }">
         <img alt="主页" src="../assets/images/logo.png" /><img
           alt="Boilerplate"
-          src="../assets/images/banner.png"
+          src="../assets/images/banner-white.png"
         />
       </router-link>
     </div>

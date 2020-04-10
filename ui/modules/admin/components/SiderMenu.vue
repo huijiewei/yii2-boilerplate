@@ -4,6 +4,9 @@
     :router="true"
     :default-active="getRouteActive"
     :collapse="isCollapsed"
+    background-color="#2c343f"
+    text-color="#fff"
+    active-text-color="#ffd04b"
   >
     <template v-for="(menu, index) in getMenus">
       <sider-menu-item
@@ -62,8 +65,17 @@ export default {
 </script>
 <style lang="scss">
 .ag {
+  .ag-logo {
+    background-color: #2c343f;
+  }
+
   .el-menu {
     border-right: none;
+  }
+
+  .el-submenu__title i,
+  .el-menu-item i {
+    color: #ffffff;
   }
 
   .el-menu-item,

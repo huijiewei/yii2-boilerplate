@@ -2,10 +2,10 @@
   .aside-fixed {
     .ag-aside,
     .ag-logo {
-      width: 200px !important;
+      width: 220px !important;
     }
     .ag-main {
-      margin-left: 200px;
+      margin-left: 220px;
     }
   }
 
@@ -46,13 +46,13 @@
 
   @media screen and (max-width: 991px) {
     .ag-logo {
-      width: 200px;
+      width: 220px;
     }
     .ag-aside {
       top: 50px;
       bottom: 0;
-      right: -200px;
-      width: 200px !important;
+      right: -220px;
+      width: 220px !important;
       z-index: 19811223;
     }
     .ag-aside.active {
