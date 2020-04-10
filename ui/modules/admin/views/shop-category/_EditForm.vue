@@ -56,7 +56,9 @@
     <el-form-item>
       <el-button
         type="primary"
-        :disabled="isEdit && !$can('shop-category/edit')"
+        :disabled="
+          isEdit ? !$can('shop-category/edit') : !$can('shop-category/create')
+        "
         native-type="submit"
         :loading="submitLoading"
         >{{ submitText }}
