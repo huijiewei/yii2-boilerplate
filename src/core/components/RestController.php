@@ -65,8 +65,30 @@ abstract class RestController extends Controller
         return \Yii::createObject($this->serializer)->serialize($data);
     }
 
+    public function addExpandQueryParams($expands)
+    {
+        if (is_string($expands)) {
+            $expands = [$expands];
+        }
+
+        if (is_array($expands) && count($expands) > 0) {
+            $queryParams = \Yii::$app->getRequest()->getQueryParams();
+
+            $currentExpand = '';
+
+            if (isset($queryParams['expand']) && !empty($queryParams['expand'])) {
+                $currentExpand = $queryParams['expand'] . ',';
+            }
+
+            $queryParams['expand'] = $currentExpand . implode(',', $expands);
+
+            \Yii::$app->getRequest()->setQueryParams($queryParams);
+        }
+    }
+
     /**
      * @return null|\yii\web\IdentityInterface
+     * @throws \Throwable
      */
     public function getIdentity()
     {

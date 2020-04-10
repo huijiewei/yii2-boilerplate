@@ -61,7 +61,7 @@ class AdminController extends Controller
 
     public function actionIndex()
     {
-        \Yii::$app->getRequest()->setQueryParams(['expand' => 'adminGroup']);
+        $this->addExpandQueryParams('adminGroup');
 
         $form = new AdminSearchForm();
         $form->load(\Yii::$app->getRequest()->getQueryParams(), '');

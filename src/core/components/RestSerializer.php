@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/7/28
- * Time: 16:32
- */
 
 namespace app\core\components;
 
@@ -48,6 +42,12 @@ class RestSerializer extends Component
             return $this->serializeModel($data);
         } elseif ($data instanceof DataProviderInterface) {
             return $this->serializeDataProvider($data);
+        } elseif (is_array($data)) {
+            $serializedArray = [];
+            foreach ($data as $key => $value) {
+                $serializedArray[$key] = $this->serialize($value);
+            }
+            return $serializedArray;
         }
 
         return $data;

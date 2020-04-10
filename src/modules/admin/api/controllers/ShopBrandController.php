@@ -11,7 +11,7 @@ class ShopBrandController extends Controller
 {
     public function actionIndex()
     {
-        \Yii::$app->getRequest()->setQueryParams(['expand' => 'shopCategories.parents']);
+        $this->addExpandQueryParams('shopCategories.parents');
 
         $form = new ShopBrandSearchForm();
         $form->load(\Yii::$app->getRequest()->getQueryParams(), '');

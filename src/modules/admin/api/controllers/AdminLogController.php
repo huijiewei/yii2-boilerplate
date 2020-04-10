@@ -9,7 +9,7 @@ class AdminLogController extends Controller
 {
     public function actionIndex()
     {
-        \Yii::$app->getRequest()->setQueryParams(['expand' => 'admin']);
+        $this->addExpandQueryParams('admin');
 
         $form = new AdminLogSearchFrom();
         $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
