@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Huijiewei
- * Date: 2014/11/9
- * Time: 11:32
- */
 
 use yii\helpers\Html;
 

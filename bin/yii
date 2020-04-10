@@ -1,11 +1,5 @@
 #!/usr/bin/env php
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/19
- * Time: 15:59
- */
 
 require(__DIR__ . '/../vendor/autoload.php');
 

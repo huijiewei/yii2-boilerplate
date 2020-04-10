@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Huijiewei
- * Date: 2014/11/3
- * Time: 16:21
- */
 
 /* @var $this \yii\web\View */
 /* @var $exception \Exception */

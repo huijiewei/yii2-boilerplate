@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/7/25
- * Time: 22:36
- */
 
 namespace app\core\commands;
 
 use app\core\helpers\StringHelper;
-use app\core\models\shop\ShopCategory;
 use app\core\models\user\User;
 use Faker\Factory;
 use yii\console\Controller;
@@ -22,17 +15,23 @@ class FakeController extends Controller
     public function actionUsers($count = 10)
     {
         $faker = $this->getFaker();
-        $createFromNameList = User::createdFromNameList();
+        $createFromNameList = User::createdFromList();
 
         for ($i = 0; $i < $count; $i++) {
             $fakePhone = $faker->phoneNumber;
+            $fakeEmail = $faker->email;
 
             if (User::find()->where(['phone' => $fakePhone])->exists()) {
                 continue;
             }
 
+            if (User::find()->where(['email' => $fakeEmail])->exists()) {
+                continue;
+            }
+
             $user = new User();
             $user->phone = $fakePhone;
+            $user->email = $fakeEmail;
             $user->password = $faker->password;
             $user->passwordRepeat = $user->password;
             $user->name = $faker->name;
@@ -54,26 +53,5 @@ class FakeController extends Controller
     private function getFaker()
     {
         return Factory::create('zh_CN');
-    }
-
-    public function actionShopCategory($name, $parentId = 0)
-    {
-        if ($parentId > 0 && !ShopCategory::find()->where(['id' => $parentId])->exists()) {
-            $this->stdout('分类不存在：' . $parentId);
-            return;
-        }
-
-        $shopCategory = new ShopCategory();
-        $shopCategory->name = $name;
-        $shopCategory->parentId = $parentId;
-
-        $shopCategory->save(false);
-
-        $this->stdout('分类添加成功');
-    }
-
-    public function actionTest()
-    {
-        ShopCategory::rebuildClosureTable();
     }
 }

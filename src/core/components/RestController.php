@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/20
- * Time: 23:37
- */
 
 namespace app\core\components;
 

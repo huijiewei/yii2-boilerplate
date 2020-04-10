@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/6/20
- * Time: 18:08
- */
 
 namespace app\core\components;
 
@@ -25,6 +19,7 @@ class ManifestAssetBundle extends BaseObject
 
     /**
      * @param $view View
+     * @throws \yii\base\InvalidConfigException
      */
     public static function register($view)
     {

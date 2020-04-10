@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/8/1
- * Time: 10:48
- */
 
 namespace huijiewei\closuretable;
 

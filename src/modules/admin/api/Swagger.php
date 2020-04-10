@@ -1,13 +1,6 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Huijiewei
- * Date: 2018/7/6
- * Time: 下午4:33
- */
-
-/**
  * @OA\OpenApi(
  *   @OA\Info(
  *     title="Boilerplate 管理员 API",

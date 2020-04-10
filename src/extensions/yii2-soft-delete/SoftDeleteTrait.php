@@ -1,12 +1,4 @@
 <?php
-/** @noinspection PhpUndefinedClassInspection */
-
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/7/7
- * Time: 15:40
- */
 
 namespace huijiewei\softdelete;
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/8/1
- * Time: 16:22
- */
 
 namespace app\core\models\car;
 

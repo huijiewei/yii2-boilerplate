@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Huijiewei
- * Date: 2017/1/5
- * Time: 上午11:23
- */
 
 namespace app\core\validators;
 

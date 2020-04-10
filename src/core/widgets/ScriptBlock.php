@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Huijiewei
- * Date: 2017/1/5
- * Time: 上午10:55
- */
 
 namespace app\core\widgets;
 
