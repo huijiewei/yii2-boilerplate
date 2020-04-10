@@ -298,7 +298,7 @@ export default {
 
         const { data, error } = await flatry(
           editShopBrandId > 0
-            ? ShopBrandService.edit(editShopBrandId, shopBrand)
+            ? ShopBrandService.edit(shopBrand)
             : ShopBrandService.create(shopBrand)
         )
 

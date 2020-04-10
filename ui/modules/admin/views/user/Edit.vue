@@ -30,7 +30,7 @@ export default {
   },
   async created() {
     const { data } = await flatry(
-      UserService.edit(this.$router.currentRoute.query.id)
+      UserService.view(this.$router.currentRoute.query.id)
     )
 
     if (data) {
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     async editUser(user, done, fail, always) {
-      const { data, error } = await flatry(UserService.edit(user.id, user))
+      const { data, error } = await flatry(UserService.edit(user))
 
       if (data) {
         done()

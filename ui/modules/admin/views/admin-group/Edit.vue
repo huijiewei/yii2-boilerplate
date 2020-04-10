@@ -30,7 +30,7 @@ export default {
   },
   async created() {
     const { data } = await flatry(
-      AdminGroupService.edit(this.$router.currentRoute.query.id)
+      AdminGroupService.view(this.$router.currentRoute.query.id)
     )
 
     if (data) {
@@ -39,9 +39,7 @@ export default {
   },
   methods: {
     async editAdminGroup(adminGroup, done, fail, always) {
-      const { data, error } = await flatry(
-        AdminGroupService.edit(adminGroup.id, adminGroup)
-      )
+      const { data, error } = await flatry(AdminGroupService.edit(adminGroup))
 
       if (data) {
         done()

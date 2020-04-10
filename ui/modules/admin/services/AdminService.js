@@ -17,14 +17,12 @@ const AdminService = {
     return Vue.http.post('admins', admin)
   },
 
-  edit(id, admin = null) {
-    const endpoint = 'admins/' + id
+  view(id) {
+    return Vue.http.get('admins/' + id)
+  },
 
-    if (admin === null) {
-      return Vue.http.get(endpoint)
-    }
-
-    return Vue.http.put(endpoint, admin)
+  edit(admin) {
+    return Vue.http.put('admins/' + admin.id, admin)
   },
 }
 

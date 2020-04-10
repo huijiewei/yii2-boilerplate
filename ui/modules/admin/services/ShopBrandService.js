@@ -5,18 +5,16 @@ const ShopBrandService = {
     return Vue.http.get('shop-brands', query)
   },
 
-  create(shopBrand = null) {
+  create(shopBrand) {
     return Vue.http.post('shop-brands', shopBrand)
   },
 
-  edit(id, shopBrand = null) {
-    const endpoint = 'shop-brands/' + id
+  view(id) {
+    return Vue.http.get('shop-brands/' + id)
+  },
 
-    if (shopBrand === null) {
-      return Vue.http.get(endpoint)
-    }
-
-    return Vue.http.put(endpoint, shopBrand)
+  edit(shopBrand) {
+    return Vue.http.put('shop-brands/' + shopBrand.id, shopBrand)
   },
 
   delete(id) {

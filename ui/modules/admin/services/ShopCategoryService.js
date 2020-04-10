@@ -1,18 +1,16 @@
 import Vue from 'vue'
 
 const ShopCategoryService = {
-  create(shopCategory = null) {
+  create(shopCategory) {
     return Vue.http.post('shop-categories', shopCategory)
   },
 
-  edit(id, shopCategory = null) {
-    const endpoint = 'shop-categories/' + id
+  view(id) {
+    return Vue.http.get('shop-categories/' + id, { withParents: true })
+  },
 
-    if (shopCategory === null) {
-      return Vue.http.get(endpoint, { withParents: true })
-    }
-
-    return Vue.http.put(endpoint, shopCategory)
+  edit(shopCategory) {
+    return Vue.http.put('shop-categories/' + shopCategory.id, shopCategory)
   },
 
   delete(id) {

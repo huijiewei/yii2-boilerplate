@@ -30,7 +30,7 @@ export default {
   },
   async created() {
     const { data } = await flatry(
-      AdminService.edit(this.$router.currentRoute.query.id)
+      AdminService.view(this.$router.currentRoute.query.id)
     )
 
     if (data) {
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     async editAdmin(admin, done, fail, always) {
-      const { data, error } = await flatry(AdminService.edit(admin.id, admin))
+      const { data, error } = await flatry(AdminService.edit(admin))
 
       if (data) {
         done()

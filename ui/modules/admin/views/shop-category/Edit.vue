@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     async getShopCategory(id) {
-      const { data } = await flatry(ShopCategoryService.edit(id))
+      const { data } = await flatry(ShopCategoryService.view(id))
 
       if (data) {
         let parents = [0]
@@ -71,7 +71,7 @@ export default {
     },
     async editShopCategory(shopCategory, done, fail, always) {
       const { data, error } = await flatry(
-        ShopCategoryService.edit(shopCategory.id, shopCategory)
+        ShopCategoryService.edit(shopCategory)
       )
 
       if (data) {
