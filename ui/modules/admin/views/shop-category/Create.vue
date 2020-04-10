@@ -10,6 +10,7 @@
       :category-tree="categoryTree"
       :category-parents="categoryParents"
       :is-edit="false"
+      :can-submit="$can('shop-category/create')"
       @on-submit="createShopCategory"
     >
     </shop-category-form>

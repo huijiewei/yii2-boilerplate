@@ -10,6 +10,7 @@
       :category-tree="categoryTree"
       :category-parents="categoryParents"
       :is-edit="true"
+      :can-submit="$can('shop-category/edit')"
       @on-submit="editShopCategory"
       @on-delete="deleteShopCategory"
     >
