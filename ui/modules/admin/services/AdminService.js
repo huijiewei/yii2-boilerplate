@@ -25,7 +25,7 @@ const AdminService = {
     }
 
     return Vue.http.put(endpoint, admin)
-  }
+  },
 }
 
 export default AdminService

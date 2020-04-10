@@ -53,7 +53,11 @@ export default {
       if (data) {
         let parents = [0]
 
-        if (data.parents && Array.isArray(data.parents)) {
+        if (
+          data.parents &&
+          Array.isArray(data.parents) &&
+          data.parents.length > 0
+        ) {
           parents = data.parents.map((parent) => parent.id)
         }
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huijiewei
- * Date: 2018/10/23
- * Time: 21:41
- */
 
 namespace huijiewei\tree;
 
@@ -219,18 +213,18 @@ trait TreeTrait
      */
     public static function getParentsById($id)
     {
-        $data = static::getAll();
+        $all = static::getAll();
 
-        $ancestor = [];
+        $parents = [];
 
-        $parent = static::getItemInListById($id, $data);
+        $parent = static::getItemInListById($id, $all);
 
         while ($parent != null) {
-            $ancestor[] = $parent;
-            $parent = static::getItemInListById($parent['parentId'], $data);
+            $parents[] = $parent;
+            $parent = static::getItemInListById($parent['parentId'], $all);
         }
 
-        return array_reverse($ancestor);
+        return array_reverse($parents);
     }
 
     /**
