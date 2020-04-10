@@ -82,7 +82,7 @@ $asideCollapsedWidth: 60px;
   flex: auto;
   flex-direction: row;
   background: #f4f8fb;
-  min-height: 100%;
+  min-height: 100vh;
 
   &.ag-collapsed {
     .ag-aside {
@@ -105,7 +105,7 @@ $asideCollapsedWidth: 60px;
     left: 0;
     width: $asideWidth;
     z-index: 10;
-    height: 100%;
+    height: 100vh;
     background-color: #2c343f;
 
     .ag-logo {
@@ -125,7 +125,7 @@ $asideCollapsedWidth: 60px;
     }
 
     .ag-scrollbar {
-      height: calc(100% - 50px);
+      height: calc(100vh - 50px);
     }
   }
 
@@ -156,6 +156,7 @@ $asideCollapsedWidth: 60px;
 
     .box {
       background: #fff;
+      min-height: calc(100vh - 152px);
       padding: 20px;
       box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
 
