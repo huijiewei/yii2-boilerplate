@@ -38,6 +38,8 @@ class RestSerializer extends Component
             return $this->serializeModelErrors($data);
         } elseif ($data instanceof SearchForm) {
             return $this->serializeSearchForm($data);
+        } elseif ($data instanceof \JsonSerializable) {
+            return $data->jsonSerialize();
         } elseif ($data instanceof Arrayable) {
             return $this->serializeModel($data);
         } elseif ($data instanceof DataProviderInterface) {
