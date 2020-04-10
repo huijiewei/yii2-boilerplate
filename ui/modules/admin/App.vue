@@ -80,8 +80,6 @@ export default {
     this.$store.dispatch('auth/initClientId')
   },
   mounted() {
-    document.body.classList.add('ag')
-
     this.spinnerTimeoutId = setTimeout(() => {
       const spinner = document.getElementById('spinner')
 

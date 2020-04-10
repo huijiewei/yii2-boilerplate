@@ -1,29 +1,24 @@
 <template>
   <nav class="ag-nav">
-    <div class="ag-logo">
-      <router-link :to="{ path: '/home' }">
-        <img alt="主页" src="../assets/images/logo.png" /><img
-          alt="Boilerplate"
-          src="../assets/images/banner-white.png"
-        />
-      </router-link>
+    <div class="nav-left">
+      <i
+        :class="[
+          'trigger',
+          'trigger-left',
+          isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold',
+        ]"
+        @click="toggleSidebar"
+      />
+      <i
+        :class="[
+          'trigger',
+          'trigger-right',
+          isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold',
+        ]"
+        @click="toggleSidebar"
+      />
     </div>
-    <i
-      :class="[
-        'trigger',
-        'trigger-left',
-        isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold',
-      ]"
-      @click="toggleSidebar"
-    />
-    <i
-      :class="[
-        'trigger',
-        'trigger-right',
-        isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold',
-      ]"
-      @click="toggleSidebar"
-    />
+    <breadcrumb class="nav-left" />
     <ul v-if="getCurrentUser" class="nav nav-right">
       <li class="profile">
         <el-dropdown trigger="click" @command="handleCommand">
@@ -61,10 +56,11 @@
 import flatry from '@core/utils/flatry'
 import AgAvatar from '@core/components/Avatar'
 import AuthService from '@admin/services/AuthService'
+import Breadcrumb from '@admin/components/Breadcrumb'
 
 export default {
   name: 'HeaderNav',
-  components: { AgAvatar },
+  components: { AgAvatar, Breadcrumb },
   props: {
     isCollapsed: {
       type: Boolean,
@@ -123,6 +119,8 @@ export default {
 
 <style lang="scss">
 .ag-nav {
+  overflow: hidden;
+
   @media (min-width: 992px) {
     i.trigger-right {
       display: none !important;
@@ -150,29 +148,20 @@ export default {
     float: right;
   }
 
-  .ag-logo {
-    text-align: center;
-    overflow: hidden;
-    height: 50px;
-    line-height: 50px;
-    float: left;
-    transition: width 0.2s;
-
-    a {
-      text-decoration: none;
-    }
-
-    img {
-      vertical-align: middle;
-      height: 39px;
-      display: inline-block;
-    }
-  }
-
   .nav {
     display: flex;
     list-style: none;
     margin: 0;
+  }
+
+  .ag-breadcrumb {
+    line-height: 50px;
+    margin-left: 9px;
+    margin-bottom: 0;
+  }
+
+  .nav-left {
+    float: left;
   }
 
   .nav-right {

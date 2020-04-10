@@ -1,31 +1,32 @@
 <template>
-  <el-container
-    :class="['ag-layout', 'aside-fixed', isCollapsed ? 'aside-icon' : '']"
-  >
-    <el-header class="ag-header" height="50px">
-      <header-nav :is-collapsed="isCollapsed" />
-    </el-header>
-    <el-container class="ag-wrap">
-      <el-aside
-        :class="['ag-aside', isCollapsed ? '' : 'active']"
-        style="width: auto;"
+  <section :class="['ag', isCollapsed ? 'ag-collapsed' : '']">
+    <aside class="ag-aside">
+      <div class="ag-logo">
+        <router-link :to="{ path: '/home' }">
+          <img alt="主页" src="../assets/images/logo.png" /><img
+            alt="Boilerplate"
+            src="../assets/images/banner-white.png"
+          />
+        </router-link>
+      </div>
+      <prefect-scrollbar
+        :scroll-to="'li.el-menu-item.is-active'"
+        :settings="{ suppressScrollX: true }"
+        class="ag-scrollbar"
       >
-        <prefect-scrollbar
-          :scroll-to="'li.el-menu-item.is-active'"
-          :settings="{ suppressScrollX: true }"
-          class="ag-scrollbar"
-        >
-          <sider-menu class="ag-menu" :is-collapsed="isCollapsed" />
-        </prefect-scrollbar>
-      </el-aside>
-      <el-main class="ag-main">
-        <breadcrumb />
-        <div class="ag-content">
-          <router-view v-if="isRouterAlive" />
-        </div>
-      </el-main>
-    </el-container>
-  </el-container>
+        <sider-menu :is-collapsed="isCollapsed" />
+      </prefect-scrollbar>
+    </aside>
+    <section class="ag-layout">
+      <header class="ag-header">
+        <header-nav :is-collapsed="isCollapsed" />
+        <tags-nav></tags-nav>
+      </header>
+      <main class="ag-main">
+        <router-view v-if="isRouterAlive" />
+      </main>
+    </section>
+  </section>
 </template>
 
 <script>
@@ -33,12 +34,12 @@ import flatry from '@core/utils/flatry'
 import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
 import HeaderNav from '@admin/components/HeaderNav'
 import SiderMenu from '@admin/components/SiderMenu'
-import Breadcrumb from '@admin/components/Breadcrumb'
 import AuthService from '@admin/services/AuthService'
+import TagsNav from '@admin/components/TagsNav'
 
 export default {
   name: 'DefaultLayout',
-  components: { PrefectScrollbar, HeaderNav, SiderMenu, Breadcrumb },
+  components: { TagsNav, PrefectScrollbar, HeaderNav, SiderMenu },
   provide() {
     return {
       reload: this.reload,
@@ -72,5 +73,112 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '../assets/styles/default-layout.scss';
+@import '../../../core/assets/styles/mixin';
+$asideWidth: 220px;
+$asideCollapsedWidth: 60px;
+
+.ag {
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  background: #f4f8fb;
+  min-height: 100%;
+
+  &.ag-collapsed {
+    .ag-aside {
+      width: $asideCollapsedWidth;
+    }
+
+    .ag-layout {
+      margin-left: $asideCollapsedWidth;
+    }
+
+    .ag-header {
+      width: calc(100% - #{$asideCollapsedWidth});
+    }
+  }
+
+  .ag-aside {
+    position: fixed;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.01);
+    top: 0;
+    left: 0;
+    width: $asideWidth;
+    z-index: 10;
+    height: 100%;
+    background-color: #2c343f;
+
+    .ag-logo {
+      text-align: center;
+      height: 50px;
+      line-height: 50px;
+
+      a {
+        text-decoration: none;
+      }
+
+      img {
+        vertical-align: middle;
+        height: 39px;
+        display: inline-block;
+      }
+    }
+
+    .ag-scrollbar {
+      height: calc(100% - 50px);
+    }
+  }
+
+  .ag-layout {
+    position: relative;
+    margin-left: $asideWidth;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .ag-header {
+    position: fixed;
+    width: calc(100% - #{$asideWidth});
+    z-index: 10;
+    right: 0;
+
+    .ag-nav {
+      background: #fff;
+      @include clearfix();
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  .ag-main {
+    padding: 92px 16px 20px 16px;
+
+    .box {
+      background: #fff;
+      padding: 20px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
+
+      .box-header {
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+        padding-bottom: 13px;
+
+        h4 {
+          font-size: 14px;
+          font-weight: normal;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
 </style>

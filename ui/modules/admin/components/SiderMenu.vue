@@ -65,10 +65,6 @@ export default {
 </script>
 <style lang="scss">
 .ag {
-  .ag-logo {
-    background-color: #2c343f;
-  }
-
   .el-menu {
     border-right: none;
   }
