@@ -143,6 +143,7 @@ $asideCollapsedWidth: 60px;
     width: calc(100% - #{$asideWidth});
     z-index: 10;
     right: 0;
+    overflow-x: hidden;
 
     .ag-nav {
       background: #fff;
