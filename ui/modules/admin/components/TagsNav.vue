@@ -26,11 +26,11 @@
             关闭右侧
           </el-dropdown-item>
           <el-dropdown-item>
-            <i class="el-icon-close"></i>
+            <i class="el-icon-circle-close"></i>
             关闭其他
           </el-dropdown-item>
           <el-dropdown-item>
-            <i class="el-icon-circle-close"></i>
+            <i class="el-icon-error"></i>
             全部关闭
           </el-dropdown-item>
         </el-dropdown-menu>
