@@ -20,10 +20,14 @@
     <section class="ag-layout">
       <header class="ag-header">
         <header-nav :is-collapsed="isCollapsed" />
-        <tags-nav></tags-nav>
+        <header-tab></header-tab>
       </header>
       <main class="ag-main">
-        <router-view v-if="isRouterAlive" />
+        <transition name="fade-transform" mode="out-in">
+          <keep-alive>
+            <router-view :key="$route.path" v-if="isRouterAlive" />
+          </keep-alive>
+        </transition>
       </main>
     </section>
   </section>
@@ -35,11 +39,11 @@ import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
 import HeaderNav from '@admin/components/HeaderNav'
 import SiderMenu from '@admin/components/SiderMenu'
 import AuthService from '@admin/services/AuthService'
-import TagsNav from '@admin/components/TagsNav'
+import HeaderTab from '@admin/components/HeaderTab'
 
 export default {
-  name: 'DefaultLayout',
-  components: { TagsNav, PrefectScrollbar, HeaderNav, SiderMenu },
+  name: 'AdminLayout',
+  components: { HeaderTab, PrefectScrollbar, HeaderNav, SiderMenu },
   provide() {
     return {
       reload: this.reload,

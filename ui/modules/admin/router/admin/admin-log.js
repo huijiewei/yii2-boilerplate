@@ -1,12 +1,12 @@
 import AdminLayout from '@admin/components/AdminLayout'
 
 export default {
-  path: '/shop-brand',
+  path: '/admin-log',
   component: AdminLayout,
   meta: {
     breadcrumb: {
-      title: '商品品牌',
-      path: '/shop-brand',
+      title: '操作日志',
+      path: '/admin-log',
     },
   },
   children: [
@@ -14,7 +14,7 @@ export default {
       path: '',
       component: () =>
         import(
-          /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-brand/Index'
+          /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-log/Index'
         ),
     },
   ],

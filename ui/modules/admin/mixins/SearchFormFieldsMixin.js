@@ -11,7 +11,7 @@ const SearchFormFieldsMixin = {
         : Object.assign({}, query, { withSearchFields: true })
     },
     setSearchFields(searchFields) {
-      if (this.searchFields === false) {
+      if (searchFields) {
         this.searchFields = searchFields || []
       }
     },

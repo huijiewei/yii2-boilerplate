@@ -1,33 +1,25 @@
 <template>
-  <div class="tags-nav">
-    <div class="tags-nav-left tags-nav-tab" @click="handleScroll(220)">
+  <div class="ag-tab">
+    <div class="tab-left tab-item" @click="handleScroll(220)">
       <i class="el-icon-arrow-left"></i>
     </div>
-    <div class="tags-nav-right tags-nav-tab" @click="handleScroll(-200)">
+    <div class="tab-right tags-nav-tab" @click="handleScroll(-200)">
       <i class="el-icon-arrow-right"></i>
     </div>
-    <div ref="scrollWrap" class="tags-nav-scroll" @wheel.prevent="handleWheel">
-      <ul
-        ref="scrollBody"
-        class="tags-nav-tabs"
-        :style="{ left: tagBodyLeft + 'px' }"
-      >
+    <div ref="tabScroll" class="tab-scroll" @wheel.prevent="handleWheel">
+      <ul ref="tabList" class="tab-list" :style="{ left: tabBodyLeft + 'px' }">
         <template v-for="tab in tabs">
-          <li
-            class="tags-nav-tab"
-            v-bind:key="tab"
-            @click="handleClickTab(tab)"
-          >
+          <li class="tab-item" v-bind:key="tab" @click="handleClick(tab)">
             <span>{{ tab }}</span>
             <i
               class="el-icon-close el-icon--right"
-              @click.stop="handleCloseTab(tab)"
+              @click.stop="handleClose(tab)"
             ></i>
           </li>
         </template>
       </ul>
     </div>
-    <el-dropdown class="tags-nav-tab tags-nav-close">
+    <el-dropdown class="tab-close tab-item">
       <span>
         <i class="el-icon-arrow-down"></i>
       </span>
@@ -55,10 +47,10 @@
 
 <script>
 export default {
-  name: 'TagsNav',
+  name: 'HeaderTab',
   data() {
     return {
-      tagBodyLeft: 0,
+      tabBodyLeft: 0,
       tabs: [
         '测试',
         '测试1',
@@ -96,36 +88,36 @@ export default {
       this.handleScroll(delta)
     },
     handleScroll(delta) {
-      const wrapWidth = this.$refs.scrollWrap.offsetWidth
-      const bodyWidth = this.$refs.scrollBody.offsetWidth
+      const scrollWidth = this.$refs.tabScroll.offsetWidth
+      const listWidth = this.$refs.tabList.offsetWidth
 
       if (delta > 0) {
-        this.tagBodyLeft = Math.min(0, this.tagBodyLeft + delta)
+        this.tabBodyLeft = Math.min(0, this.tabBodyLeft + delta)
       } else {
-        if (wrapWidth < bodyWidth) {
-          if (this.tagBodyLeft >= -(bodyWidth - wrapWidth)) {
-            this.tagBodyLeft = Math.max(
-              this.tagBodyLeft + delta,
-              wrapWidth - bodyWidth
+        if (scrollWidth < listWidth) {
+          if (this.tabBodyLeft >= -(listWidth - scrollWidth)) {
+            this.tabBodyLeft = Math.max(
+              this.tabBodyLeft + delta,
+              scrollWidth - listWidth
             )
           }
         } else {
-          this.tagBodyLeft = 0
+          this.tabBodyLeft = 0
         }
       }
     },
-    handleClickTab(tab) {
-      console.log('click')
+    handleClick(tab) {
+      console.log('click' + tab)
     },
-    handleCloseTab(tab) {
-      console.log('close')
+    handleClose(tab) {
+      console.log('close' + tab)
     },
   },
 }
 </script>
 
 <style lang="scss">
-.tags-nav {
+.ag-tab {
   font-size: 13px;
   background-color: #f4f8fb;
   padding: 7px 16px;
@@ -133,7 +125,7 @@ export default {
   user-select: none;
   position: relative;
 
-  .tags-nav-scroll {
+  .tab-scroll {
     overflow-x: hidden;
     white-space: nowrap;
     position: absolute;
@@ -144,7 +136,7 @@ export default {
     padding: 7px 0;
   }
 
-  .tags-nav-tabs {
+  .tab-list {
     position: absolute;
     list-style: none;
     margin: 0;
@@ -177,38 +169,36 @@ export default {
     }
   }
 
-  .tags-nav-tab {
+  .tab-item {
     padding: 5px 9px;
     background-color: #ffffff;
     border-radius: 2px;
   }
 
-  .tags-nav-left,
-  .tags-nav-right,
-  .tags-nav-close {
+  .tab-left,
+  .tab-right,
+  .tab-close {
+    position: absolute;
     cursor: pointer;
     [class^='el-icon-'] {
       font-weight: bolder;
     }
   }
 
-  .tags-nav-left,
-  .tags-nav-right {
+  .tab-left,
+  .tab-right {
     background-color: #f4f8fb;
   }
 
-  .tags-nav-left {
-    position: absolute;
+  .tab-left {
     left: 0;
   }
 
-  .tags-nav-right {
-    position: absolute;
+  .tab-right {
     right: 32px;
   }
 
-  .tags-nav-close {
-    position: absolute;
+  .tab-close {
     right: 0;
     background-color: #ffffff;
     &.el-dropdown {

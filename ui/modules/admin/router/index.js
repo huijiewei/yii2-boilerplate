@@ -7,26 +7,22 @@ import siteIndex from '@admin/views/site/Index'
 import siteLogin from '@admin/views/site/Login'
 import siteProfile from '@admin/views/site/Profile'
 
-import adminRoutes from './admin/admin'
-import adminGroupRoutes from './admin/group'
-import userRoutes from './user'
-import shopCategoryRoutes from './shop/category'
-import shopBrandRoutes from './shop/brand'
+import adminRoute from './admin/admin'
+import adminLogRoute from './admin/admin-log'
+import adminGroupRoute from './admin/group'
+import userRoute from './user/user'
+import shopCategoryRoute from './shop/category'
+import shopBrandRoute from './shop/brand'
 
-import DefaultLayout from '@admin/layouts/Default'
+import AdminLayout from '@admin/components/AdminLayout'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    component: DefaultLayout,
+    component: AdminLayout,
     children: [
-      ...adminRoutes,
-      ...adminGroupRoutes,
-      ...userRoutes,
-      ...shopBrandRoutes,
-      ...shopCategoryRoutes,
       {
         path: 'home',
         component: siteIndex,
@@ -67,6 +63,12 @@ const routes = [
       },
     },
   },
+  adminRoute,
+  adminLogRoute,
+  adminGroupRoute,
+  userRoute,
+  shopCategoryRoute,
+  shopBrandRoute,
 ]
 
 const router = new VueRouter({

@@ -44,7 +44,7 @@ class AdminLogSearchFrom extends SearchForm
                 'type' => 'select',
                 'field' => 'status',
                 'label' => '操作状态',
-                'multiple' => true,
+                'multiple' => false,
                 'options' => AdminLog::statusList(),
             ],
             [
@@ -86,7 +86,8 @@ class AdminLogSearchFrom extends SearchForm
             $adminLogQuery->andWhere(['type' => $this->type]);
         }
 
-        if (!empty($this->status)) {
+
+        if ($this->status != null) {
             $adminLogQuery->andWhere(['status' => $this->status]);
         }
 

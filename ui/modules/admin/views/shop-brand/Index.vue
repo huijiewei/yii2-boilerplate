@@ -225,8 +225,9 @@ export default {
     this.getShopBrands()
     this.loadCategoryTree()
   },
-  watch: {
-    $route: 'getShopBrands',
+  beforeRouteUpdate(to, from, next) {
+    next()
+    this.getShopBrands()
   },
   methods: {
     async loadCategoryTree() {

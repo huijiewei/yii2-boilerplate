@@ -62,16 +62,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div v-if="pages" class="bp-pages">
-      <el-pagination
-        :background="true"
-        :current-page="pages.currentPage"
-        :page-size="pages.perPage"
-        layout="total, prev, pager, next, jumper"
-        :total="pages.totalCount"
-        @current-change="handleCurrentChange"
-      />
-    </div>
+    <pagination :pages="pages"></pagination>
     <el-dialog
       title="日志详情"
       :visible.sync="dialogVisible"
@@ -91,9 +82,10 @@ import AdminService from '@admin/services/AdminService'
 import SearchForm from '@admin/components/SearchForm'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
 import { tabledObject } from '@core/utils/util'
+import Pagination from '@admin/components/Pagination'
 
 export default {
-  components: { SearchForm },
+  components: { SearchForm, Pagination },
   mixins: [SearchFormFieldsMixin],
   data() {
     return {
@@ -104,8 +96,9 @@ export default {
       viewAdminLog: [],
     }
   },
-  watch: {
-    $route: 'getLogs',
+  beforeRouteUpdate(to, from, next) {
+    next()
+    this.getLogs()
   },
   created() {
     this.getLogs()
@@ -172,12 +165,6 @@ export default {
     handleClose() {
       this.dialogVisible = false
       this.viewAdminLog = []
-    },
-    handleCurrentChange(page) {
-      this.$router.push({
-        path: this.$route.fullPath,
-        query: { page: page },
-      })
     },
     async getLogs() {
       this.loading = true
