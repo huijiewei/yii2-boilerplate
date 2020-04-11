@@ -13,14 +13,14 @@ import userRoutes from './user'
 import shopCategoryRoutes from './shop/category'
 import shopBrandRoutes from './shop/brand'
 
-import defaultLayout from '@admin/components/DefaultLayout'
+import DefaultLayout from '@admin/layouts/Default'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    component: defaultLayout,
+    component: DefaultLayout,
     children: [
       ...adminRoutes,
       ...adminGroupRoutes,

@@ -1,4 +1,4 @@
-import BlankLayout from '@admin/components/BlankLayout'
+import BlankLayout from '@admin/layouts/Blank'
 
 const routes = [
   {

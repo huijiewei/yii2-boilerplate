@@ -76,6 +76,7 @@ export default {
 @import '../../../core/assets/styles/mixin';
 $asideWidth: 220px;
 $asideCollapsedWidth: 60px;
+$asideBackgroundColor: #2c343f;
 
 .ag {
   display: flex;
@@ -106,7 +107,7 @@ $asideCollapsedWidth: 60px;
     width: $asideWidth;
     z-index: 10;
     height: 100vh;
-    background-color: #2c343f;
+    background-color: $asideBackgroundColor;
 
     .ag-logo {
       text-align: center;
@@ -126,6 +127,19 @@ $asideCollapsedWidth: 60px;
 
     .ag-scrollbar {
       height: calc(100vh - 50px);
+    }
+
+    .el-menu {
+      background-color: $asideBackgroundColor;
+
+      .el-menu-item,
+      .el-submenu__title {
+        color: #fff;
+        &:hover,
+        &:focus {
+          background-color: #ffd04b;
+        }
+      }
     }
   }
 
