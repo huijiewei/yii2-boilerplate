@@ -96,9 +96,12 @@ export default {
       viewAdminLog: [],
     }
   },
-  beforeRouteUpdate(to, from, next) {
-    next()
-    this.getLogs()
+  watch: {
+    $route(to, from) {
+      if (to.path === from.path) {
+        this.getLogs()
+      }
+    },
   },
   created() {
     this.getLogs()

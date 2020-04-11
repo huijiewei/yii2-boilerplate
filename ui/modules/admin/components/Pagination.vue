@@ -2,7 +2,7 @@
   <div v-if="pages" class="ag-pages">
     <el-pagination
       :background="true"
-      :current-page="pages.currentPage"
+      :current-page.sync="pages.currentPage"
       :page-size="pages.perPage"
       layout="total, prev, pager, next, jumper"
       :total="pages.totalCount"
@@ -17,7 +17,7 @@ export default {
 
   props: {
     pages: {
-      type: Array,
+      type: Object,
       default: () => {
         return null
       },

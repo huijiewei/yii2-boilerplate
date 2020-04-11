@@ -19,6 +19,21 @@ import AdminLayout from '@admin/components/AdminLayout'
 Vue.use(VueRouter)
 
 const routes = [
+  adminRoute,
+  adminLogRoute,
+  adminGroupRoute,
+  userRoute,
+  shopCategoryRoute,
+  shopBrandRoute,
+  {
+    path: '/login',
+    component: siteLogin,
+    meta: {
+      breadcrumb: {
+        title: '登录',
+      },
+    },
+  },
   {
     path: '/',
     component: AdminLayout,
@@ -28,6 +43,7 @@ const routes = [
         component: siteIndex,
         alias: '',
         meta: {
+          affix: true,
           breadcrumb: {
             title: '首页',
           },
@@ -43,32 +59,17 @@ const routes = [
           },
         },
       },
+      {
+        path: '*',
+        component: notFound,
+        meta: {
+          breadcrumb: {
+            title: '页面未找到',
+          },
+        },
+      },
     ],
   },
-  {
-    path: '/login',
-    component: siteLogin,
-    meta: {
-      breadcrumb: {
-        title: '登录',
-      },
-    },
-  },
-  {
-    path: '*',
-    component: notFound,
-    meta: {
-      breadcrumb: {
-        title: '页面未找到',
-      },
-    },
-  },
-  adminRoute,
-  adminLogRoute,
-  adminGroupRoute,
-  userRoute,
-  shopCategoryRoute,
-  shopBrandRoute,
 ]
 
 const router = new VueRouter({

@@ -94,16 +94,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div v-if="pages" class="bp-pages">
-      <el-pagination
-        :background="true"
-        :current-page="pages.currentPage"
-        :page-size="pages.perPage"
-        layout="total, prev, pager, next, jumper"
-        :total="pages.totalCount"
-        @current-change="handleCurrentChange"
-      />
-    </div>
+    <pagination :pages="pages"></pagination>
   </div>
 </template>
 
@@ -114,9 +105,10 @@ import UserService from '@admin/services/UserService'
 import SearchForm from '@admin/components/SearchForm'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
 import ExportButton from '@admin/components/ExportButton'
+import Pagination from '@admin/components/Pagination'
 
 export default {
-  components: { ExportButton, SearchForm, AgAvatar },
+  components: { ExportButton, SearchForm, AgAvatar, Pagination },
   mixins: [SearchFormFieldsMixin],
   data() {
     return {
@@ -126,7 +118,11 @@ export default {
     }
   },
   watch: {
-    $route: 'getUsers',
+    $route(to, from) {
+      if (to.path === from.path) {
+        this.getUsers()
+      }
+    },
   },
   created() {
     this.getUsers()

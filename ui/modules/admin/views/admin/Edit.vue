@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="box-header">
-      <h4>{{ pageTitle }}</h4>
+      <h4>{{ pageTitle }}{{ name }}</h4>
     </div>
     <admin-form
       v-if="admin"
@@ -22,6 +22,9 @@ import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
   components: { PlaceholderForm, AdminForm },
+  props: {
+    name: String,
+  },
   data() {
     return {
       pageTitle: '编辑管理员',
