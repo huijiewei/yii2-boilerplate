@@ -13,7 +13,11 @@
         :style="{ left: tagBodyLeft + 'px' }"
       >
         <template v-for="tab in tabs">
-          <li class="tags-nav-tab" v-bind:key="tab" @click="handleClickTab(tab)">
+          <li
+            class="tags-nav-tab"
+            v-bind:key="tab"
+            @click="handleClickTab(tab)"
+          >
             <span>{{ tab }}</span>
             <i
               class="el-icon-close el-icon--right"
@@ -87,7 +91,7 @@ export default {
   },
   methods: {
     handleWheel(e) {
-      const delta = e.wheelDelta ? e.wheelDelta : -(e.detail || 0) * 40
+      const delta = e.wheelDelta ? e.wheelDelta : -(e.detail || 0) * 30
 
       this.handleScroll(delta)
     },
@@ -145,6 +149,7 @@ export default {
     list-style: none;
     margin: 0;
     padding: 0;
+    transition: left 0.5s;
 
     li {
       display: inline-block;
