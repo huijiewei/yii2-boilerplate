@@ -1,3 +1,5 @@
+const viewedTabsKey = 'ag:admin-viewed-tabs'
+
 const tabs = {
   namespaced: true,
   state: {
@@ -13,10 +15,11 @@ const tabs = {
 
       if (matchIndex > -1) {
         state.viewed[matchIndex].query = tab.query
-        return
+      } else {
+        state.viewed.push(tab)
       }
 
-      state.viewed.push(tab)
+      window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
     },
     DEL_VIEWED_TAB: (state, tab) => {
       for (const [index, view] of state.viewed.entries()) {
@@ -25,9 +28,21 @@ const tabs = {
           break
         }
       }
+
+      window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
+    },
+    INIT_VIEWED_TABS: (state) => {
+      const viewedTabs = window.localStorage.getItem(viewedTabsKey)
+
+      if (viewedTabs && viewedTabs.length > 0) {
+        state.viewed = JSON.parse(viewedTabs)
+      }
     },
   },
   actions: {
+    initViewedTabs({ commit }) {
+      commit('INIT_VIEWED_TABS')
+    },
     addViewedTab({ commit }, tab) {
       commit('ADD_VIEWED_TAB', tab)
     },

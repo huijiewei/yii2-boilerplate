@@ -14,9 +14,11 @@
             :class="isActive(tab) ? 'active' : ''"
             v-bind:key="tab.path"
             @click="handleClick(tab)"
+            @contextmenu.prevent="handleContextMenu(tab, $event)"
           >
             <span>{{ tab.title }}</span>
             <i
+              v-if="!tab.affix"
               class="el-icon-close el-icon--right"
               @click.stop="handleClose(tab)"
             ></i>
@@ -24,29 +26,44 @@
         </template>
       </ul>
     </div>
-    <el-dropdown class="tab-close tab-item">
-      <span>
-        <i class="el-icon-arrow-down"></i>
-      </span>
-      <el-dropdown-menu class="tags-nav-menu" slot="dropdown">
-        <el-dropdown-item>
-          <i class="el-icon-back"></i>
-          关闭左侧
-        </el-dropdown-item>
-        <el-dropdown-item>
-          <i class="el-icon-right"></i>
-          关闭右侧
-        </el-dropdown-item>
-        <el-dropdown-item>
-          <i class="el-icon-circle-close"></i>
-          关闭其他
-        </el-dropdown-item>
-        <el-dropdown-item>
-          <i class="el-icon-error"></i>
-          全部关闭
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+    <div
+      class="tab-close tab-item"
+      @click.stop="handleContextMenu('CLOSED', $event)"
+      @contextmenu.prevent="handleContextMenu('CLOSED', $event)"
+    >
+      <i class="el-icon-arrow-down"></i>
+    </div>
+    <ul
+      ref="contextMenu"
+      :style="{ left: contextMenuLeft + 'px', top: contextMenuTop + 'px' }"
+      v-show="contextMenuShow"
+      class="context-menu"
+    >
+      <li v-if="selectedTab" @click="handleTabRefresh">
+        <i class="el-icon-refresh-right"></i>
+        刷新页面
+      </li>
+      <li v-if="selectedTab" @click="handleTabClose">
+        <i class="el-icon-close"></i>
+        关闭页面
+      </li>
+      <li>
+        <i class="el-icon-back"></i>
+        关闭左侧
+      </li>
+      <li>
+        <i class="el-icon-right"></i>
+        关闭右侧
+      </li>
+      <li @click="handleCloseOther">
+        <i class="el-icon-circle-close"></i>
+        关闭其他
+      </li>
+      <li>
+        <i class="el-icon-error"></i>
+        全部关闭
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -60,6 +77,13 @@ export default {
     $route() {
       this.addTab()
     },
+    contextMenuShow(show) {
+      if (show) {
+        document.body.addEventListener('click', this.closeContextMenu)
+      } else {
+        document.body.removeEventListener('click', this.closeContextMenu)
+      }
+    },
   },
   computed: {
     viewedTabs() {
@@ -69,14 +93,41 @@ export default {
   data() {
     return {
       tabBodyLeft: 0,
+      contextMenuShow: false,
+      contextMenuLeft: 0,
+      contextMenuTop: 0,
+      selectedTab: null,
     }
   },
   methods: {
+    handleTabClose() {
+      if (this.selectedTab) {
+        this.closeTab(this.selectedTab)
+      }
+    },
+    handleTabRefresh() {},
+    handleContextMenu(tab, event) {
+      const max =
+        this.$el.offsetWidth + this.$el.getBoundingClientRect().left - 100
+      const left = event.clientX
+
+      this.contextMenuLeft = left > max ? max : left
+      this.contextMenuTop = event.clientY + 12
+
+      this.selectedTab = tab !== 'CLOSED' ? tab : null
+
+      this.contextMenuShow = true
+    },
+    closeContextMenu() {
+      this.contextMenuShow = false
+    },
     addTab() {
       let routeTitle = '无标题'
 
-      for (let i = this.$route.matched.length - 1; i >= 0; i--) {
-        const breadcrumb = this.$route.matched[i].meta.breadcrumb
+      const route = this.$route
+
+      for (let i = route.matched.length - 1; i >= 0; i--) {
+        const breadcrumb = route.matched[i].meta.breadcrumb
 
         if (breadcrumb && breadcrumb.title && breadcrumb.title.length > 0) {
           routeTitle = breadcrumb.title
@@ -85,9 +136,10 @@ export default {
       }
 
       this.$store.dispatch('tabs/addViewedTab', {
-        path: this.$route.path,
-        query: this.$route.query,
+        path: route.path,
+        query: route.query,
         title: routeTitle,
+        affix: route.meta && route.meta.affix,
       })
     },
     isActive(tab) {
@@ -124,6 +176,10 @@ export default {
       })
     },
     handleClose(tab) {
+      this.closeTab(tab)
+    },
+    handleCloseOther() {},
+    closeTab(tab) {
       this.$store.dispatch('tabs/delViewedTab', tab).then((next) => {
         if (this.isActive(tab)) {
           if (next !== null) {
@@ -147,6 +203,28 @@ export default {
   height: 27px;
   user-select: none;
   position: relative;
+
+  .context-menu {
+    position: fixed;
+    margin: 0;
+    background: #fff;
+    z-index: 1000;
+    list-style-type: none;
+    padding: 0;
+    border-radius: 2px;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+
+    li {
+      margin: 0;
+      padding: 7px 15px 7px 13px;
+      font-size: 12px;
+      cursor: pointer;
+      &:hover {
+        background: #ecf5ff;
+        color: #3a8ee6;
+      }
+    }
+  }
 
   .tab-scroll {
     overflow-x: hidden;
@@ -196,12 +274,6 @@ export default {
       i {
         &:hover {
           background-color: #f4f8fb;
-        }
-      }
-
-      &:first-child {
-        i {
-          display: none;
         }
       }
 

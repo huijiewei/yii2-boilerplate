@@ -1,7 +1,7 @@
-$--font-path: "~element-ui/lib/theme-chalk/fonts";
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import '../../../../core/assets/styles/mixin.scss';
-@import "~element-ui/packages/theme-chalk/src/index";
+@import '~element-ui/packages/theme-chalk/src/index';
 body {
   -webkit-font-smoothing: antialiased;
 }
@@ -18,7 +18,8 @@ body {
 .el-button--mini,
 .el-button--small,
 .el-input-group__append,
-.el-input-group__prepend {
+.el-input-group__prepend,
+.el-pagination .el-select .el-input .el-input__inner {
   border-radius: 2px;
 }
 
@@ -114,7 +115,9 @@ body {
   padding: 6px 10px 5px 10px;
 }
 
-.el-dropdown-menu {
+.el-dropdown-menu,
+.el-select-dropdown {
+  border-radius: 2px;
   padding: 0;
   box-shadow: 0 0 15px 1px rgba(69, 65, 78, 0.2);
 
@@ -123,9 +126,14 @@ body {
   }
 }
 
-.el-dropdown-menu__item {
-  line-height: 39px;
-  height: 37px;
+.el-select-dropdown__list {
+  padding: 0;
+}
+
+.el-dropdown-menu__item,
+.el-select-dropdown__item {
+  line-height: 36px;
+  height: 36px;
 }
 
 .el-dropdown-menu__item--divided {
@@ -147,10 +155,6 @@ body {
 }
 
 .el-button--medium {
-  border-radius: 2px;
-}
-
-.el-dropdown-menu {
   border-radius: 2px;
 }
 
@@ -185,11 +189,14 @@ body {
   margin-bottom: 20px;
 
   .box-toolbar-button {
-    float: right;
+    float: left;
+    vertical-align: bottom;
   }
 
   .box-toolbar-search {
-    float: left;
+    float: right;
+    text-align: right;
+    vertical-align: middle;
 
     .br {
       border: none;

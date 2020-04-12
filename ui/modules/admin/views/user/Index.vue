@@ -5,6 +5,15 @@
         <search-form v-if="searchFields" :search-fields="searchFields" />
       </div>
       <div class="box-toolbar-button">
+        <el-button
+          :disabled="!$can('user/create')"
+          type="primary"
+          size="medium"
+          @click.native="handleUserCreate()"
+        >
+          新建会员
+        </el-button>
+        &nbsp;&nbsp;
         <export-button
           v-if="$can('user/export')"
           :disabled="loading"
@@ -15,15 +24,6 @@
         >
           会员导出
         </export-button>
-        &nbsp;&nbsp;
-        <el-button
-          :disabled="!$can('user/create')"
-          type="primary"
-          size="medium"
-          @click.native="handleUserCreate()"
-        >
-          新建会员
-        </el-button>
       </div>
     </div>
     <el-table v-loading="loading" :data="users">
@@ -95,6 +95,7 @@
       </el-table-column>
     </el-table>
     <pagination :pages="pages"></pagination>
+    <modal-router-view></modal-router-view>
   </div>
 </template>
 
@@ -117,6 +118,9 @@ export default {
       pages: null,
     }
   },
+  modals: {
+    UserCreate: () => import('@admin/views/user/Create'),
+  },
   watch: {
     $route(to, from) {
       if (to.path === from.path) {
@@ -129,7 +133,7 @@ export default {
   },
   methods: {
     handleUserCreate() {
-      this.$router.push({ path: '/user/create' })
+      this.$modalRouter.push({ name: 'user-create' })
     },
     handleUserEdit(user) {
       this.$router.push({ path: '/user/edit', query: { id: user.id } })

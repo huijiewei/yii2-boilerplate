@@ -23,6 +23,7 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch('auth/initClientId')
+    this.$store.dispatch('tabs/initViewedTabs')
   },
   data() {
     return {
@@ -95,7 +96,7 @@ export default {
       if (spinner) {
         spinner.remove()
       }
-    }, 900)
+    }, 500)
 
     this.storeSubscribe = this.$store.subscribe((mutation) => {
       if (mutation.type === 'TOGGLE_ERROR') {

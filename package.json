@@ -19,7 +19,6 @@
     "element-ui": "^2.13.0",
     "perfect-scrollbar": "^1.5.0",
     "vue": "^2.6.11",
-    "vue-context": "^5.1.0",
     "vue-cropperjs": "^4.0.1",
     "vue-modal-router": "^0.6.1",
     "vue-router": "^3.1.6",

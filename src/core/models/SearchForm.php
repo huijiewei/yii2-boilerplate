@@ -54,6 +54,8 @@ abstract class SearchForm extends Model
             'query' => $this->searchQuery(),
             'pagination' => $this->isPagination ? [
                 'defaultPageSize' => $this->defaultPageSize,
+                'pageSizeParam' => 'size',
+                'pageSizeLimit' => [1, 200]
             ] : false,
         ]);
     }

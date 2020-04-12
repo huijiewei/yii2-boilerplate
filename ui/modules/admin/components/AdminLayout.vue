@@ -23,7 +23,7 @@
         <header-tab></header-tab>
       </header>
       <main class="ag-main">
-        <transition name="fade-transform" mode="out-in">
+        <transition mode="out-in" name="fade-transform">
           <keep-alive>
             <router-view v-if="isRouterAlive" />
           </keep-alive>
@@ -81,6 +81,28 @@ export default {
 $asideWidth: 220px;
 $asideCollapsedWidth: 60px;
 $asideBackgroundColor: #2c343f;
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+/*fade-transform*/
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.3s;
+}
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
 
 .ag {
   display: flex;
@@ -159,7 +181,7 @@ $asideBackgroundColor: #2c343f;
   .ag-header {
     position: fixed;
     width: calc(100% - #{$asideWidth});
-    z-index: 10;
+    z-index: 3000;
     right: 0;
     overflow-x: hidden;
 
