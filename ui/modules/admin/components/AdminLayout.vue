@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     reload() {
-      console.log('adminLayout reload')
       this.isRouterAlive = false
       this.$nextTick(() => (this.isRouterAlive = true))
     },

@@ -13,6 +13,7 @@ import adminGroupRoute from './admin/group'
 import userRoute from './user/user'
 import shopCategoryRoute from './shop/category'
 import shopBrandRoute from './shop/brand'
+import shopProductRoute from './shop/product'
 
 import AdminLayout from '@admin/components/AdminLayout'
 
@@ -37,6 +38,7 @@ const routes = [
         alias: '',
         component: siteIndex,
         meta: {
+          affix: true,
           breadcrumb: {
             title: '首页',
           },
@@ -57,6 +59,7 @@ const routes = [
       ...userRoute,
       ...shopCategoryRoute,
       ...shopBrandRoute,
+      ...shopProductRoute,
       {
         path: '*',
         component: notFound,

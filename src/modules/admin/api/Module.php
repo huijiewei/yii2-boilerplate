@@ -37,6 +37,7 @@ class Module extends AbstractModule
             'POST <controller>s' => '<controller>/create',
             'PUT <controller>s/<id:\d+>' => '<controller>/edit',
             'DELETE <controller>s/<id:\d+>' => '<controller>/delete',
+            '<controller>s/<action>' => '<controller>/<action>',
             '<controller>/<action>' => '<controller>/<action>',
         ];
     }
