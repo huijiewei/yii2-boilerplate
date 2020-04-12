@@ -1,17 +1,16 @@
 <template>
   <div id="app">
     <router-view />
+    <div v-if="isShow">SHOW TEXT</div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  spinnerTimeoutId: null,
+  spinnerTimeout: null,
   mounted() {
-    document.body.classList.add('ag')
-
-    this.spinnerTimeoutId = setTimeout(() => {
+    this.spinnerTimeout = setTimeout(() => {
       const spinner = document.getElementById('spinner')
 
       if (spinner) {
@@ -19,20 +18,19 @@ export default {
       }
     }, 900)
   },
+  computed: {
+    isShow: function () {
+      return this.$store.getters['isShow']
+    },
+  },
   destroyed() {
-    if (this.spinnerTimeoutId) {
-      clearTimeout(this.spinnerTimeoutId)
+    if (this.spinnerTimeout) {
+      clearTimeout(this.spinnerTimeout)
     }
   },
 }
 </script>
 
 <style lang="scss">
-body {
-  color: #647279;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, SimSun, sans-serif;
-}
-
 @import '../../core/assets/styles/base.scss';
 </style>

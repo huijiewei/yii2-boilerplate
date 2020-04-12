@@ -97,4 +97,20 @@ class ShopBrand extends ActiveRecord
             }
         }
     }
+
+    public function beforeDelete()
+    {
+        if (ShopProduct::find()->with(['shopBrandId' => $this->id])->exists()) {
+            return false;
+        }
+
+        return parent::beforeDelete();
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        ShopBrandCategory::deleteAll(['shopBrandId' => $this->id]);
+    }
 }

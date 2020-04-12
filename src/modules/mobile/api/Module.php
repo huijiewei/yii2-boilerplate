@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\api;
+namespace app\modules\mobile\api;
 
 use app\core\components\AbstractModule;
 use app\core\components\WebRequest;
@@ -21,7 +21,7 @@ class Module extends AbstractModule
 
     public static function getRoutePrefix()
     {
-        return 'admin/api';
+        return 'mobile/api';
     }
 
     public static function getRouteRules()
@@ -77,8 +77,8 @@ class Module extends AbstractModule
                     'class' => SwaggerController::class,
                     'apiOptions' => [
                         'scanDir' => [
-                            '@app/modules/admin/api/Swagger.php',
-                            '@app/modules/admin/api/controllers'
+                            '@app/modules/mobile/api/Swagger.php',
+                            '@app/modules/mobile/api/controllers'
                         ],
                         'defines' => [
                             'API_HOST' => \Yii::$app->getRequest()->getHostName(),
@@ -95,6 +95,6 @@ class Module extends AbstractModule
 
     public static function getUrlPrefix()
     {
-        return 'admin/api';
+        return 'mobile/api';
     }
 }

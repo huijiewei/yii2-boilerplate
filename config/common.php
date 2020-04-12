@@ -16,6 +16,7 @@ return [
         'log',
         \app\modules\admin\ModuleBootstrap::class,
         \app\modules\wechat\ModuleBootstrap::class,
+        \app\modules\mobile\ModuleBootstrap::class,
         \app\modules\website\ModuleBootstrap::class,
     ],
 
@@ -27,6 +28,7 @@ return [
     'modules' => [
         \app\modules\admin\Module::getModuleId() => \app\modules\admin\Module::class,
         \app\modules\wechat\Module::getModuleId() => \app\modules\wechat\Module::class,
+        \app\modules\mobile\Module::getModuleId() => \app\modules\mobile\Module::class,
         \app\modules\website\Module::getModuleId() => \app\modules\website\Module::class,
     ],
 

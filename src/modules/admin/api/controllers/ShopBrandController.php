@@ -5,6 +5,7 @@ namespace app\modules\admin\api\controllers;
 use app\core\models\shop\ShopBrand;
 use app\modules\admin\api\Controller;
 use app\modules\admin\api\models\ShopBrandSearchForm;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 class ShopBrandController extends Controller
@@ -60,6 +61,17 @@ class ShopBrandController extends Controller
         }
 
         return $shopBrand->toArray([], ['shopCategories.parents']);
+    }
+
+    public function actionDelete($id)
+    {
+        $shopBrand = $this->getShopBrandById($id);
+
+        if (!$shopBrand->delete()) {
+            throw new ForbiddenHttpException('商品品牌删除失败');
+        }
+
+        return $this->message('商品品牌删除成功');
     }
 
     public function verbs()

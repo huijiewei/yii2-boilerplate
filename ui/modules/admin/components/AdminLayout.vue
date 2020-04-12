@@ -25,7 +25,7 @@
       <main class="ag-main">
         <transition name="fade-transform" mode="out-in">
           <keep-alive>
-            <router-view :key="$route.path" v-if="isRouterAlive" />
+            <router-view v-if="isRouterAlive" />
           </keep-alive>
         </transition>
       </main>
@@ -44,19 +44,9 @@ import HeaderTab from '@admin/components/HeaderTab'
 export default {
   name: 'AdminLayout',
   components: { HeaderTab, PrefectScrollbar, HeaderNav, SiderMenu },
-  provide() {
-    return {
-      reload: this.reload,
-    }
-  },
-  data() {
-    return {
-      isRouterAlive: true,
-    }
-  },
   computed: {
     isCollapsed() {
-      return this.$store.getters.isSidebarCollapsed
+      return this.$store.getters['isSidebarCollapsed']
     },
   },
   async beforeCreate() {
@@ -68,8 +58,19 @@ export default {
       }
     }
   },
+  provide() {
+    return {
+      reload: this.reload,
+    }
+  },
+  data() {
+    return {
+      isRouterAlive: true,
+    }
+  },
   methods: {
     reload() {
+      console.log('adminLayout reload')
       this.isRouterAlive = false
       this.$nextTick(() => (this.isRouterAlive = true))
     },

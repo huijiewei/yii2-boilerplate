@@ -34,10 +34,9 @@ const routes = [
     children: [
       {
         path: 'home',
-        component: siteIndex,
         alias: '',
+        component: siteIndex,
         meta: {
-          affix: true,
           breadcrumb: {
             title: '首页',
           },
@@ -46,7 +45,6 @@ const routes = [
       {
         path: 'profile',
         component: siteProfile,
-        alias: '',
         meta: {
           breadcrumb: {
             title: '个人资料',

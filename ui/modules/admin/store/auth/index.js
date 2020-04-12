@@ -20,9 +20,6 @@ const auth = {
         accessToken: state.accessToken,
       }
     },
-    getLoginAction: (state) => {
-      return state.loginAction
-    },
     getCurrentUser: (state) => {
       return state.currentUser
     },

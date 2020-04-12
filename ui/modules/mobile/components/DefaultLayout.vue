@@ -1,8 +1,6 @@
 <template>
   <div class="ag-layout">
-    <div class="ag-content">
-      <router-view />
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 

@@ -49,7 +49,7 @@ class ShopCategoryController extends Controller
         $shopCategory = $this->getShopCategoryById($id);
 
         if (!$shopCategory->delete()) {
-            throw new ForbiddenHttpException('分类删除失败');
+            throw new ForbiddenHttpException('商品分类删除失败');
         }
 
         return $this->message('商品分类删除成功');

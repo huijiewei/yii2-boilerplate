@@ -16,8 +16,8 @@ const routes = [
     children: [
       {
         path: 'home',
-        component: siteIndex,
         alias: '',
+        component: siteIndex,
         meta: {
           breadcrumb: {
             title: '首页',
@@ -33,7 +33,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  base: '/admin',
+  base: '/mobile',
   mode: 'history',
   routes: routes,
   scrollBehavior: (to, from, savedPosition) => {

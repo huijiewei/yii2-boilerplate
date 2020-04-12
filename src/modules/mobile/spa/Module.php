@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\spa;
+namespace app\modules\mobile\spa;
 
 use app\core\components\AbstractModule;
 
@@ -15,12 +15,12 @@ class Module extends AbstractModule
 
     public static function getUrlPrefix()
     {
-        return 'admin';
+        return 'mobile';
     }
 
     public static function getRoutePrefix()
     {
-        return 'admin/spa';
+        return 'mobile/spa';
     }
 
     public static function getUserComponent()

@@ -113,7 +113,7 @@ export default {
     },
   },
   watch: {
-    searchFields: function () {
+    searchFields: () => {
       this.updateFormModel()
       this.updatePickerOptions()
     },

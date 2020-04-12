@@ -53,7 +53,7 @@
 <script>
 export default {
   name: 'HeaderTab',
-  mounted() {
+  created() {
     this.addTab()
   },
   watch: {
@@ -73,16 +73,21 @@ export default {
   },
   methods: {
     addTab() {
-      const hasTitleRoute = this.$route.matched.reverse().find((route) => {
-        const breadcrumb = route.meta.breadcrumb
+      let routeTitle = '无标题'
 
-        return breadcrumb && breadcrumb.title && breadcrumb.title.length > 0
-      })
+      for (let i = this.$route.matched.length - 1; i >= 0; i--) {
+        const breadcrumb = this.$route.matched[i].meta.breadcrumb
+
+        if (breadcrumb && breadcrumb.title && breadcrumb.title.length > 0) {
+          routeTitle = breadcrumb.title
+          break
+        }
+      }
 
       this.$store.dispatch('tabs/addViewedTab', {
         path: this.$route.path,
         query: this.$route.query,
-        title: hasTitleRoute ? hasTitleRoute.meta.breadcrumb.title : '无标题',
+        title: routeTitle,
       })
     },
     isActive(tab) {

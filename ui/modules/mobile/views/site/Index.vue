@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <br />
-    <h4>特点</h4>
+    <h4>{{ message }}</h4>
     <ol>
       <li>
         <p>模块化开发模版</p>
@@ -27,6 +27,7 @@
         </p>
       </li>
     </ol>
+    <button @click="handleClick()">SHOW</button>
   </div>
 </template>
 
@@ -37,9 +38,18 @@ export default {
   },
   data() {
     return {
-      message: '',
+      message: '123',
     }
   },
-  created() {},
+  created() {
+    console.log('created index')
+  },
+  methods: {
+    handleClick() {
+      this.$store.dispatch('setShow', true)
+
+      this.message = '222'
+    },
+  },
 }
 </script>
