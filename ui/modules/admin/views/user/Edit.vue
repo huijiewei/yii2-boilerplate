@@ -28,16 +28,23 @@ export default {
       user: null,
     }
   },
+  async beforeRouteUpdate(to, from, next) {
+    await this.getUser(to.query.id)
+    next()
+  },
   async created() {
-    const { data } = await flatry(
-      UserService.view(this.$router.currentRoute.query.id)
-    )
-
-    if (data) {
-      this.user = data
-    }
+    await this.getUser(this.$route.query.id)
   },
   methods: {
+    async getUser(id) {
+      this.user = null
+
+      const { data } = await flatry(UserService.view(id))
+
+      if (data) {
+        this.user = data
+      }
+    },
     async editUser(user, done, fail, always) {
       const { data, error } = await flatry(UserService.edit(user))
 

@@ -78,7 +78,7 @@ const routes = [
 
 const router = new VueRouter({
   base: '/admin',
-  mode: 'history',
+  //mode: 'history',
   routes: routes,
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {

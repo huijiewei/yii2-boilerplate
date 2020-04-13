@@ -41,14 +41,16 @@ export default {
   },
   async beforeRouteUpdate(to, from, next) {
     this.shopCategory = null
-    await this.getShopCategory(to.params.id)
+    await this.getShopCategory(to.query.id)
     next()
   },
   async created() {
-    await this.getShopCategory(this.$router.currentRoute.params.id)
+    await this.getShopCategory(this.$route.query.id)
   },
   methods: {
     async getShopCategory(id) {
+      this.shopCategory = null
+
       const { data } = await flatry(ShopCategoryService.view(id))
 
       if (data) {

@@ -59,7 +59,7 @@ const auth = {
     },
   },
   actions: {
-    initClientId({ commit }) {
+    init() {
       if (window.localStorage.getItem(clientIdKey) == null) {
         window.localStorage.setItem(
           clientIdKey,

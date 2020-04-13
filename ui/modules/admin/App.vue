@@ -22,8 +22,8 @@ export default {
     },
   },
   beforeCreate() {
-    this.$store.dispatch('auth/initClientId')
-    this.$store.dispatch('tabs/initViewedTabs')
+    this.$store.dispatch('auth/init')
+    this.$store.dispatch('tabs/init')
   },
   data() {
     return {

@@ -5,10 +5,18 @@ const tabs = {
   state: {
     viewed: [],
     cached: [],
+    current: null,
   },
-  getters: {},
+  getters: {
+    getViewed: (state) => {
+      return state.viewed
+    },
+    getCurrent: (state) => {
+      return state.current
+    },
+  },
   mutations: {
-    ADD_VIEWED_TAB: (state, tab) => {
+    UPDATE_VIEWED: (state, tab) => {
       const matchIndex = state.viewed.findIndex(
         (view) => view.path === tab.path
       )
@@ -16,12 +24,16 @@ const tabs = {
       if (matchIndex > -1) {
         state.viewed[matchIndex].query = tab.query
       } else {
-        state.viewed.push(tab)
+        const currentIndex = state.viewed.findIndex(
+          (view) => view.path === (state.current ? state.current.path : '')
+        )
+
+        state.viewed.splice(currentIndex + 1, 0, tab)
       }
 
       window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
     },
-    DEL_VIEWED_TAB: (state, tab) => {
+    DELETE_VIEWED: (state, tab) => {
       for (const [index, view] of state.viewed.entries()) {
         if (view.path === tab.path) {
           state.viewed.splice(index, 1)
@@ -31,37 +43,70 @@ const tabs = {
 
       window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
     },
-    INIT_VIEWED_TABS: (state) => {
+    INIT_VIEWED: (state) => {
       const viewedTabs = window.localStorage.getItem(viewedTabsKey)
 
       if (viewedTabs && viewedTabs.length > 0) {
         state.viewed = JSON.parse(viewedTabs)
       }
     },
+    UPDATE_CURRENT: (state, tab) => {
+      state.current = tab
+    },
+    DELETE_OTHER_VIEWED: (state, tab) => {
+      state.viewed = state.viewed.filter((view) => {
+        return view.affix || view.path === tab.path
+      })
+
+      window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
+    },
+    DELETE_ALL_VIEWED: (state) => {
+      state.viewed = state.viewed.filter((view) => {
+        return view.affix
+      })
+
+      window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
+    },
   },
   actions: {
-    initViewedTabs({ commit }) {
-      commit('INIT_VIEWED_TABS')
+    init({ commit }) {
+      commit('INIT_VIEWED')
     },
-    addViewedTab({ commit }, tab) {
-      commit('ADD_VIEWED_TAB', tab)
+    current({ commit }, tab) {
+      commit('UPDATE_CURRENT', tab)
     },
-    delViewedTab({ commit, state }, tab) {
+    open({ commit }, tab) {
+      commit('UPDATE_VIEWED', tab)
+      commit('UPDATE_CURRENT', tab)
+    },
+    closeOther({ commit }, tab) {
+      commit('DELETE_OTHER_VIEWED', tab)
+    },
+    closeAll({ commit, state }) {
+      commit('DELETE_ALL_VIEWED')
+
+      const next = state.viewed.find((view) => view.affix)
+
+      return new Promise((resolve) => {
+        resolve(next)
+      })
+    },
+    close({ commit, state }, tab) {
       const matchIndex = state.viewed.findIndex(
         (view) => view.path === tab.path
       )
 
       let next = null
 
-      if (matchIndex + 1 in state.viewed) {
-        next = state.viewed[matchIndex + 1]
-      } else if (matchIndex - 1 in state.viewed) {
+      if (matchIndex - 1 in state.viewed) {
         next = state.viewed[matchIndex - 1]
+      } else if (matchIndex + 1 in state.viewed) {
+        next = state.viewed[matchIndex + 1]
       }
 
-      return new Promise((resolve) => {
-        commit('DEL_VIEWED_TAB', tab)
+      commit('DELETE_VIEWED', tab)
 
+      return new Promise((resolve) => {
         resolve(next)
       })
     },

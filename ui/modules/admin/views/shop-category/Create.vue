@@ -45,7 +45,7 @@ export default {
     next()
   },
   async created() {
-    await this.getShopCategoryRoute(this.$router.currentRoute.query.parentId)
+    await this.getShopCategoryRoute(this.$route.query.parentId)
   },
   methods: {
     async getShopCategoryRoute(id) {

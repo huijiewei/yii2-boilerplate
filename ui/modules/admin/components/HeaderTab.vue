@@ -7,27 +7,28 @@
       <i class="el-icon-arrow-right"></i>
     </div>
     <div ref="tabScroll" class="tab-scroll" @wheel.prevent="handleWheel">
-      <div
+      <ul
         ref="tabContent"
         class="tab-list"
         :style="{ left: tabContentLeft + 'px' }"
       >
-        <el-tag
-          ref="tabs"
-          :data-tab="tab"
+        <li
           v-for="(tab, index) in viewedTabs"
-          :key="'tab-' + index"
-          @click="handleClick(tab)"
-          :closable="!tab.affix"
-          size="medium"
-          @close="closeTab(tab)"
-          :effect="isActive(tab) ? 'dark' : 'plain'"
-          :disable-transitions="true"
+          :ref="'tabs-' + index"
+          class="tab-item"
+          :class="isActive(tab) ? 'active' : ''"
+          :key="tab.path"
+          @click="openTab(tab)"
           @contextmenu.prevent="handleContextMenu(tab, $event)"
         >
-          {{ tab.title }}
-        </el-tag>
-      </div>
+          <span>{{ tab.title }}</span>
+          <i
+            v-if="!tab.affix"
+            class="el-icon-close el-icon--right"
+            @click.stop="closeTab(tab)"
+          ></i>
+        </li>
+      </ul>
     </div>
     <div
       class="tab-close tab-item"
@@ -65,7 +66,7 @@
         <i class="el-icon-circle-close"></i>
         关闭其他
       </li>
-      <li>
+      <li @click="handleCloseAll">
         <i class="el-icon-error"></i>
         全部关闭
       </li>
@@ -98,7 +99,10 @@ export default {
   },
   computed: {
     viewedTabs() {
-      return this.$store.state.tabs.viewed
+      return this.$store.getters['tabs/getViewed']
+    },
+    currentTab() {
+      return this.$store.getters['tabs/getCurrent']
     },
   },
   data() {
@@ -109,7 +113,6 @@ export default {
       contextMenuTop: 0,
       contextMenuTab: null,
       affixTabs: [],
-      currentTab: null,
     }
   },
   methods: {
@@ -151,43 +154,55 @@ export default {
       return tabs
     },
     initTabs() {
-      const affixTabs = (this.affixTags = this.filterAffixTabs(
+      const affixTabs = (this.affixTabs = this.filterAffixTabs(
         this.$router.options.routes
       ))
 
       for (const tab of affixTabs) {
-        this.$store.dispatch('tabs/addViewedTab', tab)
+        this.$store.dispatch('tabs/open', tab)
       }
     },
     moveToCurrentTab() {
       this.$nextTick(() => {
-        this.$refs.tabs.forEach((tab, index) => {
-          if (this.isActive(tab.$attrs['data-tab'])) {
-            const tabElem = tab.$el
+        this.viewedTabs.forEach((tab, index) => {
+          if (this.isActive(tab)) {
+            const elem = this.$refs['tabs-' + index][0]
 
             const scrollWidth = this.$refs.tabScroll.offsetWidth
             const contentWidth = this.$refs.tabContent.offsetWidth
 
+            console.log(
+              'scrollWidth:' + scrollWidth,
+              'contentWidth:' + contentWidth,
+              'tabOffsetLeft:' + elem.offsetLeft,
+              'tabOffsetWidth:' + elem.offsetWidth,
+              'tabContentLeft:' + this.tabContentLeft
+            )
+
             if (contentWidth < scrollWidth) {
               this.tabContentLeft = 0
-            } else if (tabElem.offsetLeft < -this.tabContentLeft) {
-              this.tabContentLeft = -tabElem.offsetLeft + 12
+            } else if (elem.offsetLeft < -this.tabContentLeft) {
+              // 标签在可视区域左侧
+              this.tabContentLeft = -elem.offsetLeft
             } else if (
-              tabElem.offsetLeft > -this.tabContentLeft &&
-              tabElem.offsetLeft + tabElem.offsetWidth <
-                -this.tabContentLeft + scrollWidth - 12
+              elem.offsetLeft > -this.tabContentLeft &&
+              elem.offsetLeft + elem.offsetWidth <
+                -this.tabContentLeft + scrollWidth
             ) {
+              // 标签在可视区域
               this.tabContentLeft = Math.min(
                 0,
-                scrollWidth - tabElem.offsetWidth - tabElem.offsetLeft - 12
+                scrollWidth - elem.offsetWidth - elem.offsetLeft
               )
             } else {
+              // 标签在可视区域右侧
               this.tabContentLeft = -(
-                tabElem.offsetLeft -
-                (scrollWidth - tabElem.offsetWidth) +
-                12
+                elem.offsetLeft -
+                (scrollWidth - elem.offsetWidth)
               )
             }
+
+            console.log(this.tabContentLeft)
           }
         })
       })
@@ -221,9 +236,7 @@ export default {
         affix: route.meta && route.meta.affix,
       }
 
-      this.currentTab = tab
-
-      this.$store.dispatch('tabs/addViewedTab', tab)
+      this.$store.dispatch('tabs/open', tab)
     },
     isActive(tab) {
       return tab.path === this.currentTab.path
@@ -251,12 +264,25 @@ export default {
           this.tabContentLeft = 0
         }
       }
-
-      console.log(this.tabContentLeft)
     },
-    handleCloseOther() {},
-    handleClick(tab) {
-      this.currentTab = tab
+    handleCloseOther() {
+      const tab = this.contextMenuTab ? this.contextMenuTab : this.currentTab
+
+      console.log(tab)
+      console.log('close other')
+      this.$store.dispatch('tabs/closeOther', tab)
+
+      this.openTab(tab)
+    },
+    handleCloseAll() {
+      this.$store.dispatch('tabs/closeAll').then((next) => {
+        if (next !== null) {
+          this.openTab(next)
+        }
+      })
+    },
+    openTab(tab) {
+      this.$store.dispatch('tabs/current', tab)
 
       this.$router.push({
         path: tab.path,
@@ -264,15 +290,10 @@ export default {
       })
     },
     closeTab(tab) {
-      this.$store.dispatch('tabs/delViewedTab', tab).then((next) => {
+      this.$store.dispatch('tabs/close', tab).then((next) => {
         if (this.isActive(tab)) {
           if (next !== null) {
-            this.currentTab = next
-
-            this.$router.push({
-              path: next.path,
-              query: next.query,
-            })
+            this.openTab(next)
           }
         }
       })
@@ -330,22 +351,31 @@ export default {
     padding: 0;
     transition: left 0.5s;
 
-    .el-tag {
+    .tab-item {
       cursor: pointer;
       border: none;
-      font-size: 13px;
-      line-height: 28px;
       color: #6f727d;
+      display: inline-block;
 
       &:hover {
         color: #409eff;
       }
 
-      &.el-tag--dark {
+      &.active {
+        background: #3a8ee6;
         color: #ffffff;
 
         &:hover {
-          color: #ecf5ff;
+          span {
+            color: #ebeef5;
+          }
+        }
+
+        i {
+          border-radius: 50%;
+          &:hover {
+            background-color: #3a98f0;
+          }
         }
       }
 
