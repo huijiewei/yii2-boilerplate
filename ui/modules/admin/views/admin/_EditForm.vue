@@ -30,7 +30,7 @@
         <el-input
           v-model.trim="formModel.password"
           type="password"
-          auto-complete="new-password"
+          autocomplete="new-password"
           show-password
         />
       </el-col>
@@ -47,7 +47,7 @@
         <el-input
           v-model.trim="formModel.passwordConfirm"
           type="password"
-          auto-complete="new-password"
+          autocomplete="new-password"
           show-password
         />
       </el-col>
@@ -172,6 +172,10 @@ export default {
         ? this.$store.getters['auth/getCurrentUser'].id
         : 0
     },
+  },
+  activated() {
+    this.formModel.password = ''
+    this.formModel.passwordConfirm = ''
   },
   async mounted() {
     this.loadAdminGroups()

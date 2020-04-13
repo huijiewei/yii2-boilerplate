@@ -33,7 +33,7 @@ export default {
   },
   inject: ['historyBack'],
   async created() {
-    const { data } = await flatry(AdminService.view(this.$route.query.id))
+    const { data } = await flatry(AdminService.view(this.$route.params.id))
 
     if (data) {
       this.admin = data
@@ -48,7 +48,6 @@ export default {
 
         this.$message.success('管理员编辑成功')
 
-        this.$refs.form.init()
         this.historyBack(true)
       }
 
