@@ -19,16 +19,11 @@
 
 <script>
 export default {
-  name: 'Error',
+  name: 'NotFound',
+  inject: ['historyBack'],
   methods: {
     back() {
-      if (this.$routerHistory.hasPrevious()) {
-        this.$router.replace({
-          path: this.$routerHistory.previous().path,
-        })
-      } else {
-        this.$router.push('/home')
-      }
+      this.historyBack(true)
     },
   },
 }

@@ -19,7 +19,6 @@ import AdminForm from '@admin/views/admin/_EditForm'
 import AdminService from '@admin/services/AdminService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
-import RouteBackMixin from '@admin/mixins/RouteBackMixin'
 
 export default {
   components: { PlaceholderForm, AdminForm },
@@ -29,7 +28,7 @@ export default {
       admin: null,
     }
   },
-  mixins: [RouteBackMixin],
+  inject: ['historyBack'],
   created() {
     this.admin = {
       phone: '',
@@ -49,7 +48,7 @@ export default {
         this.$message.success('新建管理员成功')
 
         this.$refs.form.init()
-        this.routeBack(true)
+        this.historyBack(true)
       }
 
       if (error) {

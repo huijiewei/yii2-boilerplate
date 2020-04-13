@@ -19,7 +19,6 @@ import AdminGroupForm from '@admin/views/admin-group/_EditForm'
 import AdminGroupService from '@admin/services/AdminGroupService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
-import RouteBackMixin from '@admin/mixins/RouteBackMixin'
 
 export default {
   components: { PlaceholderForm, AdminGroupForm },
@@ -35,7 +34,7 @@ export default {
       permissions: [],
     }
   },
-  mixins: [RouteBackMixin],
+  inject: ['historyBack'],
   methods: {
     async createAdminGroup(adminGroup, done, fail, always) {
       const { data, error } = await flatry(AdminGroupService.create(adminGroup))
@@ -46,7 +45,7 @@ export default {
         this.$message.success('新建管理组成功')
 
         this.$refs.form.init()
-        this.routeBack(true)
+        this.historyBack(true)
       }
 
       if (error) {

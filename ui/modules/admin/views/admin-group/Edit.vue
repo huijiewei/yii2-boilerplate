@@ -19,7 +19,6 @@ import AdminGroupForm from '@admin/views/admin-group/_EditForm'
 import AdminGroupService from '@admin/services/AdminGroupService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
-import RouteBackMixin from '@admin/mixins/RouteBackMixin'
 
 export default {
   components: { PlaceholderForm, AdminGroupForm },
@@ -29,7 +28,7 @@ export default {
       adminGroup: null,
     }
   },
-  mixins: [RouteBackMixin],
+  inject: ['historyBack'],
   async created() {
     await this.view(this.$route.params.id)
   },
@@ -51,7 +50,7 @@ export default {
 
         this.$message.success('管理组编辑成功')
 
-        this.routeBack(true)
+        this.historyBack(true)
       }
 
       if (error) {

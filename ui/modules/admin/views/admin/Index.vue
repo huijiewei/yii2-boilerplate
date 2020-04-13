@@ -98,7 +98,7 @@ export default {
       this.$router.push({ path: '/admin/create' })
     },
     handleAdminEdit(admin) {
-      this.$router.push({ path: '/admin/edit', query: { id: admin.id } })
+      this.$router.push({ name: 'admin-edit', params: { id: admin.id } })
     },
     handleAdminDelete(admin) {
       this.$deleteDialog({

@@ -82,12 +82,35 @@ export default {
             this.$store.dispatch('clearError')
 
             if (error.historyBack === true && !isHome) {
-              this.$router.back()
+              this.historyBack(true)
             }
           },
         })
       }
     },
+    async historyBack(closeTab = false) {
+      if (closeTab) {
+        this.$store
+          .dispatch('tabs/close', { path: this.$route.path })
+          .then((next) => {
+            this.routerReplace(next)
+          })
+      } else {
+        this.routerReplace({ path: '/home' })
+      }
+    },
+    routerReplace(route) {
+      if (this.$routerHistory.hasPrevious()) {
+        this.$router.replace(this.$routerHistory.previous())
+      } else {
+        this.$router.replace(route)
+      }
+    },
+  },
+  provide() {
+    return {
+      historyBack: this.historyBack,
+    }
   },
   mounted() {
     this.spinnerTimeout = setTimeout(() => {
