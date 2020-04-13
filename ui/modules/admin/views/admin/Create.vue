@@ -5,6 +5,7 @@
     </div>
     <admin-form
       v-if="admin"
+      ref="form"
       :submit-text="pageTitle"
       :admin="admin"
       @on-submit="createAdmin"
@@ -18,6 +19,7 @@ import AdminForm from '@admin/views/admin/_EditForm'
 import AdminService from '@admin/services/AdminService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
+import RouteBackMixin from '@admin/mixins/RouteBackMixin'
 
 export default {
   components: { PlaceholderForm, AdminForm },
@@ -27,6 +29,7 @@ export default {
       admin: null,
     }
   },
+  mixins: [RouteBackMixin],
   created() {
     this.admin = {
       phone: '',
@@ -44,7 +47,9 @@ export default {
         done()
 
         this.$message.success('新建管理员成功')
-        await this.$router.push({ path: '/admin' })
+
+        this.$refs.form.init()
+        this.routeBack(true)
       }
 
       if (error) {

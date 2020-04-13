@@ -19,6 +19,7 @@ import AdminForm from '@admin/views/admin/_EditForm'
 import AdminService from '@admin/services/AdminService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
+import RouteBackMixin from '@admin/mixins/RouteBackMixin'
 
 export default {
   components: { PlaceholderForm, AdminForm },
@@ -31,6 +32,7 @@ export default {
       admin: null,
     }
   },
+  mixins: [RouteBackMixin],
   async created() {
     const { data } = await flatry(
       AdminService.view(this.$router.currentRoute.query.id)
@@ -48,6 +50,9 @@ export default {
         done()
 
         this.$message.success('管理员编辑成功')
+
+        this.$refs.form.init()
+        this.routeBack(true)
       }
 
       if (error) {

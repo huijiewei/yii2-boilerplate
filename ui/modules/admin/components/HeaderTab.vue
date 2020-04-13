@@ -290,9 +290,7 @@ export default {
     closeTab(tab) {
       this.$store.dispatch('tabs/close', tab).then((next) => {
         if (this.isActive(tab)) {
-          if (next !== null) {
-            this.openTab(next)
-          }
+          this.openTab(next)
         }
       })
     },

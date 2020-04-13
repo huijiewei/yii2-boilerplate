@@ -58,7 +58,7 @@ export default {
         }
       }
 
-      return ''
+      return this.$route.path
     },
   },
 }

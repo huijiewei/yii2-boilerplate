@@ -10,7 +10,7 @@ use yii\base\Action;
  * @property Controller $controller
  * @method run()
  *
- * @package app\modules\admin\api
+ * @package app\modules\mobile\api
  */
 abstract class ControllerAction extends Action
 {

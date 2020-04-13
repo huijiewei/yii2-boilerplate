@@ -4,12 +4,14 @@
       <i class="el-icon-s-home" />&nbsp;
       <span>管理后台</span>
     </el-breadcrumb-item>
-    <template v-for="(breadcrumb, index) in breadcrumbs">
-      <el-breadcrumb-item :key="index" :to="{ path: breadcrumb.path }">
-        <bp-icon v-if="breadcrumb.icon" :type="breadcrumb.icon" />
-        <span>{{ breadcrumb.title }}</span>
-      </el-breadcrumb-item>
-    </template>
+    <el-breadcrumb-item
+      v-for="(breadcrumb, index) in breadcrumbs"
+      :key="index"
+      :to="{ path: breadcrumb.path }"
+    >
+      <bp-icon v-if="breadcrumb.icon" :type="breadcrumb.icon" />
+      <span>{{ breadcrumb.title }}</span>
+    </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 

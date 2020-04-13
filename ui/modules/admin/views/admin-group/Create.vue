@@ -5,6 +5,7 @@
     </div>
     <admin-group-form
       v-if="adminGroup"
+      ref="form"
       :submit-text="pageTitle"
       :admin-group="adminGroup"
       @on-submit="createAdminGroup"
@@ -18,6 +19,7 @@ import AdminGroupForm from '@admin/views/admin-group/_EditForm'
 import AdminGroupService from '@admin/services/AdminGroupService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
+import RouteBackMixin from '@admin/mixins/RouteBackMixin'
 
 export default {
   components: { PlaceholderForm, AdminGroupForm },
@@ -27,9 +29,13 @@ export default {
       adminGroup: null,
     }
   },
-  async created() {
-    this.adminGroup = { name: '' }
+  created() {
+    this.adminGroup = {
+      name: '',
+      permissions: [],
+    }
   },
+  mixins: [RouteBackMixin],
   methods: {
     async createAdminGroup(adminGroup, done, fail, always) {
       const { data, error } = await flatry(AdminGroupService.create(adminGroup))
@@ -38,7 +44,9 @@ export default {
         done()
 
         this.$message.success('新建管理组成功')
-        await this.$router.push({ path: '/admin-group' })
+
+        this.$refs.form.init()
+        this.routeBack(true)
       }
 
       if (error) {

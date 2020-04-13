@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\api\commands;
+namespace app\modules\mobile\api\commands;
 
 use yii\console\Controller;
 use yii\helpers\Url;

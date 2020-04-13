@@ -8,7 +8,7 @@
       :submit-text="pageTitle"
       :admin-group="adminGroup"
       :is-edit="true"
-      @on-submit="editAdminGroup"
+      @on-submit="edit"
     />
     <placeholder-form v-else :rows="3" />
   </div>
@@ -19,6 +19,7 @@ import AdminGroupForm from '@admin/views/admin-group/_EditForm'
 import AdminGroupService from '@admin/services/AdminGroupService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
+import RouteBackMixin from '@admin/mixins/RouteBackMixin'
 
 export default {
   components: { PlaceholderForm, AdminGroupForm },
@@ -28,23 +29,29 @@ export default {
       adminGroup: null,
     }
   },
+  mixins: [RouteBackMixin],
   async created() {
-    const { data } = await flatry(
-      AdminGroupService.view(this.$router.currentRoute.query.id)
-    )
-
-    if (data) {
-      this.adminGroup = data
-    }
+    await this.view(this.$route.params.id)
   },
   methods: {
-    async editAdminGroup(adminGroup, done, fail, always) {
+    async view(id) {
+      this.adminGroup = null
+
+      const { data } = await flatry(AdminGroupService.view(id))
+
+      if (data) {
+        this.adminGroup = data
+      }
+    },
+    async edit(adminGroup, done, fail, always) {
       const { data, error } = await flatry(AdminGroupService.edit(adminGroup))
 
       if (data) {
         done()
 
         this.$message.success('管理组编辑成功')
+
+        this.routeBack(true)
       }
 
       if (error) {

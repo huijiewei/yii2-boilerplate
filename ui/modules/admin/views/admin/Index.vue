@@ -84,7 +84,7 @@ export default {
       admins: [],
     }
   },
-  async created() {
+  async activated() {
     const { data } = await flatry(AdminService.all())
 
     if (data) {

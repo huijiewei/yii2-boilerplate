@@ -97,7 +97,7 @@ class Admin extends Identity
 
     public function can($actionId)
     {
-        return in_array($actionId, $this->getGroupPermissions());
+        return AdminGroup::checkUrlInPermissions($actionId, $this->getGroupPermissions());
     }
 
     public function getGroupPermissions()

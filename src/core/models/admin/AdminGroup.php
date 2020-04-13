@@ -3,6 +3,7 @@
 namespace app\core\models\admin;
 
 use app\core\components\ActiveRecord;
+use app\core\helpers\StringHelper;
 
 /**
  * Class AdminGroup
@@ -18,13 +19,43 @@ class AdminGroup extends ActiveRecord
 
     public $permissions;
 
+    public static function checkUrlInPermissions($url, $permissions)
+    {
+        $urlSplit = explode('/', $url);
+
+        foreach ($permissions as $permission) {
+            $permissionSplit = explode('/', $permission);
+
+            if (count($urlSplit) != count($permissionSplit)) {
+                continue;
+            }
+
+            $match = false;
+
+            foreach ($permissionSplit as $idx => $ps) {
+                if (StringHelper::startsWith($ps, ':')) {
+                    $match = true;
+                } else {
+                    $match = $ps == $urlSplit[$idx];
+                }
+            }
+
+            if ($match) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static function getMenuById($id)
     {
+
         function getMenu($menu, $permissions)
         {
             if (
                 isset($menu['url']) &&
-                !in_array($menu['url'], $permissions) &&
+                !AdminGroup::checkUrlInPermissions($menu['url'], $permissions) &&
                 (!isset($menu['open']) || !$menu['open'])
             ) {
                 return false;

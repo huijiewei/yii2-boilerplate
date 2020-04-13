@@ -25,7 +25,7 @@
       <main class="ag-main">
         <transition mode="out-in" name="fade-transform">
           <keep-alive>
-            <router-view v-if="isRouterAlive" />
+            <router-view :key="$route.path" v-if="isRouterAlive" />
           </keep-alive>
         </transition>
       </main>

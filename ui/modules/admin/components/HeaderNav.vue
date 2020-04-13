@@ -7,6 +7,7 @@
           'trigger-left',
           isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold',
         ]"
+        :title="isCollapsed ? '展开侧边栏' : '收缩侧边栏'"
         @click="toggleSidebar"
       />
       <i
@@ -19,6 +20,13 @@
       />
     </div>
     <breadcrumb class="nav-left" />
+    <div class="nav-left nav-refresh">
+      <i
+        class="trigger el-icon-refresh-right"
+        @click="handleRefresh"
+        title="重载页面"
+      ></i>
+    </div>
     <ul v-if="getCurrentUser" class="nav nav-right">
       <li class="profile">
         <el-dropdown trigger="click" @command="handleCommand">
@@ -67,12 +75,16 @@ export default {
       default: false,
     },
   },
+  inject: ['reload'],
   computed: {
     getCurrentUser() {
       return this.$store.getters['auth/getCurrentUser']
     },
   },
   methods: {
+    handleRefresh() {
+      this.reload()
+    },
     async toggleSidebar() {
       await flatry(this.$store.dispatch('toggleSidebar'))
     },
@@ -162,6 +174,10 @@ export default {
 
   .nav-left {
     float: left;
+  }
+
+  .nav-refresh {
+    margin-left: 12px;
   }
 
   .nav-right {

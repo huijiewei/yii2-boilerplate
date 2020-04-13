@@ -72,18 +72,19 @@
       ]"
     >
       <el-col :md="5">
-        <el-select
+        <dynamic-select
           v-model="formModel.adminGroupId"
           :disabled="getCurrentUserId === formModel.id"
           placeholder="所属管理组"
+          @refresh="loadAdminGroups"
         >
           <el-option
-            v-for="adminGroup in adminGroupList"
+            v-for="adminGroup in adminGroups"
             :key="adminGroup.id"
             :label="adminGroup.name"
             :value="adminGroup.id"
           />
-        </el-select>
+        </dynamic-select>
       </el-col>
     </el-form-item>
     <el-form-item>
@@ -99,10 +100,11 @@ import MiscService from '@admin/services/MiscService'
 import flatry from '@core/utils/flatry'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 import AvatarUpload from '@admin/components/upload/AvatarUpload'
+import DynamicSelect from '@admin/components/DynamicSelect'
 
 export default {
   name: 'AdminForm',
-  components: { AvatarUpload },
+  components: { DynamicSelect, AvatarUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
@@ -161,7 +163,7 @@ export default {
       validatePassword: validatePassword,
       validatePasswordConfirm: validatePasswordConfirm,
       formModel: null,
-      adminGroupList: {},
+      adminGroups: {},
     }
   },
   computed: {
@@ -172,18 +174,23 @@ export default {
     },
   },
   async mounted() {
-    this.formModel = Object.assign(
-      { password: '', passwordConfirm: '' },
-      this.admin
-    )
-
-    const { data } = await flatry(MiscService.adminGroupList())
-
-    if (data) {
-      this.adminGroupList = data
-    }
+    this.loadAdminGroups()
+    this.init()
   },
   methods: {
+    async loadAdminGroups() {
+      const { data } = await flatry(MiscService.adminGroups())
+
+      if (data) {
+        this.adminGroups = data
+      }
+    },
+    init() {
+      this.formModel = Object.assign(
+        { password: '', passwordConfirm: '' },
+        this.admin
+      )
+    },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (!valid) {

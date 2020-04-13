@@ -50,12 +50,12 @@ class AdminHelper
                     ],
                     [
                         'name' => '用户查看',
-                        'actionId' => 'user/view',
+                        'actionId' => 'user/view/:id',
                     ],
                     [
                         'name' => '用户编辑',
-                        'actionId' => 'user/edit',
-                        'combines' => ['user/view']
+                        'actionId' => 'user/edit/:id',
+                        'combines' => ['user/view/:id']
                     ],
                     [
                         'name' => '用户删除',
@@ -86,12 +86,12 @@ class AdminHelper
                             ],
                             [
                                 'name' => '商品查看',
-                                'actionId' => 'shop-product/view'
+                                'actionId' => 'shop-product/view/:id'
                             ],
                             [
                                 'name' => '商品编辑',
-                                'actionId' => 'shop-product/edit',
-                                'combines' => ['shop-product/view']
+                                'actionId' => 'shop-product/edit/:id',
+                                'combines' => ['shop-product/view/:id']
                             ],
                             [
                                 'name' => '商品删除',
@@ -115,12 +115,12 @@ class AdminHelper
                             ],
                             [
                                 'name' => '商品分类查看',
-                                'actionId' => 'shop-category/view'
+                                'actionId' => 'shop-category/view/:id'
                             ],
                             [
                                 'name' => '商品分类编辑',
-                                'actionId' => 'shop-category/edit',
-                                'combines' => ['shop-category/view']
+                                'actionId' => 'shop-category/edit/:id',
+                                'combines' => ['shop-category/view/:id']
                             ],
                             [
                                 'name' => '商品分类删除',
@@ -140,12 +140,12 @@ class AdminHelper
                             ],
                             [
                                 'name' => '商品品牌查看',
-                                'actionId' => 'shop-brand/view'
+                                'actionId' => 'shop-brand/view/:id'
                             ],
                             [
                                 'name' => '商品品牌编辑',
-                                'actionId' => 'shop-brand/edit',
-                                'combines' => ['shop-brand/view']
+                                'actionId' => 'shop-brand/edit/:id',
+                                'combines' => ['shop-brand/view/:id']
                             ],
                             [
                                 'name' => '商品品牌删除',
@@ -170,12 +170,12 @@ class AdminHelper
                             ],
                             [
                                 'name' => '管理员查看',
-                                'actionId' => 'admin/view',
+                                'actionId' => 'admin/view/:id',
                             ],
                             [
                                 'name' => '管理员编辑',
-                                'actionId' => 'admin/edit',
-                                'combines' => ['admin/view']
+                                'actionId' => 'admin/edit/:id',
+                                'combines' => ['admin/view/:id']
                             ],
                             [
                                 'name' => '管理员删除',
@@ -195,12 +195,12 @@ class AdminHelper
                             ],
                             [
                                 'name' => '管理组查看',
-                                'actionId' => 'admin-group/view',
+                                'actionId' => 'admin-group/view/:id',
                             ],
                             [
                                 'name' => '管理组编辑',
-                                'actionId' => 'admin-group/edit',
-                                'combines' => ['admin-group/view']
+                                'actionId' => 'admin-group/edit/:id',
+                                'combines' => ['admin-group/view/:id']
                             ],
                             [
                                 'name' => '管理组删除',
@@ -290,6 +290,10 @@ class AdminHelper
                     [
                         'label' => '管理组',
                         'url' => 'admin-group/index'
+                    ],
+                    [
+                        'label' => '管理组1',
+                        'url' => 'admin-group/edit/11'
                     ],
                     [
                         'label' => '操作日志',

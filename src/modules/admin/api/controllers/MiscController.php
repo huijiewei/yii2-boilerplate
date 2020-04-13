@@ -10,12 +10,12 @@ use huijiewei\upload\BaseUpload;
 
 class MiscController extends Controller
 {
-    public function actionAdminGroupList()
+    public function actionAdminGroups()
     {
         return AdminGroup::find()->select(['id', 'name'])->orderBy(['id' => SORT_ASC])->all();
     }
 
-    public function actionAdminGroupAcl()
+    public function actionAdminGroupPermissions()
     {
         return AdminHelper::getAllPermissions();
     }

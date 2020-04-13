@@ -14,6 +14,23 @@ const tabs = {
     getCurrent: (state) => {
       return state.current
     },
+    getNext: (state) => (tab) => {
+      const matchIndex = state.viewed.findIndex(
+        (view) => view.path === tab.path
+      )
+
+      let next = null
+
+      if (matchIndex - 1 in state.viewed) {
+        next = state.viewed[matchIndex - 1]
+      } else if (matchIndex + 1 in state.viewed) {
+        next = state.viewed[matchIndex + 1]
+      } else {
+        next = state.viewed.find((view) => view.affix)
+      }
+
+      return next
+    },
   },
   mutations: {
     UPDATE_VIEWED: (state, tab) => {
@@ -91,18 +108,8 @@ const tabs = {
         resolve(next)
       })
     },
-    close({ commit, state }, tab) {
-      const matchIndex = state.viewed.findIndex(
-        (view) => view.path === tab.path
-      )
-
-      let next = null
-
-      if (matchIndex - 1 in state.viewed) {
-        next = state.viewed[matchIndex - 1]
-      } else if (matchIndex + 1 in state.viewed) {
-        next = state.viewed[matchIndex + 1]
-      }
+    close({ commit, state, getters }, tab) {
+      const next = getters.getNext(tab)
 
       commit('DELETE_VIEWED', tab)
 

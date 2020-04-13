@@ -27,7 +27,29 @@ const auth = {
       return state.groupMenus
     },
     isRouteInAcl: (state) => (route) => {
-      return state.groupPermissions.includes(route)
+      const routeSplit = route.split('/')
+
+      return (
+        state.groupPermissions.findIndex((permission) => {
+          const permissionSplit = permission.split('/')
+
+          if (routeSplit.length !== permissionSplit.length) {
+            return false
+          }
+
+          let matched = false
+
+          permissionSplit.forEach((ps, index) => {
+            if (ps.startsWith(':')) {
+              matched = true
+            } else {
+              matched = ps.toString() === routeSplit[index].toString()
+            }
+          })
+
+          return matched
+        }) > -1
+      )
     },
     isRouteInMenus: (state) => (route) => {
       const path = route.startsWith('/') ? route.substr(1) : route

@@ -1,16 +1,12 @@
 import Vue from 'vue'
 
 const MiscService = {
-  adminGroupAcl() {
-    return Vue.http.get('misc/admin-group-acl')
+  adminGroups() {
+    return Vue.http.get('misc/admin-groups')
   },
 
-  adminGroupList() {
-    return Vue.http.get('misc/admin-group-list')
-  },
-
-  shopBrandList() {
-    return Vue.http.get('misc/shop-brand-list')
+  adminGroupPermissions() {
+    return Vue.http.get('misc/admin-group-permissions')
   },
 
   shopCategoryTree() {

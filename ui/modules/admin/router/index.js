@@ -20,6 +20,8 @@ import AdminLayout from '@admin/components/AdminLayout'
 Vue.use(VueRouter)
 
 const routes = [
+  ...adminRoute,
+  ...adminGroupRoute,
   {
     path: '/login',
     component: siteLogin,
@@ -56,9 +58,7 @@ const routes = [
           },
         },
       },
-      ...adminRoute,
       ...adminLogRoute,
-      ...adminGroupRoute,
       ...userRoute,
       ...shopCategoryRoute,
       ...shopBrandRoute,
