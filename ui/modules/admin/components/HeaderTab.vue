@@ -54,14 +54,6 @@
         <i class="el-icon-close"></i>
         关闭页面
       </li>
-      <li>
-        <i class="el-icon-back"></i>
-        关闭左侧
-      </li>
-      <li>
-        <i class="el-icon-right"></i>
-        关闭右侧
-      </li>
       <li @click="handleCloseOther">
         <i class="el-icon-circle-close"></i>
         关闭其他
@@ -268,8 +260,6 @@ export default {
     handleCloseOther() {
       const tab = this.contextMenuTab ? this.contextMenuTab : this.currentTab
 
-      console.log(tab)
-      console.log('close other')
       this.$store.dispatch('tabs/closeOther', tab)
 
       this.openTab(tab)
