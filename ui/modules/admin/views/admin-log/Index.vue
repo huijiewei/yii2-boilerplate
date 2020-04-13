@@ -103,7 +103,7 @@ export default {
       }
     },
   },
-  created() {
+  activated() {
     this.getLogs()
   },
   methods: {

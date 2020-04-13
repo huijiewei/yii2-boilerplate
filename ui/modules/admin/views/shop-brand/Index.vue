@@ -221,7 +221,7 @@ export default {
       categoryTree: [],
     }
   },
-  created() {
+  activated() {
     this.getShopBrands()
     this.loadCategoryTree()
   },

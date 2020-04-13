@@ -128,7 +128,7 @@ export default {
       }
     },
   },
-  created() {
+  activated() {
     this.getUsers()
   },
   methods: {

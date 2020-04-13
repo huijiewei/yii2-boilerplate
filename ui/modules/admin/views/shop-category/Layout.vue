@@ -129,7 +129,7 @@ export default {
       }
     },
   },
-  async created() {
+  async activated() {
     await this.loadCategoryTree()
 
     this.loading = false

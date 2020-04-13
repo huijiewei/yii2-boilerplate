@@ -52,7 +52,7 @@ export default {
       adminGroups: [],
     }
   },
-  async created() {
+  async activated() {
     const { data } = await flatry(AdminGroupService.all())
 
     if (data) {

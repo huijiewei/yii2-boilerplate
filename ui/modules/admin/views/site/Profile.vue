@@ -28,7 +28,7 @@ export default {
       admin: null,
     }
   },
-  async created() {
+  async activated() {
     const { data } = await flatry(AuthService.profile())
 
     if (data) {

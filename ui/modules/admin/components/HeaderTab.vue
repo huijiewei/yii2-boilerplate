@@ -38,6 +38,7 @@
       <i class="el-icon-arrow-down"></i>
     </div>
     <ul
+      v-transform-dom
       ref="contextMenu"
       :style="{ left: contextMenuLeft + 'px', top: contextMenuTop + 'px' }"
       v-show="contextMenuShow"
@@ -68,6 +69,7 @@
 
 <script>
 import path from 'path'
+import TransformDom from '@core/directives/TransformDom'
 
 export default {
   name: 'HeaderTab',
@@ -76,6 +78,10 @@ export default {
     this.addTab(this.$route)
     this.moveToCurrentTab()
   },
+  directives: {
+    transformDom: TransformDom,
+  },
+  inject: ['reload'],
   watch: {
     $route(to) {
       this.addTab(to)
@@ -204,7 +210,9 @@ export default {
         this.closeTab(this.contextMenuTab)
       }
     },
-    handleTabRefresh() {},
+    handleTabRefresh() {
+      this.reload()
+    },
     handleContextMenu(tab, event) {
       const max =
         this.$el.offsetWidth + this.$el.getBoundingClientRect().left - 100
@@ -293,6 +301,28 @@ export default {
 </script>
 
 <style lang="scss">
+.context-menu {
+  position: absolute;
+  margin: 0;
+  background: #fff;
+  z-index: 2003;
+  list-style-type: none;
+  padding: 0;
+  border-radius: 2px;
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+
+  li {
+    margin: 0;
+    padding: 7px 15px 7px 13px;
+    font-size: 12px;
+    cursor: pointer;
+    &:hover {
+      background: #ecf5ff;
+      color: #3a8ee6;
+    }
+  }
+}
+
 .ag-tab {
   font-size: 13px;
   background-color: #f4f8fb;
@@ -300,28 +330,6 @@ export default {
   height: 27px;
   user-select: none;
   position: relative;
-
-  .context-menu {
-    position: fixed;
-    margin: 0;
-    background: #fff;
-    z-index: 1000;
-    list-style-type: none;
-    padding: 0;
-    border-radius: 2px;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
-
-    li {
-      margin: 0;
-      padding: 7px 15px 7px 13px;
-      font-size: 12px;
-      cursor: pointer;
-      &:hover {
-        background: #ecf5ff;
-        color: #3a8ee6;
-      }
-    }
-  }
 
   .tab-scroll {
     overflow-x: hidden;
@@ -410,13 +418,6 @@ export default {
     &.el-dropdown {
       font-size: 13px;
     }
-  }
-}
-
-.tags-nav-menu {
-  .el-dropdown-menu__item {
-    font-size: 13px;
-    padding: 0 20px 0 15px;
   }
 }
 </style>

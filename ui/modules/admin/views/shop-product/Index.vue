@@ -113,7 +113,7 @@ export default {
       }
     },
   },
-  created() {
+  activated() {
     this.getShopProducts()
   },
   methods: {

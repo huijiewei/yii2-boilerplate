@@ -181,7 +181,7 @@ $asideBackgroundColor: #2c343f;
   .ag-header {
     position: fixed;
     width: calc(100% - #{$asideWidth});
-    z-index: 3000;
+    z-index: 10;
     right: 0;
     overflow-x: hidden;
 
