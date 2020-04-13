@@ -63,6 +63,8 @@ class ShopCategory extends ActiveRecord
         ShopCategory::deleteAll(['id' => $childrenIds]);
         ShopBrandCategory::deleteAll(['shopCategoryId' => $childrenIds]);
 
+        static::clearCache();
+
         return true;
     }
 }
