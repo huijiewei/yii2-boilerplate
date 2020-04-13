@@ -63,18 +63,18 @@ class User extends Identity
     public function rules()
     {
         return [
-            [['phone', 'email', 'name', 'avatar', 'password', 'passwordRepeat'], 'trim'],
-            [['password', 'passwordRepeat'], 'required', 'on' => 'create'],
+            [['phone', 'email', 'name', 'avatar', 'password', 'passwordConfirm'], 'trim'],
+            [['password', 'passwordConfirm'], 'required', 'on' => 'create'],
             [
-                ['password', 'passwordRepeat'],
+                ['password', 'passwordConfirm'],
                 'string',
                 'length' => [5, 20],
                 'on' => 'create',
                 'when' => function ($model) {
-                    return !empty($model->passwordRepeat);
+                    return !empty($model->passwordConfirm);
                 }
             ],
-            ['password', 'compare', 'compareAttribute' => 'passwordRepeat'],
+            ['password', 'compare', 'compareAttribute' => 'passwordConfirm'],
             [['phone', 'email'], 'required'],
             ['phone', PhoneNumberValidator::class],
             ['phone', 'unique'],
@@ -88,9 +88,9 @@ class User extends Identity
     public function scenarios()
     {
         return [
-            'create' => ['password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
-            'edit' => ['password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
-            'profile' => ['password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
+            'create' => ['password', 'passwordConfirm', 'phone', 'email', 'name', 'avatar'],
+            'edit' => ['password', 'passwordConfirm', 'phone', 'email', 'name', 'avatar'],
+            'profile' => ['password', 'passwordConfirm', 'phone', 'email', 'name', 'avatar'],
         ];
     }
 
@@ -100,7 +100,7 @@ class User extends Identity
             'phone' => '电话',
             'email' => '邮箱',
             'password' => '密码',
-            'passwordRepeat' => '重复密码',
+            'passwordConfirm' => '重复密码',
             'name' => '姓名',
             'avatar' => '头像',
             'createdAt' => '注册时间',

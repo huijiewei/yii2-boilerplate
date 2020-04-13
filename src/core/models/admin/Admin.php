@@ -43,18 +43,18 @@ class Admin extends Identity
     public function rules()
     {
         return [
-            [['adminGroupId', 'phone', 'email', 'name', 'avatar', 'password', 'passwordRepeat'], 'trim'],
-            [['password', 'passwordRepeat'], 'required', 'on' => 'create'],
+            [['adminGroupId', 'phone', 'email', 'name', 'avatar', 'password', 'passwordConfirm'], 'trim'],
+            [['password', 'passwordConfirm'], 'required', 'on' => 'create'],
             [
-                ['password', 'passwordRepeat'],
+                ['password', 'passwordConfirm'],
                 'string',
                 'length' => [5, 20],
                 'on' => 'create',
                 'when' => function ($model) {
-                    return !empty($model->passwordRepeat);
+                    return !empty($model->passwordConfirm);
                 }
             ],
-            ['password', 'compare', 'compareAttribute' => 'passwordRepeat'],
+            ['password', 'compare', 'compareAttribute' => 'passwordConfirm'],
             ['adminGroupId', 'required', 'on' => ['create', 'edit']],
             [
                 'adminGroupId',
@@ -76,9 +76,9 @@ class Admin extends Identity
     public function scenarios()
     {
         return [
-            'create' => ['adminGroupId', 'password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
-            'edit' => ['adminGroupId', 'password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
-            'profile' => ['password', 'passwordRepeat', 'phone', 'email', 'name', 'avatar'],
+            'create' => ['adminGroupId', 'password', 'passwordConfirm', 'phone', 'email', 'name', 'avatar'],
+            'edit' => ['adminGroupId', 'password', 'passwordConfirm', 'phone', 'email', 'name', 'avatar'],
+            'profile' => ['password', 'passwordConfirm', 'phone', 'email', 'name', 'avatar'],
         ];
     }
 
@@ -89,7 +89,7 @@ class Admin extends Identity
             'phone' => '电话',
             'email' => '邮箱',
             'password' => '密码',
-            'passwordRepeat' => '重复密码',
+            'passwordConfirm' => '重复密码',
             'name' => '名称',
             'avatar' => '头像',
         ];

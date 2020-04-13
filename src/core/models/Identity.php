@@ -15,7 +15,7 @@ use yii\web\IdentityInterface;
  */
 abstract class Identity extends ActiveRecord implements IdentityInterface
 {
-    public $passwordRepeat;
+    public $passwordConfirm;
 
     /**
      * @param int $id
@@ -84,7 +84,7 @@ abstract class Identity extends ActiveRecord implements IdentityInterface
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            if ($insert || !empty($this->passwordRepeat)) {
+            if ($insert || !empty($this->passwordConfirm)) {
                 $this->setAuthKey();
                 $this->setPassword();
             } else {

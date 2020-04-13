@@ -33,7 +33,7 @@ class FakeController extends Controller
             $user->phone = $fakePhone;
             $user->email = $fakeEmail;
             $user->password = $faker->password;
-            $user->passwordRepeat = $user->password;
+            $user->passwordConfirm = $user->password;
             $user->name = $faker->name;
             $user->createdIp = $faker->ipv4;
             $user->createdFrom = array_rand($createFromNameList, 1);
