@@ -93,14 +93,13 @@ export default {
     handleCategoryCreate(parentId) {
       this.$router.push({
         path: '/shop-category/create',
-        query: { parentId: parentId },
+        params: { parentId: parentId },
       })
     },
 
     handleCategoryEdit(category) {
       this.$router.push({
-        path: '/shop-category/edit',
-        query: { id: category.id },
+        path: '/shop-category/edit/' + category.id,
       })
     },
 

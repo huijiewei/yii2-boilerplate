@@ -7,24 +7,27 @@
       <i class="el-icon-arrow-right"></i>
     </div>
     <div ref="tabScroll" class="tab-scroll" @wheel.prevent="handleWheel">
-      <ul ref="tabList" class="tab-list" :style="{ left: tabBodyLeft + 'px' }">
-        <template v-for="tab in viewedTabs">
-          <li
-            class="tab-item"
-            :class="isActive(tab) ? 'active' : ''"
-            v-bind:key="tab.path"
-            @click="handleClick(tab)"
-            @contextmenu.prevent="handleContextMenu(tab, $event)"
-          >
-            <span>{{ tab.title }}</span>
-            <i
-              v-if="!tab.affix"
-              class="el-icon-close el-icon--right"
-              @click.stop="handleClose(tab)"
-            ></i>
-          </li>
-        </template>
-      </ul>
+      <div
+        ref="tabContent"
+        class="tab-list"
+        :style="{ left: tabContentLeft + 'px' }"
+      >
+        <el-tag
+          ref="tabs"
+          :data-tab="tab"
+          v-for="(tab, index) in viewedTabs"
+          :key="'tab-' + index"
+          @click="handleClick(tab)"
+          :closable="!tab.affix"
+          size="medium"
+          @close="closeTab(tab)"
+          :effect="isActive(tab) ? 'dark' : 'plain'"
+          :disable-transitions="true"
+          @contextmenu.prevent="handleContextMenu(tab, $event)"
+        >
+          {{ tab.title }}
+        </el-tag>
+      </div>
     </div>
     <div
       class="tab-close tab-item"
@@ -39,11 +42,14 @@
       v-show="contextMenuShow"
       class="context-menu"
     >
-      <li v-if="selectedTab" @click="handleTabRefresh">
+      <li v-if="contextMenuTab" @click="handleTabRefresh">
         <i class="el-icon-refresh-right"></i>
-        刷新页面
+        重载页面
       </li>
-      <li v-if="selectedTab" @click="handleTabClose">
+      <li
+        v-if="contextMenuTab && !contextMenuTab.affix"
+        @click="handleTabClose"
+      >
         <i class="el-icon-close"></i>
         关闭页面
       </li>
@@ -68,14 +74,19 @@
 </template>
 
 <script>
+import path from 'path'
+
 export default {
   name: 'HeaderTab',
   created() {
-    this.addTab()
+    this.initTabs()
+    this.addTab(this.$route)
+    this.moveToCurrentTab()
   },
   watch: {
-    $route() {
-      this.addTab()
+    $route(to) {
+      this.addTab(to)
+      this.moveToCurrentTab()
     },
     contextMenuShow(show) {
       if (show) {
@@ -92,17 +103,98 @@ export default {
   },
   data() {
     return {
-      tabBodyLeft: 0,
+      tabContentLeft: 0,
       contextMenuShow: false,
       contextMenuLeft: 0,
       contextMenuTop: 0,
-      selectedTab: null,
+      contextMenuTab: null,
+      affixTabs: [],
+      currentTab: null,
     }
   },
   methods: {
+    getRouteTitle(route) {
+      let title = '无标题'
+
+      for (let i = route.matched.length - 1; i >= 0; i--) {
+        const breadcrumb = route.matched[i].meta.breadcrumb
+
+        if (breadcrumb && breadcrumb.title && breadcrumb.title.length > 0) {
+          title = breadcrumb.title
+          break
+        }
+      }
+
+      return title
+    },
+    filterAffixTabs(routes, basePath = '/') {
+      let tabs = []
+
+      routes.forEach((route) => {
+        if (route.meta && route.meta.affix) {
+          tabs.push({
+            path: path.resolve(basePath, route.path),
+            query: route.query,
+            title: route.meta.breadcrumb.title,
+            affix: true,
+          })
+        }
+
+        if (route.children) {
+          const tab = this.filterAffixTabs(route.children, route.path)
+
+          if (tab.length >= 1) {
+            tabs = [...tabs, ...tab]
+          }
+        }
+      })
+      return tabs
+    },
+    initTabs() {
+      const affixTabs = (this.affixTags = this.filterAffixTabs(
+        this.$router.options.routes
+      ))
+
+      for (const tab of affixTabs) {
+        this.$store.dispatch('tabs/addViewedTab', tab)
+      }
+    },
+    moveToCurrentTab() {
+      this.$nextTick(() => {
+        this.$refs.tabs.forEach((tab, index) => {
+          if (this.isActive(tab.$attrs['data-tab'])) {
+            const tabElem = tab.$el
+
+            const scrollWidth = this.$refs.tabScroll.offsetWidth
+            const contentWidth = this.$refs.tabContent.offsetWidth
+
+            if (contentWidth < scrollWidth) {
+              this.tabContentLeft = 0
+            } else if (tabElem.offsetLeft < -this.tabContentLeft) {
+              this.tabContentLeft = -tabElem.offsetLeft + 12
+            } else if (
+              tabElem.offsetLeft > -this.tabContentLeft &&
+              tabElem.offsetLeft + tabElem.offsetWidth <
+                -this.tabContentLeft + scrollWidth - 12
+            ) {
+              this.tabContentLeft = Math.min(
+                0,
+                scrollWidth - tabElem.offsetWidth - tabElem.offsetLeft - 12
+              )
+            } else {
+              this.tabContentLeft = -(
+                tabElem.offsetLeft -
+                (scrollWidth - tabElem.offsetWidth) +
+                12
+              )
+            }
+          }
+        })
+      })
+    },
     handleTabClose() {
-      if (this.selectedTab) {
-        this.closeTab(this.selectedTab)
+      if (this.contextMenuTab) {
+        this.closeTab(this.contextMenuTab)
       }
     },
     handleTabRefresh() {},
@@ -114,36 +206,27 @@ export default {
       this.contextMenuLeft = left > max ? max : left
       this.contextMenuTop = event.clientY + 12
 
-      this.selectedTab = tab !== 'CLOSED' ? tab : null
+      this.contextMenuTab = tab !== 'CLOSED' ? tab : null
 
       this.contextMenuShow = true
     },
     closeContextMenu() {
       this.contextMenuShow = false
     },
-    addTab() {
-      let routeTitle = '无标题'
-
-      const route = this.$route
-
-      for (let i = route.matched.length - 1; i >= 0; i--) {
-        const breadcrumb = route.matched[i].meta.breadcrumb
-
-        if (breadcrumb && breadcrumb.title && breadcrumb.title.length > 0) {
-          routeTitle = breadcrumb.title
-          break
-        }
-      }
-
-      this.$store.dispatch('tabs/addViewedTab', {
+    addTab(route) {
+      const tab = {
         path: route.path,
         query: route.query,
-        title: routeTitle,
+        title: this.getRouteTitle(route),
         affix: route.meta && route.meta.affix,
-      })
+      }
+
+      this.currentTab = tab
+
+      this.$store.dispatch('tabs/addViewedTab', tab)
     },
     isActive(tab) {
-      return tab.path === this.$route.path
+      return tab.path === this.currentTab.path
     },
     handleWheel(e) {
       const delta = e.wheelDelta ? e.wheelDelta : -(e.detail || 0) * 30
@@ -152,37 +235,40 @@ export default {
     },
     handleScroll(delta) {
       const scrollWidth = this.$refs.tabScroll.offsetWidth
-      const listWidth = this.$refs.tabList.offsetWidth
+      const contentWidth = this.$refs.tabContent.offsetWidth
 
       if (delta > 0) {
-        this.tabBodyLeft = Math.min(0, this.tabBodyLeft + delta)
+        this.tabContentLeft = Math.min(0, this.tabContentLeft + delta)
       } else {
-        if (scrollWidth < listWidth) {
-          if (this.tabBodyLeft >= -(listWidth - scrollWidth)) {
-            this.tabBodyLeft = Math.max(
-              this.tabBodyLeft + delta,
-              scrollWidth - listWidth
+        if (scrollWidth < contentWidth) {
+          if (this.tabContentLeft >= -(contentWidth - scrollWidth)) {
+            this.tabContentLeft = Math.max(
+              this.tabContentLeft + delta,
+              scrollWidth - contentWidth
             )
           }
         } else {
-          this.tabBodyLeft = 0
+          this.tabContentLeft = 0
         }
       }
+
+      console.log(this.tabContentLeft)
     },
+    handleCloseOther() {},
     handleClick(tab) {
+      this.currentTab = tab
+
       this.$router.push({
         path: tab.path,
         query: tab.query,
       })
     },
-    handleClose(tab) {
-      this.closeTab(tab)
-    },
-    handleCloseOther() {},
     closeTab(tab) {
       this.$store.dispatch('tabs/delViewedTab', tab).then((next) => {
         if (this.isActive(tab)) {
           if (next !== null) {
+            this.currentTab = next
+
             this.$router.push({
               path: next.path,
               query: next.query,
@@ -244,36 +330,22 @@ export default {
     padding: 0;
     transition: left 0.5s;
 
-    li {
-      display: inline-block;
+    .el-tag {
       cursor: pointer;
+      border: none;
+      font-size: 13px;
+      line-height: 28px;
+      color: #6f727d;
 
-      &.active {
-        background: #3a8ee6;
+      &:hover {
+        color: #409eff;
+      }
+
+      &.el-tag--dark {
         color: #ffffff;
 
         &:hover {
-          span {
-            color: #ebeef5;
-          }
-        }
-
-        i {
-          &:hover {
-            background-color: #3a98f0;
-          }
-        }
-      }
-
-      &:hover {
-        span {
-          color: #3a8ee6;
-        }
-      }
-
-      i {
-        &:hover {
-          background-color: #f4f8fb;
+          color: #ecf5ff;
         }
       }
 

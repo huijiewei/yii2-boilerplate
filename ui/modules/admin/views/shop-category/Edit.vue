@@ -41,11 +41,11 @@ export default {
   },
   async beforeRouteUpdate(to, from, next) {
     this.shopCategory = null
-    await this.getShopCategory(to.query.id)
+    await this.getShopCategory(to.params.id)
     next()
   },
   async created() {
-    await this.getShopCategory(this.$router.currentRoute.query.id)
+    await this.getShopCategory(this.$router.currentRoute.params.id)
   },
   methods: {
     async getShopCategory(id) {

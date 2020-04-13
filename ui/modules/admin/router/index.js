@@ -34,8 +34,11 @@ const routes = [
     component: AdminLayout,
     children: [
       {
+        path: '',
+        redirect: '/home',
+      },
+      {
         path: 'home',
-        alias: '',
         component: siteIndex,
         meta: {
           affix: true,

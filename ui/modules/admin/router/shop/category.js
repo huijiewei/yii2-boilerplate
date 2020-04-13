@@ -20,7 +20,7 @@ export default [
           ),
       },
       {
-        path: 'create',
+        path: 'create/:parentId',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Create'
@@ -32,7 +32,7 @@ export default [
         },
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Edit'

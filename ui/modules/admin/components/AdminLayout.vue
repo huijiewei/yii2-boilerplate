@@ -84,7 +84,7 @@ $asideBackgroundColor: #2c343f;
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
 }
 .fade-enter,
 .fade-leave-active {
@@ -93,15 +93,15 @@ $asideBackgroundColor: #2c343f;
 /*fade-transform*/
 .fade-transform-leave-active,
 .fade-transform-enter-active {
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 .fade-transform-enter {
   opacity: 0;
-  transform: translateX(-30px);
+  transform: translateX(-50px);
 }
 .fade-transform-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(50px);
 }
 
 .ag {
