@@ -11,6 +11,7 @@ use app\core\components\ActiveRecord;
  * @property string $name
  * @property string $alias
  * @property string $logo
+ * @property string $website
  * @property string $description
  *
  * @property ShopBrandCategory[] $shopBrandCategories
@@ -24,9 +25,9 @@ class ShopBrand extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'alias', 'logo', 'description', 'shopCategoryIds'], 'trim'],
+            [['name', 'alias', 'logo', 'website', 'description', 'shopCategoryIds'], 'trim'],
             [['name', 'alias'], 'required'],
-            [['name', 'alias', 'logo', 'description'], 'string'],
+            [['name', 'alias', 'logo', 'website', 'description'], 'string'],
             ['name', 'unique'],
             ['alias', 'unique'],
             [
@@ -46,6 +47,7 @@ class ShopBrand extends ActiveRecord
             'name',
             'alias',
             'logo',
+            'website',
             'description',
         ];
     }

@@ -72,11 +72,10 @@
       ]"
     >
       <el-col :md="5">
-        <dynamic-select
+        <el-select
           v-model="formModel.adminGroupId"
           :disabled="getCurrentUserId === formModel.id"
           placeholder="所属管理组"
-          @refresh="loadAdminGroups"
         >
           <el-option
             v-for="adminGroup in adminGroups"
@@ -84,7 +83,14 @@
             :label="adminGroup.name"
             :value="adminGroup.id"
           />
-        </dynamic-select>
+        </el-select>
+        &nbsp;
+        <el-button
+          size="mini"
+          title="刷新选项数据"
+          icon="el-icon-refresh"
+          @click="loadAdminGroups"
+        ></el-button>
       </el-col>
     </el-form-item>
     <el-form-item>
@@ -100,11 +106,10 @@ import MiscService from '@admin/services/MiscService'
 import flatry from '@core/utils/flatry'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 import AvatarUpload from '@admin/components/upload/AvatarUpload'
-import DynamicSelect from '@admin/components/DynamicSelect'
 
 export default {
   name: 'AdminForm',
-  components: { DynamicSelect, AvatarUpload },
+  components: { AvatarUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {

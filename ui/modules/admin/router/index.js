@@ -22,6 +22,7 @@ Vue.use(VueRouter)
 const routes = [
   ...adminRoute,
   ...adminGroupRoute,
+  ...shopBrandRoute,
   {
     path: '/login',
     component: siteLogin,
@@ -61,7 +62,6 @@ const routes = [
       ...adminLogRoute,
       ...userRoute,
       ...shopCategoryRoute,
-      ...shopBrandRoute,
       ...shopProductRoute,
       {
         path: '*',
