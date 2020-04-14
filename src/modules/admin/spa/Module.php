@@ -6,7 +6,7 @@ use app\core\components\AbstractModule;
 
 class Module extends AbstractModule
 {
-    public $disableDebugModule = true;
+    public $disableDebugModule = false;
 
     public static function getModuleId()
     {

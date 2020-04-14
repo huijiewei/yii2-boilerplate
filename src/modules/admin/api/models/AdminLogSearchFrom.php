@@ -67,7 +67,7 @@ class AdminLogSearchFrom extends SearchForm
 
     protected function getQuery()
     {
-        $adminLogQuery = AdminLog::find()->orderBy(['id' => SORT_DESC]);
+        $adminLogQuery = AdminLog::find()->with(['admin'])->orderBy(['id' => SORT_DESC]);
 
         if (!empty($this->admin)) {
             $adminLogQuery->andWhere([
