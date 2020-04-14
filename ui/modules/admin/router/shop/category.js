@@ -1,7 +1,6 @@
 export default [
   {
     path: 'shop-category',
-    name: 'ShopCategory',
     component: () =>
       import(
         /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Layout'
@@ -15,6 +14,7 @@ export default [
     children: [
       {
         path: '',
+        name: 'ShopCategory',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Index'
