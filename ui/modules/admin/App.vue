@@ -90,24 +90,21 @@ export default {
     },
     async historyBack(closeTab = false) {
       if (closeTab) {
-        this.$store
-          .dispatch('tabs/close', {
-            name: this.$route.name,
-            path: this.$route.path,
-          })
-          .then((next) => {
-            routerReplace(this, next)
-          })
-      } else {
-        routerReplace(this, { path: '/home' })
-      }
+        const next = await this.$store.dispatch('tabs/close', {
+          name: this.$route.name,
+          path: this.$route.path,
+        })
 
-      function routerReplace(app, route) {
-        if (app.$routerHistory.hasPrevious()) {
-          app.$router.replace(app.$routerHistory.previous())
-        } else {
-          app.$router.replace(route)
-        }
+        this.routerBack(next)
+      } else {
+        this.routerBack()
+      }
+    },
+    routerBack(route = { path: '/home' }) {
+      if (this.$routerHistory.hasPrevious()) {
+        this.$router.replace(this.$routerHistory.previous())
+      } else {
+        this.$router.replace(route)
       }
     },
   },

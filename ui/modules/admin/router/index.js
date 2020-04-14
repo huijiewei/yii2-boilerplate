@@ -95,6 +95,6 @@ const router = new VueRouter({
   },
 })
 
-Vue.use(VueRouterBackButton, { router, ignoreRoutesWithSameName: true })
+Vue.use(VueRouterBackButton, { router, ignoreRoutesWithSameName: false })
 
 export default router

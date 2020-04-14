@@ -39,13 +39,8 @@ export default {
       categoryParents: [],
     }
   },
-  async beforeRouteUpdate(to, from, next) {
-    this.shopCategory = null
-    await this.getShopCategoryRoute(to.query.parentId)
-    next()
-  },
-  async created() {
-    await this.getShopCategoryRoute(this.$route.query.parentId)
+  created() {
+    this.getShopCategoryRoute(this.$route.params.id)
   },
   methods: {
     async getShopCategoryRoute(id) {
@@ -82,11 +77,8 @@ export default {
         done()
 
         this.$message.success('新建商品分类成功')
-        this.$emit('on-updated', data.id)
-        await this.$router.replace({
-          path: '/shop-category/edit',
-          query: { id: data.id },
-        })
+
+        this.$emit('on-updated', shopCategory.id)
       }
 
       if (error) {

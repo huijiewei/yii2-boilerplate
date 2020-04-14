@@ -75,6 +75,7 @@ import MiscService from '@admin/services/MiscService'
 import AgIcon from '@core/components/Icon'
 
 export default {
+  name: 'ShopCategory',
   watch: {
     keyword(keyword) {
       this.$refs.categoryTree.filter(keyword)
@@ -92,15 +93,15 @@ export default {
   methods: {
     handleCategoryCreate(parentId) {
       this.$router.push({
-        path: '/shop-category/create',
-        query: { parentId: parentId },
+        name: 'ShopCategoryCreate',
+        params: { id: parentId },
       })
     },
 
     handleCategoryEdit(category) {
       this.$router.push({
-        path: '/shop-category/edit',
-        query: { id: category.id },
+        name: 'ShopCategoryEdit',
+        params: { id: category.id },
       })
     },
 
@@ -122,17 +123,19 @@ export default {
     },
 
     async loadCategoryTree() {
+      this.loading = true
+
       const { data } = await flatry(MiscService.shopCategoryTree())
 
       if (data) {
         this.categoryTree = data
       }
+
+      this.loading = false
     },
   },
-  async activated() {
-    await this.loadCategoryTree()
-
-    this.loading = false
+  created() {
+    this.loadCategoryTree()
   },
 }
 </script>

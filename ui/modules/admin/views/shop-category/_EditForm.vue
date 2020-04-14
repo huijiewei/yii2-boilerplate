@@ -81,7 +81,6 @@ import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntity
 import ImageUpload from '@admin/components/upload/ImageUpload'
 
 export default {
-  name: 'ShopCategoryForm',
   components: { ImageUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
@@ -119,7 +118,7 @@ export default {
       return [...[{ id: 0, name: '根分类' }], ...this.categoryTree]
     },
   },
-  async mounted() {
+  created() {
     this.formModel = this.shopCategory
     this.formCategoryParents = this.categoryParents
   },

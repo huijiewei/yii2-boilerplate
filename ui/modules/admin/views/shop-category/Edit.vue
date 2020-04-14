@@ -39,18 +39,11 @@ export default {
       categoryParents: [],
     }
   },
-  async beforeRouteUpdate(to, from, next) {
-    this.shopCategory = null
-    await this.getShopCategory(to.query.id)
-    next()
-  },
-  async created() {
-    await this.getShopCategory(this.$route.query.id)
+  created() {
+    this.getShopCategory(this.$route.params.id)
   },
   methods: {
     async getShopCategory(id) {
-      this.shopCategory = null
-
       const { data } = await flatry(ShopCategoryService.view(id))
 
       if (data) {
@@ -80,6 +73,7 @@ export default {
         done()
 
         this.$message.success('修改成功')
+
         this.$emit('on-updated', shopCategory.id)
       }
 
@@ -101,10 +95,9 @@ export default {
 
           if (data) {
             this.$message.success('删除成功')
-            this.$emit('on-updated', shopCategory.parentId)
-            await this.$router.replace({
-              path: '/shop-category',
-            })
+
+            await this.$store.dispatch('tabs/deleteCache', 'ShopCategory')
+            this.historyBack(true)
           }
 
           this.loading = false

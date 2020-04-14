@@ -180,7 +180,7 @@ export default {
     vertical-align: middle;
   }
   .website {
-    margin-top: 12px;
+    margin-top: 9px;
   }
 
   .brand-category-tags {

@@ -274,12 +274,12 @@ export default {
 
       this.openTab(tab)
     },
-    handleCloseAll() {
-      this.$store.dispatch('tabs/closeAll').then((next) => {
-        if (next !== null) {
-          this.openTab(next)
-        }
-      })
+    async handleCloseAll() {
+      const next = await this.$store.dispatch('tabs/closeAll')
+
+      if (next !== null) {
+        this.openTab(next)
+      }
     },
     openTab(tab) {
       this.$store.dispatch('tabs/current', tab)
@@ -289,12 +289,12 @@ export default {
         query: tab.query,
       })
     },
-    closeTab(tab) {
-      this.$store.dispatch('tabs/close', tab).then((next) => {
-        if (this.isActive(tab)) {
-          this.openTab(next)
-        }
-      })
+    async closeTab(tab) {
+      const next = await this.$store.dispatch('tabs/close', tab)
+
+      if (this.isActive(tab)) {
+        this.openTab(next)
+      }
     },
   },
 }

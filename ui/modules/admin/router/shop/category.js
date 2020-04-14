@@ -1,6 +1,7 @@
 export default [
   {
     path: 'shop-category',
+    name: 'ShopCategory',
     component: () =>
       import(
         /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Layout'
@@ -20,7 +21,8 @@ export default [
           ),
       },
       {
-        path: 'create',
+        path: 'create/:id',
+        name: 'ShopCategoryCreate',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Create'
@@ -32,7 +34,8 @@ export default [
         },
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
+        name: 'ShopCategoryEdit',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Edit'
