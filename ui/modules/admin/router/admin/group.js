@@ -13,6 +13,7 @@ export default [
     children: [
       {
         path: '',
+        name: 'AdminGroup',
         component: () =>
           import(
             /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Index'
@@ -20,6 +21,7 @@ export default [
       },
       {
         path: 'create',
+        name: 'AdminGroupCreate',
         component: () =>
           import(
             /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Create'
@@ -32,7 +34,7 @@ export default [
       },
       {
         path: 'edit/:id',
-        name: 'admin-group-edit',
+        name: 'AdminGroupEdit',
         component: () =>
           import(
             /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-group/Edit'

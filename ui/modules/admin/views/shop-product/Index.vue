@@ -97,6 +97,7 @@ import ExportButton from '@admin/components/ExportButton'
 import Pagination from '@admin/components/Pagination'
 
 export default {
+  name: 'ShopProduct',
   components: { ExportButton, SearchForm, Pagination },
   mixins: [SearchFormFieldsMixin],
   data() {
@@ -113,15 +114,15 @@ export default {
       }
     },
   },
-  activated() {
+  created() {
     this.getShopProducts()
   },
   methods: {
     handleUserCreate() {
-      this.$router.push({ path: '/user/create' })
+      this.$router.push({ path: '/shop/create' })
     },
     handleUserEdit(user) {
-      this.$router.push({ path: '/user/edit', query: { id: user.id } })
+      this.$router.push({ name: 'ShopEdit', params: { id: user.id } })
     },
     handleUserDelete(user) {
       this.$deleteDialog({

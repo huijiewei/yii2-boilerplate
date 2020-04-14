@@ -90,7 +90,6 @@ import AuthService from '@admin/services/AuthService'
 import SameWidth from '@core/directives/SameWidth'
 
 export default {
-  name: 'AdminGroupForm',
   directives: {
     sameWidth: SameWidth,
   },
@@ -117,7 +116,7 @@ export default {
     }
   },
   async created() {
-    this.init()
+    this.formModel = Object.assign({}, this.adminGroup)
 
     const { data } = await flatry(MiscService.adminGroupPermissions())
 
@@ -162,9 +161,6 @@ export default {
     this.permissions = result
   },
   methods: {
-    init() {
-      this.formModel = Object.assign({}, this.adminGroup)
-    },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (!valid) {

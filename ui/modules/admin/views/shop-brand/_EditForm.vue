@@ -99,7 +99,6 @@ import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
 
 export default {
-  name: '_EditForm',
   components: { ImageUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
@@ -123,14 +122,11 @@ export default {
       categoryTree: null,
     }
   },
-  async mounted() {
+  async created() {
     this.loadCategoryTree()
-    this.init()
+    this.formModel = Object.assign({}, this.shopBrand)
   },
   methods: {
-    init() {
-      this.formModel = Object.assign({}, this.shopBrand)
-    },
     async loadCategoryTree() {
       const { data } = await flatry(MiscService.shopCategoryTree())
 

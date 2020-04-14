@@ -22,7 +22,9 @@ Vue.use(VueRouter)
 const routes = [
   ...adminRoute,
   ...adminGroupRoute,
+  ...userRoute,
   ...shopBrandRoute,
+  ...shopProductRoute,
   {
     path: '/login',
     component: siteLogin,
@@ -42,6 +44,7 @@ const routes = [
       },
       {
         path: 'home',
+        name: 'Home',
         component: siteIndex,
         meta: {
           affix: true,
@@ -52,6 +55,7 @@ const routes = [
       },
       {
         path: 'profile',
+        name: 'profile',
         component: siteProfile,
         meta: {
           breadcrumb: {
@@ -60,9 +64,7 @@ const routes = [
         },
       },
       ...adminLogRoute,
-      ...userRoute,
       ...shopCategoryRoute,
-      ...shopProductRoute,
       {
         path: '*',
         component: notFound,

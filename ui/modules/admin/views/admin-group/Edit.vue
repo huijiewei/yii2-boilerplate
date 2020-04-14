@@ -21,6 +21,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'AdminGroupEdit',
   components: { PlaceholderForm, AdminGroupForm },
   data() {
     return {
@@ -50,6 +51,7 @@ export default {
 
         this.$message.success('管理组编辑成功')
 
+        await this.$store.dispatch('tabs/deleteCache', 'AdminGroup')
         this.historyBack(true)
       }
 

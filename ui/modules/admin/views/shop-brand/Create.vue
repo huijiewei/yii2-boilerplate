@@ -5,7 +5,6 @@
     </div>
     <shop-brand-form
       v-if="shopBrand"
-      ref="form"
       :submit-text="pageTitle"
       :shop-brand="shopBrand"
       @on-submit="createShopBrand"
@@ -21,6 +20,7 @@ import flatry from '@core/utils/flatry'
 import ShopBrandService from '@admin/services/ShopBrandService'
 
 export default {
+  name: 'ShopBrandCreate',
   components: { PlaceholderForm, ShopBrandForm },
   data() {
     return {
@@ -30,20 +30,17 @@ export default {
   },
   inject: ['historyBack'],
   created() {
-    this.init()
+    this.shopBrand = {
+      name: '',
+      icon: '',
+      logo: '',
+      alias: '',
+      website: '',
+      description: '',
+      shopCategoryIds: [],
+    }
   },
   methods: {
-    init() {
-      this.shopBrand = {
-        name: '',
-        icon: '',
-        logo: '',
-        alias: '',
-        website: '',
-        description: '',
-        shopCategoryIds: [],
-      }
-    },
     async createShopBrand(shopBrand, done, fail, always) {
       const { data, error } = await flatry(ShopBrandService.create(shopBrand))
 
@@ -52,7 +49,7 @@ export default {
 
         this.$message.success('新建商品分类成功')
 
-        this.$refs.form.init()
+        await this.$store.dispatch('tabs/deleteCache', 'ShopBrand')
         this.historyBack(true)
       }
 

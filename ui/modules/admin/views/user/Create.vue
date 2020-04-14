@@ -20,6 +20,7 @@ import UserForm from '@admin/views/user/_EditForm'
 import UserService from '@admin/services/UserService'
 
 export default {
+  name: 'UserCreate',
   components: { UserForm, PlaceholderForm },
   data() {
     return {
@@ -38,7 +39,9 @@ export default {
         done()
 
         this.$message.success('用户新建成功')
-        await this.$router.push({ path: '/user' })
+
+        await this.$store.dispatch('tabs/deleteCache', 'User')
+        this.historyBack(true)
       }
 
       if (error) {

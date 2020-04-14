@@ -108,7 +108,6 @@ import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntity
 import AvatarUpload from '@admin/components/upload/AvatarUpload'
 
 export default {
-  name: 'AdminForm',
   components: { AvatarUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
@@ -178,13 +177,13 @@ export default {
         : 0
     },
   },
-  activated() {
-    this.formModel.password = ''
-    this.formModel.passwordConfirm = ''
-  },
-  async mounted() {
+  async created() {
     this.loadAdminGroups()
-    this.init()
+
+    this.formModel = Object.assign(
+      { password: '', passwordConfirm: '' },
+      this.admin
+    )
   },
   methods: {
     async loadAdminGroups() {
@@ -193,12 +192,6 @@ export default {
       if (data) {
         this.adminGroups = data
       }
-    },
-    init() {
-      this.formModel = Object.assign(
-        { password: '', passwordConfirm: '' },
-        this.admin
-      )
     },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {

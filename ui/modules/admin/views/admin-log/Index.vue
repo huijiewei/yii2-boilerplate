@@ -6,7 +6,7 @@
       </div>
       <div class="box-toolbar-button"></div>
     </div>
-    <el-table v-loading="loading" :data="logs">
+    <el-table v-loading="loading" :data="adminLogs">
       <el-table-column
         fixed
         width="90"
@@ -85,12 +85,13 @@ import { tabledObject } from '@core/utils/util'
 import Pagination from '@admin/components/Pagination'
 
 export default {
+  name: 'AdminLog',
   components: { SearchForm, Pagination },
   mixins: [SearchFormFieldsMixin],
   data() {
     return {
       loading: true,
-      logs: [],
+      adminLogs: [],
       pages: null,
       dialogVisible: false,
       viewAdminLog: [],
@@ -99,12 +100,12 @@ export default {
   watch: {
     $route(to, from) {
       if (to.path === from.path) {
-        this.getLogs()
+        this.getAdminLogs()
       }
     },
   },
-  activated() {
-    this.getLogs()
+  created() {
+    this.getAdminLogs()
   },
   methods: {
     handleView(adminLog) {
@@ -169,7 +170,7 @@ export default {
       this.dialogVisible = false
       this.viewAdminLog = []
     },
-    async getLogs() {
+    async getAdminLogs() {
       this.loading = true
 
       const { data } = await flatry(
@@ -177,7 +178,7 @@ export default {
       )
 
       if (data) {
-        this.logs = data.items
+        this.adminLogs = data.items
         this.pages = data.pages
 
         this.setSearchFields(data.searchFields)

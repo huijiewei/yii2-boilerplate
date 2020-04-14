@@ -5,7 +5,6 @@
     </div>
     <admin-group-form
       v-if="adminGroup"
-      ref="form"
       :submit-text="pageTitle"
       :admin-group="adminGroup"
       @on-submit="createAdminGroup"
@@ -21,6 +20,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'AdminGroupCreate',
   components: { PlaceholderForm, AdminGroupForm },
   data() {
     return {
@@ -44,7 +44,7 @@ export default {
 
         this.$message.success('新建管理组成功')
 
-        this.$refs.form.init()
+        await this.$store.dispatch('tabs/deleteCache', 'AdminGroup')
         this.historyBack(true)
       }
 

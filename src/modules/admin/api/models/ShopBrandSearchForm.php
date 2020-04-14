@@ -9,8 +9,6 @@ class ShopBrandSearchForm extends SearchForm
 {
     public $name;
 
-    public $isPagination = false;
-
     /**
      * @return array|null
      */
@@ -39,7 +37,7 @@ class ShopBrandSearchForm extends SearchForm
 
     protected function getQuery()
     {
-        $shopBrandQuery = ShopBrand::find()->with(['shopCategories'])->orderBy(['id' => SORT_ASC]);
+        $shopBrandQuery = ShopBrand::find()->with(['shopCategories'])->orderBy(['id' => SORT_DESC]);
 
         if (!empty($this->name)) {
             $shopBrandQuery->andWhere(['LIKE', 'name', $this->name]);

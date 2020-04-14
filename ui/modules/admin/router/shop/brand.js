@@ -13,6 +13,7 @@ export default [
     children: [
       {
         path: '',
+        name: 'ShopBrand',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-brand/Index'
@@ -20,6 +21,7 @@ export default [
       },
       {
         path: 'create',
+        name: 'ShopBrandCreate',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-brand/Create'
@@ -32,7 +34,7 @@ export default [
       },
       {
         path: 'edit/:id',
-        name: 'shop-brand-edit',
+        name: 'ShopBrandEdit',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-brand/Edit'

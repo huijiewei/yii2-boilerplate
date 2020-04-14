@@ -21,6 +21,7 @@ import UserForm from '@admin/views/user/_EditForm'
 import UserService from '@admin/services/UserService'
 
 export default {
+  name: 'UserEdit',
   components: { UserForm, PlaceholderForm },
   data() {
     return {
@@ -28,12 +29,9 @@ export default {
       user: null,
     }
   },
-  async beforeRouteUpdate(to, from, next) {
-    await this.getUser(to.query.id)
-    next()
-  },
+  inject: ['historyBack'],
   async created() {
-    await this.getUser(this.$route.query.id)
+    await this.getUser(this.$route.params.id)
   },
   methods: {
     async getUser(id) {
@@ -52,6 +50,9 @@ export default {
         done()
 
         this.$message.success('用户编辑成功')
+
+        await this.$store.dispatch('tabs/deleteCache', 'User')
+        this.historyBack(true)
       }
 
       if (error) {

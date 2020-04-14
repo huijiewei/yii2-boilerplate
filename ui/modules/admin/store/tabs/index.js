@@ -11,6 +11,9 @@ const tabs = {
     getViewed: (state) => {
       return state.viewed
     },
+    getCached: (state) => {
+      return state.cached
+    },
     getCurrent: (state) => {
       return state.current
     },
@@ -50,6 +53,34 @@ const tabs = {
 
       window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
     },
+    UPDATE_CACHED: (state, name) => {
+      if (!name) {
+        return
+      }
+
+      if (state.cached.includes(name)) {
+        return
+      }
+
+      state.cached.push(name)
+    },
+    DELETE_CACHED: (state, name) => {
+      if (!name) {
+        return
+      }
+
+      if (Array.isArray(name)) {
+        state.viewed = state.viewed.filter((view) => {
+          return !name.includes(view.name)
+        })
+      } else {
+        const matchIndex = state.cached.indexOf(name)
+
+        if (matchIndex > -1) {
+          state.cached.splice(matchIndex, 1)
+        }
+      }
+    },
     DELETE_VIEWED: (state, tab) => {
       for (const [index, view] of state.viewed.entries()) {
         if (view.path === tab.path) {
@@ -84,6 +115,22 @@ const tabs = {
 
       window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
     },
+    DEL_OTHER_CACHED: (state, name) => {
+      if (!name) {
+        return
+      }
+
+      const matchIndex = state.cachedViews.indexOf(name)
+
+      if (matchIndex > -1) {
+        state.cachedViews = state.cachedViews.slice(matchIndex, matchIndex + 1)
+      } else {
+        state.cachedViews = []
+      }
+    },
+    DEL_ALL_CACHED_: (state) => {
+      state.cachedViews = []
+    },
   },
   actions: {
     init({ commit }) {
@@ -95,12 +142,18 @@ const tabs = {
     open({ commit }, tab) {
       commit('UPDATE_VIEWED', tab)
       commit('UPDATE_CURRENT', tab)
+      commit('UPDATE_CACHED', tab.name)
+    },
+    deleteCache({ commit }, name) {
+      commit('DELETE_CACHED', name)
     },
     closeOther({ commit }, tab) {
       commit('DELETE_OTHER_VIEWED', tab)
+      commit('DELETE_OTHER_CACHED', tab.name)
     },
     closeAll({ commit, state }) {
       commit('DELETE_ALL_VIEWED')
+      commit('DELETE_ALL_CACHED')
 
       const next = state.viewed.find((view) => view.affix)
 
@@ -112,6 +165,7 @@ const tabs = {
       const next = getters.getNext(tab)
 
       commit('DELETE_VIEWED', tab)
+      commit('DELETE_CACHED', tab.name)
 
       return new Promise((resolve) => {
         resolve(next)

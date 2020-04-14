@@ -46,13 +46,14 @@ import AdminGroupService from '@admin/services/AdminGroupService'
 import flatry from '@core/utils/flatry'
 
 export default {
+  name: 'AdminGroup',
   data() {
     return {
       loading: true,
       adminGroups: [],
     }
   },
-  async activated() {
+  async created() {
     const { data } = await flatry(AdminGroupService.all())
 
     if (data) {
@@ -67,7 +68,7 @@ export default {
     },
     handleAdminGroupEdit(adminGroup) {
       this.$router.push({
-        name: 'admin-group-edit',
+        name: 'AdminGroupEdit',
         params: { id: adminGroup.id },
       })
     },

@@ -21,6 +21,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'AdminEdit',
   components: { PlaceholderForm, AdminForm },
   props: {
     name: String,
@@ -48,6 +49,7 @@ export default {
 
         this.$message.success('管理员编辑成功')
 
+        await this.$store.dispatch('tabs/deleteCache', 'Admin')
         this.historyBack(true)
       }
 

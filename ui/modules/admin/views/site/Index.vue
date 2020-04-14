@@ -107,6 +107,7 @@
 import FileUpload from '@admin/components/upload/FileUpload'
 import ImageUpload from '@admin/components/upload/ImageUpload'
 export default {
+  name: 'Home',
   components: { ImageUpload, FileUpload },
   metaInfo: {
     title: '首页',

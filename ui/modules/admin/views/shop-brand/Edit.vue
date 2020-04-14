@@ -21,6 +21,7 @@ import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 import ShopBrandService from '@admin/services/ShopBrandService'
 
 export default {
+  name: 'ShopBrandEdit',
   components: { PlaceholderForm, ShopBrandForm },
   props: {
     name: String,
@@ -68,6 +69,7 @@ export default {
 
         this.$message.success('商品品牌编辑成功')
 
+        await this.$store.dispatch('tabs/deleteCache', 'ShopBrand')
         this.historyBack(true)
       }
 

@@ -134,6 +134,7 @@ export default {
       routes.forEach((route) => {
         if (route.meta && route.meta.affix) {
           tabs.push({
+            name: route.name,
             path: path.resolve(basePath, route.path),
             query: route.query,
             title: route.meta.breadcrumb.title,
@@ -230,6 +231,7 @@ export default {
     },
     addTab(route) {
       const tab = {
+        name: route.name,
         path: route.path,
         query: route.query,
         title: this.getRouteTitle(route),

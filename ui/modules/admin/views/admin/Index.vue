@@ -77,6 +77,7 @@ import flatry from '@core/utils/flatry'
 import AgAvatar from '@core/components/Avatar'
 
 export default {
+  name: 'Admin',
   components: { AgAvatar },
   data() {
     return {
@@ -84,7 +85,7 @@ export default {
       admins: [],
     }
   },
-  async activated() {
+  async created() {
     const { data } = await flatry(AdminService.all())
 
     if (data) {
@@ -98,7 +99,7 @@ export default {
       this.$router.push({ path: '/admin/create' })
     },
     handleAdminEdit(admin) {
-      this.$router.push({ name: 'admin-edit', params: { id: admin.id } })
+      this.$router.push({ name: 'AdminEdit', params: { id: admin.id } })
     },
     handleAdminDelete(admin) {
       this.$deleteDialog({

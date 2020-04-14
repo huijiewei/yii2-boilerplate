@@ -24,7 +24,7 @@
       </header>
       <main class="ag-main">
         <transition mode="out-in" name="fade-transform">
-          <keep-alive>
+          <keep-alive :include="cachedTabs">
             <router-view :key="$route.path" v-if="isRouterAlive" />
           </keep-alive>
         </transition>
@@ -48,6 +48,9 @@ export default {
     isCollapsed() {
       return this.$store.getters['isSidebarCollapsed']
     },
+    cachedTabs() {
+      return this.$store.getters['tabs/getCached']
+    },
   },
   async beforeCreate() {
     if (!this.$store.getters['auth/getCurrentUser']) {
@@ -70,6 +73,8 @@ export default {
   },
   methods: {
     reload() {
+      this.$store.dispatch('tabs/deleteCache', this.$route.name)
+
       this.isRouterAlive = false
       this.$nextTick(() => (this.isRouterAlive = true))
     },

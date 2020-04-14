@@ -5,7 +5,6 @@
     </div>
     <admin-form
       v-if="admin"
-      ref="form"
       :submit-text="pageTitle"
       :admin="admin"
       @on-submit="createAdmin"
@@ -21,6 +20,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'AdminCreate',
   components: { PlaceholderForm, AdminForm },
   data() {
     return {
@@ -47,7 +47,7 @@ export default {
 
         this.$message.success('新建管理员成功')
 
-        this.$refs.form.init()
+        await this.$store.dispatch('tabs/deleteCache', 'Admin')
         this.historyBack(true)
       }
 

@@ -95,7 +95,6 @@
       </el-table-column>
     </el-table>
     <pagination :pages="pages"></pagination>
-    <modal-router-view></modal-router-view>
   </div>
 </template>
 
@@ -109,6 +108,7 @@ import ExportButton from '@admin/components/ExportButton'
 import Pagination from '@admin/components/Pagination'
 
 export default {
+  name: 'User',
   components: { ExportButton, SearchForm, AgAvatar, Pagination },
   mixins: [SearchFormFieldsMixin],
   data() {
@@ -118,9 +118,6 @@ export default {
       pages: null,
     }
   },
-  modals: {
-    UserCreate: () => import('@admin/views/user/Create'),
-  },
   watch: {
     $route(to, from) {
       if (to.path === from.path) {
@@ -128,15 +125,15 @@ export default {
       }
     },
   },
-  activated() {
+  created() {
     this.getUsers()
   },
   methods: {
     handleUserCreate() {
-      this.$modalRouter.push({ name: 'user-create' })
+      this.$router.push({ path: '/user/create' })
     },
     handleUserEdit(user) {
-      this.$router.push({ path: '/user/edit', query: { id: user.id } })
+      this.$router.push({ name: 'UserEdit', params: { id: user.id } })
     },
     handleUserDelete(user) {
       this.$deleteDialog({
@@ -161,12 +158,6 @@ export default {
 
           this.loading = false
         },
-      })
-    },
-    handleCurrentChange(page) {
-      this.$router.push({
-        path: this.$route.fullPath,
-        query: { page: page },
       })
     },
     async getUsers() {

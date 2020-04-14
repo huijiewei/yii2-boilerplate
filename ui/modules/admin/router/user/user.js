@@ -1,33 +1,48 @@
+import AdminLayout from '@admin/components/AdminLayout'
+
 export default [
   {
-    path: 'user',
-    component: () =>
-      import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Index'),
+    path: '/user',
+    component: AdminLayout,
     meta: {
       breadcrumb: {
         title: '用户',
         path: '/user',
       },
     },
-  },
-  {
-    path: 'user/create',
-    component: () =>
-      import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Create'),
-    meta: {
-      breadcrumb: {
-        title: '新建用户',
+    children: [
+      {
+        path: '',
+        name: 'User',
+        component: () =>
+          import(
+            /* webpackChunkName: "chunk-user" */ '@admin/views/user/Index'
+          ),
       },
-    },
-  },
-  {
-    path: 'user/edit',
-    component: () =>
-      import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Edit'),
-    meta: {
-      breadcrumb: {
-        title: '编辑用户',
+      {
+        path: 'create',
+        name: 'UserCreate',
+        component: () =>
+          import(
+            /* webpackChunkName: "chunk-user" */ '@admin/views/user/Create'
+          ),
+        meta: {
+          breadcrumb: {
+            title: '新建用户',
+          },
+        },
       },
-    },
+      {
+        path: 'edit/:id',
+        name: 'UserEdit',
+        component: () =>
+          import(/* webpackChunkName: "chunk-user" */ '@admin/views/user/Edit'),
+        meta: {
+          breadcrumb: {
+            title: '编辑用户',
+          },
+        },
+      },
+    ],
   },
 ]
