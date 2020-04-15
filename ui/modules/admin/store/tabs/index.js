@@ -93,8 +93,8 @@ const tabs = {
       }
 
       if (Array.isArray(name)) {
-        state.viewed = state.viewed.filter((view) => {
-          return !name.includes(view.name)
+        state.cached = state.cached.filter((cache) => {
+          return !name.includes(cache)
         })
       } else {
         const matchIndex = state.cached.indexOf(name)
@@ -138,21 +138,21 @@ const tabs = {
 
       window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
     },
-    DEL_OTHER_CACHED: (state, tab) => {
+    DELETE_OTHER_CACHED: (state, tab) => {
       if (!tab) {
         return
       }
 
-      const matchIndex = state.cachedViews.indexOf(tab.name)
+      const matchIndex = state.cached.indexOf(tab.name)
 
       if (matchIndex > -1) {
-        state.cachedViews = state.cachedViews.slice(matchIndex, matchIndex + 1)
+        state.cached = state.cached.slice(matchIndex, matchIndex + 1)
       } else {
-        state.cachedViews = []
+        state.cached = []
       }
     },
-    DEL_ALL_CACHED_: (state) => {
-      state.cachedViews = []
+    DELETE_ALL_CACHED: (state) => {
+      state.cached = []
     },
   },
   actions: {
@@ -188,7 +188,7 @@ const tabs = {
       const next = getters.getNext(tab)
 
       commit('DELETE_VIEWED', tab)
-      commit('DELETE_CACHED', tab)
+      commit('DELETE_CACHED', tab.name)
 
       return new Promise((resolve) => {
         resolve(next)
