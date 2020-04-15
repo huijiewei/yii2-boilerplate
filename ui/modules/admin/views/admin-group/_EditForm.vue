@@ -257,7 +257,7 @@ export default {
         return
       }
 
-      const permissions = this.formModel.permissions
+      const permissions = this.permissions
 
       item.combines.forEach((combine) => {
         if (
@@ -272,6 +272,7 @@ export default {
 
         permissions.forEach((group) => {
           if (group.children && group.children.length > 0) {
+            console.log(group)
             group.children.every((child) => {
               if (
                 child.actionId &&

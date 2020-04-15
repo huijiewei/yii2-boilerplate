@@ -46,15 +46,22 @@ export default {
       return this.$store.getters['auth/getGroupMenus']
     },
     getRouteActive() {
-      let matched = this.$route.matched
+      const paths = this.$route.path
+        .split('/')
+        .filter((split) => split.length > 0)
 
-      for (let i = matched.length - 1; i >= 0; i--) {
-        const route = matched[i]
+      const pathTable = []
 
-        const find = this.$store.getters['auth/isRouteInMenus'](route.path)
+      for (let i = paths.length - 1; i >= 0; i--) {
+        pathTable.push(paths.slice(0, i + 1))
+      }
+
+      for (let i = 0; i < pathTable.length; i++) {
+        const url = pathTable[i].join('/')
+        const find = this.$store.getters['auth/isRouteInMenus'](url)
 
         if (find) {
-          return route.path
+          return '/' + url
         }
       }
 

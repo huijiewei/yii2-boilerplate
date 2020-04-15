@@ -84,16 +84,19 @@ class AdminGroup extends ActiveRecord
         $urlSplit = explode('/', $url);
 
         foreach ($permissions as $permission) {
-            $permissionSplit = array_filter(explode('/', $permission), function ($split) {
-                return substr($split, 0, 1) !== ':';
-            });
+            $permissionSplit = explode('/', $permission);
 
+            $matched = false;
 
-            if (count($urlSplit) != count($permissionSplit)) {
-                continue;
+            foreach ($permissionSplit as $idx => $ps) {
+                if (substr($ps, 0, 1) == ':') {
+                    continue;
+                }
+
+                $matched = $ps == $urlSplit[$idx];
             }
 
-            if (implode('/', $urlSplit) == implode('/', $permissionSplit)) {
+            if ($matched) {
                 return true;
             }
         }

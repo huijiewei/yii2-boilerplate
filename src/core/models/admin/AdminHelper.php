@@ -292,6 +292,10 @@ class AdminHelper
                         'url' => 'admin-group/index'
                     ],
                     [
+                        'label' => '管理组1',
+                        'url' => 'admin-group/edit/11'
+                    ],
+                    [
                         'label' => '操作日志',
                         'url' => 'admin-log/index'
                     ],
