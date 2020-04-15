@@ -23,12 +23,12 @@ class AdminGroupPermission extends ActiveRecord
         if (count($insertPermissions) > 0) {
             $ins = [];
 
-            foreach ($insertPermissions as $acl) {
-                if (empty($acl) || $acl == '0') {
+            foreach ($insertPermissions as $permission) {
+                if (empty($permission) || $permission == '0') {
                     continue;
                 }
 
-                $ins[] = [$adminGroupId, $acl];
+                $ins[] = [$adminGroupId, $permission];
             }
 
             if (!empty($ins)) {

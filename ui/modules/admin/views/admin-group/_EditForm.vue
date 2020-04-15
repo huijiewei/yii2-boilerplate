@@ -169,11 +169,15 @@ export default {
 
         this.submitLoading = true
 
+        const permissions = []
+
         this.permissions.forEach((group) => {
           group.checkedPermissions.forEach((permission) => {
-            this.formModel.permissions.push(permission)
+            permissions.push(permission)
           })
         })
+
+        this.formModel.permissions = permissions
 
         this.$emit(
           'on-submit',

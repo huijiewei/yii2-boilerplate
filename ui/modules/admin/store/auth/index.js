@@ -31,23 +31,15 @@ const auth = {
 
       return (
         state.groupPermissions.findIndex((permission) => {
-          const permissionSplit = permission.split('/')
+          const permissionSplit = permission.split('/').filter((split) => {
+            return !split.startsWith(':')
+          })
 
           if (routeSplit.length !== permissionSplit.length) {
             return false
           }
 
-          let matched = false
-
-          permissionSplit.forEach((ps, index) => {
-            if (ps.startsWith(':')) {
-              matched = true
-            } else {
-              matched = ps.toString() === routeSplit[index].toString()
-            }
-          })
-
-          return matched
+          return routeSplit.join('/') === permissionSplit.join('/')
         }) > -1
       )
     },

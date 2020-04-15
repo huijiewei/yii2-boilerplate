@@ -3,7 +3,6 @@
 namespace app\core\models\admin;
 
 use app\core\components\ActiveRecord;
-use app\core\helpers\StringHelper;
 
 /**
  * Class AdminGroup
@@ -19,38 +18,8 @@ class AdminGroup extends ActiveRecord
 
     public $permissions;
 
-    public static function checkUrlInPermissions($url, $permissions)
-    {
-        $urlSplit = explode('/', $url);
-
-        foreach ($permissions as $permission) {
-            $permissionSplit = explode('/', $permission);
-
-            if (count($urlSplit) != count($permissionSplit)) {
-                continue;
-            }
-
-            $match = false;
-
-            foreach ($permissionSplit as $idx => $ps) {
-                if (StringHelper::startsWith($ps, ':')) {
-                    $match = true;
-                } else {
-                    $match = $ps == $urlSplit[$idx];
-                }
-            }
-
-            if ($match) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public static function getMenuById($id)
     {
-
         function getMenu($menu, $permissions)
         {
             if (
@@ -108,6 +77,28 @@ class AdminGroup extends ActiveRecord
         }
 
         return $menus;
+    }
+
+    public static function checkUrlInPermissions($url, $permissions)
+    {
+        $urlSplit = explode('/', $url);
+
+        foreach ($permissions as $permission) {
+            $permissionSplit = array_filter(explode('/', $permission), function ($split) {
+                return substr($split, 0, 1) !== ':';
+            });
+
+
+            if (count($urlSplit) != count($permissionSplit)) {
+                continue;
+            }
+
+            if (implode('/', $urlSplit) == implode('/', $permissionSplit)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
