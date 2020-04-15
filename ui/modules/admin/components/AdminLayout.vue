@@ -1,5 +1,5 @@
 <template>
-  <section :class="['ag', isCollapsed ? 'ag-collapsed' : '']">
+  <section :class="['ag-app', isCollapsed ? 'ag-collapsed' : '']">
     <aside class="ag-aside">
       <div class="ag-logo">
         <router-link :to="{ path: '/home' }">

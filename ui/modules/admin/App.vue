@@ -114,6 +114,8 @@ export default {
     }
   },
   mounted() {
+    document.body.classList.add('ag')
+
     this.spinnerTimeout = setTimeout(() => {
       const spinner = document.getElementById('spinner')
 
