@@ -40,11 +40,16 @@ export default {
       categoryParents: [],
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    this.shopCategory = null
+    next()
+    this.getShopCategoryPath(to.params.id)
+  },
   created() {
-    this.getShopCategoryRoute(this.$route.params.id)
+    this.getShopCategoryPath(this.$route.params.id)
   },
   methods: {
-    async getShopCategoryRoute(id) {
+    async getShopCategoryPath(id) {
       let parents = [0]
 
       if (id > 0) {
@@ -59,15 +64,13 @@ export default {
 
       this.$emit('on-expanded', parents, id)
 
-      this.$nextTick(() => {
-        this.shopCategory = {
-          parentId: id,
-          name: '',
-          icon: '',
-          image: '',
-          description: '',
-        }
-      })
+      this.shopCategory = {
+        parentId: id,
+        name: '',
+        icon: '',
+        image: '',
+        description: '',
+      }
     },
     async createShopCategory(shopCategory, done, fail, always) {
       const { data, error } = await flatry(

@@ -114,20 +114,6 @@ export default {
     }
   },
   methods: {
-    getRouteTitle(route) {
-      let title = '无标题'
-
-      for (let i = route.matched.length - 1; i >= 0; i--) {
-        const breadcrumb = route.matched[i].meta.breadcrumb
-
-        if (breadcrumb && breadcrumb.title && breadcrumb.title.length > 0) {
-          title = breadcrumb.title
-          break
-        }
-      }
-
-      return title
-    },
     filterAffixTabs(routes, basePath = '/') {
       let tabs = []
 
@@ -234,7 +220,7 @@ export default {
         name: route.name,
         path: route.path,
         query: route.query,
-        title: this.getRouteTitle(route),
+        title: route.meta.title,
         affix: route.meta && route.meta.affix,
         parent: route.meta && route.meta.parent,
       }

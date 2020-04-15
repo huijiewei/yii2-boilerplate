@@ -1,24 +1,12 @@
-import AdminLayout from '@admin/components/AdminLayout'
-
 export default [
   {
     path: '/shop-product',
-    component: AdminLayout,
+    component: () =>
+      import(
+        /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-product/Index'
+      ),
     meta: {
-      breadcrumb: {
-        title: '商品列表',
-        path: '/shop-product',
-      },
+      title: '商品列表',
     },
-    children: [
-      {
-        path: '',
-        name: 'ShopProduct',
-        component: () =>
-          import(
-            /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-product/Index'
-          ),
-      },
-    ],
   },
 ]

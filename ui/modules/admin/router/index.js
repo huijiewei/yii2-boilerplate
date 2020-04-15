@@ -20,18 +20,12 @@ import AdminLayout from '@admin/components/AdminLayout'
 Vue.use(VueRouter)
 
 const routes = [
-  ...adminRoute,
-  ...adminGroupRoute,
-  ...userRoute,
-  ...shopBrandRoute,
-  ...shopProductRoute,
   {
     path: '/login',
+    name: 'Login',
     component: siteLogin,
     meta: {
-      breadcrumb: {
-        title: '登录',
-      },
+      title: '登录',
     },
   },
   {
@@ -43,7 +37,7 @@ const routes = [
         redirect: '/home',
       },
       {
-        path: 'home',
+        path: '/home',
         name: 'Home',
         component: siteIndex,
         meta: {
@@ -54,24 +48,25 @@ const routes = [
         },
       },
       {
-        path: 'profile',
-        name: 'profile',
+        path: '/profile',
+        name: 'Profile',
         component: siteProfile,
         meta: {
-          breadcrumb: {
-            title: '个人资料',
-          },
+          title: '个人资料',
         },
       },
+      ...adminRoute,
       ...adminLogRoute,
+      ...adminGroupRoute,
+      ...userRoute,
+      ...shopBrandRoute,
+      ...shopProductRoute,
       ...shopCategoryRoute,
       {
         path: '*',
         component: notFound,
         meta: {
-          breadcrumb: {
-            title: '页面未找到',
-          },
+          title: '页面未找到',
         },
       },
     ],

@@ -40,6 +40,11 @@ export default {
       categoryParents: [],
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    this.shopCategory = null
+    next()
+    this.getShopCategory(to.params.id)
+  },
   created() {
     this.getShopCategory(this.$route.params.id)
   },

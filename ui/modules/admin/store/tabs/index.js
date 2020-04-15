@@ -72,16 +72,20 @@ const tabs = {
 
       window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
     },
-    UPDATE_CACHED: (state, name) => {
-      if (!name) {
+    UPDATE_CACHED: (state, tab) => {
+      if (!tab) {
         return
       }
 
-      if (state.cached.includes(name)) {
-        return
+      if (!state.cached.includes(tab.name)) {
+        state.cached.push(tab.name)
       }
 
-      state.cached.push(name)
+      if (tab.parent) {
+        if (!state.cached.includes(tab.parent.name)) {
+          state.cached.push(tab.parent.name)
+        }
+      }
     },
     DELETE_CACHED: (state, name) => {
       if (!name) {
@@ -134,12 +138,12 @@ const tabs = {
 
       window.localStorage.setItem(viewedTabsKey, JSON.stringify(state.viewed))
     },
-    DEL_OTHER_CACHED: (state, name) => {
-      if (!name) {
+    DEL_OTHER_CACHED: (state, tab) => {
+      if (!tab) {
         return
       }
 
-      const matchIndex = state.cachedViews.indexOf(name)
+      const matchIndex = state.cachedViews.indexOf(tab.name)
 
       if (matchIndex > -1) {
         state.cachedViews = state.cachedViews.slice(matchIndex, matchIndex + 1)
@@ -161,14 +165,14 @@ const tabs = {
     open({ commit }, tab) {
       commit('UPDATE_VIEWED', tab)
       commit('UPDATE_CURRENT', tab)
-      commit('UPDATE_CACHED', tab.name)
+      commit('UPDATE_CACHED', tab)
     },
     deleteCache({ commit }, name) {
       commit('DELETE_CACHED', name)
     },
     closeOther({ commit }, tab) {
       commit('DELETE_OTHER_VIEWED', tab)
-      commit('DELETE_OTHER_CACHED', tab.name)
+      commit('DELETE_OTHER_CACHED', tab)
     },
     closeAll({ commit, state }) {
       commit('DELETE_ALL_VIEWED')
@@ -184,7 +188,7 @@ const tabs = {
       const next = getters.getNext(tab)
 
       commit('DELETE_VIEWED', tab)
-      commit('DELETE_CACHED', tab.parent ? tab.parent.name : tab.name)
+      commit('DELETE_CACHED', tab)
 
       return new Promise((resolve) => {
         resolve(next)

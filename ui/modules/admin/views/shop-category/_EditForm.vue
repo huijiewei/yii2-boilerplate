@@ -119,7 +119,7 @@ export default {
     },
   },
   created() {
-    this.formModel = this.shopCategory
+    this.formModel = Object.assign({}, this.shopCategory)
     this.formCategoryParents = this.categoryParents
   },
   methods: {

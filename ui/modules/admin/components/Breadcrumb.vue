@@ -34,27 +34,11 @@ export default {
   },
   methods: {
     updateBreadcrumbs() {
-      const breadcrumbs = []
+      const title = this.$route.meta.title
 
-      this.$route.matched.forEach((route) => {
-        const breadcrumb = route.meta.breadcrumb
+      this.breadcrumbs = [{ title: title }]
 
-        if (breadcrumb) {
-          breadcrumbs.push(breadcrumb)
-        }
-      })
-
-      this.breadcrumbs = breadcrumbs
-
-      const titles = []
-
-      for (let i = breadcrumbs.length - 1; i >= 0; i--) {
-        if (breadcrumbs[i].title) {
-          titles.push(breadcrumbs[i].title)
-        }
-      }
-
-      document.title = this.documentTitle.replace('%s', titles.join(' - '))
+      document.title = this.documentTitle.replace('%s', title)
     },
   },
 }
