@@ -37,12 +37,31 @@ const tabs = {
   },
   mutations: {
     UPDATE_VIEWED: (state, tab) => {
-      const matchIndex = state.viewed.findIndex(
-        (view) => view.path === tab.path
-      )
+      const matchIndex = state.viewed.findIndex((view) => {
+        if (tab.path === view.path) {
+          return true
+        }
+
+        if (tab.parent && tab.parent.path === view.path) {
+          return true
+        }
+
+        if (view.parent && view.parent.path === tab.path) {
+          return true
+        }
+
+        if (view.parent && tab.parent && view.parent.path === tab.parent.path) {
+          return true
+        }
+
+        return false
+      })
 
       if (matchIndex > -1) {
+        state.viewed[matchIndex].name = tab.name
+        state.viewed[matchIndex].path = tab.path
         state.viewed[matchIndex].query = tab.query
+        state.viewed[matchIndex].parent = tab.parent
       } else {
         const currentIndex = state.viewed.findIndex(
           (view) => view.path === (state.current ? state.current.path : '')
@@ -165,7 +184,7 @@ const tabs = {
       const next = getters.getNext(tab)
 
       commit('DELETE_VIEWED', tab)
-      commit('DELETE_CACHED', tab.name)
+      commit('DELETE_CACHED', tab.parent ? tab.parent.name : tab.name)
 
       return new Promise((resolve) => {
         resolve(next)

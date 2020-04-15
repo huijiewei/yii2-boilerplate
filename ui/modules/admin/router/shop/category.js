@@ -28,6 +28,11 @@ export default [
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Create'
           ),
         meta: {
+          parent: {
+            name: 'ShopCategory',
+            path: '/shop-category',
+            title: '商品分类',
+          },
           breadcrumb: {
             title: '新建商品分类',
           },
@@ -41,6 +46,11 @@ export default [
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Edit'
           ),
         meta: {
+          parent: {
+            name: 'ShopCategory',
+            path: '/shop-category',
+            title: '商品分类',
+          },
           breadcrumb: {
             title: '编辑商品分类',
           },

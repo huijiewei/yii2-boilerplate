@@ -59,11 +59,14 @@
         </el-tree>
       </el-col>
       <el-col :span="18">
-        <router-view
-          :category-tree="this.categoryTree"
-          @on-expanded="expandedCategoryTree"
-          @on-updated="updatedCategoryTree"
-        />
+        <keep-alive :include="cachedTabs">
+          <router-view
+            :key="$route.path"
+            :category-tree="this.categoryTree"
+            @on-expanded="expandedCategoryTree"
+            @on-updated="updatedCategoryTree"
+          />
+        </keep-alive>
       </el-col>
     </el-row>
   </div>
@@ -76,6 +79,11 @@ import AgIcon from '@core/components/Icon'
 
 export default {
   name: 'ShopCategory',
+  computed: {
+    cachedTabs() {
+      return this.$store.getters['tabs/getCached']
+    },
+  },
   watch: {
     keyword(keyword) {
       this.$refs.categoryTree.filter(keyword)

@@ -25,7 +25,14 @@
       <main class="ag-main">
         <transition mode="out-in" name="fade-transform">
           <keep-alive :include="cachedTabs">
-            <router-view :key="$route.path" v-if="isRouterAlive" />
+            <router-view
+              :key="
+                $route.meta && $route.meta.parent
+                  ? $route.meta.parent.path
+                  : $route.path
+              "
+              v-if="isRouterAlive"
+            />
           </keep-alive>
         </transition>
       </main>

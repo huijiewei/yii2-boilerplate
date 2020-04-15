@@ -79,7 +79,10 @@ export default {
 
         this.$message.success('新建商品分类成功')
 
-        this.$emit('on-updated', shopCategory.id)
+        await this.$router.push({
+          name: 'ShopCategoryEdit',
+          params: { id: data.id },
+        })
       }
 
       if (error) {

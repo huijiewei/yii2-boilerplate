@@ -21,7 +21,7 @@
           @click="openTab(tab)"
           @contextmenu.prevent="handleContextMenu(tab, $event)"
         >
-          <span>{{ tab.title }}</span>
+          <span>{{ tab.parent ? tab.parent.title : tab.title }}</span>
           <i
             v-if="!tab.affix"
             class="el-icon-close el-icon--right"
@@ -236,6 +236,7 @@ export default {
         query: route.query,
         title: this.getRouteTitle(route),
         affix: route.meta && route.meta.affix,
+        parent: route.meta && route.meta.parent,
       }
 
       this.$store.dispatch('tabs/open', tab)
