@@ -123,7 +123,7 @@ export default {
             name: route.name,
             path: path.resolve(basePath, route.path),
             query: route.query,
-            title: route.meta.breadcrumb.title,
+            title: route.meta.title,
             affix: true,
           })
         }
