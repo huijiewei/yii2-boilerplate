@@ -5,6 +5,15 @@
         <search-form v-if="searchFields" :search-fields="searchFields" />
       </div>
       <div class="box-toolbar-button">
+        <el-button
+          :disabled="!$can('shop-product/create')"
+          type="primary"
+          size="medium"
+          @click.native="handleUserCreate()"
+        >
+          新建商品
+        </el-button>
+        &nbsp;&nbsp;
         <export-button
           v-if="$can('shop-product/export')"
           :disabled="loading"
@@ -15,15 +24,6 @@
         >
           商品导出
         </export-button>
-        &nbsp;&nbsp;
-        <el-button
-          :disabled="!$can('shop-product/create')"
-          type="primary"
-          size="medium"
-          @click.native="handleUserCreate()"
-        >
-          新建商品
-        </el-button>
       </div>
     </div>
     <el-table v-loading="loading" :data="shopProducts">
