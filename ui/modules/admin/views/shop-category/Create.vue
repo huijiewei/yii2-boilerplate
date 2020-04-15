@@ -26,6 +26,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'ShopCategoryCreate',
   components: { PlaceholderForm, ShopCategoryForm },
   props: {
     categoryTree: {

@@ -1,10 +1,4 @@
-$--font-path: '~element-ui/lib/theme-chalk/fonts';
-
 @import '../../../../core/assets/styles/mixin.scss';
-@import '~element-ui/packages/theme-chalk/src/index';
-body {
-  -webkit-font-smoothing: antialiased;
-}
 
 .clearfix {
   @include clearfix;
