@@ -77,6 +77,14 @@ const tabs = {
         return
       }
 
+      if (Array.isArray(tab)) {
+        tab.forEach((cache) => {
+          state.cached.push(cache)
+        })
+
+        return
+      }
+
       if (!state.cached.includes(tab.name)) {
         state.cached.push(tab.name)
       }
@@ -166,6 +174,9 @@ const tabs = {
       commit('UPDATE_VIEWED', tab)
       commit('UPDATE_CURRENT', tab)
       commit('UPDATE_CACHED', tab)
+    },
+    updateCache({ commit }, name) {
+      commit('UPDATE_CACHED', name)
     },
     deleteCache({ commit }, name) {
       commit('DELETE_CACHED', name)

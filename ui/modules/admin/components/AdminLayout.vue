@@ -79,17 +79,21 @@ export default {
     }
   },
   methods: {
-    reload() {
+    async reload() {
       const cacheNames = [this.$route.name]
 
       if (this.$route.meta.parent) {
         cacheNames.push(this.$route.meta.parent.name)
       }
 
-      this.$store.dispatch('tabs/deleteCache', cacheNames)
+      await this.$store.dispatch('tabs/deleteCache', cacheNames)
 
       this.isRouterAlive = false
-      this.$nextTick(() => (this.isRouterAlive = true))
+
+      this.$nextTick(() => {
+        this.isRouterAlive = true
+        this.$store.dispatch('tabs/updateCache', cacheNames)
+      })
     },
   },
 }
