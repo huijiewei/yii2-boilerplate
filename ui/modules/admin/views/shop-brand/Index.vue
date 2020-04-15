@@ -41,7 +41,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column width="300" label="品牌分类">
+      <el-table-column width="260" label="品牌分类">
         <template slot-scope="scope">
           <div class="brand-category-tags">
             <template v-for="shopCategory in scope.row.shopCategories">
