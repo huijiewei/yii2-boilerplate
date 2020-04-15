@@ -81,19 +81,27 @@ class AdminGroup extends ActiveRecord
 
     public static function checkUrlInPermissions($url, $permissions)
     {
+        if (empty($url)) {
+            return false;
+        }
+
         $urlSplit = explode('/', $url);
 
         foreach ($permissions as $permission) {
+            if (empty($permission)) {
+                return false;
+            }
+
             $permissionSplit = explode('/', $permission);
 
-            $matched = false;
+            $matched = true;
 
             foreach ($permissionSplit as $idx => $ps) {
                 if (substr($ps, 0, 1) == ':') {
                     continue;
                 }
 
-                $matched = $ps == $urlSplit[$idx];
+                $matched = $ps == $urlSplit[$idx] && $matched;
             }
 
             if ($matched) {

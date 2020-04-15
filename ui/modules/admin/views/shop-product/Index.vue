@@ -15,8 +15,7 @@
         </el-button>
         &nbsp;&nbsp;
         <export-button
-          v-if="$can('shop-product/export')"
-          :disabled="loading"
+          :disabled="loading || !$can('shop-product/export')"
           :api="'shop-products/export'"
           type="default"
           size="small"

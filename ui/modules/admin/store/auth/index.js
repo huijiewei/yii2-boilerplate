@@ -27,20 +27,28 @@ const auth = {
       return state.groupMenus
     },
     isRouteInAcl: (state) => (route) => {
+      if (route.length === 0) {
+        return false
+      }
+
       const routeSplit = route.split('/')
 
       return (
         state.groupPermissions.findIndex((permission) => {
+          if (permission.length === 0) {
+            return false
+          }
+
           const permissionSplit = permission.split('/')
 
-          let matched = false
+          let matched = true
 
           for (let i = permissionSplit.length - 1; i >= 0; i--) {
             if (permissionSplit[i].startsWith(':')) {
               continue
             }
 
-            matched = permissionSplit[i] === routeSplit[i]
+            matched = permissionSplit[i] === routeSplit[i] && matched
           }
 
           return matched
