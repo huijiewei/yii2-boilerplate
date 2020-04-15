@@ -97,8 +97,11 @@ export default {
           if (data) {
             this.$message.success('删除成功')
 
-            await this.$store.dispatch('tabs/deleteCache', 'ShopCategory')
-            this.historyBack(true)
+            this.$emit('on-updated', shopCategory.parentId)
+
+            await this.$router.replace({
+              path: '/shop-category',
+            })
           }
 
           this.loading = false
