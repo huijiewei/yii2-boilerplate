@@ -122,7 +122,7 @@ $asideBackgroundColor: #2c343f;
   transform: translateX(50px);
 }
 
-.ag {
+.ag-app {
   display: flex;
   flex: auto;
   flex-direction: row;
