@@ -42,9 +42,7 @@ const routes = [
         component: siteIndex,
         meta: {
           affix: true,
-          breadcrumb: {
-            title: '首页',
-          },
+          title: '首页',
         },
       },
       {
