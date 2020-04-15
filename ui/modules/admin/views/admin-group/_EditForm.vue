@@ -48,8 +48,12 @@
                 <el-checkbox
                   v-if="!child.children"
                   :key="index + '-' + childIndex"
-                  :ref="child.actionId"
                   :label="child.actionId"
+                  :disabled="checkboxDisabled.includes(child.actionId)"
+                  @change="
+                    (checked) =>
+                      handleCheckedPermissionItemChange(checked, child)
+                  "
                 >
                   {{ child.name }}
                 </el-checkbox>
@@ -61,9 +65,12 @@
                   <el-checkbox
                     v-for="(checkbox, checkboxIndex) in child.children"
                     :key="index + '-' + childIndex + '-' + checkboxIndex"
-                    :ref="checkbox.actionId"
                     :label="checkbox.actionId"
-                    @change="handleCheckedPermissionItemChange(checkbox)"
+                    :disabled="checkboxDisabled.includes(checkbox.actionId)"
+                    @change="
+                      (checked) =>
+                        handleCheckedPermissionItemChange(checked, checkbox)
+                    "
                   >
                     {{ checkbox.name }}
                   </el-checkbox>
@@ -113,6 +120,7 @@ export default {
       submitLoading: false,
       formModel: null,
       permissions: [],
+      checkboxDisabled: [],
     }
   },
   async created() {
@@ -139,12 +147,14 @@ export default {
             group.permissionsCount++
             if (permissions.includes(item.actionId)) {
               group.checkedPermissions.push(item.actionId)
+              this.disableCombinesCheckbox(item)
             }
           })
         } else {
           group.permissionsCount++
           if (permissions.includes(child.actionId)) {
             group.checkedPermissions.push(child.actionId)
+            this.disableCombinesCheckbox(child)
           }
         }
       })
@@ -161,6 +171,17 @@ export default {
     this.permissions = result
   },
   methods: {
+    disableCombinesCheckbox(item) {
+      if (!item.combines || item.combines.length === 0) {
+        return
+      }
+
+      item.combines.forEach((combine) => {
+        if (!this.checkboxDisabled.includes(combine)) {
+          this.checkboxDisabled.push(combine)
+        }
+      })
+    },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (!valid) {
@@ -228,29 +249,19 @@ export default {
       group.checkIndeterminate =
         checkedCount > 0 && checkedCount < group.permissionsCount
     },
-    handleCheckedPermissionItemChange(item) {
+    handleCheckedPermissionItemChange(checked, item) {
       if (!item.combines || item.combines.length === 0) {
         return
       }
 
-      const refs = this.$refs
-
-      const checked = refs[item.actionId][0].$el.getElementsByTagName(
-        'input'
-      )[0].checked
-
       if (!checked) {
         item.combines.forEach((combine) => {
-          if (
-            refs[combine] &&
-            refs[combine][0] &&
-            refs[combine][0].$el &&
-            refs[combine][0].$el.getElementsByTagName('input') &&
-            refs[combine][0].$el.getElementsByTagName('input')[0]
-          ) {
-            refs[combine][0].$el.getElementsByTagName(
-              'input'
-            )[0].disabled = false
+          const matchIndex = this.checkboxDisabled.findIndex(
+            (checkbox) => checkbox === combine
+          )
+
+          if (matchIndex > -1) {
+            this.checkboxDisabled.splice(matchIndex, 1)
           }
         })
 
@@ -260,19 +271,12 @@ export default {
       const permissions = this.permissions
 
       item.combines.forEach((combine) => {
-        if (
-          refs[combine] &&
-          refs[combine][0] &&
-          refs[combine][0].$el &&
-          refs[combine][0].$el.getElementsByTagName('input') &&
-          refs[combine][0].$el.getElementsByTagName('input')[0]
-        ) {
-          refs[combine][0].$el.getElementsByTagName('input')[0].disabled = true
+        if (!this.checkboxDisabled.includes(combine)) {
+          this.checkboxDisabled.push(combine)
         }
 
         permissions.forEach((group) => {
           if (group.children && group.children.length > 0) {
-            console.log(group)
             group.children.every((child) => {
               if (
                 child.actionId &&
