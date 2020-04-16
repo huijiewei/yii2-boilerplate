@@ -79,7 +79,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "url": "git@github.com:RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -360,16 +360,16 @@
         },
         {
             "name": "easywechat-composer/easywechat-composer",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mingyoung/easywechat-composer.git",
-                "reference": "2ccae32ab6bfba6c2d29a2fc4c93a64653867538"
+                "reference": "01648e8f065553efea39f67a439b54362d7bf91a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mingyoung/easywechat-composer/zipball/2ccae32ab6bfba6c2d29a2fc4c93a64653867538",
-                "reference": "2ccae32ab6bfba6c2d29a2fc4c93a64653867538",
+                "url": "https://api.github.com/repos/mingyoung/easywechat-composer/zipball/01648e8f065553efea39f67a439b54362d7bf91a",
+                "reference": "01648e8f065553efea39f67a439b54362d7bf91a",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -406,7 +406,7 @@
                 }
             ],
             "description": "The composer plugin for EasyWeChat",
-            "time": "2020-03-29T07:51:47+00:00"
+            "time": "2020-04-10T15:22:45+00:00"
         },
         {
             "name": "egulias/email-validator",
