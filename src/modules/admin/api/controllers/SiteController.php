@@ -9,14 +9,6 @@ use yii\web\Response;
 
 class SiteController extends Controller
 {
-    public function actions()
-    {
-        return [
-            'upload-file' => UploadAction::class,
-            'crop-image' => ImageCropAction::class,
-        ];
-    }
-
     public function actionError()
     {
         return \Yii::$app->getErrorHandler()->exception;

@@ -5,7 +5,7 @@ const OpenService = {
     return Vue.http.get('open/admin-faker', { count: count })
   },
   captcha(uuid) {
-    return Vue.http.get('open/captcha', { uuid: uuid })
+    return Vue.http.get('open/captcha', { uuid: uuid }, false)
   },
 }
 

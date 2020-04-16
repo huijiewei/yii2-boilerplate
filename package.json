@@ -11,6 +11,10 @@
     "inspect:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.mobile.config.js vue-cli-service inspect --mode production > webpack.entity.mobile.js"
   },
   "dependencies": {
+    "@composer-asset/huijiewei--yii2-swagger": "file:./vendor/foxy/composer-asset/huijiewei/yii2-swagger",
+    "@composer-asset/huijiewei--yii2-upload": "file:./vendor/foxy/composer-asset/huijiewei/yii2-upload",
+    "@composer-asset/yiisoft--yii2": "file:./vendor/foxy/composer-asset/yiisoft/yii2",
+    "@composer-asset/yiisoft--yii2-bootstrap": "file:./vendor/foxy/composer-asset/yiisoft/yii2-bootstrap",
     "axios": "^0.19.2",
     "axios-progress-bar": "^1.2.0",
     "axios-retry": "^3.1.2",
@@ -73,5 +77,6 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "license": "MIT"
 }

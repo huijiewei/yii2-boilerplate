@@ -6,8 +6,8 @@ $config = [
     'id' => getenv('APP_ID') . '-web',
 
     'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset',
+        '@bower' => dirname(__DIR__) . '/node_modules',
+        '@npm' => dirname(__DIR__) . '/node_modules',
     ],
 
     'components' => [

@@ -4,6 +4,8 @@ namespace app\modules\admin\api\controllers;
 
 use app\modules\admin\api\Controller;
 use app\modules\admin\api\models\AdminLoginForm;
+use yii\base\InvalidArgumentException;
+use yii\web\ForbiddenHttpException;
 
 class AuthController extends Controller
 {
@@ -20,7 +22,7 @@ class AuthController extends Controller
         }
 
         $account = $this->actionAccount();
-        $account['accessToken'] = $form->accessToken->accessToken;
+        $account['accessToken'] = $form->accessToken;
 
         return $this->message('登陆成功', $account);
     }

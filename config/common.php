@@ -83,6 +83,9 @@ return [
         'upload' => [
             'class' => \huijiewei\upload\drivers\LocalFile::class,
             'path' => 'uploads',
+            'uploadAction' => 'open/upload-file',
+            'cropAction' => 'open/crop-image',
+            'policyKey' => 'BOILERPLATE'
         ],
 
         'log' => [

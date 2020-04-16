@@ -14,12 +14,27 @@
     "hidehalo/nanoid-php": "^1.1",
     "fzaninotto/faker": "^1.8",
     "yii2tech/spreadsheet": "^1.0",
-    "huijiewei/yii2-upload": "^3.0"
+    "huijiewei/yii2-upload": "^3.0",
+    "gregwar/captcha": "^1.1",
+    "kriss/foxy-yii2-convert": "^1.0"
   },
   "require-dev": {
-    "yiisoft/yii2-debug": "^2.0",
+    "yiisoft/yii2-debug": "^2.1",
     "symfony/var-dumper": "^4.1",
     "phpunit/phpunit": "^7"
+  },
+  "provide": {
+    "bower-asset/bootstrap": "*",
+    "bower-asset/jquery": "*",
+    "bower-asset/inputmask": "*",
+    "bower-asset/punycode": "*",
+    "bower-asset/yii2-pjax": "*",
+    "npm-asset/wangeditor": "*",
+    "npm-asset/webuploader": "*",
+    "bower-asset/typeahead.js": "*",
+    "npm-asset/blueimp-file-upload": "*",
+    "npm-asset/swagger-ui-dist": "*",
+    "npm-asset/cropperjs": "*"
   },
   "license": "MIT",
   "authors": [
@@ -41,10 +56,6 @@
     }
   },
   "repositories": {
-    "assets": {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
-    },
     "packagist": {
       "type": "composer",
       "url": "https://mirrors.aliyun.com/composer/"

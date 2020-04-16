@@ -26,7 +26,6 @@ class PhoneNumberValidator extends Validator
     {
         parent::validateAttribute($model, $attribute);
 
-        /** @var Model $model */
         if (!$model->hasErrors($attribute)) {
             $model->$attribute = $this->phoneNumber;
         }

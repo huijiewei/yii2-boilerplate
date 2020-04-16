@@ -7,6 +7,8 @@ use yii\helpers\Html;
 /* @var $context \app\modules\website\Controller */
 
 $context = $this->context;
+
+\app\modules\website\AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>

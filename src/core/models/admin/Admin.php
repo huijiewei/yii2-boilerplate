@@ -122,11 +122,13 @@ class Admin extends Identity
      * @param string $remoteAddr
      * @param string $userAgent
      *
-     * @return AdminAccessToken
+     * @return string
      */
     public function generateAccessToken($clientId = '', $remoteAddr = '', $userAgent = '')
     {
-        return AdminAccessToken::generateAccessToken($this->id, $clientId, $remoteAddr, $userAgent);
+        $adminAccessToken = AdminAccessToken::generateAccessToken($this->id, $clientId, $remoteAddr, $userAgent);
+
+        return $adminAccessToken->accessToken;
     }
 
     public function logout($clientId, $remoteAddr, $userAgent)
