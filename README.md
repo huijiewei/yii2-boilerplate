@@ -25,10 +25,11 @@ https://bp.huijiewei.com/admin
 
 项目需要 PHP 7.1 以上版本
 
-##### 安装 composer 依赖包
+##### 安装 composer 和 npm 依赖包
 
 ```bash
 composer install
+npm install
 ```
 
 ##### 复制 .env.example 文件为 .env 并编辑配置
@@ -145,10 +146,6 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 
 ### 前端相关说明
 #####
-初始化开发环境
-```bash
-yarn install
-```
 管理后台前端开发服务器
 ```bash
 yarn admin-serve
