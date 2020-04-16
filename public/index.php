@@ -14,8 +14,7 @@ $application = new yii\web\Application($config);
 $debugUrlRules = false;
 
 if ($debugUrlRules) {
-    \Symfony\Component\VarDumper\VarDumper::dump($application->getUrlManager()->rules);
-    die;
+    \yii\helpers\VarDumper::dump($application->getUrlManager()->rules, 10, true);
 }
 
 $application->run();

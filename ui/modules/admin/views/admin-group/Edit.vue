@@ -52,7 +52,7 @@ export default {
         this.$message.success('管理组编辑成功')
 
         await this.$store.dispatch('tabs/deleteCache', 'AdminGroup')
-        await this.historyBack(true)
+        await this.historyBack('/admin-group', false, true)
       }
 
       if (error) {

@@ -10,17 +10,12 @@ class Module extends AbstractModule
 
     public static function getModuleId()
     {
-        return 'spa';
+        return 'mobile-spa';
     }
 
     public static function getUrlPrefix()
     {
         return 'mobile';
-    }
-
-    public static function getRoutePrefix()
-    {
-        return 'mobile/spa';
     }
 
     public static function getUserComponent()

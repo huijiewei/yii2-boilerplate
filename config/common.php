@@ -14,10 +14,12 @@ return [
 
     'bootstrap' => [
         'log',
-        \app\modules\admin\ModuleBootstrap::class,
-        \app\modules\wechat\ModuleBootstrap::class,
-        \app\modules\mobile\ModuleBootstrap::class,
+        \app\modules\admin\api\ModuleBootstrap::class,
+        \app\modules\admin\spa\ModuleBootstrap::class,
+        \app\modules\mobile\api\ModuleBootstrap::class,
+        \app\modules\mobile\spa\ModuleBootstrap::class,
         \app\modules\website\ModuleBootstrap::class,
+        \app\modules\wechat\ModuleBootstrap::class,
     ],
 
     'aliases' => [
@@ -26,10 +28,12 @@ return [
     ],
 
     'modules' => [
-        \app\modules\admin\Module::getModuleId() => \app\modules\admin\Module::class,
-        \app\modules\wechat\Module::getModuleId() => \app\modules\wechat\Module::class,
-        \app\modules\mobile\Module::getModuleId() => \app\modules\mobile\Module::class,
+        \app\modules\admin\api\Module::getModuleId() => \app\modules\admin\api\Module::class,
+        \app\modules\admin\spa\Module::getModuleId() => \app\modules\admin\spa\Module::class,
+        \app\modules\mobile\api\Module::getModuleId() => \app\modules\mobile\api\Module::class,
+        \app\modules\mobile\spa\Module::getModuleId() => \app\modules\mobile\spa\Module::class,
         \app\modules\website\Module::getModuleId() => \app\modules\website\Module::class,
+        \app\modules\wechat\Module::getModuleId() => \app\modules\wechat\Module::class,
     ],
 
     'components' => [

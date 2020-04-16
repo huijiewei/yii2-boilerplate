@@ -50,7 +50,7 @@ export default {
         this.$message.success('新建商品分类成功')
 
         await this.$store.dispatch('tabs/deleteCache', 'ShopBrand')
-        await this.historyBack('/shop-brand', true)
+        await this.historyBack('/shop-brand', true, true)
       }
 
       if (error) {

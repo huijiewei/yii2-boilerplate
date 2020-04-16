@@ -16,12 +16,7 @@ class Module extends AbstractModule
 
     public static function getModuleId()
     {
-        return 'api';
-    }
-
-    public static function getRoutePrefix()
-    {
-        return 'admin/api';
+        return 'admin-api';
     }
 
     public static function getRouteRules()
@@ -37,8 +32,13 @@ class Module extends AbstractModule
             'POST <controller>s' => '<controller>/create',
             'PUT <controller>s/<id:\d+>' => '<controller>/edit',
             'DELETE <controller>s/<id:\d+>' => '<controller>/delete',
+            '<controller>ies/<action>' => '<controller>y/<action>',
+            '<controller>ies' => '<controller>y/index',
             '<controller>s/<action>' => '<controller>/<action>',
+            '<controller>s' => '<controller>/index',
             '<controller>/<action>' => '<controller>/<action>',
+            '<controller>' => '<controller>/index',
+            '' => 'site/index',
         ];
     }
 
@@ -92,10 +92,5 @@ class Module extends AbstractModule
                 ],
             ];
         }
-    }
-
-    public static function getUrlPrefix()
-    {
-        return 'admin/api';
     }
 }

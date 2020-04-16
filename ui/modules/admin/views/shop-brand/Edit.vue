@@ -70,7 +70,7 @@ export default {
         this.$message.success('商品品牌编辑成功')
 
         await this.$store.dispatch('tabs/deleteCache', 'ShopBrand')
-        await this.historyBack(true)
+        await this.historyBack('/shop-brand', false, true)
       }
 
       if (error) {

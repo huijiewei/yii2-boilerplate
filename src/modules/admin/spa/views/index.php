@@ -1,7 +1,5 @@
 <?php
 
-/* @var $this \yii\web\View */
-
 \app\modules\admin\spa\ManifestAssetBundle::register($this);
 ?>
 <?php $this->beginPage() ?>

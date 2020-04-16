@@ -23,7 +23,7 @@ export default {
   inject: ['historyBack'],
   methods: {
     back() {
-      this.historyBack(null, true)
+      this.historyBack(null, false, true)
     },
   },
 }

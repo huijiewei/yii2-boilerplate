@@ -48,7 +48,7 @@ export default {
         this.$message.success('新建管理员成功')
 
         await this.$store.dispatch('tabs/deleteCache', 'Admin')
-        await this.historyBack('/admin', true)
+        await this.historyBack('/admin', true, true)
       }
 
       if (error) {

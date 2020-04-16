@@ -5,6 +5,7 @@ namespace app\modules\admin\api\controllers;
 use app\modules\admin\api\Controller;
 use huijiewei\upload\ImageCropAction;
 use huijiewei\upload\UploadAction;
+use yii\web\Response;
 
 class SiteController extends Controller
 {

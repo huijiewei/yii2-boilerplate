@@ -18,7 +18,7 @@ abstract class AbstractModule extends \yii\base\Module
         return [
             'class' => GroupUrlRule::class,
             'prefix' => static::getUrlPrefix(),
-            'routePrefix' => static::getRoutePrefix(),
+            'routePrefix' => static::getModuleId(),
             'rules' => static::getRouteRules(),
         ];
     }
@@ -29,11 +29,6 @@ abstract class AbstractModule extends \yii\base\Module
     }
 
     abstract public static function getModuleId();
-
-    public static function getRoutePrefix()
-    {
-        return static::getModuleId();
-    }
 
     public static function getRouteRules()
     {
@@ -62,7 +57,7 @@ abstract class AbstractModule extends \yii\base\Module
         $this->layout = 'main';
 
         if (\Yii::$app instanceof WebApplication) {
-            \Yii::$app->getErrorHandler()->errorAction = static::getRoutePrefix() . '/site/error';
+            \Yii::$app->getErrorHandler()->errorAction = static::getModuleId() . '/site/error';
         }
 
         if (\Yii::$app instanceof ConsoleApplication) {

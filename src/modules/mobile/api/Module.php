@@ -16,12 +16,7 @@ class Module extends AbstractModule
 
     public static function getModuleId()
     {
-        return 'api';
-    }
-
-    public static function getRoutePrefix()
-    {
-        return 'mobile/api';
+        return 'mobile-api';
     }
 
     public static function getRouteRules()
@@ -91,10 +86,5 @@ class Module extends AbstractModule
                 ],
             ];
         }
-    }
-
-    public static function getUrlPrefix()
-    {
-        return 'mobile/api';
     }
 }

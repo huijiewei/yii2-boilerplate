@@ -15,9 +15,4 @@ class Module extends AbstractModule
     {
         return 'wechat';
     }
-
-    public static function getUrlPrefix()
-    {
-        return 'wechat';
-    }
 }
