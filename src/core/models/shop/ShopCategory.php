@@ -3,7 +3,7 @@
 namespace app\core\models\shop;
 
 use app\core\components\ActiveRecord;
-use huijiewei\tree\TreeTrait;
+use app\core\traits\TreeTrait;
 
 /**
  * Class ShopCategory
