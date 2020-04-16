@@ -12,4 +12,4 @@ composer.phar
 /node_modules
 .env
 *.cache
-*.entity.*.js
+webpack.entity.*.js

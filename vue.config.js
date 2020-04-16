@@ -8,19 +8,18 @@ const isProduction = process.env.NODE_ENV === 'production'
 const config = {
   configureWebpack: {
     context: path.resolve(__dirname, 'ui'),
-    resolve: {
-      alias: {
-        '@core': path.resolve('ui/core'),
-        '@admin': path.resolve('ui/modules/admin'),
-        '@mobile': path.resolve('ui/modules/mobile'),
-      },
-    },
   },
   chainWebpack: (config) => {
+    config.resolve.alias
+      .set('@core', path.resolve('ui/core'))
+      .set('@admin', path.resolve('ui/modules/admin'))
+      .set('@mobile', path.resolve('ui/modules/mobile'))
+      .delete('@')
+
     config.plugins.delete('copy')
-    config.plugins.delete('html-admin')
-    config.plugins.delete('preload-admin')
-    config.plugins.delete('prefetch-admin')
+    config.plugins.delete('html')
+    config.plugins.delete('preload')
+    config.plugins.delete('prefetch')
 
     config.plugin('manifest').use(ManifestPlugin, [
       {

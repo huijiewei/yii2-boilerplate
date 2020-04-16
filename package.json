@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entity.admin.config.js vue-cli-service serve",
-    "serve:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entity.mobile.config.js vue-cli-service serve",
-    "build:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entity.admin.config.js vue-cli-service build",
-    "build:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entity.mobile.config.js vue-cli-service build",
-    "inspect:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entity.admin.config.js vue-cli-service inspect --mode production > webpack.entity.admin.js",
-    "inspect:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entity.mobile.config.js vue-cli-service inspect --mode production > webpack.entity.mobile.js"
+    "serve:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.admin.config.js vue-cli-service serve",
+    "serve:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.mobile.config.js vue-cli-service serve",
+    "build:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.admin.config.js vue-cli-service build",
+    "build:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.mobile.config.js vue-cli-service build",
+    "inspect:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.admin.config.js vue-cli-service inspect --mode production > webpack.entity.admin.js",
+    "inspect:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.mobile.config.js vue-cli-service inspect --mode production > webpack.entity.mobile.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -43,7 +43,8 @@
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11",
-    "webpack-manifest-plugin": "^2.2.0"
+    "webpack-assets-manifest": "^3.1.1",
+    "webpack-manifest-plugin": "^3.0.0-rc.0"
   },
   "eslintConfig": {
     "root": true,

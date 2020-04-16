@@ -4,27 +4,24 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const vueConfig = require('./vue.config')
 
-const devServerPort = 8081
+const devServerPort = 8080
 
 const customConfig = {
   publicPath: isProduction
-    ? '/statics/build/mobile'
+    ? '/statics/build/admin'
     : (vueConfig.devServer.https !== false ? 'https' : 'http') +
       '://' +
       vueConfig.devServer.host +
       ':' +
       devServerPort +
-      '/mobile',
-  outputDir: 'public/statics/build/mobile',
-  pages: {
-    mobile: {
-      entry: 'ui/modules/mobile/main.js',
-      chunks: ['vendor', 'element', 'agile', 'mobile'],
-    },
+      '/admin',
+  outputDir: 'public/statics/build/admin',
+  configureWebpack: {
+    entry: './modules/admin/main.js',
   },
   devServer: {
     port: devServerPort,
-    publicPath: '/mobile',
+    publicPath: '/admin',
   },
 }
 
