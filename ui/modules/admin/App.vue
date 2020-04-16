@@ -82,28 +82,34 @@ export default {
             this.$store.dispatch('clearError')
 
             if (error.historyBack === true && !isHome) {
-              this.historyBack(true)
+              this.historyBack(null, false, true)
             }
           },
         })
       }
     },
-    async historyBack(closeTab = false) {
+    async historyBack(route = null, force = false, closeTab = false) {
       if (closeTab) {
         const next = await this.$store.dispatch('tabs/close', {
           name: this.$route.name,
           path: this.$route.path,
         })
 
-        this.routerBack(next)
+        this.routerBack(route ? route : next, force)
       } else {
-        this.routerBack()
+        this.routerBack(route, force)
       }
     },
-    routerBack(route = { path: '/home' }) {
-      if (this.$routerHistory.hasPrevious()) {
+    routerBack(route = null, force = false) {
+      if ((!force || route === null) && this.$routerHistory.hasPrevious()) {
         this.$router.replace(this.$routerHistory.previous())
       } else {
+        if (route == null) {
+          route = { path: '/home' }
+        } else if (typeof route === 'string') {
+          route = { path: route }
+        }
+
         this.$router.replace(route)
       }
     },

@@ -52,7 +52,7 @@ export default {
         this.$message.success('用户编辑成功')
 
         await this.$store.dispatch('tabs/deleteCache', 'User')
-        this.historyBack(true)
+        await this.historyBack(true)
       }
 
       if (error) {

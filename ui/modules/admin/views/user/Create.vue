@@ -28,6 +28,7 @@ export default {
       user: null,
     }
   },
+  inject: ['historyBack'],
   created() {
     this.user = { phone: '', email: '', name: '', avatar: '' }
   },
@@ -41,7 +42,7 @@ export default {
         this.$message.success('用户新建成功')
 
         await this.$store.dispatch('tabs/deleteCache', 'User')
-        this.historyBack(true)
+        await this.historyBack('/user', true)
       }
 
       if (error) {

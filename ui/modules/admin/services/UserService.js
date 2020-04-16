@@ -6,11 +6,11 @@ const UserService = {
   },
 
   delete(id) {
-    return Vue.http.delete('user/delete' + id)
+    return Vue.http.delete('users/' + id)
   },
 
   create(user) {
-    return Vue.http.post('user/post', user)
+    return Vue.http.post('users', user)
   },
 
   view(id) {
