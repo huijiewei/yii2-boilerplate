@@ -30,8 +30,8 @@ export default {
     }
   },
   inject: ['historyBack'],
-  async created() {
-    await this.getUser(this.$route.params.id)
+  created() {
+    this.getUser(this.$route.params.id)
   },
   methods: {
     async getUser(id) {

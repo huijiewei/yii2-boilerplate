@@ -62,9 +62,9 @@ abstract class Controller extends RestController
                 'class' => AccessControl::class,
                 'except' => [
                     'site/*',
+                    'open/*',
                     'auth/*',
                     'misc/*',
-                    'open/*',
                 ],
             ],
             'rate' => [
