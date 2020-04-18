@@ -8,7 +8,7 @@
       :submit-text="pageTitle"
       :admin-group="adminGroup"
       :is-edit="true"
-      @on-submit="editAdminGroup"
+      @on-submit="edit"
     />
     <placeholder-form v-else :rows="3" />
   </div>
@@ -21,6 +21,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'AdminGroupEdit',
   components: { PlaceholderForm, AdminGroupForm },
   data() {
     return {
@@ -28,25 +29,30 @@ export default {
       adminGroup: null,
     }
   },
+  inject: ['historyBack'],
   async created() {
-    const { data } = await flatry(
-      AdminGroupService.edit(this.$router.currentRoute.query.id)
-    )
-
-    if (data) {
-      this.adminGroup = data
-    }
+    await this.view(this.$route.params.id)
   },
   methods: {
-    async editAdminGroup(adminGroup, done, fail, always) {
-      const { data, error } = await flatry(
-        AdminGroupService.edit(adminGroup.id, adminGroup)
-      )
+    async view(id) {
+      this.adminGroup = null
+
+      const { data } = await flatry(AdminGroupService.view(id))
+
+      if (data) {
+        this.adminGroup = data
+      }
+    },
+    async edit(adminGroup, done, fail, always) {
+      const { data, error } = await flatry(AdminGroupService.edit(adminGroup))
 
       if (data) {
         done()
 
         this.$message.success('管理组编辑成功')
+
+        await this.$store.dispatch('tabs/deleteCache', 'AdminGroup')
+        await this.historyBack('/admin-group', false, true)
       }
 
       if (error) {

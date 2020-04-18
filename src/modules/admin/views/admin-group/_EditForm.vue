@@ -1,6 +1,5 @@
 <template>
   <el-form
-    v-if="formModel"
     ref="formModel"
     :model="formModel"
     label-width="100px"
@@ -24,10 +23,10 @@
         <el-input v-model.trim="formModel.name" />
       </el-col>
     </el-form-item>
-    <el-form-item label="权限">
+    <el-form-item label="权限" prop="permissions">
       <div class="check-group-box">
         <div
-          v-for="(group, index) in formModel.acl"
+          v-for="(group, index) in permissions"
           :key="index"
           class="cgb-panel"
         >
@@ -41,16 +40,20 @@
           </div>
           <div class="cgb-body">
             <el-checkbox-group
-              v-model="group.checkedAcl"
+              v-model="group.checkedPermissions"
               v-same-width="'el-checkbox'"
-              @change="handleCheckedAclGroupChange(group)"
+              @change="handleCheckedPermissionGroupChange(group)"
             >
               <template v-for="(child, childIndex) in group.children">
                 <el-checkbox
                   v-if="!child.children"
                   :key="index + '-' + childIndex"
-                  :ref="child.actionId"
                   :label="child.actionId"
+                  :disabled="checkboxDisabled.includes(child.actionId)"
+                  @change="
+                    (checked) =>
+                      handleCheckedPermissionItemChange(checked, child)
+                  "
                 >
                   {{ child.name }}
                 </el-checkbox>
@@ -62,9 +65,12 @@
                   <el-checkbox
                     v-for="(checkbox, checkboxIndex) in child.children"
                     :key="index + '-' + childIndex + '-' + checkboxIndex"
-                    :ref="checkbox.actionId"
                     :label="checkbox.actionId"
-                    @change="handleCheckedAclItemChange(checkbox)"
+                    :disabled="checkboxDisabled.includes(checkbox.actionId)"
+                    @change="
+                      (checked) =>
+                        handleCheckedPermissionItemChange(checked, checkbox)
+                    "
                   >
                     {{ checkbox.name }}
                   </el-checkbox>
@@ -91,7 +97,6 @@ import AuthService from '@admin/services/AuthService'
 import SameWidth from '@core/directives/SameWidth'
 
 export default {
-  name: 'AdminGroupForm',
   directives: {
     sameWidth: SameWidth,
   },
@@ -114,63 +119,69 @@ export default {
     return {
       submitLoading: false,
       formModel: null,
-      acl: [],
+      permissions: [],
+      checkboxDisabled: [],
     }
   },
-  async mounted() {
-    this.formModel = {
-      id: this.adminGroup.id,
-      name: this.adminGroup.name,
-      acl: [],
-    }
+  async created() {
+    this.formModel = Object.assign({}, this.adminGroup)
 
-    const { data } = await flatry(MiscService.adminGroupAcl())
+    const { data } = await flatry(MiscService.adminGroupPermissions())
 
-    if (data) {
-      this.acl = data
-    }
-
-    const permissions = this.adminGroup.permissions || []
+    const permissions = this.formModel.permissions || []
     const result = []
 
-    this.acl.forEach((acl) => {
+    data.forEach((permission) => {
       const group = {
-        name: acl.name,
+        name: permission.name,
         checkAll: false,
         checkIndeterminate: false,
-        checkedAcl: [],
-        aclCount: 0,
-        children: acl.children,
+        checkedPermissions: [],
+        permissionsCount: 0,
+        children: permission.children,
       }
 
-      acl.children.forEach((child) => {
+      permission.children.forEach((child) => {
         if (child.children) {
           child.children.forEach((item) => {
-            group.aclCount++
+            group.permissionsCount++
             if (permissions.includes(item.actionId)) {
-              group.checkedAcl.push(item.actionId)
+              group.checkedPermissions.push(item.actionId)
+              this.disableCombinesCheckbox(item)
             }
           })
         } else {
-          group.aclCount++
+          group.permissionsCount++
           if (permissions.includes(child.actionId)) {
-            group.checkedAcl.push(child.actionId)
+            group.checkedPermissions.push(child.actionId)
+            this.disableCombinesCheckbox(child)
           }
         }
       })
 
-      const checkedCount = group.checkedAcl.length
+      const checkedCount = group.checkedPermissions.length
 
-      group.checkAll = group.aclCount === checkedCount
+      group.checkAll = group.permissionsCount === checkedCount
       group.checkIndeterminate =
-        checkedCount > 0 && checkedCount < group.aclCount
+        checkedCount > 0 && checkedCount < group.permissionsCount
 
       result.push(group)
     })
 
-    this.formModel.acl = result
+    this.permissions = result
   },
   methods: {
+    disableCombinesCheckbox(item) {
+      if (!item.combines || item.combines.length === 0) {
+        return
+      }
+
+      item.combines.forEach((combine) => {
+        if (!this.checkboxDisabled.includes(combine)) {
+          this.checkboxDisabled.push(combine)
+        }
+      })
+    },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (!valid) {
@@ -179,21 +190,19 @@ export default {
 
         this.submitLoading = true
 
-        const adminGroup = {
-          id: this.formModel.id,
-          name: this.formModel.name,
-          permissions: [],
-        }
+        const permissions = []
 
-        this.formModel.acl.forEach((group) => {
-          group.checkedAcl.forEach((acl) => {
-            adminGroup.permissions.push(acl)
+        this.permissions.forEach((group) => {
+          group.checkedPermissions.forEach((permission) => {
+            permissions.push(permission)
           })
         })
 
+        this.formModel.permissions = permissions
+
         this.$emit(
           'on-submit',
-          adminGroup,
+          this.formModel,
           async () => {
             this.$refs[formName].clearValidate()
             if (
@@ -223,86 +232,70 @@ export default {
         group.children.forEach((child) => {
           if (child.children) {
             child.children.forEach((item) => {
-              group.checkedAcl.push(item.actionId)
+              group.checkedPermissions.push(item.actionId)
             })
           } else {
-            group.checkedAcl.push(child.actionId)
+            group.checkedPermissions.push(child.actionId)
           }
         })
       } else {
-        group.checkedAcl = []
+        group.checkedPermissions = []
       }
     },
-    handleCheckedAclGroupChange(group) {
-      const checkedCount = group.checkedAcl.length
+    handleCheckedPermissionGroupChange(group) {
+      const checkedCount = group.checkedPermissions.length
 
-      group.checkAll = group.aclCount === checkedCount
+      group.checkAll = group.permissionsCount === checkedCount
       group.checkIndeterminate =
-        checkedCount > 0 && checkedCount < group.aclCount
+        checkedCount > 0 && checkedCount < group.permissionsCount
     },
-    handleCheckedAclItemChange(item) {
+    handleCheckedPermissionItemChange(checked, item) {
       if (!item.combines || item.combines.length === 0) {
         return
       }
 
-      const refs = this.$refs
-
-      const checked = refs[item.actionId][0].$el.getElementsByTagName(
-        'input'
-      )[0].checked
-
       if (!checked) {
         item.combines.forEach((combine) => {
-          if (
-            refs[combine] &&
-            refs[combine][0] &&
-            refs[combine][0].$el &&
-            refs[combine][0].$el.getElementsByTagName('input') &&
-            refs[combine][0].$el.getElementsByTagName('input')[0]
-          ) {
-            refs[combine][0].$el.getElementsByTagName(
-              'input'
-            )[0].disabled = false
+          const matchIndex = this.checkboxDisabled.findIndex(
+            (checkbox) => checkbox === combine
+          )
+
+          if (matchIndex > -1) {
+            this.checkboxDisabled.splice(matchIndex, 1)
           }
         })
 
         return
       }
 
-      const acl = this.formModel.acl
+      const permissions = this.permissions
 
       item.combines.forEach((combine) => {
-        if (
-          refs[combine] &&
-          refs[combine][0] &&
-          refs[combine][0].$el &&
-          refs[combine][0].$el.getElementsByTagName('input') &&
-          refs[combine][0].$el.getElementsByTagName('input')[0]
-        ) {
-          refs[combine][0].$el.getElementsByTagName('input')[0].disabled = true
+        if (!this.checkboxDisabled.includes(combine)) {
+          this.checkboxDisabled.push(combine)
         }
 
-        acl.forEach((aclGroup) => {
-          if (aclGroup.children && aclGroup.children.length > 0) {
-            aclGroup.children.every((aclChild) => {
+        permissions.forEach((group) => {
+          if (group.children && group.children.length > 0) {
+            group.children.every((child) => {
               if (
-                aclChild.actionId &&
-                aclChild.actionId === combine &&
-                !aclGroup.checkedAcl.includes(combine)
+                child.actionId &&
+                child.actionId === combine &&
+                !group.checkedPermissions.includes(combine)
               ) {
-                aclGroup.checkedAcl.push(combine)
+                group.checkedPermissions.push(combine)
 
                 return true
               }
 
-              if (aclChild.children && aclChild.children.length > 0) {
-                aclChild.children.every((aclItem) => {
+              if (child.children && child.children.length > 0) {
+                child.children.every((aclItem) => {
                   if (
                     aclItem.actionId &&
                     aclItem.actionId === combine &&
-                    !aclGroup.checkedAcl.includes(combine)
+                    !group.checkedPermissions.includes(combine)
                   ) {
-                    aclGroup.checkedAcl.push(combine)
+                    group.checkedPermissions.push(combine)
 
                     return true
                   }

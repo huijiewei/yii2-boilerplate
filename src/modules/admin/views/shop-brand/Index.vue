@@ -15,182 +15,77 @@
         </el-button>
       </div>
     </div>
-    <div
-      class="shop-brand-list clearfix"
-      v-same-width="'brand'"
-      v-loading="loading"
-    >
-      <template v-for="shopBrand in shopBrands">
-        <el-card class="brand" :key="shopBrand.id" shadow="hover">
+
+    <el-table class="shop-brands" v-loading="loading" :data="shopBrands">
+      <el-table-column
+        fixed
+        width="90"
+        class-name="text-mono"
+        prop="id"
+        label="Id"
+      />
+      <el-table-column prop="name" width="220" label="品牌名称" />
+      <el-table-column width="110" align="center" label="图片">
+        <template slot-scope="scope">
           <img
-            :alt="shopBrand.name"
-            v-if="shopBrand.logo"
-            :src="shopBrand.logo"
+            :alt="scope.row.name"
+            v-if="scope.row.logo"
+            :src="scope.row.logo"
             class="logo"
           />
           <img
-            :alt="shopBrand.name"
+            :alt="scope.row.name"
             v-else
             src="../../assets/images/banner.png"
             class="logo"
           />
-          <div class="body">
-            <span>{{ shopBrand.name }}</span>
-            <div>
-              <el-popover
-                trigger="click"
-                popper-class="brand-popover"
-                :content="shopBrand.description"
-              >
-                <el-button
-                  :disabled="shopBrand.description.length === 0"
-                  type="text"
-                  slot="reference"
-                  icon="el-icon-info"
-                  size="mini"
-                ></el-button>
-              </el-popover>
-              <el-popover trigger="click" popper-class="brand-popover">
-                <div class="brand-category-tags">
-                  <template v-for="shopCategory in shopBrand.shopCategories">
-                    <el-tag
-                      size="medium"
-                      :key="shopBrand.id + '-' + shopCategory.id"
-                    >
-                      {{ shopCategory.name }} </el-tag
-                    >&nbsp;&nbsp;
-                  </template>
-                </div>
-                <el-button
-                  :disabled="
-                    !shopBrand.shopCategories ||
-                    shopBrand.shopCategories.length === 0
-                  "
-                  type="text"
-                  slot="reference"
-                  icon="el-icon-s-shop"
-                  size="mini"
-                ></el-button>
-              </el-popover>
-            </div>
-            <div class="bottom clearfix">
-              <el-button
-                :disabled="!$can('shop-brand/edit')"
-                type="primary"
-                size="mini"
-                plain
-                class="button"
-                @click="handleShopBrandEdit(shopBrand)"
-                >编辑
-              </el-button>
-              <el-button
-                :disabled="!$can('shop-brand/delete')"
-                type="danger"
-                size="mini"
-                plain
-                class="button"
-                @click="handleShopBrandDelete(shopBrand)"
-                >删除
-              </el-button>
-            </div>
+        </template>
+      </el-table-column>
+      <el-table-column width="260" label="品牌分类">
+        <template slot-scope="scope">
+          <div class="brand-category-tags">
+            <template v-for="shopCategory in scope.row.shopCategories">
+              <el-tag size="medium" :key="scope.row.id + '-' + shopCategory.id">
+                {{ shopCategory.name }} </el-tag
+              >&nbsp;&nbsp;
+            </template>
           </div>
-        </el-card>
-      </template>
-    </div>
-    <el-dialog
-      :title="this.dialogTitle"
-      :close-on-click-modal="false"
-      :visible.sync="dialogVisible"
-      @closed="handleDialogClosed('formModel')"
-    >
-      <el-form
-        v-if="formModel"
-        ref="formModel"
-        :model="formModel"
-        label-width="100px"
-        label-suffix="："
-        @submit.native.stop.prevent="handleFormSubmit('formModel')"
-      >
-        <el-form-item
-          label="名称"
-          prop="name"
-          :rules="[
-            {
-              required: true,
-              message: '请输入品牌名称',
-              trigger: 'blur',
-            },
-          ]"
-        >
-          <el-col :md="10">
-            <el-input v-model.trim="formModel.name" />
-          </el-col>
-        </el-form-item>
-        <el-form-item
-          label="别名"
-          prop="alias"
-          :rules="[
-            {
-              required: true,
-              message: '请输入品牌别名',
-              trigger: 'blur',
-            },
-          ]"
-        >
-          <el-col :md="6">
-            <el-input v-model.trim="formModel.alias" />
-          </el-col>
-        </el-form-item>
-        <el-form-item label="LOGO" prop="logo">
-          <el-col :md="10">
-            <image-upload
-              v-model="formModel.logo"
-              :preview="[176, 62]"
-              :multiple="false"
-            />
-          </el-col>
-        </el-form-item>
-        <el-form-item label="介绍" prop="description">
-          <el-col :md="20">
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 3, maxRows: 6 }"
-              v-model.trim="formModel.description"
-            />
-          </el-col>
-        </el-form-item>
-        <el-form-item label="分类" prop="shopCategoryIds">
-          <el-col :md="20">
-            <el-cascader
-              style="width: 100%;"
-              placeholder="品牌绑定分类"
-              v-model="formModel.shopCategoryIds"
-              :options="categoryTree"
-              :props="{
-                value: 'id',
-                label: 'name',
-                multiple: true,
-                checkStrictly: true,
-              }"
-            >
-            </el-cascader>
-          </el-col>
-        </el-form-item>
-        <el-form-item>
+        </template>
+      </el-table-column>
+      <el-table-column label="品牌介绍">
+        <template slot-scope="scope">
+          <div class="description">{{ scope.row.description }}</div>
+          <div class="website" v-if="scope.row.website">
+            网址：<a :href="scope.row.website" target="_blank">{{
+              scope.row.website
+            }}</a>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column width="135" label="操作" fixed="right" align="right">
+        <template slot-scope="scope">
           <el-button
+            :disabled="!$can('shop-brand/edit')"
             type="primary"
-            native-type="submit"
-            size="small"
-            :loading="submitLoading"
-          >
-            确定
+            size="mini"
+            plain
+            class="button"
+            @click="handleShopBrandEdit(scope.row)"
+            >编辑
           </el-button>
-          <el-button @click="dialogVisible = false" size="small"
-            >取消
+          <el-button
+            :disabled="!$can('shop-brand/delete')"
+            type="danger"
+            size="mini"
+            plain
+            class="button"
+            @click="handleShopBrandDelete(scope.row)"
+            >删除
           </el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
+        </template>
+      </el-table-column>
+    </el-table>
+    <pagination :pages="pages"></pagination>
   </div>
 </template>
 
@@ -199,43 +94,30 @@ import ShopBrandService from '@admin/services/ShopBrandService'
 import flatry from '@core/utils/flatry'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
 import SearchForm from '@admin/components/SearchForm'
-import ImageUpload from '@admin/components/upload/ImageUpload'
-import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
-import SameWidth from '@core/directives/SameWidth'
-import MiscService from '@admin/services/MiscService'
+import Pagination from '@admin/components/Pagination'
 
 export default {
-  components: { ImageUpload, SearchForm },
-  directives: {
-    sameWidth: SameWidth,
-  },
-  mixins: [SearchFormFieldsMixin, UnprocessableEntityHttpErrorMixin],
+  name: 'ShopBrand',
+  components: { SearchForm, Pagination },
+  mixins: [SearchFormFieldsMixin],
   data() {
     return {
       loading: true,
-      submitLoading: false,
       shopBrands: [],
-      dialogVisible: false,
-      dialogTitle: '',
-      formModel: null,
-      categoryTree: [],
+      pages: null,
     }
   },
   created() {
     this.getShopBrands()
-    this.loadCategoryTree()
   },
   watch: {
-    $route: 'getShopBrands',
-  },
-  methods: {
-    async loadCategoryTree() {
-      const { data } = await flatry(MiscService.shopCategoryTree())
-
-      if (data) {
-        this.categoryTree = data
+    $route(to, from) {
+      if (to.path === from.path) {
+        this.getShopBrands()
       }
     },
+  },
+  methods: {
     async getShopBrands() {
       this.loading = true
 
@@ -245,6 +127,7 @@ export default {
 
       if (data) {
         this.shopBrands = data.items
+        this.pages = data.pages
 
         this.setSearchFields(data.searchFields)
       }
@@ -252,107 +135,13 @@ export default {
       this.loading = false
     },
     handleShopBrandCreate() {
-      this.dialogTitle = '新建品牌'
-      this.dialogVisible = true
-      this.formModel = {
-        id: 0,
-        name: '',
-        icon: '',
-        logo: '',
-        alias: '',
-        description: '',
-        shopCategoryIds: [],
-      }
-    },
-    handleDialogClosed(formName) {
-      this.clearViolationError(formName)
-    },
-    handleFormSubmit(formName) {
-      const self = this
-
-      self.$refs[formName].validate(async (valid) => {
-        if (!valid) {
-          return false
-        }
-
-        self.submitLoading = true
-
-        const editShopBrandId = self.formModel.id
-
-        const shopBrand = Object.assign({}, self.formModel)
-
-        if (Array.isArray(self.formModel.shopCategoryIds)) {
-          const shopCategoryIds = []
-
-          self.formModel.shopCategoryIds.forEach(function (ids) {
-            if (Array.isArray(ids)) {
-              shopCategoryIds.push(ids[ids.length - 1])
-            }
-          })
-          if (shopCategoryIds.length > 0) {
-            shopBrand.shopCategoryIds = shopCategoryIds
-          } else {
-            shopBrand.shopCategoryIds = []
-          }
-        }
-
-        const { data, error } = await flatry(
-          editShopBrandId > 0
-            ? ShopBrandService.edit(editShopBrandId, shopBrand)
-            : ShopBrandService.create(shopBrand)
-        )
-
-        if (data) {
-          if (editShopBrandId > 0) {
-            self.$message.success('编辑品牌成功')
-            this.shopBrands.forEach((item, index) => {
-              if (item.id === editShopBrandId) {
-                this.$set(this.shopBrands, index, data)
-              }
-            })
-          } else {
-            self.$message.success('新建品牌成功')
-            self.shopBrands.push(data)
-          }
-
-          self.dialogVisible = false
-        }
-
-        if (error) {
-          self.handleViolationError(error, formName)
-        }
-
-        self.submitLoading = false
-      })
+      this.$router.push({ path: '/shop-brand/create' })
     },
     handleShopBrandEdit(shopBrand) {
-      this.dialogTitle = '编辑品牌'
-      this.dialogVisible = true
-
-      const editShopBrand = {
-        id: shopBrand.id,
-        name: shopBrand.name,
-        icon: shopBrand.icon,
-        logo: shopBrand.logo,
-        alias: shopBrand.alias,
-        description: shopBrand.description,
-        shopCategoryIds: [],
-      }
-
-      if (Array.isArray(shopBrand.shopCategories)) {
-        shopBrand.shopCategories.forEach(function (category) {
-          if (Array.isArray(category.parents)) {
-            const parentIds = []
-            category.parents.forEach(function (parent) {
-              parentIds.push(parent.id)
-            })
-
-            editShopBrand.shopCategoryIds.push(parentIds)
-          }
-        })
-      }
-
-      this.formModel = editShopBrand
+      this.$router.push({
+        name: 'ShopBrandEdit',
+        params: { id: shopBrand.id },
+      })
     },
     handleShopBrandDelete(shopBrand) {
       this.$deleteDialog({
@@ -383,47 +172,25 @@ export default {
 }
 </script>
 <style lang="scss">
-.shop-brand-list {
-  .brand {
-    float: left;
-    margin-right: 12px;
-    margin-bottom: 12px;
-
-    .logo {
-      border: 1px solid #dddddd;
-      width: 88px;
-      height: 31px;
-    }
-
-    .body {
-      padding: 10px 0;
-    }
-
-    .icon {
-      margin-right: 5px;
-    }
-
-    .bottom {
-      padding-top: 10px;
-    }
+.shop-brands {
+  .logo {
+    border: 1px solid #dddddd;
+    width: 88px;
+    height: 31px;
+    vertical-align: middle;
   }
-
-  .el-card__body {
-    text-align: center;
-  }
-}
-
-.brand-popover {
-  min-width: auto;
-  max-width: 500px;
-}
-
-.brand-category-tags {
-  margin-left: -9px;
-  margin-top: -9px;
-  .el-tag {
-    margin-left: 9px;
+  .website {
     margin-top: 9px;
+  }
+
+  .brand-category-tags {
+    margin-left: -9px;
+    margin-top: -9px;
+
+    .el-tag {
+      margin-left: 9px;
+      margin-top: 9px;
+    }
   }
 }
 </style>

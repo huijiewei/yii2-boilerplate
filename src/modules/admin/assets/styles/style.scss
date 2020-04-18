@@ -1,12 +1,9 @@
 @import '../../../../core/assets/styles/mixin.scss';
 
+.clearfix {
+  @include clearfix;
+}
 .ag {
-  -webkit-font-smoothing: antialiased;
-
-  .clearfix {
-    @include clearfix;
-  }
-
   .el-button,
   .el-tag,
   .el-card,
@@ -15,12 +12,17 @@
   .el-button--mini,
   .el-button--small,
   .el-input-group__append,
-  .el-input-group__prepend {
+  .el-input-group__prepend,
+  .el-pagination .el-select .el-input .el-input__inner {
     border-radius: 2px;
   }
 
   .el-input--prefix .el-input__inner {
     padding-left: 30px;
+  }
+
+  .el-picker-panel {
+    border-radius: 2px;
   }
 
   .el-input__inner {
@@ -111,7 +113,9 @@
     padding: 6px 10px 5px 10px;
   }
 
-  .el-dropdown-menu {
+  .el-dropdown-menu,
+  .el-select-dropdown {
+    border-radius: 2px;
     padding: 0;
     box-shadow: 0 0 15px 1px rgba(69, 65, 78, 0.2);
 
@@ -120,9 +124,14 @@
     }
   }
 
-  .el-dropdown-menu__item {
-    line-height: 39px;
-    height: 37px;
+  .el-select-dropdown__list {
+    padding: 0;
+  }
+
+  .el-dropdown-menu__item,
+  .el-select-dropdown__item {
+    line-height: 36px;
+    height: 36px;
   }
 
   .el-dropdown-menu__item--divided {
@@ -144,11 +153,7 @@
   }
 
   .el-button--medium {
-    border-radius: 3px;
-  }
-
-  .el-dropdown-menu {
-    border-radius: 3px;
+    border-radius: 2px;
   }
 
   .el-table {
@@ -168,11 +173,6 @@
     }
   }
 
-  .bp-pages {
-    margin-top: 20px;
-    text-align: right;
-  }
-
   .form-help {
     color: #737373;
   }
@@ -187,11 +187,14 @@
     margin-bottom: 20px;
 
     .box-toolbar-button {
-      float: right;
+      float: left;
+      vertical-align: bottom;
     }
 
     .box-toolbar-search {
-      float: left;
+      float: right;
+      text-align: right;
+      vertical-align: middle;
 
       .br {
         border: none;
@@ -214,11 +217,11 @@
 }
 
 @media screen and (max-width: 630px) {
-  .ag .box-toolbar .box-toolbar-search .br {
+  .box-toolbar .box-toolbar-search .br {
     height: 0;
     display: none !important;
   }
-  .ag .box-toolbar .box-toolbar-search .el-form-item {
+  .box-toolbar .box-toolbar-search .el-form-item {
     margin-bottom: 3px !important;
     display: block;
   }

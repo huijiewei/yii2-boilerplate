@@ -1,19 +1,7 @@
 <template>
   <div class="box">
-    <h4>特点</h4>
-    <ol>
-      <li>
-        <p>基于 VUE CLI</p>
-      </li>
-      <li>
-        <p>自带 Mock 服务器</p>
-      </li>
-      <li>
-        <p>使用 .env 配置环境变量</p>
-      </li>
-    </ol>
     <p>
-      <a href="https://github.com/huijiewei/agile-vue" target="_blank"
+      <a href="https://github.com/huijiewei/yii2-boilerplate" target="_blank"
         >访问 Github 项目地址</a
       >
     </p>
@@ -119,6 +107,7 @@
 import FileUpload from '@admin/components/upload/FileUpload'
 import ImageUpload from '@admin/components/upload/ImageUpload'
 export default {
+  name: 'Home',
   components: { ImageUpload, FileUpload },
   metaInfo: {
     title: '首页',

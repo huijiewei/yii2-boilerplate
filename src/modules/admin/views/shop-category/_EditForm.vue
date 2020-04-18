@@ -56,7 +56,7 @@
     <el-form-item>
       <el-button
         type="primary"
-        :disabled="isEdit && !$can('shop-category/edit')"
+        :disabled="!canSubmit"
         native-type="submit"
         :loading="submitLoading"
         >{{ submitText }}
@@ -81,7 +81,6 @@ import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntity
 import ImageUpload from '@admin/components/upload/ImageUpload'
 
 export default {
-  name: 'ShopCategoryForm',
   components: { ImageUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
@@ -90,6 +89,10 @@ export default {
       required: true,
     },
     isEdit: {
+      type: Boolean,
+      default: false,
+    },
+    canSubmit: {
       type: Boolean,
       default: false,
     },
@@ -115,8 +118,8 @@ export default {
       return [...[{ id: 0, name: '根分类' }], ...this.categoryTree]
     },
   },
-  async mounted() {
-    this.formModel = this.shopCategory
+  created() {
+    this.formModel = Object.assign({}, this.shopCategory)
     this.formCategoryParents = this.categoryParents
   },
   methods: {

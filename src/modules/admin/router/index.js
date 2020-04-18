@@ -7,65 +7,67 @@ import siteIndex from '@admin/views/site/Index'
 import siteLogin from '@admin/views/site/Login'
 import siteProfile from '@admin/views/site/Profile'
 
-import adminRoutes from './admin/admin'
-import adminGroupRoutes from './admin/group'
-import userRoutes from './user'
-import shopCategoryRoutes from './shop/category'
-import shopBrandRoutes from './shop/brand'
+import adminRoute from './admin/admin'
+import adminLogRoute from './admin/admin-log'
+import adminGroupRoute from './admin/group'
+import userRoute from './user/user'
+import shopCategoryRoute from './shop/category'
+import shopBrandRoute from './shop/brand'
+import shopProductRoute from './shop/product'
 
-import defaultLayout from '@admin/components/DefaultLayout'
+import AdminLayout from '@admin/components/AdminLayout'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/login',
+    name: 'Login',
+    component: siteLogin,
+    meta: {
+      title: '登录',
+    },
+  },
+  {
     path: '/',
-    component: defaultLayout,
+    component: AdminLayout,
     children: [
-      ...adminRoutes,
-      ...adminGroupRoutes,
-      ...userRoutes,
-      ...shopBrandRoutes,
-      ...shopCategoryRoutes,
       {
-        path: 'home',
+        path: '',
+        redirect: '/home',
+      },
+      {
+        path: '/home',
+        name: 'Home',
         component: siteIndex,
-        alias: '',
         meta: {
-          breadcrumb: {
-            title: '首页',
-          },
+          affix: true,
+          title: '首页',
         },
       },
       {
-        path: 'profile',
+        path: '/profile',
+        name: 'Profile',
         component: siteProfile,
-        alias: '',
         meta: {
-          breadcrumb: {
-            title: '个人资料',
-          },
+          title: '个人资料',
+        },
+      },
+      ...adminRoute,
+      ...adminLogRoute,
+      ...adminGroupRoute,
+      ...userRoute,
+      ...shopBrandRoute,
+      ...shopProductRoute,
+      ...shopCategoryRoute,
+      {
+        path: '*',
+        component: notFound,
+        meta: {
+          title: '页面未找到',
         },
       },
     ],
-  },
-  {
-    path: '/login',
-    component: siteLogin,
-    meta: {
-      breadcrumb: {
-        title: '登录',
-      },
-    },
-  },
-  {
-    path: '*',
-    component: notFound,
-    meta: {
-      breadcrumb: {
-        title: '页面未找到',
-      },
-    },
   },
 ]
 
@@ -86,6 +88,6 @@ const router = new VueRouter({
   },
 })
 
-Vue.use(VueRouterBackButton, { router, ignoreRoutesWithSameName: true })
+Vue.use(VueRouterBackButton, { router, ignoreRoutesWithSameName: false })
 
 export default router

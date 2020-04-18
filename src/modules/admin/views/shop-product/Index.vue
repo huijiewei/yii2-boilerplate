@@ -6,26 +6,26 @@
       </div>
       <div class="box-toolbar-button">
         <el-button
-          :disabled="!$can('user/create')"
+          :disabled="!$can('shop-product/create')"
           type="primary"
           size="medium"
           @click.native="handleUserCreate()"
         >
-          新建会员
+          新建商品
         </el-button>
         &nbsp;&nbsp;
         <export-button
-          :disabled="loading || !$can('user/export')"
-          :api="'users/export'"
+          :disabled="loading || !$can('shop-product/export')"
+          :api="'shop-products/export'"
           type="default"
           size="small"
-          :confirm="'你确定导出所有用户吗？'"
+          :confirm="'你确定导出所有商品吗？'"
         >
-          会员导出
+          商品导出
         </export-button>
       </div>
     </div>
-    <el-table v-loading="loading" :data="users">
+    <el-table v-loading="loading" :data="shopProducts">
       <el-table-column
         fixed
         width="90"
@@ -34,35 +34,25 @@
         label="Id"
       />
       <el-table-column
-        prop="phone"
-        width="130"
+        prop="num"
+        width="90"
         class-name="text-mono"
-        label="手机号码"
+        label="编号"
       />
+      <el-table-column prop="name" width="360" label="名称" />
+      <el-table-column prop="name" width="120" label="图片" />
       <el-table-column
-        prop="email"
         width="300"
         class-name="text-mono"
-        label="电子邮箱"
-      />
-      <el-table-column prop="name" width="120" label="名称" />
-      <el-table-column width="55" align="center" label="头像">
-        <template slot-scope="scope">
-          <ag-avatar :src="scope.row.avatar" />
-        </template>
-      </el-table-column>
-      <el-table-column
-        width="160"
-        class-name="text-mono"
-        prop="createdIp"
-        label="注册 IP"
+        prop="shopCategory.name"
+        label="分类"
       />
       <el-table-column
         align="center"
-        width="79"
+        width="100"
         class-name="text-mono"
-        prop="createdFrom.description"
-        label="注册来源"
+        prop="shopBrand.name"
+        label="品牌"
       />
       <el-table-column
         class-name="text-mono"
@@ -73,7 +63,7 @@
       <el-table-column width="135" label="操作" fixed="right" align="right">
         <template slot-scope="scope">
           <el-button
-            :disabled="!$can('user/edit')"
+            :disabled="!$can('shop-product/edit')"
             plain
             type="primary"
             size="mini"
@@ -82,7 +72,7 @@
             编辑
           </el-button>
           <el-button
-            :disabled="!$can('user/delete')"
+            :disabled="!$can('shop-product/delete')"
             plain
             type="danger"
             size="mini"
@@ -98,41 +88,40 @@
 </template>
 
 <script>
-import AgAvatar from '@core/components/Avatar'
 import flatry from '@core/utils/flatry'
-import UserService from '@admin/services/UserService'
+import ShopProductService from '@admin/services/ShopProductService'
 import SearchForm from '@admin/components/SearchForm'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
 import ExportButton from '@admin/components/ExportButton'
 import Pagination from '@admin/components/Pagination'
 
 export default {
-  name: 'User',
-  components: { ExportButton, SearchForm, AgAvatar, Pagination },
+  name: 'ShopProduct',
+  components: { ExportButton, SearchForm, Pagination },
   mixins: [SearchFormFieldsMixin],
   data() {
     return {
       loading: true,
-      users: [],
+      shopProducts: [],
       pages: null,
     }
   },
   watch: {
     $route(to, from) {
       if (to.path === from.path) {
-        this.getUsers()
+        this.getShopProducts()
       }
     },
   },
   created() {
-    this.getUsers()
+    this.getShopProducts()
   },
   methods: {
     handleUserCreate() {
-      this.$router.push({ path: '/user/create' })
+      this.$router.push({ path: '/shop/create' })
     },
     handleUserEdit(user) {
-      this.$router.push({ name: 'UserEdit', params: { id: user.id } })
+      this.$router.push({ name: 'ShopEdit', params: { id: user.id } })
     },
     handleUserDelete(user) {
       this.$deleteDialog({
@@ -140,12 +129,12 @@ export default {
         callback: async () => {
           this.loading = true
 
-          const { data } = await flatry(UserService.delete(user.id))
+          const { data } = await flatry(ShopProductService.delete(user.id))
 
           if (data) {
-            this.users.forEach((item, index) => {
+            this.shopProducts.forEach((item, index) => {
               if (item.id === user.id) {
-                this.users.splice(index, 1)
+                this.shopProducts.splice(index, 1)
               }
             })
 
@@ -159,15 +148,21 @@ export default {
         },
       })
     },
-    async getUsers() {
+    handleCurrentChange(page) {
+      this.$router.push({
+        path: this.$route.fullPath,
+        query: { page: page },
+      })
+    },
+    async getShopProducts() {
       this.loading = true
 
       const { data } = await flatry(
-        UserService.all(this.buildRouteQuery(this.$route.query))
+        ShopProductService.all(this.buildRouteQuery(this.$route.query))
       )
 
       if (data) {
-        this.users = data.items
+        this.shopProducts = data.items
         this.pages = data.pages
 
         this.setSearchFields(data.searchFields)

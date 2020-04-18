@@ -22,4 +22,4 @@ yarn-error.log*
 
 .env.production
 .env.development
-webpack.entity.*
+webpack.entry.*

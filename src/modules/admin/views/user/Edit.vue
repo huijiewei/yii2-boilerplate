@@ -21,6 +21,7 @@ import UserForm from '@admin/views/user/_EditForm'
 import UserService from '@admin/services/UserService'
 
 export default {
+  name: 'UserEdit',
   components: { UserForm, PlaceholderForm },
   data() {
     return {
@@ -28,23 +29,30 @@ export default {
       user: null,
     }
   },
-  async created() {
-    const { data } = await flatry(
-      UserService.edit(this.$router.currentRoute.query.id)
-    )
-
-    if (data) {
-      this.user = data
-    }
+  inject: ['historyBack'],
+  created() {
+    this.getUser(this.$route.params.id)
   },
   methods: {
+    async getUser(id) {
+      this.user = null
+
+      const { data } = await flatry(UserService.view(id))
+
+      if (data) {
+        this.user = data
+      }
+    },
     async editUser(user, done, fail, always) {
-      const { data, error } = await flatry(UserService.edit(user.id, user))
+      const { data, error } = await flatry(UserService.edit(user))
 
       if (data) {
         done()
 
         this.$message.success('用户编辑成功')
+
+        await this.$store.dispatch('tabs/deleteCache', 'User')
+        await this.historyBack('/user', false, true)
       }
 
       if (error) {

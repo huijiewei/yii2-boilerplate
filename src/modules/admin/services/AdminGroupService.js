@@ -9,18 +9,16 @@ const AdminGroupService = {
     return Vue.http.delete('admin-groups/' + id)
   },
 
-  create(adminGroup = null) {
+  create(adminGroup) {
     return Vue.http.post('admin-groups', adminGroup)
   },
 
-  edit(id, adminGroup = null) {
-    const endpoint = 'admin-groups/' + id
+  view(id) {
+    return Vue.http.get('admin-groups/' + id)
+  },
 
-    if (adminGroup === null) {
-      return Vue.http.get(endpoint)
-    }
-
-    return Vue.http.put(endpoint, adminGroup)
+  edit(adminGroup) {
+    return Vue.http.put('admin-groups/' + adminGroup.id, adminGroup)
   },
 }
 

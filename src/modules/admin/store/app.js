@@ -1,9 +1,11 @@
 import auth from './auth'
+import tabs from './tabs'
 
 const app = {
   strict: process.env.NODE_ENV !== 'production',
   modules: {
     auth: auth,
+    tabs: tabs,
   },
   state: {
     error: {

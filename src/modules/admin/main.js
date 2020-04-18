@@ -22,6 +22,7 @@ Vue.use(HttpClient, {
   getAccessTokenGetter: 'auth/getAccessToken',
   setLoginActionDispatch: 'auth/setLoginAction',
   setErrorDispatch: 'setError',
+  javaParamsSerializer: true,
 })
 
 Vue.use(PermissionCheck, {

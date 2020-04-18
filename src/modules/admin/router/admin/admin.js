@@ -1,68 +1,29 @@
-import BlankLayout from '@admin/components/BlankLayout'
-
-const routes = [
+export default [
   {
     path: '/admin',
-    component: BlankLayout,
+    name: 'Admin',
+    component: () =>
+      import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index'),
     meta: {
-      breadcrumb: {
-        title: '管理员',
-        path: '/admin',
-      },
+      title: '管理员',
     },
-    children: [
-      {
-        path: '',
-        component: () =>
-          import(
-            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Index'
-          ),
-      },
-      {
-        path: 'create',
-        component: () =>
-          import(
-            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Create'
-          ),
-        meta: {
-          breadcrumb: {
-            title: '新建',
-          },
-        },
-      },
-      {
-        path: 'edit',
-        component: () =>
-          import(
-            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Edit'
-          ),
-        meta: {
-          breadcrumb: {
-            title: '编辑',
-          },
-        },
-      },
-    ],
   },
   {
-    path: '/admin-log',
-    component: BlankLayout,
+    path: '/admin/create',
+    name: 'AdminCreate',
+    component: () =>
+      import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Create'),
     meta: {
-      breadcrumb: {
-        title: '操作日志',
-        path: '/admin-log',
-      },
+      title: '新建管理员',
     },
-    children: [
-      {
-        path: '',
-        component: () =>
-          import(
-            /* webpackChunkName: "chunk-admin" */ '@admin/views/admin-log/Index'
-          ),
-      },
-    ],
+  },
+  {
+    path: '/admin/edit/:id',
+    name: 'AdminEdit',
+    component: () =>
+      import(/* webpackChunkName: "chunk-admin" */ '@admin/views/admin/Edit'),
+    meta: {
+      title: '编辑管理员',
+    },
   },
 ]
-
-export default routes

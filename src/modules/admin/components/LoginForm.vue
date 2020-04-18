@@ -152,7 +152,7 @@ export default {
             })
 
             if (violationCaptcha) {
-              this.updateCaptcha()
+              await this.updateCaptcha()
             } else {
               this.removeCaptcha()
             }

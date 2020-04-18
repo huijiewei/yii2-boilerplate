@@ -13,14 +13,12 @@ const UserService = {
     return Vue.http.post('users', user)
   },
 
-  edit(id, user = null) {
-    const endpoint = 'users/' + id
+  view(id) {
+    return Vue.http.get('users/' + id)
+  },
 
-    if (user === null) {
-      return Vue.http.get(endpoint)
-    }
-
-    return Vue.http.put(endpoint, user)
+  edit(user) {
+    return Vue.http.put('users/' + user.id, user)
   },
 }
 

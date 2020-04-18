@@ -20,6 +20,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'AdminGroupCreate',
   components: { PlaceholderForm, AdminGroupForm },
   data() {
     return {
@@ -27,9 +28,13 @@ export default {
       adminGroup: null,
     }
   },
-  async created() {
-    this.adminGroup = { name: '' }
+  created() {
+    this.adminGroup = {
+      name: '',
+      permissions: [],
+    }
   },
+  inject: ['historyBack'],
   methods: {
     async createAdminGroup(adminGroup, done, fail, always) {
       const { data, error } = await flatry(AdminGroupService.create(adminGroup))
@@ -38,7 +43,9 @@ export default {
         done()
 
         this.$message.success('新建管理组成功')
-        await this.$router.push({ path: '/admin-group' })
+
+        await this.$store.dispatch('tabs/deleteCache', 'AdminGroup')
+        await this.historyBack('/admin-group', true, true)
       }
 
       if (error) {

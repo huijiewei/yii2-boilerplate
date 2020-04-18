@@ -20,6 +20,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'AdminCreate',
   components: { PlaceholderForm, AdminForm },
   data() {
     return {
@@ -27,6 +28,7 @@ export default {
       admin: null,
     }
   },
+  inject: ['historyBack'],
   created() {
     this.admin = {
       phone: '',
@@ -44,7 +46,9 @@ export default {
         done()
 
         this.$message.success('新建管理员成功')
-        await this.$router.push({ path: '/admin' })
+
+        await this.$store.dispatch('tabs/deleteCache', 'Admin')
+        await this.historyBack('/admin', true, true)
       }
 
       if (error) {

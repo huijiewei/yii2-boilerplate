@@ -2,10 +2,10 @@ import Vue from 'vue'
 
 const AuthService = {
   login(credentials) {
-    return Vue.http.post('auth/login', credentials)
+    return Vue.http.post('auth/login', credentials, null, false)
   },
   logout() {
-    return Vue.http.post('auth/logout')
+    return Vue.http.post('auth/logout', null, null, false)
   },
   account() {
     return Vue.http.get('auth/account', null, false)

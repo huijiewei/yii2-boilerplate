@@ -113,7 +113,7 @@ export default {
     },
   },
   watch: {
-    searchFields: function () {
+    searchFields: () => {
       this.updateFormModel()
       this.updatePickerOptions()
     },
@@ -225,8 +225,12 @@ export default {
       const queryFields = {}
 
       Object.keys(this.formModel).forEach((key) => {
-        if (this.formModel[key] !== '' && !this.isKeywordField(key)) {
-          queryFields[key] = this.formModel[key]
+        if (!this.isKeywordField(key)) {
+          const value = this.formModel[key]
+
+          if (value && value.length > 0) {
+            queryFields[key] = value
+          }
         }
       })
 
@@ -253,23 +257,21 @@ export default {
 
       return defaultQuery
     },
-    handleFormSubmit() {
-      const queryFields = this.getQueryFields()
-
-      if (JSON.stringify(this.$route.query) === JSON.stringify(queryFields)) {
+    formSubmit(query) {
+      if (JSON.stringify(this.$route.query) === JSON.stringify(query)) {
         this.reload()
       } else {
         this.$router.push({
           path: this.$route.path,
-          query: queryFields,
+          query: query,
         })
       }
     },
+    handleFormSubmit() {
+      this.formSubmit(this.getQueryFields())
+    },
     handleFormReset() {
-      this.$router.push({
-        path: this.$route.path,
-        query: this.getDefaultQuery(),
-      })
+      this.formSubmit(this.getDefaultQuery())
     },
   },
 }

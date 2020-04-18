@@ -1,50 +1,54 @@
-const routes = [
+export default [
   {
     path: '/shop-category',
     component: () =>
       import(
         /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Layout'
       ),
-    meta: {
-      breadcrumb: {
-        title: '商品分类',
-        path: '/shop-category',
-      },
-    },
     children: [
       {
         path: '',
+        name: 'ShopCategory',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Index'
           ),
+        meta: {
+          title: '商品分类',
+        },
       },
       {
-        path: 'create',
+        path: 'create/:id',
+        name: 'ShopCategoryCreate',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Create'
           ),
         meta: {
-          breadcrumb: {
-            title: '新建',
+          title: '新建商品分类',
+          parent: {
+            name: '',
+            path: '/shop-category',
+            title: '商品分类',
           },
         },
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
+        name: 'ShopCategoryEdit',
         component: () =>
           import(
             /* webpackChunkName: "chunk-shop" */ '@admin/views/shop-category/Edit'
           ),
         meta: {
-          breadcrumb: {
-            title: '编辑',
+          title: '编辑商品分类',
+          parent: {
+            name: 'ShopCategory',
+            path: '/shop-category',
+            title: '商品分类',
           },
         },
       },
     ],
   },
 ]
-
-export default routes

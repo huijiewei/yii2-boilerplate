@@ -4,12 +4,14 @@
       <i class="el-icon-s-home" />&nbsp;
       <span>管理后台</span>
     </el-breadcrumb-item>
-    <template v-for="(breadcrumb, index) in breadcrumbs">
-      <el-breadcrumb-item :key="index" :to="{ path: breadcrumb.path }">
-        <bp-icon v-if="breadcrumb.icon" :type="breadcrumb.icon" />
-        <span>{{ breadcrumb.title }}</span>
-      </el-breadcrumb-item>
-    </template>
+    <el-breadcrumb-item
+      v-for="(breadcrumb, index) in breadcrumbs"
+      :key="index"
+      :to="{ path: breadcrumb.path }"
+    >
+      <bp-icon v-if="breadcrumb.icon" :type="breadcrumb.icon" />
+      <span>{{ breadcrumb.title }}</span>
+    </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
@@ -32,27 +34,11 @@ export default {
   },
   methods: {
     updateBreadcrumbs() {
-      const breadcrumbs = []
+      const title = this.$route.meta.title
 
-      this.$route.matched.forEach((route) => {
-        const breadcrumb = route.meta.breadcrumb
+      this.breadcrumbs = [{ title: title }]
 
-        if (breadcrumb) {
-          breadcrumbs.push(breadcrumb)
-        }
-      })
-
-      this.breadcrumbs = breadcrumbs
-
-      const titles = []
-
-      for (let i = breadcrumbs.length - 1; i >= 0; i--) {
-        if (breadcrumbs[i].title) {
-          titles.push(breadcrumbs[i].title)
-        }
-      }
-
-      document.title = this.documentTitle.replace('%s', titles.join(' - '))
+      document.title = this.documentTitle.replace('%s', title)
     },
   },
 }

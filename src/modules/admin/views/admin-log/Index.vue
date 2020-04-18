@@ -6,7 +6,7 @@
       </div>
       <div class="box-toolbar-button"></div>
     </div>
-    <el-table v-loading="loading" :data="logs">
+    <el-table v-loading="loading" :data="adminLogs">
       <el-table-column
         fixed
         width="90"
@@ -62,16 +62,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div v-if="pages" class="bp-pages">
-      <el-pagination
-        :background="true"
-        :current-page="pages.currentPage"
-        :page-size="pages.perPage"
-        layout="total, prev, pager, next, jumper"
-        :total="pages.totalCount"
-        @current-change="handleCurrentChange"
-      />
-    </div>
+    <pagination :pages="pages"></pagination>
     <el-dialog
       title="日志详情"
       :visible.sync="dialogVisible"
@@ -91,24 +82,30 @@ import AdminService from '@admin/services/AdminService'
 import SearchForm from '@admin/components/SearchForm'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
 import { tabledObject } from '@core/utils/util'
+import Pagination from '@admin/components/Pagination'
 
 export default {
-  components: { SearchForm },
+  name: 'AdminLog',
+  components: { SearchForm, Pagination },
   mixins: [SearchFormFieldsMixin],
   data() {
     return {
       loading: true,
-      logs: [],
+      adminLogs: [],
       pages: null,
       dialogVisible: false,
       viewAdminLog: [],
     }
   },
   watch: {
-    $route: 'getLogs',
+    $route(to, from) {
+      if (to.path === from.path) {
+        this.getAdminLogs()
+      }
+    },
   },
   created() {
-    this.getLogs()
+    this.getAdminLogs()
   },
   methods: {
     handleView(adminLog) {
@@ -173,13 +170,7 @@ export default {
       this.dialogVisible = false
       this.viewAdminLog = []
     },
-    handleCurrentChange(page) {
-      this.$router.push({
-        path: this.$route.fullPath,
-        query: { page: page },
-      })
-    },
-    async getLogs() {
+    async getAdminLogs() {
       this.loading = true
 
       const { data } = await flatry(
@@ -187,7 +178,7 @@ export default {
       )
 
       if (data) {
-        this.logs = data.items
+        this.adminLogs = data.items
         this.pages = data.pages
 
         this.setSearchFields(data.searchFields)

@@ -10,6 +10,7 @@
       :category-tree="categoryTree"
       :category-parents="categoryParents"
       :is-edit="false"
+      :can-submit="$can('shop-category/create')"
       @on-submit="createShopCategory"
     >
     </shop-category-form>
@@ -25,6 +26,7 @@ import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
+  name: 'ShopCategoryCreate',
   components: { PlaceholderForm, ShopCategoryForm },
   props: {
     categoryTree: {
@@ -38,16 +40,16 @@ export default {
       categoryParents: [],
     }
   },
-  async beforeRouteUpdate(to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     this.shopCategory = null
-    await this.getShopCategoryRoute(to.query.parentId)
     next()
+    this.getShopCategoryPath(to.params.id)
   },
-  async created() {
-    await this.getShopCategoryRoute(this.$router.currentRoute.query.parentId)
+  created() {
+    this.getShopCategoryPath(this.$route.params.id)
   },
   methods: {
-    async getShopCategoryRoute(id) {
+    async getShopCategoryPath(id) {
       let parents = [0]
 
       if (id > 0) {
@@ -62,15 +64,13 @@ export default {
 
       this.$emit('on-expanded', parents, id)
 
-      this.$nextTick(() => {
-        this.shopCategory = {
-          parentId: id,
-          name: '',
-          icon: '',
-          image: '',
-          description: '',
-        }
-      })
+      this.shopCategory = {
+        parentId: id,
+        name: '',
+        icon: '',
+        image: '',
+        description: '',
+      }
     },
     async createShopCategory(shopCategory, done, fail, always) {
       const { data, error } = await flatry(
@@ -81,10 +81,12 @@ export default {
         done()
 
         this.$message.success('新建商品分类成功')
-        this.$emit('on-updated', data.id)
+
+        this.$emit('on-updated', shopCategory.id)
+
         await this.$router.replace({
-          path: '/shop-category/edit',
-          query: { id: data.id },
+          name: 'ShopCategoryEdit',
+          params: { id: data.id },
         })
       }
 

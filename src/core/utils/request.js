@@ -19,35 +19,39 @@ class Request {
       ...options,
     }
 
-    const httpClient = axios.create({
+    const axiosConfig = {
       baseURL: opt.baseUrl,
       timeout: opt.timeout,
       withCredentials: opt.withCredentials,
-      paramsSerializer: (params) => {
-        const keys = Object.keys(params)
-        let options = ''
+    }
 
-        keys.forEach((key) => {
+    if (options.javaParamsSerializer) {
+      axiosConfig.paramsSerializer = (params) => {
+        const result = []
+
+        Object.keys(params).forEach((key) => {
           if (params[key] !== undefined && params[key] !== null) {
             const isParamTypeObject = typeof params[key] === 'object'
             const isParamTypeArray =
               isParamTypeObject && params[key].length >= 0
 
             if (!isParamTypeObject) {
-              options += `${key}=${params[key]}&`
+              result.push(`${key}=${params[key]}`)
             }
 
             if (isParamTypeObject && isParamTypeArray) {
               params[key].forEach((element) => {
-                options += `${key}=${element}&`
+                result.push(`${key}=${element}&`)
               })
             }
           }
         })
 
-        return options ? options.slice(0, -1) : options
-      },
-    })
+        return result.join('&')
+      }
+    }
+
+    const httpClient = axios.create(axiosConfig)
 
     loadProgressBar({ showSpinner: false }, httpClient)
 

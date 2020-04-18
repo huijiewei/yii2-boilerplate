@@ -46,6 +46,7 @@ import AdminGroupService from '@admin/services/AdminGroupService'
 import flatry from '@core/utils/flatry'
 
 export default {
+  name: 'AdminGroup',
   data() {
     return {
       loading: true,
@@ -67,8 +68,8 @@ export default {
     },
     handleAdminGroupEdit(adminGroup) {
       this.$router.push({
-        path: '/admin-group/edit',
-        query: { id: adminGroup.id },
+        name: 'AdminGroupEdit',
+        params: { id: adminGroup.id },
       })
     },
     handleAdminGroupDelete(adminGroup) {

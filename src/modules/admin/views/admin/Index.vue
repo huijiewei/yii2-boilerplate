@@ -77,6 +77,7 @@ import flatry from '@core/utils/flatry'
 import AgAvatar from '@core/components/Avatar'
 
 export default {
+  name: 'Admin',
   components: { AgAvatar },
   data() {
     return {
@@ -98,7 +99,7 @@ export default {
       this.$router.push({ path: '/admin/create' })
     },
     handleAdminEdit(admin) {
-      this.$router.push({ path: '/admin/edit', query: { id: admin.id } })
+      this.$router.push({ name: 'AdminEdit', params: { id: admin.id } })
     },
     handleAdminDelete(admin) {
       this.$deleteDialog({

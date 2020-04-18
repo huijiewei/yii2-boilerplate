@@ -30,7 +30,7 @@
         <el-input
           v-model.trim="formModel.password"
           type="password"
-          auto-complete="new-password"
+          autocomplete="new-password"
           show-password
         />
       </el-col>
@@ -47,7 +47,7 @@
         <el-input
           v-model.trim="formModel.passwordConfirm"
           type="password"
-          auto-complete="new-password"
+          autocomplete="new-password"
           show-password
         />
       </el-col>
@@ -78,12 +78,19 @@
           placeholder="所属管理组"
         >
           <el-option
-            v-for="adminGroup in adminGroupList"
+            v-for="adminGroup in adminGroups"
             :key="adminGroup.id"
             :label="adminGroup.name"
             :value="adminGroup.id"
           />
         </el-select>
+        &nbsp;
+        <el-button
+          size="mini"
+          title="刷新选项数据"
+          icon="el-icon-refresh"
+          @click="loadAdminGroups"
+        ></el-button>
       </el-col>
     </el-form-item>
     <el-form-item>
@@ -101,7 +108,6 @@ import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntity
 import AvatarUpload from '@admin/components/upload/AvatarUpload'
 
 export default {
-  name: 'AdminForm',
   components: { AvatarUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
@@ -161,7 +167,7 @@ export default {
       validatePassword: validatePassword,
       validatePasswordConfirm: validatePasswordConfirm,
       formModel: null,
-      adminGroupList: {},
+      adminGroups: {},
     }
   },
   computed: {
@@ -171,19 +177,22 @@ export default {
         : 0
     },
   },
-  async mounted() {
+  async created() {
+    this.loadAdminGroups()
+
     this.formModel = Object.assign(
       { password: '', passwordConfirm: '' },
       this.admin
     )
-
-    const { data } = await flatry(MiscService.adminGroupList())
-
-    if (data) {
-      this.adminGroupList = data
-    }
   },
   methods: {
+    async loadAdminGroups() {
+      const { data } = await flatry(MiscService.adminGroups())
+
+      if (data) {
+        this.adminGroups = data
+      }
+    },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (!valid) {

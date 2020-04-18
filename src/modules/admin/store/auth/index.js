@@ -20,9 +20,6 @@ const auth = {
         accessToken: state.accessToken,
       }
     },
-    getLoginAction: (state) => {
-      return state.loginAction
-    },
     getCurrentUser: (state) => {
       return state.currentUser
     },
@@ -30,7 +27,33 @@ const auth = {
       return state.groupMenus
     },
     isRouteInAcl: (state) => (route) => {
-      return state.groupPermissions.includes(route)
+      if (route.length === 0) {
+        return false
+      }
+
+      const routeSplit = route.split('/')
+
+      return (
+        state.groupPermissions.findIndex((permission) => {
+          if (permission.length === 0) {
+            return false
+          }
+
+          const permissionSplit = permission.split('/')
+
+          let matched = true
+
+          for (let i = permissionSplit.length - 1; i >= 0; i--) {
+            if (permissionSplit[i].startsWith(':')) {
+              continue
+            }
+
+            matched = permissionSplit[i] === routeSplit[i] && matched
+          }
+
+          return matched
+        }) > -1
+      )
     },
     isRouteInMenus: (state) => (route) => {
       const path = route.startsWith('/') ? route.substr(1) : route
@@ -62,7 +85,7 @@ const auth = {
     },
   },
   actions: {
-    initClientId({ commit }) {
+    init() {
       if (window.localStorage.getItem(clientIdKey) == null) {
         window.localStorage.setItem(
           clientIdKey,

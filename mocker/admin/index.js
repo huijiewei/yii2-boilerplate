@@ -1,4 +1,4 @@
-const delay = require('mocker-api/utils/delay')
+const delay = require('mocker-api/lib/delay')
 const { authLogin, authLogout, authAccount } = require('./auth/index')
 const {
   adminList,

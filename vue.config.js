@@ -7,21 +7,18 @@ module.exports = {
     host: 'www.agile.test',
     https: {
       key: fs.readFileSync('cert/www.agile.test-key.pem'),
-      cert: fs.readFileSync('cert/www.agile.test.pem')
+      cert: fs.readFileSync('cert/www.agile.test.pem'),
     },
     http2: true,
-    compress: true
+    compress: true,
   },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@core': path.resolve('src/core'),
-        '@admin': path.resolve('src/modules/admin'),
-        '@mobile': path.resolve('src/modules/mobile')
-      }
-    }
-  },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
+    config.resolve.alias
+      .set('@core', path.resolve('src/core'))
+      .set('@admin', path.resolve('src/modules/admin'))
+      .set('@mobile', path.resolve('src/modules/mobile'))
+      .delete('@')
+
     config.optimization.splitChunks({
       chunks: 'all',
       cacheGroups: {
@@ -30,21 +27,21 @@ module.exports = {
           chunks: 'initial',
           name: 'vendor',
           priority: 10,
-          enforce: true
+          enforce: true,
         },
         element: {
           test: /[\\/]node_modules[\\/]_?element-ui(.*)/,
           name: 'element',
           priority: 20,
-          enforce: true
+          enforce: true,
         },
         agile: {
           test: /[\\/]src\/core[\\/]/,
           name: 'agile',
           priority: 5,
-          enforce: true
-        }
-      }
+          enforce: true,
+        },
+      },
     })
-  }
+  },
 }

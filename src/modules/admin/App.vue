@@ -1,57 +1,49 @@
 <template>
   <div id="app">
-    <div v-if="isErrorMessageVisible" id="errorMessage" />
-    <login-modal v-if="isLoginModalVisible" :visible="true" />
-    <router-view />
+    <router-view></router-view>
+    <login-modal v-if="loginModalShowed"></login-modal>
   </div>
 </template>
 
 <script>
 import LoginModal from '@admin/components/LoginModal'
 
-let lastLoginAction = ''
 let lastErrorMessage = ''
+let lastLoginAction = ''
 
 export default {
   name: 'App',
-  spinnerTimeoutId: 0,
   components: { LoginModal },
+  storeSubscribe: null,
+  spinnerTimeout: null,
   computed: {
-    isErrorMessageVisible() {
-      const self = this
-      const error = self.$store.state.error
-      const currentPath = this.$router.currentRoute.path
-      const isHome = currentPath === '/' || currentPath === '/home'
-
-      if (error.message.length > 0 && error.message !== lastErrorMessage) {
-        lastErrorMessage = error.message
-
-        self.$alert(error.message, {
-          center: true,
-          confirmButtonText: error.historyBack ? '返回' : '确定',
-          type: 'warning',
-          showClose: false,
-          callback: () => {
-            lastErrorMessage = ''
-            self.$store.dispatch('clearError')
-
-            if (error.historyBack === true && !isHome) {
-              self.$router.back()
-            }
-          },
-        })
-      }
-
-      return false
+    loginModalShowed: function () {
+      return !this.isLogin
     },
-    isLoginModalVisible() {
-      const action = this.$store.getters['auth/getLoginAction']
-
+  },
+  beforeCreate() {
+    this.$store.dispatch('auth/init')
+    this.$store.dispatch('tabs/init')
+  },
+  data() {
+    return {
+      isLogin: true,
+    }
+  },
+  methods: {
+    showLoginModal(action) {
       if (lastLoginAction === action) {
-        return false
+        return
       }
 
       lastLoginAction = action
+
+      if (action === 'modal') {
+        this.isLogin = false
+        return
+      }
+
+      this.isLogin = true
 
       if (action === 'direct') {
         const router = this.$router
@@ -72,39 +64,95 @@ export default {
           })
         }
       }
+    },
+    showErrorMessage(error) {
+      if (error.message.length > 0 && error.message !== lastErrorMessage) {
+        lastErrorMessage = error.message
 
-      return action === 'modal'
+        const currentPath = this.$router.currentRoute.path
+        const isHome = currentPath === '/' || currentPath === '/home'
+
+        this.$alert(error.message, {
+          center: true,
+          confirmButtonText: error.historyBack ? '返回' : '确定',
+          type: 'warning',
+          showClose: false,
+          callback: () => {
+            lastErrorMessage = ''
+            this.$store.dispatch('clearError')
+
+            if (error.historyBack === true && !isHome) {
+              this.historyBack(null, false, true)
+            }
+          },
+        })
+      }
+    },
+    async historyBack(route = null, force = false, closeTab = false) {
+      if (closeTab) {
+        const next = await this.$store.dispatch('tabs/close', {
+          name: this.$route.name,
+          path: this.$route.path,
+        })
+
+        this.routerBack(route ? route : next, force)
+      } else {
+        this.routerBack(route, force)
+      }
+    },
+    routerBack(route = null, force = false) {
+      if ((!force || route === null) && this.$routerHistory.hasPrevious()) {
+        this.$router.replace(this.$routerHistory.previous())
+      } else {
+        if (route == null) {
+          route = { path: '/home' }
+        } else if (typeof route === 'string') {
+          route = { path: route }
+        }
+
+        this.$router.replace(route)
+      }
     },
   },
-  beforeCreate() {
-    this.$store.dispatch('auth/initClientId')
+  provide() {
+    return {
+      historyBack: this.historyBack,
+    }
   },
   mounted() {
     document.body.classList.add('ag')
 
-    this.spinnerTimeoutId = setTimeout(() => {
+    this.spinnerTimeout = setTimeout(() => {
       const spinner = document.getElementById('spinner')
 
       if (spinner) {
         spinner.remove()
       }
-    }, 900)
+    }, 500)
+
+    this.storeSubscribe = this.$store.subscribe((mutation) => {
+      if (mutation.type === 'TOGGLE_ERROR') {
+        this.showErrorMessage(mutation.payload)
+      }
+
+      if (mutation.type === 'auth/TOGGLE_LOGIN_ACTION') {
+        this.showLoginModal(mutation.payload)
+      }
+    })
   },
   destroyed() {
-    if (this.spinnerTimeoutId > 0) {
-      clearTimeout(this.spinnerTimeoutId)
+    if (this.spinnerTimeout) {
+      clearTimeout(this.spinnerTimeout)
+    }
+
+    if (this.storeSubscribe) {
+      this.storeSubscribe()
     }
   },
 }
 </script>
 
 <style lang="scss">
-body {
-  color: #647279;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, SimSun, sans-serif;
-}
-
 @import '../../core/assets/styles/base.scss';
 @import './assets/styles/style.scss';
 </style>

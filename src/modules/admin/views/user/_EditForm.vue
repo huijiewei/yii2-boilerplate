@@ -74,7 +74,6 @@ import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntity
 import AvatarUpload from '@admin/components/upload/AvatarUpload'
 
 export default {
-  name: 'UserForm',
   components: { AvatarUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
@@ -136,7 +135,7 @@ export default {
       formModel: null,
     }
   },
-  mounted() {
+  created() {
     this.formModel = Object.assign(
       { password: '', passwordConfirm: '' },
       this.user

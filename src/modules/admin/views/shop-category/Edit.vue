@@ -10,6 +10,7 @@
       :category-tree="categoryTree"
       :category-parents="categoryParents"
       :is-edit="true"
+      :can-submit="$can('shop-category/edit')"
       @on-submit="editShopCategory"
       @on-delete="deleteShopCategory"
     >
@@ -23,9 +24,9 @@ import ShopCategoryForm from '@admin/views/shop-category/_EditForm'
 import ShopCategoryService from '@admin/services/ShopCategoryService'
 import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
-import MiscService from '@admin/services/MiscService'
 
 export default {
+  name: 'ShopCategoryEdit',
   components: { PlaceholderForm, ShopCategoryForm },
   props: {
     categoryTree: {
@@ -39,22 +40,26 @@ export default {
       categoryParents: [],
     }
   },
-  async beforeRouteUpdate(to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     this.shopCategory = null
-    await this.getShopCategory(to.query.id)
     next()
+    this.getShopCategory(to.params.id)
   },
-  async created() {
-    await this.getShopCategory(this.$router.currentRoute.query.id)
+  created() {
+    this.getShopCategory(this.$route.params.id)
   },
   methods: {
     async getShopCategory(id) {
-      const { data } = await flatry(ShopCategoryService.edit(id))
+      const { data } = await flatry(ShopCategoryService.view(id))
 
       if (data) {
         let parents = [0]
 
-        if (data.parents && Array.isArray(data.parents)) {
+        if (
+          data.parents &&
+          Array.isArray(data.parents) &&
+          data.parents.length > 0
+        ) {
           parents = data.parents.map((parent) => parent.id)
         }
 
@@ -67,13 +72,14 @@ export default {
     },
     async editShopCategory(shopCategory, done, fail, always) {
       const { data, error } = await flatry(
-        ShopCategoryService.edit(shopCategory.id, shopCategory)
+        ShopCategoryService.edit(shopCategory)
       )
 
       if (data) {
         done()
 
         this.$message.success('修改成功')
+
         this.$emit('on-updated', shopCategory.id)
       }
 
@@ -95,7 +101,9 @@ export default {
 
           if (data) {
             this.$message.success('删除成功')
+
             this.$emit('on-updated', shopCategory.parentId)
+
             await this.$router.replace({
               path: '/shop-category',
             })

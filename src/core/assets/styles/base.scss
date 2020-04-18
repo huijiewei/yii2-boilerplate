@@ -1,14 +1,17 @@
-body {
-  background: #fff;
-  margin: 0;
-  overflow-x: hidden;
-  color: #67757c;
-}
-
 html {
   position: relative;
   min-height: 100%;
   background-color: #fff;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background: #fff;
+  margin: 0;
+  overflow-x: hidden;
+  color: #67757c;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, SimSun, sans-serif;
 }
 
 a:focus,

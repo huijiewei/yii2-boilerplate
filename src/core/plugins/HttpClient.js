@@ -14,6 +14,7 @@ const HttpClient = {
       getAccessTokenGetter,
       setLoginActionDispatch,
       setErrorDispatch,
+      javaParamsSerializer = false,
     }
   ) {
     const errorMessage = (message, historyBack) => {
@@ -25,6 +26,7 @@ const HttpClient = {
 
     const request = new Request({
       baseUrl: apiHost,
+      javaParamsSerializer: javaParamsSerializer,
       beforeRequest: (config) => {
         const accessToken = store.getters[getAccessTokenGetter]
 
