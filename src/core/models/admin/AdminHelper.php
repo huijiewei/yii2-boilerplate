@@ -82,7 +82,7 @@ class AdminHelper
                             ],
                             [
                                 'name' => '商品新建',
-                                'actionId' => 'shop-product/create'
+                                'actionId' => 'shop-product/create/:id'
                             ],
                             [
                                 'name' => '商品查看',
