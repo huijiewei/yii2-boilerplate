@@ -41,6 +41,14 @@ class ShopCategory extends ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return [
+            'parents',
+            'children',
+        ];
+    }
+
     public function attributeLabels()
     {
         return [

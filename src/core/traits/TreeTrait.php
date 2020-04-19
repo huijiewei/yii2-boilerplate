@@ -193,7 +193,7 @@ trait TreeTrait
     /**
      * @return array
      */
-    public function getDescendant()
+    public function getChildren()
     {
         return static::getChildrenById($this->id);
     }

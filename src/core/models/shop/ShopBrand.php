@@ -14,7 +14,7 @@ use app\core\components\ActiveRecord;
  * @property string $website
  * @property string $description
  *
- * @property ShopBrandCategory[] $shopBrandCategories
+ * @property ShopCategory[] $shopCategories
  *
  * @package app\core\models\shop
  */
