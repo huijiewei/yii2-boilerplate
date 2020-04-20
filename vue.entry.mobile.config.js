@@ -4,7 +4,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const vueConfig = require('./vue.config')
 
-const devServerPort = 8081
+const devServerPort = 8091
 
 const customConfig = {
   publicPath: isProduction
