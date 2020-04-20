@@ -38,7 +38,7 @@ class AccessControl extends ActionFilter
             $log->userAgent = \Yii::$app->getRequest()->getUserAgent();
             $log->method = \Yii::$app->getRequest()->getMethod();
             $log->action = $actionId;
-            $log->params = \Yii::$app->getRequest()->getQueryString();
+            $log->params = http_build_query(\Yii::$app->getRequest()->getQueryParams());
         }
 
         if (!$identity->can($actionId)) {
