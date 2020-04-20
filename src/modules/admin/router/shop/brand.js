@@ -11,7 +11,7 @@ export default [
     },
   },
   {
-    path: '/ship-brand/create',
+    path: '/shop-brand/create',
     name: 'ShopBrandCreate',
     component: () =>
       import(

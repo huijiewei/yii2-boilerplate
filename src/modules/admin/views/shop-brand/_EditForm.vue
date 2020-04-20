@@ -123,7 +123,7 @@ export default {
     }
   },
   async created() {
-    this.loadCategoryTree()
+    await this.loadCategoryTree()
     this.formModel = Object.assign({}, this.shopBrand)
   },
   methods: {
