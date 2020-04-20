@@ -59,13 +59,34 @@ abstract class RestController extends Controller
         return \Yii::createObject($this->serializer)->serialize($data);
     }
 
-    public function addExpandQueryParams($expands)
+    public function addFieldsQueryParams($fields)
     {
-        if (is_string($expands)) {
-            $expands = [$expands];
+        if (is_string($fields)) {
+            $fields = [$fields];
         }
 
-        if (is_array($expands) && count($expands) > 0) {
+        if (count($fields) > 0) {
+            $queryParams = \Yii::$app->getRequest()->getQueryParams();
+
+            $currentFields = '';
+
+            if (isset($queryParams['fields']) && !empty($queryParams['fields'])) {
+                $currentFields = $queryParams['fields'] . ',';
+            }
+
+            $queryParams['fields'] = $currentFields . implode(',', $fields);
+
+            \Yii::$app->getRequest()->setQueryParams($queryParams);
+        }
+    }
+
+    public function addExpandQueryParams($expand)
+    {
+        if (is_string($expand)) {
+            $expand = [$expand];
+        }
+
+        if (count($expand) > 0) {
             $queryParams = \Yii::$app->getRequest()->getQueryParams();
 
             $currentExpand = '';
@@ -74,7 +95,7 @@ abstract class RestController extends Controller
                 $currentExpand = $queryParams['expand'] . ',';
             }
 
-            $queryParams['expand'] = $currentExpand . implode(',', $expands);
+            $queryParams['expand'] = $currentExpand . implode(',', $expand);
 
             \Yii::$app->getRequest()->setQueryParams($queryParams);
         }
