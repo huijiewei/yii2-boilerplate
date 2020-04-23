@@ -47,6 +47,8 @@ const HttpClient = {
       onError: (error) => {
         const historyBack = error.config.historyBack
 
+        console.log(error.response)
+
         if (!error.response) {
           errorMessage(error.message, historyBack)
 
@@ -74,34 +76,12 @@ const HttpClient = {
           return Promise.reject(error)
         }
 
-        if (!error.response.data) {
-          errorMessage(
-            error.response.statusText ||
-              (error.response.status >= 500 ? '系统错误' : '请求错误'),
-            historyBack
-          )
-
-          return Promise.reject(error)
-        }
-
-        if (error.response.data instanceof Blob) {
-          const reader = new FileReader()
-
-          reader.onloadend = (e) => {
-            const data = JSON.parse(e.target.result.toString())
-
-            errorMessage(data.detail || data.message || data.title, historyBack)
-          }
-
-          reader.readAsText(new Blob([error.response.data]))
-
-          return Promise.reject(error)
-        }
-
         errorMessage(
           error.response.data.detail ||
             error.response.data.message ||
-            error.response.data.title,
+            error.response.data.title ||
+            error.response.statusText ||
+            '网络请求错误',
           historyBack
         )
 

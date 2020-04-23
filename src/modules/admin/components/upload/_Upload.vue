@@ -353,7 +353,7 @@ export default {
 
       this.buttonDisabled = true
 
-      request.post(option.action, formData)
+      request.post(option.action, formData, null, false)
     },
 
     humanFileSize(size) {
