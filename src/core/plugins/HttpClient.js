@@ -47,8 +47,6 @@ const HttpClient = {
       onError: (error) => {
         const historyBack = error.config.historyBack
 
-        console.log(error.response)
-
         if (!error.response) {
           errorMessage(error.message, historyBack)
 
