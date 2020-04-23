@@ -47,9 +47,9 @@
         class-name="text-mono"
         prop="createdAt"
         label="创建时间"
-        min-width="160"
+        width="160"
       />
-      <el-table-column width="135" label="操作" fixed="right" align="right">
+      <el-table-column width="75" label="操作" fixed="right" align="right">
         <template slot-scope="scope">
           <el-button
             plain
