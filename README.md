@@ -35,7 +35,7 @@ npm install
 ##### 生成本地开发环境 SSL 证书
 使用 mkcert 工具生成本地证书，安装请参考：https://github.com/FiloSottile/mkcert
 ```bash
-cd cert
+cd certs
 mkcert www.agile.test
 cd ..
 ```

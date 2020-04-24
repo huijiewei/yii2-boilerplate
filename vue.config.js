@@ -6,8 +6,8 @@ module.exports = {
   devServer: {
     host: 'www.agile.test',
     https: {
-      key: fs.readFileSync('cert/www.agile.test-key.pem'),
-      cert: fs.readFileSync('cert/www.agile.test.pem'),
+      key: fs.readFileSync('certs/www.agile.test-key.pem'),
+      cert: fs.readFileSync('certs/www.agile.test.pem'),
     },
     http2: true,
     compress: true,
