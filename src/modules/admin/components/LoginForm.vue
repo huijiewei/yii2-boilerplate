@@ -9,7 +9,7 @@
       :rules="[{ required: true, message: '请输入帐号', trigger: 'blur' }]"
     >
       <el-input
-        v-model="loginForm.account"
+        v-model.trim="loginForm.account"
         placeholder="手机号码或者电子邮箱"
         type="tel"
         prefix-icon="el-icon-user"
@@ -20,7 +20,7 @@
       :rules="[{ required: true, message: '请输入密码', trigger: 'blur' }]"
     >
       <el-input
-        v-model="loginForm.password"
+        v-model.trim="loginForm.password"
         placeholder="密码"
         type="password"
         prefix-icon="el-icon-lock"
