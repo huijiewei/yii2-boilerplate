@@ -41,40 +41,12 @@ npm install
 127.0.0.1 www.bp.test
 ```
 
-###### 生成本地开发环境 SSL 证书
-使用 mkcert 工具，具体请参考：https://github.com/FiloSottile/mkcert
-
-####### 安装 mkcert
-```bash
-brew install mkcert
-brew install nss # 如果使用 Firefox
-```
-###### 生成并安装 ROOT 证书
-```bash
-mkcert -install
-```
-
-##### 进入项目 certs 目录生成 SSL 证书
-```bash
-cd certs
-mkcert www.bp.test
-cd ..
-```
-
-###### Nginx 配置，启用 HTTPS 和 HTTP2
+###### Nginx 配置
 ```text
-server {
-    listen     80;
-    server_name www.bp.test;
-    return 301 https://$host$request_uri;
-}
 
 server {
-    listen      443 ssl http2;
+    listen      80;
     server_name www.bp.test;
-
-    ssl_certificate {项目根目录}/certs/www.bp.test.pem;
-    ssl_certificate_key {项目根目录}/certs/www.bp.test-key.pem;
 
     root {项目根目录}/public;
     index index.php index.html index.htm;
@@ -167,29 +139,4 @@ http://www.bp.test/admin
 用户：13012345678
 密码：123456
 
-### 关闭 HTTPS 的配置
-###### Nginx 配置文件
-```text
-server {
-    listen	80;
-    server_name www.bp.test;
-
-    root {项目根目录}/public;
-    index index.php index.html index.htm;
-
-    rewrite ^/(.*)/$ /$1 permanent;
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    include php71-fpm;
-}
-```
-###### Webpack 配置文件修改
-修改文件 resources/config/admin.webpack.dev.js
-```js
-config.serveHttps = false
-```
-
-Version: 2019-11-02 09:55
+Version: 2020-05-16 00:04

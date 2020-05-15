@@ -1,5 +1,4 @@
 const path = require('path')
-const fs = require('fs')
 
 const ManifestPlugin = require('webpack-manifest-plugin')
 
@@ -60,11 +59,7 @@ const config = {
 if (!isProduction) {
   config.devServer = {
     host: 'www.bp.test',
-    https: {
-      key: fs.readFileSync('certs/www.bp.test-key.pem'),
-      cert: fs.readFileSync('certs/www.bp.test.pem'),
-    },
-    http2: true,
+    https: false,
     compress: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     contentBase: path.resolve(__dirname, 'ui'),
