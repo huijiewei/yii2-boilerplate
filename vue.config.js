@@ -1,15 +1,9 @@
 const path = require('path')
-const fs = require('fs')
 
 module.exports = {
   assetsDir: 'assets',
   devServer: {
     host: 'www.agile.test',
-    https: {
-      key: fs.readFileSync('certs/www.agile.test-key.pem'),
-      cert: fs.readFileSync('certs/www.agile.test.pem'),
-    },
-    http2: true,
     compress: true,
   },
   chainWebpack: (config) => {
