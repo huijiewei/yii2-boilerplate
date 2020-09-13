@@ -13,7 +13,9 @@
       </li>
     </ol>
     <p>
-      <a href="https://github.com/huijiewei/agile-vue" target="_blank">访问 Github 项目地址</a>
+      <a href="https://github.com/huijiewei/agile-vue" target="_blank"
+        >访问 Github 项目地址</a
+      >
     </p>
     <hr />
     <el-row :gutter="15">

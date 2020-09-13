@@ -15,7 +15,7 @@
       </div>
       <div
         class="placeholder-form-field"
-        style="width: 100%; margin-left: 10px;"
+        style="width: 100%; margin-left: 10px"
       >
         <placeholder-text-row
           :line-spacing="'0'"

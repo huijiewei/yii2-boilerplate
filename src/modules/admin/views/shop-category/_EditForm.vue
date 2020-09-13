@@ -10,7 +10,7 @@
     <el-form-item label="所属分类" prop="parentId">
       <el-col :md="16">
         <el-cascader
-          style="width: 100%;"
+          style="width: 100%"
           placeholder="请选择上级分类"
           :options="getCategoryTree"
           :props="{ value: 'id', label: 'name', checkStrictly: true }"

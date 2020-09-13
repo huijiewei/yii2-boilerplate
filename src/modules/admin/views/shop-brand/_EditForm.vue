@@ -63,7 +63,7 @@
     <el-form-item label="分类" prop="shopCategoryIds">
       <el-col :md="20">
         <el-cascader
-          style="width: 90%;"
+          style="width: 90%"
           placeholder="品牌绑定分类"
           v-model="formModel.shopCategoryIds"
           :options="categoryTree"

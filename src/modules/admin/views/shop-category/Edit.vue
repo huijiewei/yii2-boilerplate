@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="0" style="padding: 5px;">
+  <el-row :gutter="0" style="padding: 5px">
     <div class="box-header">
       <h4>{{ pageTitle }}</h4>
     </div>

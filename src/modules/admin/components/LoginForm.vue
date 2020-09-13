@@ -40,7 +40,7 @@
       >
         <template slot="append">
           <img
-            style="cursor: pointer; vertical-align: middle;"
+            style="cursor: pointer; vertical-align: middle"
             @click="updateCaptcha"
             alt="点击更新验证码"
             title="点击更新验证码"
