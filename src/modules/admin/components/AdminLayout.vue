@@ -23,7 +23,7 @@
         <header-tab></header-tab>
       </header>
       <main class="ag-main">
-        <transition mode="out-in" name="fade-transform">
+        <transition mode="out-in" name="fade">
           <keep-alive :include="cachedTabs">
             <router-view
               :key="
@@ -111,19 +111,6 @@ $asideBackgroundColor: #2c343f;
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
-}
-/*fade-transform*/
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all 0.2s;
-}
-.fade-transform-enter {
-  opacity: 0;
-  transform: translateX(-50px);
-}
-.fade-transform-leave-to {
-  opacity: 0;
-  transform: translateX(50px);
 }
 
 .ag-app {
