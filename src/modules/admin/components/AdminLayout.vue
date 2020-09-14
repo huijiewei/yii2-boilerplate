@@ -23,7 +23,7 @@
         <header-tab></header-tab>
       </header>
       <main class="ag-main">
-        <transition mode="out-in" name="fade">
+        <transition name="fade">
           <keep-alive :include="cachedTabs">
             <router-view
               :key="
