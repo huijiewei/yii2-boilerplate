@@ -1,17 +1,13 @@
 const TransformDom = {
-  inserted: function (el, bindings, vnode) {
+  inserted: function (el, bindings) {
     const container = bindings.arg
       ? document.getElementById(bindings.arg)
       : document.body
 
     if (container) {
       bindings.modifiers.prepend && container.firstChild
-        ? container.insertBefore(el, container.firstChild) // top of target
-        : container.appendChild(el) // bottom of target
-    } else {
-      console.warn(
-        'v-' + name + ' target element id "' + bindings.arg + '" not found.'
-      )
+        ? container.insertBefore(el, container.firstChild)
+        : container.appendChild(el)
     }
   },
 
