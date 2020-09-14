@@ -18,6 +18,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
     "perfect-scrollbar": "^1.5.0",
+    "qs": "^6.9.4",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.12",
     "vue-context": "^6.0.0",

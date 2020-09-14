@@ -10,6 +10,7 @@ class Request {
         baseUrl: '',
         timeout: 20000,
         withCredentials: false,
+        paramsSerializer: null,
         beforeRequest: (config) => {
           return config
         },
@@ -23,32 +24,7 @@ class Request {
       baseURL: opt.baseUrl,
       timeout: opt.timeout,
       withCredentials: opt.withCredentials,
-    }
-
-    if (options.javaParamsSerializer) {
-      axiosConfig.paramsSerializer = (params) => {
-        const result = []
-
-        Object.keys(params).forEach((key) => {
-          if (params[key] !== undefined && params[key] !== null) {
-            const isParamTypeObject = typeof params[key] === 'object'
-            const isParamTypeArray =
-              isParamTypeObject && params[key].length >= 0
-
-            if (!isParamTypeObject) {
-              result.push(`${key}=${params[key]}`)
-            }
-
-            if (isParamTypeObject && isParamTypeArray) {
-              params[key].forEach((element) => {
-                result.push(`${key}=${element}&`)
-              })
-            }
-          }
-        })
-
-        return result.join('&')
-      }
+      paramsSerializer: opt.paramsSerializer,
     }
 
     const httpClient = axios.create(axiosConfig)

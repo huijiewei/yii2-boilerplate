@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import qs from 'qs'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -22,7 +23,9 @@ Vue.use(HttpClient, {
   getAccessTokenGetter: 'auth/getAccessToken',
   setLoginActionDispatch: 'auth/setLoginAction',
   setErrorDispatch: 'setError',
-  javaParamsSerializer: true,
+  paramsSerializer: function (params) {
+    return qs.stringify(params, { arrayFormat: 'repeat' })
+  },
 })
 
 Vue.use(PermissionCheck, {
