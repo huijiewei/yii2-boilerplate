@@ -117,15 +117,12 @@ export default {
       pages: null,
     }
   },
-  watch: {
-    $route(to, from) {
-      if (to.path === from.path) {
-        this.getUsers()
-      }
-    },
+  beforeRouteUpdate(to, from, next) {
+    this.getUsers(to.query)
+    next()
   },
   created() {
-    this.getUsers()
+    this.getUsers(this.$route.query)
   },
   methods: {
     handleUserCreate() {
@@ -159,11 +156,11 @@ export default {
         },
       })
     },
-    async getUsers() {
+    async getUsers(query) {
       this.loading = true
 
       const { data } = await flatry(
-        UserService.all(this.buildRouteQuery(this.$route.query))
+        UserService.all(this.buildRouteQuery(query))
       )
 
       if (data) {

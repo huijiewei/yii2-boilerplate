@@ -107,22 +107,19 @@ export default {
       pages: null,
     }
   },
-  created() {
-    this.getShopBrands()
+  beforeRouteUpdate(to, from, next) {
+    this.getShopBrands(to.query)
+    next()
   },
-  watch: {
-    $route(to, from) {
-      if (to.path === from.path) {
-        this.getShopBrands()
-      }
-    },
+  created() {
+    this.getShopBrands(this.$route.query)
   },
   methods: {
-    async getShopBrands() {
+    async getShopBrands(query) {
       this.loading = true
 
       const { data } = await flatry(
-        ShopBrandService.all(this.buildRouteQuery(this.$route.query))
+        ShopBrandService.all(this.buildRouteQuery(query))
       )
 
       if (data) {

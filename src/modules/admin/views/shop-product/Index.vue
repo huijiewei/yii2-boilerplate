@@ -106,15 +106,12 @@ export default {
       pages: null,
     }
   },
-  watch: {
-    $route(to, from) {
-      if (to.path === from.path) {
-        this.getShopProducts()
-      }
-    },
+  beforeRouteUpdate(to, from, next) {
+    this.getShopProducts(to.query)
+    next()
   },
   created() {
-    this.getShopProducts()
+    this.getShopProducts(this.$route.query)
   },
   methods: {
     handleUserCreate() {
@@ -154,11 +151,11 @@ export default {
         query: { page: page },
       })
     },
-    async getShopProducts() {
+    async getShopProducts(query) {
       this.loading = true
 
       const { data } = await flatry(
-        ShopProductService.all(this.buildRouteQuery(this.$route.query))
+        ShopProductService.all(this.buildRouteQuery(query))
       )
 
       if (data) {

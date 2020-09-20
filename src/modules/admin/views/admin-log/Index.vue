@@ -97,15 +97,12 @@ export default {
       viewAdminLog: [],
     }
   },
-  watch: {
-    $route(to, from) {
-      if (to.path === from.path) {
-        this.getAdminLogs()
-      }
-    },
+  beforeRouteUpdate(to, from, next) {
+    this.getAdminLogs(to.query)
+    next()
   },
   created() {
-    this.getAdminLogs()
+    this.getAdminLogs(this.$route.query)
   },
   methods: {
     handleView(adminLog) {
@@ -170,11 +167,11 @@ export default {
       this.dialogVisible = false
       this.viewAdminLog = []
     },
-    async getAdminLogs() {
+    async getAdminLogs(query) {
       this.loading = true
 
       const { data } = await flatry(
-        AdminService.log(this.buildRouteQuery(this.$route.query))
+        AdminService.log(this.buildRouteQuery(query))
       )
 
       if (data) {
