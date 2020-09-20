@@ -41,7 +41,7 @@
       />
       <el-table-column
         prop="email"
-        width="300"
+        min-width="320"
         class-name="text-mono"
         label="电子邮箱"
       />
@@ -68,7 +68,7 @@
         class-name="text-mono"
         prop="createdAt"
         label="创建时间"
-        min-width="160"
+        width="160"
       />
       <el-table-column width="135" label="操作" fixed="right" align="right">
         <template slot-scope="scope">
@@ -117,15 +117,12 @@ export default {
       pages: null,
     }
   },
-  watch: {
-    $route(to, from) {
-      if (to.path === from.path) {
-        this.getUsers()
-      }
-    },
+  beforeRouteUpdate(to, from, next) {
+    this.getUsers(to.query)
+    next()
   },
   created() {
-    this.getUsers()
+    this.getUsers(this.$route.query)
   },
   methods: {
     handleUserCreate() {
@@ -159,11 +156,11 @@ export default {
         },
       })
     },
-    async getUsers() {
+    async getUsers(query) {
       this.loading = true
 
       const { data } = await flatry(
-        UserService.all(this.buildRouteQuery(this.$route.query))
+        UserService.all(this.buildRouteQuery(query))
       )
 
       if (data) {

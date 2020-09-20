@@ -24,7 +24,7 @@
           <el-tag
             size="small"
             :type="scope.row.status.value === 1 ? 'success' : 'danger'"
-            >{{ scope.row.status.description }}</el-tag
+          >{{ scope.row.status.description }}</el-tag
           >
         </template>
       </el-table-column>
@@ -47,9 +47,9 @@
         class-name="text-mono"
         prop="createdAt"
         label="创建时间"
-        min-width="160"
+        width="160"
       />
-      <el-table-column width="135" label="操作" fixed="right" align="right">
+      <el-table-column width="75" label="操作" fixed="right" align="right">
         <template slot-scope="scope">
           <el-button
             plain
@@ -97,15 +97,12 @@ export default {
       viewAdminLog: [],
     }
   },
-  watch: {
-    $route(to, from) {
-      if (to.path === from.path) {
-        this.getAdminLogs()
-      }
-    },
+  beforeRouteUpdate(to, from, next) {
+    this.getAdminLogs(to.query)
+    next()
   },
   created() {
-    this.getAdminLogs()
+    this.getAdminLogs(this.$route.query)
   },
   methods: {
     handleView(adminLog) {
@@ -170,11 +167,11 @@ export default {
       this.dialogVisible = false
       this.viewAdminLog = []
     },
-    async getAdminLogs() {
+    async getAdminLogs(query) {
       this.loading = true
 
       const { data } = await flatry(
-        AdminService.log(this.buildRouteQuery(this.$route.query))
+        AdminService.log(this.buildRouteQuery(query))
       )
 
       if (data) {

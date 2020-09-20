@@ -71,7 +71,7 @@
             plain
             class="button"
             @click="handleShopBrandEdit(scope.row)"
-            >编辑
+          >编辑
           </el-button>
           <el-button
             :disabled="!$can('shop-brand/delete')"
@@ -80,7 +80,7 @@
             plain
             class="button"
             @click="handleShopBrandDelete(scope.row)"
-            >删除
+          >删除
           </el-button>
         </template>
       </el-table-column>
@@ -107,22 +107,19 @@ export default {
       pages: null,
     }
   },
-  created() {
-    this.getShopBrands()
+  beforeRouteUpdate(to, from, next) {
+    this.getShopBrands(to.query)
+    next()
   },
-  watch: {
-    $route(to, from) {
-      if (to.path === from.path) {
-        this.getShopBrands()
-      }
-    },
+  created() {
+    this.getShopBrands(this.$route.query)
   },
   methods: {
-    async getShopBrands() {
+    async getShopBrands(query) {
       this.loading = true
 
       const { data } = await flatry(
-        ShopBrandService.all(this.buildRouteQuery(this.$route.query))
+        ShopBrandService.all(this.buildRouteQuery(query))
       )
 
       if (data) {
