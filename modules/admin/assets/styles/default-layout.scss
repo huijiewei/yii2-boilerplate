@@ -1,0 +1,108 @@
+@media (min-width: 992px) {
+  .aside-fixed {
+    .ag-aside,
+    .ag-logo {
+      width: 200px !important;
+    }
+    .ag-main {
+      margin-left: 200px;
+    }
+  }
+
+  .aside-icon {
+    .ag-aside,
+    .ag-logo {
+      width: 60px !important;
+    }
+
+    .ag-main {
+      margin-left: 60px;
+    }
+  }
+}
+
+.ag-layout {
+  background: #f4f8fb;
+  min-height: 100vh;
+
+  .ag-header {
+    position: fixed;
+    width: 100%;
+    z-index: 1030;
+    padding: 0 0 20px 0;
+    background: #fff;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
+  }
+
+  .ag-wrap {
+    padding-top: 50px;
+  }
+
+  @media screen and (max-width: 491px) {
+    .ag-logo {
+      width: 50px !important;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .ag-logo {
+      width: 200px;
+    }
+    .ag-aside {
+      top: 50px;
+      bottom: 0;
+      right: -200px;
+      width: 200px !important;
+      z-index: 19811223;
+    }
+    .ag-aside.active {
+      right: 0;
+    }
+  }
+
+  .ag-aside {
+    position: fixed;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.01);
+    transition: width 0.2s;
+
+    .ag-scrollbar {
+      height: calc(100vh - 50px);
+    }
+
+    .ag-menu {
+      min-height: calc(100vh - 50px);
+    }
+  }
+
+  .ag-main {
+    padding: 16px 20px;
+  }
+
+  .ag-content {
+    .box {
+      background: #fff;
+      padding: 20px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
+
+      .box-header {
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+        padding-bottom: 13px;
+
+        h4 {
+          font-size: 14px;
+          font-weight: normal;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
