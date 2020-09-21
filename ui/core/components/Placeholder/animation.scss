@@ -1,0 +1,20 @@
+.placeholder-animation {
+  &.placeholder-text-row,
+  .placeholder-text-row {
+    animation: placeholder-pulse 1s infinite ease-in-out;
+  }
+}
+
+@keyframes placeholder-pulse {
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}
