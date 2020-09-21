@@ -1,0 +1,108 @@
+html {
+  position: relative;
+  min-height: 100%;
+  background-color: #fff;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background: #fff;
+  margin: 0;
+  overflow-x: hidden;
+  color: #67757c;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, SimSun, sans-serif;
+}
+
+a:focus,
+a:hover {
+  text-decoration: none;
+}
+
+svg {
+  pointer-events: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.vertical-center {
+  vertical-align: middle !important;
+  white-space: nowrap;
+}
+
+.vertical-bottom {
+  vertical-align: bottom !important;
+  white-space: nowrap;
+}
+
+td.text-mono,
+div.text-mono,
+span.text-mono {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.text-delete {
+  text-decoration: line-through;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.color-red {
+  color: #f00;
+}
+
+hr.spacer-lg,
+hr.spacer-md,
+hr.spacer-sm,
+hr.spacer-xl,
+hr.spacer-xs {
+  border: medium none;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+hr.spacer-lg {
+  height: 50px;
+}
+
+hr.spacer-md {
+  height: 39px;
+}
+
+hr.spacer-sm {
+  height: 30px;
+}
+
+hr.spacer-xl {
+  height: 20px;
+}
+
+hr.spacer-xs {
+  height: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.06);
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
