@@ -26,7 +26,7 @@ Vue.use(HttpClient, {
   setLoginActionDispatch: 'auth/setLoginAction',
   setErrorDispatch: 'setError',
   paramsSerializer: function (params) {
-    return qs.stringify(params, { arrayFormat: 'repeat' })
+    return qs.stringify(params, { arrayFormat: process.env.QS_ARRAY_FORMAT || 'brackets' })
   },
 })
 
