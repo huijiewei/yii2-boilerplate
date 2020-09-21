@@ -14,6 +14,7 @@ const customConfig = {
       filename: 'index.html',
       title: 'Agile 移动端',
       chunks: ['vendor', 'element', 'agile', 'mobile'],
+      apiHost: process.env.VUE_APP_MOBILE_API_HOST,
     },
   },
   devServer: {

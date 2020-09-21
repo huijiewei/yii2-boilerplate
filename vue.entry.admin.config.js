@@ -14,6 +14,7 @@ const customConfig = {
       filename: 'index.html',
       title: 'Agile 管理后台',
       chunks: ['vendor', 'element', 'agile', 'admin'],
+      apiHost: process.env.VUE_APP_ADMIN_API_HOST,
     },
   },
   pwa: {

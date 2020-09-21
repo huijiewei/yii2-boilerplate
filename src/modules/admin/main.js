@@ -18,7 +18,9 @@ import PermissionCheck from './plugins/PermissionCheck'
 Vue.use(ElementUI)
 
 Vue.use(HttpClient, {
-  apiHost: process.env.VUE_APP_ADMIN_API_HOST,
+  apiHost: document
+    .querySelector('meta[name="api-host"]')
+    .getAttribute('content'),
   store,
   getAccessTokenGetter: 'auth/getAccessToken',
   setLoginActionDispatch: 'auth/setLoginAction',
