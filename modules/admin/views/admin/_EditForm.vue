@@ -72,25 +72,14 @@
       ]"
     >
       <el-col :md="5">
-        <el-select
+        <remote-select
           v-model="formModel.adminGroupId"
           :disabled="getCurrentUserId === formModel.id"
           placeholder="所属管理组"
-        >
-          <el-option
-            v-for="adminGroup in adminGroups"
-            :key="adminGroup.id"
-            :label="adminGroup.name"
-            :value="adminGroup.id"
-          />
-        </el-select>
-        &nbsp;
-        <el-button
-          size="mini"
-          title="刷新选项数据"
-          icon="el-icon-refresh"
-          @click="loadAdminGroups"
-        ></el-button>
+          option-value="id"
+          option-label="name"
+          :remote-method="loadAdminGroups"
+        ></remote-select>
       </el-col>
     </el-form-item>
     <el-form-item>
@@ -106,9 +95,10 @@ import MiscService from '@admin/services/MiscService'
 import flatry from '@core/utils/flatry'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 import AvatarUpload from '@admin/components/upload/AvatarUpload'
+import RemoteSelect from '@admin/components/RemoteSelect'
 
 export default {
-  components: { AvatarUpload },
+  components: { RemoteSelect, AvatarUpload },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
@@ -178,20 +168,16 @@ export default {
     },
   },
   async created() {
-    this.loadAdminGroups()
-
     this.formModel = Object.assign(
       { password: '', passwordConfirm: '' },
       this.admin
     )
   },
   methods: {
-    async loadAdminGroups() {
+    async loadAdminGroups(callback) {
       const { data } = await flatry(MiscService.adminGroups())
 
-      if (data) {
-        this.adminGroups = data
-      }
+      callback(data)
     },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {

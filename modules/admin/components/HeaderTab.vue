@@ -156,14 +156,6 @@ export default {
             const scrollWidth = this.$refs.tabScroll.offsetWidth
             const contentWidth = this.$refs.tabContent.offsetWidth
 
-            console.log(
-              'scrollWidth:' + scrollWidth,
-              'contentWidth:' + contentWidth,
-              'tabOffsetLeft:' + elem.offsetLeft,
-              'tabOffsetWidth:' + elem.offsetWidth,
-              'tabContentLeft:' + this.tabContentLeft
-            )
-
             if (contentWidth < scrollWidth) {
               this.tabContentLeft = 0
             } else if (elem.offsetLeft < -this.tabContentLeft) {
@@ -186,8 +178,6 @@ export default {
                 (scrollWidth - elem.offsetWidth)
               )
             }
-
-            console.log(this.tabContentLeft)
           }
         })
       })
