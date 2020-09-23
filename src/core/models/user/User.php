@@ -154,7 +154,7 @@ class User extends Identity
         return true;
     }
 
-    public function generateAccessToken($clientId = '')
+    public function generateAccessToken($clientId = '', $remoteAddr = '', $userAgent = '')
     {
         return '';
     }
