@@ -73,7 +73,7 @@ abstract class LoginForm extends Model
             return false;
         }
 
-        $this->accessToken = $this->identity->generateAccessToken($this->clientId);
+        $this->accessToken = $this->identity->generateAccessToken($this->clientId, $this->remoteAddr, $this->userAgent);
 
         \Yii::$app->getUser()->login($this->identity);
 

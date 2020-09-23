@@ -38,7 +38,7 @@ abstract class Identity extends ActiveRecord implements IdentityInterface
 
     abstract public function can($actionId);
 
-    abstract public function generateAccessToken($clientId = '');
+    abstract public function generateAccessToken($clientId = '', $remoteAddr = '', $userAgent = '');
 
     /**
      * @return int
