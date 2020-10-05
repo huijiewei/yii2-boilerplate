@@ -1,13 +1,18 @@
 export const deepSearch = (needle, haystack, found = []) => {
   Object.keys(haystack).forEach((key) => {
+    if (!haystack[key]) {
+      return
+    }
+
     if (key === needle) {
       found.push(haystack[key])
       return found
     }
     if (typeof haystack[key] === 'object') {
-      deepSearch(needle, haystack[key], found)
+      return deepSearch(needle, haystack[key], found)
     }
   })
+
   return found
 }
 

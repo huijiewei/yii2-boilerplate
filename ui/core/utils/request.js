@@ -2,6 +2,7 @@ import axios from 'axios'
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
 import contentDisposition from 'content-disposition'
+import { cacheAdapterEnhancer, throttleAdapterEnhancer } from 'axios-extensions'
 
 class Request {
   constructor(options) {
@@ -25,6 +26,7 @@ class Request {
       timeout: opt.timeout,
       withCredentials: opt.withCredentials,
       paramsSerializer: opt.paramsSerializer,
+      adapter: throttleAdapterEnhancer(axios.defaults.adapter),
     }
 
     const httpClient = axios.create(axiosConfig)
@@ -67,6 +69,8 @@ class Request {
 
     return this.httpClient.request(config)
   }
+
+  all() {}
 
   get(url, params = null, back = true) {
     return this.request('GET', url, params, null, back)

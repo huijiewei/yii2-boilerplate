@@ -7,51 +7,51 @@
     label-suffix="："
     @submit.native.stop.prevent="handleFormSubmit('formModel')"
   >
-    <el-form-item label="所属分类" prop="parentId">
+    <el-form-item label="上级地区" prop="parentId">
       <el-col :md="16">
         <el-cascader
           style="width: 100%"
-          placeholder="请选择上级分类"
-          :options="getCategoryTree"
-          :props="{ value: 'id', label: 'name', checkStrictly: true }"
-          v-model="formCategoryParents"
-          @change="handleCategoryParentsChange"
+          placeholder="请选择上级地区"
+          :props="{
+            value: 'id',
+            label: 'name',
+            checkStrictly: true,
+            lazy: true,
+            lazyLoad: loadDistricts,
+            leaf: 'leaf',
+          }"
+          v-model="formDistrictParents"
+          @change="handleDistrictParentsChange"
         >
         </el-cascader>
       </el-col>
     </el-form-item>
     <el-form-item
-      label="分类名称"
+      label="地区名称"
       prop="name"
-      :rules="[
-        { required: true, message: '请输入商品分类名称', trigger: 'blur' },
-      ]"
+      :rules="[{ required: true, message: '请输入地区名称', trigger: 'blur' }]"
     >
       <el-col :md="7">
         <el-input v-model.trim="formModel.name" />
       </el-col>
     </el-form-item>
-    <el-form-item label="分类图标" prop="icon">
-      <el-col :md="16">
-        <ag-icon v-if="formModel.icon" :path="formModel.icon" />
-        <el-input
-          placeholder="请填写 SVG 图标的 PATH 节点"
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 5 }"
-          v-model="formModel.icon"
-        />
+    <el-form-item
+      label="地区代码"
+      prop="code"
+      :rules="[{ required: true, message: '请输入地区代码', trigger: 'blur' }]"
+    >
+      <el-col :md="7">
+        <el-input class="text-mono" v-model.trim="formModel.code" />
       </el-col>
     </el-form-item>
-    <el-form-item label="图片" prop="image">
-      <image-upload v-model="formModel.image" />
+    <el-form-item label="地区邮编" prop="zipCode">
+      <el-col :md="7">
+        <el-input v-model.trim="formModel.zipCode" />
+      </el-col>
     </el-form-item>
-    <el-form-item label="分类介绍" prop="description">
-      <el-col :md="16">
-        <el-input
-          :autosize="{ minRows: 3, maxRows: 6 }"
-          type="textarea"
-          v-model="formModel.description"
-        />
+    <el-form-item label="电话区号" prop="areaCode">
+      <el-col :md="7">
+        <el-input v-model.trim="formModel.areaCode" />
       </el-col>
     </el-form-item>
     <el-form-item>
@@ -65,11 +65,11 @@
 
       <el-button
         v-if="isEdit"
-        :disabled="!$can('shop-category/delete')"
+        :disabled="!$can('district/delete')"
         plain
         type="danger"
         size="small"
-        @click.native="handleShopCategoryDelete"
+        @click.native="handleDistrictDelete"
       >
         删除
       </el-button>
@@ -79,11 +79,10 @@
 
 <script>
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
-import ImageUpload from '@admin/components/upload/ImageUpload'
-import AgIcon from '@core/components/Icon'
+import flatry from '@core/utils/flatry'
+import MiscService from '@admin/services/MiscService'
 
 export default {
-  components: { ImageUpload, AgIcon },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
@@ -98,13 +97,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    shopCategory: {
+    district: {
       type: Object,
     },
-    categoryTree: {
-      type: Array,
-    },
-    categoryParents: {
+    districtParents: {
       type: Array,
     },
   },
@@ -112,24 +108,47 @@ export default {
     return {
       submitLoading: false,
       formModel: null,
-      formCategoryParents: [],
+      formDistrictParents: [],
     }
   },
-  computed: {
-    getCategoryTree() {
-      return [...[{ id: 0, name: '根分类' }], ...this.categoryTree]
-    },
-  },
   created() {
-    this.formModel = Object.assign({}, this.shopCategory)
-    this.formCategoryParents = this.categoryParents
+    this.formModel = Object.assign({}, this.district)
+    this.formDistrictParents = this.districtParents
   },
   methods: {
-    handleCategoryParentsChange(value) {
+    handleDistrictParentsChange(value) {
       this.formModel.parentId = value[value.length - 1]
     },
-    handleShopCategoryDelete() {
+    handleDistrictDelete() {
       this.$emit('on-delete', this.formModel)
+    },
+
+    async loadDistricts(node, resolve) {
+      if (node.data && node.data.leaf) {
+        resolve([])
+        return
+      }
+
+      const parentId = (node.data && node.data.id) || 0
+
+      this.loading = true
+
+      const { data } = await flatry(MiscService.districts(parentId))
+
+      if (data) {
+        const districts =
+          parentId === 0
+            ? [...[{ id: 0, name: '全国', code: '000000' }], ...data]
+            : data
+
+        districts.forEach((item) => {
+          item.leaf = item.code.length === 6
+        })
+
+        resolve(districts)
+      }
+
+      this.loading = false
     },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {

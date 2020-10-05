@@ -57,7 +57,6 @@ const auth = {
     },
     isRouteInMenus: (state) => (route) => {
       const path = route.startsWith('/') ? route.substr(1) : route
-
       return state.groupMenusUrl.map((menu) => formatUrl(menu)).includes(path)
     },
   },
