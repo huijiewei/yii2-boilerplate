@@ -11,7 +11,7 @@ class m180621_040655_create_admin_table extends Migration
     private $adminTableName = '{{%admin}}';
     private $adminAccessTokenTableName = '{{%admin_access_token}}';
     private $adminGroupTableName = '{{%admin_group}}';
-    private $adminGroupPermissionsTableName = '{{%admin_group_permissions}}';
+    private $adminGroupPermissionsTableName = '{{%admin_group_permission}}';
 
     public function safeUp()
     {

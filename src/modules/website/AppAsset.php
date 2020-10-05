@@ -31,24 +31,12 @@ class AppAsset extends AssetBundle
      * @var array
      */
     public $css = [
-        'styles/border.radius.css',
-        'styles/app.css',
-        'styles/app.website.css?v2019110902',
     ];
 
     /**
      * @var array
      */
     public $js = [
-        'scripts/ajax.js',
-        'scripts/ajax.button.js',
-        'scripts/ajax.form.js',
-        'scripts/login.modal.js',
-        'scripts/register.modal.js',
-        'scripts/tmpl.min.js',
-        'scripts/wow.min.js',
-        'scripts/app.js',
-        'scripts/app.website.js',
     ];
 
     /**
