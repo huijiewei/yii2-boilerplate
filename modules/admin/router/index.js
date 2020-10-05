@@ -14,6 +14,7 @@ import userRoute from './user/user'
 import shopCategoryRoute from './shop/category'
 import shopBrandRoute from './shop/brand'
 import shopProductRoute from './shop/product'
+import districtRoute from './district/district'
 
 import AdminLayout from '@admin/components/AdminLayout'
 
@@ -60,6 +61,7 @@ const routes = [
       ...shopBrandRoute,
       ...shopProductRoute,
       ...shopCategoryRoute,
+      ...districtRoute,
       {
         path: '*',
         component: notFound,

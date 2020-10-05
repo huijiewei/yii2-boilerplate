@@ -7,6 +7,7 @@
           size="small"
           suffix-icon="el-icon-search"
           v-model="keyword"
+          :clearable="true"
         >
         </el-input>
         <hr class="spacer-xs" />
@@ -32,7 +33,7 @@
           ref="categoryTree"
           node-key="id"
         >
-          <div class="category-tree-node" slot-scope="{ node, data }">
+          <div class="category-tree-node" slot-scope="{ data }">
             <div class="category-tree-icon">
               <ag-icon v-if="data.icon" :path="data.icon" />
               <i v-else-if="data.children" class="el-icon-folder" />
@@ -61,8 +62,8 @@
       <el-col :span="18">
         <router-view
           :category-tree="this.categoryTree"
-          @on-expanded="expandedCategoryTree"
-          @on-updated="updatedCategoryTree"
+          @on-expanded="handleCategoryTreeExpanded"
+          @on-updated="handleCategoryTreeUpdated"
         />
       </el-col>
     </el-row>
@@ -78,6 +79,10 @@ export default {
   name: 'ShopCategory',
   watch: {
     keyword(keyword) {
+      if (!keyword) {
+        this.setAllExpand(false)
+      }
+
       this.$refs.categoryTree.filter(keyword)
     },
   },
@@ -91,6 +96,16 @@ export default {
     }
   },
   methods: {
+    setAllExpand(state) {
+      const nodes = this.$refs.categoryTree.store.nodesMap
+
+      for (const key in nodes) {
+        if (nodes.hasOwnProperty(key)) {
+          nodes[key].expanded = state
+        }
+      }
+    },
+
     handleCategoryCreate(parentId) {
       this.$router.push({
         name: 'ShopCategoryCreate',
@@ -106,19 +121,20 @@ export default {
     },
 
     filterCategoryNode(value, data) {
-      if (!value) return true
+      if (!value) {
+        return true
+      }
+
       return data.name.indexOf(value) !== -1
     },
 
-    expandedCategoryTree(expanded, currentId) {
+    handleCategoryTreeExpanded(expanded, currentId) {
       this.categoryExpanded = expanded
       this.$refs.categoryTree.setCurrentKey(currentId)
     },
 
-    async updatedCategoryTree(currentId) {
-      this.loading = true
+    async handleCategoryTreeUpdated(currentId) {
       await this.loadCategoryTree()
-      this.loading = false
       this.$refs.categoryTree.setCurrentKey(currentId)
     },
 
