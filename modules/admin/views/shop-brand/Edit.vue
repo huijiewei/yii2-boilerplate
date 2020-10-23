@@ -16,7 +16,6 @@
 
 <script>
 import ShopBrandForm from '@admin/views/shop-brand/_EditForm'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 import ShopBrandService from '@admin/services/ShopBrandService'
 
@@ -34,7 +33,7 @@ export default {
   },
   inject: ['historyBack'],
   async created() {
-    const { data } = await flatry(ShopBrandService.view(this.$route.params.id))
+    const { data } = await ShopBrandService.view(this.$route.params.id)
 
     if (data) {
       const { shopCategories, ...shopBrand } = data
@@ -62,7 +61,7 @@ export default {
   },
   methods: {
     async editShopBrand(shopBrand, done, fail, always) {
-      const { data, error } = await flatry(ShopBrandService.edit(shopBrand))
+      const { data, error } = await ShopBrandService.edit(shopBrand)
 
       if (data) {
         done()

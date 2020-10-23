@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
 import AgIcon from '@core/components/Icon'
 
@@ -108,15 +107,13 @@ export default {
 
     handleCategoryCreate(parentId) {
       this.$router.push({
-        name: 'ShopCategoryCreate',
-        params: { id: parentId },
+        path: `/shop-category/create/${parentId}`,
       })
     },
 
     handleCategoryEdit(category) {
       this.$router.push({
-        name: 'ShopCategoryEdit',
-        params: { id: category.id },
+        path: `/shop-category/edit/${category.id}`,
       })
     },
 
@@ -141,7 +138,7 @@ export default {
     async loadCategoryTree() {
       this.loading = true
 
-      const { data } = await flatry(MiscService.shopCategoryTree())
+      const { data } = await MiscService.shopCategoryTree()
 
       if (data) {
         this.categoryTree = data

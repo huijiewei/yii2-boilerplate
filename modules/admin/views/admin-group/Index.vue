@@ -43,7 +43,6 @@
 
 <script>
 import AdminGroupService from '@admin/services/AdminGroupService'
-import flatry from '@core/utils/flatry'
 
 export default {
   name: 'AdminGroup',
@@ -54,7 +53,7 @@ export default {
     }
   },
   async created() {
-    const { data } = await flatry(AdminGroupService.all())
+    const { data } = await AdminGroupService.all()
 
     if (data) {
       this.adminGroups = data.items
@@ -68,8 +67,7 @@ export default {
     },
     handleAdminGroupEdit(adminGroup) {
       this.$router.push({
-        name: 'AdminGroupEdit',
-        params: { id: adminGroup.id },
+        path: `/admin-group/edit/${adminGroup.id}`,
       })
     },
     handleAdminGroupDelete(adminGroup) {
@@ -78,7 +76,7 @@ export default {
         callback: async () => {
           this.loading = true
 
-          const { data } = await flatry(AdminGroupService.delete(adminGroup.id))
+          const { data } = await AdminGroupService.delete(adminGroup.id)
 
           if (data) {
             this.adminGroups.forEach((item, index) => {

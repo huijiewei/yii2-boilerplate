@@ -16,7 +16,6 @@
 <script>
 import AdminForm from '@admin/views/admin/_EditForm'
 import AdminService from '@admin/services/AdminService'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
@@ -40,7 +39,7 @@ export default {
   },
   methods: {
     async createAdmin(admin, done, fail, always) {
-      const { data, error } = await flatry(AdminService.create(admin))
+      const { data, error } = await AdminService.create(admin)
 
       if (data) {
         done()

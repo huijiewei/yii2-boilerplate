@@ -91,7 +91,6 @@
 
 <script>
 import ShopBrandService from '@admin/services/ShopBrandService'
-import flatry from '@core/utils/flatry'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
 import SearchForm from '@admin/components/SearchForm'
 import Pagination from '@admin/components/Pagination'
@@ -118,9 +117,7 @@ export default {
     async getShopBrands(query) {
       this.loading = true
 
-      const { data } = await flatry(
-        ShopBrandService.all(this.buildRouteQuery(query))
-      )
+      const { data } = await ShopBrandService.all(this.buildRouteQuery(query))
 
       if (data) {
         this.shopBrands = data.items
@@ -136,8 +133,7 @@ export default {
     },
     handleShopBrandEdit(shopBrand) {
       this.$router.push({
-        name: 'ShopBrandEdit',
-        params: { id: shopBrand.id },
+        path: `/shop-brand/edit/${shopBrand.id}`,
       })
     },
     handleShopBrandDelete(shopBrand) {
@@ -146,7 +142,7 @@ export default {
         callback: async () => {
           this.loading = true
 
-          const { data } = await flatry(ShopBrandService.delete(shopBrand.id))
+          const { data } = await ShopBrandService.delete(shopBrand.id)
 
           if (data) {
             this.shopBrands.forEach((item, index) => {

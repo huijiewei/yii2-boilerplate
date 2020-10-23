@@ -92,7 +92,6 @@
 
 <script>
 import MiscService from '@admin/services/MiscService'
-import flatry from '@core/utils/flatry'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 import AvatarUpload from '@admin/components/upload/AvatarUpload'
 import RemoteSelect from '@admin/components/RemoteSelect'
@@ -175,7 +174,7 @@ export default {
   },
   methods: {
     async loadAdminGroups(callback) {
-      const { data } = await flatry(MiscService.adminGroups())
+      const { data } = await MiscService.adminGroups()
 
       callback(data)
     },

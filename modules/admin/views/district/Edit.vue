@@ -21,7 +21,6 @@
 <script>
 import DistrictForm from '@admin/views/district/_EditForm'
 import DistrictService from '@admin/services/DistrictService'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
@@ -44,7 +43,7 @@ export default {
   },
   methods: {
     async getDistrict(id) {
-      const { data } = await flatry(DistrictService.view(id))
+      const { data } = await DistrictService.view(id)
 
       if (data) {
         let parents = [0]
@@ -65,7 +64,7 @@ export default {
       }
     },
     async editDistrict(district, done, fail, always) {
-      const { data, error } = await flatry(DistrictService.edit(district))
+      const { data, error } = await DistrictService.edit(district)
 
       if (data) {
         done()
@@ -87,7 +86,7 @@ export default {
         callback: async () => {
           this.loading = true
 
-          const { data } = await flatry(DistrictService.delete(district.id))
+          const { data } = await DistrictService.delete(district.id)
 
           if (data) {
             this.$message.success('删除成功')

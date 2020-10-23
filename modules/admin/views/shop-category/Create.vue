@@ -22,7 +22,6 @@
 import ShopCategoryForm from '@admin/views/shop-category/_EditForm'
 import ShopCategoryService from '@admin/services/ShopCategoryService'
 import MiscService from '@admin/services/MiscService'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
@@ -53,7 +52,7 @@ export default {
       let parents = [0]
 
       if (id > 0) {
-        const { data } = await flatry(MiscService.shopCategoryPath(id))
+        const { data } = await MiscService.shopCategoryPath(id)
 
         if (data && Array.isArray(data)) {
           parents = data.map((parent) => parent.id)
@@ -73,9 +72,7 @@ export default {
       }
     },
     async createShopCategory(shopCategory, done, fail, always) {
-      const { data, error } = await flatry(
-        ShopCategoryService.create(shopCategory)
-      )
+      const { data, error } = await ShopCategoryService.create(shopCategory)
 
       if (data) {
         done()
@@ -85,8 +82,7 @@ export default {
         this.$emit('on-updated', shopCategory.id)
 
         await this.$router.replace({
-          name: 'ShopCategoryEdit',
-          params: { id: data.id },
+          path: `/shop-category/edit/${data.id}`,
         })
       }
 

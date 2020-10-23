@@ -90,7 +90,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
 import AuthService from '@admin/services/AuthService'
@@ -126,7 +125,7 @@ export default {
   async created() {
     this.formModel = Object.assign({}, this.adminGroup)
 
-    const { data } = await flatry(MiscService.adminGroupPermissions())
+    const { data } = await MiscService.adminGroupPermissions()
 
     const permissions = this.formModel.permissions || []
     const result = []
@@ -209,7 +208,7 @@ export default {
               this.adminGroup.id ===
               this.$store.getters['auth/getCurrentUser'].adminGroup.id
             ) {
-              const { data } = await flatry(AuthService.account())
+              const { data } = await AuthService.account()
 
               if (data) {
                 await this.$store.dispatch('auth/account', data)

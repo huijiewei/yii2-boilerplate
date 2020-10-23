@@ -54,8 +54,8 @@ const HttpClient = {
         }
 
         if (error.response.status === UnauthorizedHttpCode) {
-          if (!error.config.__retry) {
-            error.config.__retry = true
+          if (!error.config.__storeDispatch) {
+            error.config.__storeDispatch = true
 
             if (
               historyBack ||

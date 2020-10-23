@@ -95,7 +95,6 @@
 <script>
 import ImageUpload from '@admin/components/upload/ImageUpload'
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
-import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
 
 export default {
@@ -128,7 +127,7 @@ export default {
   },
   methods: {
     async loadCategoryTree() {
-      const { data } = await flatry(MiscService.shopCategoryTree())
+      const { data } = await MiscService.shopCategoryTree()
 
       if (data) {
         this.categoryTree = data

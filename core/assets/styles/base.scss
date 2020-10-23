@@ -23,6 +23,11 @@ svg {
   pointer-events: none;
 }
 
+.uppercase,
+.uppercase input {
+  text-transform: uppercase;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

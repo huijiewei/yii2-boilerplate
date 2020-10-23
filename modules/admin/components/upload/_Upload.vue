@@ -138,7 +138,6 @@
 
 <script>
 import Request from '@core/utils/request'
-import flatry from '@core/utils/flatry'
 import ImageCropper from '@admin/components/ImageCropper'
 
 export default {
@@ -259,12 +258,10 @@ export default {
 
       this.buttonDisabled = true
 
-      const { data } = await flatry(
-        this.$http.get(
-          this.action,
-          { thumbs: this.thumbs, cropper: this.cropper.enable },
-          false
-        )
+      const { data } = await this.$http.get(
+        this.action,
+        { thumbs: this.thumbs, cropper: this.cropper.enable },
+        false
       )
 
       if (data) {

@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
-
 export default {
   name: 'ExportButton',
   // eslint-disable-next-line vue/require-prop-types
@@ -30,15 +28,13 @@ export default {
       this.loading = true
       this.loadingText = '正在导出 Excel'
 
-      const { data } = await flatry(
-        this.$http.download(
-          'GET',
-          this.api,
-          Object.assign({}, this.$route.query, {
-            page: null,
-            size: null,
-          })
-        )
+      const { data } = await this.$http.download(
+        'GET',
+        this.api,
+        Object.assign({}, this.$route.query, {
+          page: null,
+          size: null,
+        })
       )
 
       if (data === false) {

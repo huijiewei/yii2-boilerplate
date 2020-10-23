@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 import UserForm from '@admin/views/user/_EditForm'
 import UserService from '@admin/services/UserService'
@@ -37,14 +36,14 @@ export default {
     async getUser(id) {
       this.user = null
 
-      const { data } = await flatry(UserService.view(id))
+      const { data } = await UserService.view(id)
 
       if (data) {
         this.user = data
       }
     },
     async editUser(user, done, fail, always) {
-      const { data, error } = await flatry(UserService.edit(user))
+      const { data, error } = await UserService.edit(user)
 
       if (data) {
         done()

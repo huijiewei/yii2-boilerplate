@@ -17,7 +17,6 @@
 <script>
 import AdminForm from '@admin/views/admin/_EditForm'
 import AdminService from '@admin/services/AdminService'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
@@ -34,7 +33,7 @@ export default {
   },
   inject: ['historyBack'],
   async created() {
-    const { data } = await flatry(AdminService.view(this.$route.params.id))
+    const { data } = await AdminService.view(this.$route.params.id)
 
     if (data) {
       this.admin = data
@@ -42,7 +41,7 @@ export default {
   },
   methods: {
     async editAdmin(admin, done, fail, always) {
-      const { data, error } = await flatry(AdminService.edit(admin))
+      const { data, error } = await AdminService.edit(admin)
 
       if (data) {
         done()

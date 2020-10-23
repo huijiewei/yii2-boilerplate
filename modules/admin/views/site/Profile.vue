@@ -17,7 +17,6 @@
 <script>
 import AdminForm from '@admin/views/admin/_EditForm'
 import AuthService from '@admin/services/AuthService'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
@@ -28,8 +27,8 @@ export default {
       admin: null,
     }
   },
-  async activated() {
-    const { data } = await flatry(AuthService.profile())
+  async created() {
+    const { data } = await AuthService.profile()
 
     if (data) {
       this.admin = data
@@ -37,16 +36,16 @@ export default {
   },
   methods: {
     async updateProfile(admin, done, fail, always) {
-      const { data, error } = await flatry(AuthService.profile(admin))
+      const { data, error } = await AuthService.profile(admin)
 
       if (data) {
         done()
         this.$message.success('个人资料编辑成功')
 
-        const { data } = await flatry(AuthService.account())
+        const { account } = await AuthService.account()
 
-        if (data) {
-          await this.$store.dispatch('auth/account', data)
+        if (account) {
+          await this.$store.dispatch('auth/account', account)
         }
       }
 

@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
 import AdminService from '@admin/services/AdminService'
 import SearchForm from '@admin/components/SearchForm'
 import SearchFormFieldsMixin from '@admin/mixins/SearchFormFieldsMixin'
@@ -170,9 +169,7 @@ export default {
     async getAdminLogs(query) {
       this.loading = true
 
-      const { data } = await flatry(
-        AdminService.log(this.buildRouteQuery(query))
-      )
+      const { data } = await AdminService.log(this.buildRouteQuery(query))
 
       if (data) {
         this.adminLogs = data.items
