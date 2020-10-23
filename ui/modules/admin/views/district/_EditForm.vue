@@ -79,7 +79,6 @@
 
 <script>
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
-import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
 
 export default {
@@ -133,7 +132,7 @@ export default {
 
       this.loading = true
 
-      const { data } = await flatry(MiscService.districts(parentId))
+      const { data } = await MiscService.districts(parentId)
 
       if (data) {
         const districts =

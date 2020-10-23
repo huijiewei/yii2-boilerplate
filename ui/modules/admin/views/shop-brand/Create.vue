@@ -16,7 +16,6 @@
 <script>
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 import ShopBrandForm from '@admin/views/shop-brand/_EditForm'
-import flatry from '@core/utils/flatry'
 import ShopBrandService from '@admin/services/ShopBrandService'
 
 export default {
@@ -42,7 +41,7 @@ export default {
   },
   methods: {
     async createShopBrand(shopBrand, done, fail, always) {
-      const { data, error } = await flatry(ShopBrandService.create(shopBrand))
+      const { data, error } = await ShopBrandService.create(shopBrand)
 
       if (data) {
         done()

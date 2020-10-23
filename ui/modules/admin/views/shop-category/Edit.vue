@@ -22,7 +22,6 @@
 <script>
 import ShopCategoryForm from '@admin/views/shop-category/_EditForm'
 import ShopCategoryService from '@admin/services/ShopCategoryService'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
@@ -50,7 +49,7 @@ export default {
   },
   methods: {
     async getShopCategory(id) {
-      const { data } = await flatry(ShopCategoryService.view(id))
+      const { data } = await ShopCategoryService.view(id)
 
       if (data) {
         let parents = [0]
@@ -71,9 +70,7 @@ export default {
       }
     },
     async editShopCategory(shopCategory, done, fail, always) {
-      const { data, error } = await flatry(
-        ShopCategoryService.edit(shopCategory)
-      )
+      const { data, error } = await ShopCategoryService.edit(shopCategory)
 
       if (data) {
         done()
@@ -95,9 +92,7 @@ export default {
         callback: async () => {
           this.loading = true
 
-          const { data } = await flatry(
-            ShopCategoryService.delete(shopCategory.id)
-          )
+          const { data } = await ShopCategoryService.delete(shopCategory.id)
 
           if (data) {
             this.$message.success('删除成功')

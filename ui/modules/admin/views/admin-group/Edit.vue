@@ -17,7 +17,6 @@
 <script>
 import AdminGroupForm from '@admin/views/admin-group/_EditForm'
 import AdminGroupService from '@admin/services/AdminGroupService'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
@@ -37,14 +36,14 @@ export default {
     async view(id) {
       this.adminGroup = null
 
-      const { data } = await flatry(AdminGroupService.view(id))
+      const { data } = await AdminGroupService.view(id)
 
       if (data) {
         this.adminGroup = data
       }
     },
     async edit(adminGroup, done, fail, always) {
-      const { data, error } = await flatry(AdminGroupService.edit(adminGroup))
+      const { data, error } = await AdminGroupService.edit(adminGroup)
 
       if (data) {
         done()

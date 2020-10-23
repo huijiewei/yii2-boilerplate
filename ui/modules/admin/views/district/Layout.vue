@@ -16,7 +16,7 @@
             :disabled="!$can('district/create')"
             title="创建根地区"
             size="mini"
-            @click.native="handleDistrictCreate(0)"
+            @click.native="handleDistrictCreate('0')"
             icon="el-icon-folder-add"
           >
             创建根地区
@@ -50,6 +50,7 @@
                 title="查看编辑"
               />
               <el-button
+                v-if="!data.leaf"
                 size="mini"
                 @click.stop="handleDistrictCreate(data.id)"
                 :disabled="!$can('district/create')"
@@ -91,6 +92,7 @@
                 title="查看编辑"
               />
               <el-button
+                v-if="!data.leaf"
                 size="mini"
                 @click.stop="handleDistrictCreate(data.id)"
                 :disabled="!$can('district/create')"
@@ -112,7 +114,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
 import MiscService from '@admin/services/MiscService'
 import AgIcon from '@core/components/Icon'
 
@@ -133,7 +134,7 @@ export default {
       this.isSearched = true
       this.loading = true
 
-      const { data } = await flatry(MiscService.districtSearchTree(keyword))
+      const { data } = await MiscService.districtSearchTree(keyword)
 
       if (data) {
         this.searchedData = data
@@ -161,6 +162,12 @@ export default {
       this.$refs.districtSearchTree.setCurrentKey(this.districtCurrentId)
     },
     handleDistrictUpdated(currentId, reloadId) {
+      if (reloadId === 0) {
+        this.node.childNodes = []
+        this.loadDistricts(this.node, this.resolve)
+        return
+      }
+
       this.districtCurrentId = currentId
 
       const node = this.$refs.districtTree.getNode(reloadId)
@@ -170,39 +177,35 @@ export default {
     },
     handleDistrictCreate(parentId) {
       this.$router.push({
-        name: 'DistrictCreate',
-        params: { id: parentId },
+        path: `/district/create/${parentId}`,
       })
     },
 
     handleDistrictEdit(district) {
       this.$router.push({
-        name: 'DistrictEdit',
-        params: { id: district.id },
+        path: `/district/edit/${district.id}`,
       })
     },
 
     async loadDistricts(node, resolve) {
       const parentId = (node.data && node.data.id) || 0
 
+      if (parentId === 0) {
+        this.node = node
+        this.resolve = resolve
+      }
+
       this.loading = true
 
-      const { data } = await flatry(MiscService.districts(parentId))
+      const { data } = await MiscService.districts(parentId)
 
-      const districts = data || []
-
-      districts.forEach((item) => {
-        item.leaf = item.code.length === 9
-      })
-
-      resolve(districts)
+      resolve(data || [])
 
       this.$refs.districtTree.setCurrentKey(this.districtCurrentId)
 
       this.loading = false
     },
   },
-  created() {},
 }
 </script>
 <style lang="scss">

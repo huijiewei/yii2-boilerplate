@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
 import PrefectScrollbar from '@core/components/PrefectScrollbar/index'
 import HeaderNav from '@admin/components/HeaderNav'
 import SiderMenu from '@admin/components/SiderMenu'
@@ -61,7 +60,7 @@ export default {
   },
   async beforeCreate() {
     if (!this.$store.getters['auth/getCurrentUser']) {
-      const { data } = await flatry(AuthService.account())
+      const { data } = await AuthService.account()
 
       if (data) {
         await this.$store.dispatch('auth/account', data)

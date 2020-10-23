@@ -2,14 +2,15 @@ import axios from 'axios'
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
 import contentDisposition from 'content-disposition'
-import { cacheAdapterEnhancer, throttleAdapterEnhancer } from 'axios-extensions'
+import { throttleAdapterEnhancer } from 'axios-extensions'
+import flatry from '@core/utils/flatry'
 
 class Request {
   constructor(options) {
     const opt = {
       ...{
         baseUrl: '',
-        timeout: 20000,
+        timeout: 10 * 1000,
         withCredentials: false,
         paramsSerializer: null,
         beforeRequest: (config) => {
@@ -33,9 +34,14 @@ class Request {
 
     loadProgressBar({ showSpinner: false }, httpClient)
 
-    httpClient.interceptors.request.use((config) => {
-      return opt.beforeRequest(config)
-    }, undefined)
+    httpClient.interceptors.request.use(
+      (config) => {
+        return opt.beforeRequest(config)
+      },
+      (error) => {
+        return opt.onError(error)
+      }
+    )
 
     httpClient.interceptors.response.use(
       (response) => {
@@ -49,14 +55,19 @@ class Request {
     this.httpClient = httpClient
   }
 
-  request(method, url, params = null, data = null, back = false) {
+  request(
+    method,
+    url,
+    params = null,
+    data = null,
+    historyBack = false,
+    cancelIgnore = false
+  ) {
     const config = {
       url: url,
       method: method,
-    }
-
-    if (back === true) {
-      config.historyBack = true
+      historyBack: historyBack,
+      cancelIgnore: cancelIgnore,
     }
 
     if (params) {
@@ -67,42 +78,39 @@ class Request {
       config.data = data
     }
 
-    return this.httpClient.request(config)
+    return flatry(this.httpClient.request(config))
   }
 
-  all() {}
-
-  get(url, params = null, back = true) {
-    return this.request('GET', url, params, null, back)
+  get(url, params = null, historyBack = true, cancelIgnore = false) {
+    return this.request('GET', url, params, null, historyBack, cancelIgnore)
   }
 
-  head(url, params = null) {
-    return this.request('HEAD', url, params)
+  post(url, data = null, params = null, historyBack = false) {
+    return this.request('POST', url, params, data, historyBack)
   }
 
-  post(url, data = null, params = null, back = false) {
-    return this.request('POST', url, params, data, back)
+  put(url, data = null, params = null, historyBack = false) {
+    return this.request('PUT', url, params, data, historyBack)
   }
 
-  put(url, data = null, params = null, back = false) {
-    return this.request('PUT', url, params, data, back)
+  path(url, data = null, params = null, historyBack = false) {
+    return this.request('PATH', url, params, data, historyBack)
   }
 
-  path(url, data = null, params = null, back = false) {
-    return this.request('PATH', url, params, data, back)
+  delete(url, params = null, historyBack = false) {
+    return this.request('DELETE', url, params, null, historyBack)
   }
 
-  delete(url, params = null, back = false) {
-    return this.request('DELETE', url, params, null, back)
-  }
-
-  download(method, url, params = null, data = null, back = false) {
+  download(method, url, params = null, data = null, historyBack = false) {
     const config = {
       url: url,
       method: method,
-      timeout: 60000,
+      timeout: 120 * 1000,
       responseType: 'blob',
-      historyBack: back,
+      historyBack: historyBack,
+      onDownloadProgress: (progressEvent) => {
+        console.log(progressEvent)
+      },
     }
 
     if (params) {
@@ -113,30 +121,32 @@ class Request {
       config.data = data
     }
 
-    return this.httpClient.request(config).then((response) => {
-      let filename = response.headers['x-suggested-filename']
+    return flatry(
+      this.httpClient.request(config).then((response) => {
+        let filename = response.headers['x-suggested-filename']
 
-      if (!filename) {
-        const disposition = contentDisposition.parse(
-          response.headers['content-disposition']
-        )
+        if (!filename) {
+          const disposition = contentDisposition.parse(
+            response.headers['content-disposition']
+          )
 
-        filename = disposition.parameters.filename
-      }
+          filename = disposition.parameters.filename
+        }
 
-      if (filename) {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement('a')
-        link.href = url
-        link.setAttribute('download', decodeURIComponent(filename))
-        link.click()
-        window.URL.revokeObjectURL(url)
+        if (filename) {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', decodeURIComponent(filename))
+          link.click()
+          window.URL.revokeObjectURL(url)
 
-        return true
-      } else {
-        return false
-      }
-    })
+          return true
+        } else {
+          return false
+        }
+      })
+    )
   }
 }
 

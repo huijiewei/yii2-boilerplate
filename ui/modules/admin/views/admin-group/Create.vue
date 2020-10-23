@@ -16,7 +16,6 @@
 <script>
 import AdminGroupForm from '@admin/views/admin-group/_EditForm'
 import AdminGroupService from '@admin/services/AdminGroupService'
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 
 export default {
@@ -37,7 +36,7 @@ export default {
   inject: ['historyBack'],
   methods: {
     async createAdminGroup(adminGroup, done, fail, always) {
-      const { data, error } = await flatry(AdminGroupService.create(adminGroup))
+      const { data, error } = await AdminGroupService.create(adminGroup)
 
       if (data) {
         done()

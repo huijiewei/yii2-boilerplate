@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
 import AgAvatar from '@core/components/Avatar'
 import AuthService from '@admin/services/AuthService'
 import Breadcrumb from '@admin/components/Breadcrumb'
@@ -86,11 +85,11 @@ export default {
       this.reload()
     },
     async toggleSidebar() {
-      await flatry(this.$store.dispatch('toggleSidebar'))
+      await this.$store.dispatch('toggleSidebar')
     },
     async handleCommand(command) {
       if (command === 'userLogout') {
-        const { data } = await flatry(AuthService.logout())
+        const { data } = await AuthService.logout()
 
         if (data) {
           await this.$store.dispatch('auth/logout')
@@ -118,7 +117,7 @@ export default {
       }
 
       if (command === 'userRefresh') {
-        const { data } = await flatry(AuthService.account())
+        const { data } = await AuthService.account()
 
         if (data) {
           await this.$store.dispatch('auth/account', data)

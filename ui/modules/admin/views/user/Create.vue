@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import flatry from '@core/utils/flatry'
 import PlaceholderForm from '@core/components/Placeholder/PlaceholderForm'
 import UserForm from '@admin/views/user/_EditForm'
 import UserService from '@admin/services/UserService'
@@ -34,7 +33,7 @@ export default {
   },
   methods: {
     async createUser(user, done, fail, always) {
-      const { data, error } = await flatry(UserService.create(user))
+      const { data, error } = await UserService.create(user)
 
       if (data) {
         done()

@@ -8,9 +8,7 @@
         <h3>404</h3>
         <p>页面不存在</p>
         <p>
-          <button @click="back">
-            返回
-          </button>
+          <button @click="back">返回</button>
         </p>
       </div>
     </div>
