@@ -37,7 +37,7 @@ Vue.use(HttpClient, {
   },
   paramsSerializer: function (params) {
     return queryString.stringify(params, {
-      arrayFormat: process.env.VUE_APP_QS_ARRAY_FORMAT || 'brackets',
+      arrayFormat: process.env.VUE_APP_QS_ARRAY_FORMAT || 'bracket',
     })
   },
 })
