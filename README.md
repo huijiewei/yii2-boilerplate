@@ -69,7 +69,7 @@ php bin/yii migrate
 
 重命名为 district.sqlite 并保存到 database 目录
 
-运行 agile-console(ConsoleApplication) 项目，选择区域数据导入
+运行 php bin/yii import/district 导入地区数据
 
 ### 目录结构
 ```
