@@ -27,7 +27,7 @@ export default [
         meta: {
           title: '新建商品分类',
           parent: {
-            name: '',
+            name: 'ShopCategory',
             path: '/shop-category',
             title: '商品分类',
           },

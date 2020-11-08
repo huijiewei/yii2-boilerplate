@@ -9,26 +9,18 @@ const HttpClient = {
   install(
     Vue,
     {
-      apiHost,
-      store,
-      getAccessTokenGetter,
-      setLoginActionDispatch,
-      setErrorDispatch,
+      getApiHost,
+      getAccessToken,
+      setLoginAction,
+      setErrorMessage,
       paramsSerializer = null,
     }
   ) {
-    const errorMessage = (message, historyBack) => {
-      store.dispatch(setErrorDispatch, {
-        message: message,
-        historyBack: historyBack,
-      })
-    }
-
     const request = new Request({
-      baseUrl: apiHost,
+      baseUrl: getApiHost(),
       paramsSerializer: paramsSerializer,
       beforeRequest: (config) => {
-        const accessToken = store.getters[getAccessTokenGetter]
+        const accessToken = getAccessToken()
 
         if (accessToken) {
           config.headers['X-Client-Id'] = accessToken.clientId
@@ -48,7 +40,7 @@ const HttpClient = {
         const historyBack = error.config.historyBack
 
         if (!error.response) {
-          errorMessage(error.message, historyBack)
+          setErrorMessage(error.message, historyBack)
 
           return Promise.reject(error)
         }
@@ -61,9 +53,9 @@ const HttpClient = {
               historyBack ||
               HttpGetMethod.includes(error.config.method.toUpperCase())
             ) {
-              store.dispatch(setLoginActionDispatch, 'direct')
+              setLoginAction('direct')
             } else {
-              store.dispatch(setLoginActionDispatch, 'modal')
+              setLoginAction('modal')
             }
           }
 
@@ -74,7 +66,7 @@ const HttpClient = {
           return Promise.reject(error)
         }
 
-        errorMessage(
+        setErrorMessage(
           error.response.data.detail ||
             error.response.data.message ||
             error.response.data.title ||

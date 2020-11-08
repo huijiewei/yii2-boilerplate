@@ -41,7 +41,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .ag-pages {
   margin-top: 20px;
   text-align: right;

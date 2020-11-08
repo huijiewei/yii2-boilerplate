@@ -31,7 +31,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .login-view {
   width: 100%;
   height: 100%;

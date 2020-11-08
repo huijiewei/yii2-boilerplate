@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import path from 'path'
 import TransformDom from '@core/directives/TransformDom'
 
 export default {
@@ -114,15 +113,15 @@ export default {
     }
   },
   methods: {
-    filterAffixTabs(routes, basePath = '/') {
+    filterAffixTabs(routes, basePath = '') {
       let tabs = []
 
       routes.forEach((route) => {
         if (route.meta && route.meta.affix) {
           tabs.push({
             name: route.name,
-            path: path.resolve(basePath, route.path),
-            query: route.query,
+            path: route.path,
+            query: basePath + '/' + route.query,
             title: route.meta.title,
             affix: true,
           })
@@ -277,7 +276,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
 .context-menu {
   position: absolute;
   margin: 0;
@@ -293,6 +292,7 @@ export default {
     padding: 7px 15px 7px 13px;
     font-size: 12px;
     cursor: pointer;
+
     &:hover {
       background: #ecf5ff;
       color: #3a8ee6;
@@ -348,6 +348,7 @@ export default {
 
         i {
           border-radius: 50%;
+
           &:hover {
             background-color: #3a98f0;
           }
@@ -371,6 +372,7 @@ export default {
   .tab-close {
     position: absolute;
     cursor: pointer;
+
     [class^='el-icon-'] {
       font-weight: bolder;
     }
@@ -392,6 +394,7 @@ export default {
   .tab-close {
     right: 0;
     background-color: #ffffff;
+
     &.el-dropdown {
       font-size: 13px;
     }

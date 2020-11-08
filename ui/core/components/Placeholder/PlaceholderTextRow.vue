@@ -36,8 +36,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import 'animation.scss';
+<style lang="less">
+@import 'animation.less';
 
 .placeholder-text-row {
   display: block;

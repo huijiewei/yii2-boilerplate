@@ -117,6 +117,8 @@ export default {
   },
   computed: {
     getCategoryTree() {
+      this.disableCategoryInTree(this.shopCategory.id, this.categoryTree)
+
       return [...[{ id: 0, name: '根分类' }], ...this.categoryTree]
     },
   },
@@ -125,6 +127,15 @@ export default {
     this.formCategoryParents = this.categoryParents
   },
   methods: {
+    disableCategoryInTree(id, tree) {
+      tree.forEach((item) => {
+        item.disabled = this.shopCategory.id === item.id
+
+        if (Array.isArray(item.children) && item.children.length > 0) {
+          this.disableCategoryInTree(id, item.children)
+        }
+      })
+    },
     handleCategoryParentsChange(value) {
       this.formModel.parentId = value[value.length - 1]
     },

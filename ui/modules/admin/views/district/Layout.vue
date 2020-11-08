@@ -161,8 +161,8 @@ export default {
       this.$refs.districtTree.setCurrentKey(this.districtCurrentId)
       this.$refs.districtSearchTree.setCurrentKey(this.districtCurrentId)
     },
-    handleDistrictUpdated(currentId, reloadId) {
-      if (reloadId === 0) {
+    handleDistrictUpdated(currentId, expandId, collapseId) {
+      if (expandId === null || expandId === 0) {
         this.node.childNodes = []
         this.loadDistricts(this.node, this.resolve)
         return
@@ -170,10 +170,17 @@ export default {
 
       this.districtCurrentId = currentId
 
-      const node = this.$refs.districtTree.getNode(reloadId)
+      if (collapseId > 0 && collapseId !== expandId) {
+        const collapse = this.$refs.districtTree.getNode(collapseId)
 
-      node.loaded = false
-      node.expand()
+        collapse.loaded = false
+        collapse.collapse()
+      }
+
+      const expand = this.$refs.districtTree.getNode(expandId)
+
+      expand.loaded = false
+      expand.expand()
     },
     handleDistrictCreate(parentId) {
       this.$router.push({
@@ -208,7 +215,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .district-tree-node {
   font-size: 14px;
   flex: 1;

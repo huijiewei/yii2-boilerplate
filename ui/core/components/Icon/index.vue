@@ -21,7 +21,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .ag-icon {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

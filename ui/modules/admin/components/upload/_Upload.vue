@@ -246,7 +246,7 @@ export default {
     },
 
     getFilename(url) {
-      if (url.length === 0) {
+      if (!url || url.length === 0) {
         return ''
       }
 
@@ -463,7 +463,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .image-view-dialog {
   .el-dialog {
     width: auto;

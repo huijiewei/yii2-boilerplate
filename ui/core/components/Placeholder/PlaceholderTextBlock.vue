@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
 .placeholder-text-block {
   display: block;
 }

@@ -152,7 +152,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '../../core/assets/styles/base.scss';
-@import './assets/styles/style.scss';
+<style lang="less">
+@import '../../core/assets/styles/base.less';
+@import './assets/styles/style.less';
 </style>

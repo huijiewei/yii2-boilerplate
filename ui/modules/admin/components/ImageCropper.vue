@@ -113,7 +113,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
 .image-cropper-dialog {
   .el-dialog__header {
     display: none;

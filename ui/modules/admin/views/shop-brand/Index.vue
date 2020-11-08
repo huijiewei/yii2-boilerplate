@@ -164,7 +164,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .shop-brands {
   .logo {
     border: 1px solid #dddddd;
