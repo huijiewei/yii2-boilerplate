@@ -97,11 +97,12 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-@import '../../../core/assets/styles/mixin';
-$asideWidth: 220px;
-$asideCollapsedWidth: 60px;
-$asideBackgroundColor: #2c343f;
+
+<style lang="less">
+@import '../../../core/assets/styles/mixin.less';
+@aside-width: 220px;
+@aside-collapsed-width: 60px;
+@aside-background-color: #2c343f;
 
 .fade-enter-active,
 .fade-leave-active {
@@ -121,15 +122,15 @@ $asideBackgroundColor: #2c343f;
 
   &.ag-collapsed {
     .ag-aside {
-      width: $asideCollapsedWidth;
+      width: @aside-collapsed-width;
     }
 
     .ag-layout {
-      margin-left: $asideCollapsedWidth;
+      margin-left: @aside-collapsed-width;
     }
 
     .ag-header {
-      width: calc(100% - #{$asideCollapsedWidth});
+      width: calc(~'100% - ' @aside-collapsed-width);
     }
   }
 
@@ -138,10 +139,10 @@ $asideBackgroundColor: #2c343f;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.01);
     top: 0;
     left: 0;
-    width: $asideWidth;
+    width: @aside-width;
     z-index: 10;
     height: 100vh;
-    background-color: $asideBackgroundColor;
+    background-color: @aside-background-color;
 
     .ag-logo {
       text-align: center;
@@ -164,7 +165,7 @@ $asideBackgroundColor: #2c343f;
     }
 
     .el-menu {
-      background-color: $asideBackgroundColor;
+      background-color: @aside-background-color;
 
       .el-menu-item,
       .el-submenu__title {
@@ -179,7 +180,7 @@ $asideBackgroundColor: #2c343f;
 
   .ag-layout {
     position: relative;
-    margin-left: $asideWidth;
+    margin-left: @aside-width;
     display: flex;
     flex: auto;
     flex-direction: column;
@@ -188,14 +189,14 @@ $asideBackgroundColor: #2c343f;
 
   .ag-header {
     position: fixed;
-    width: calc(100% - #{$asideWidth});
+    width: calc(~'100% - ' @aside-width);
     z-index: 10;
     right: 0;
     overflow-x: hidden;
 
     .ag-nav {
+      .clearfix();
       background: #fff;
-      @include clearfix();
       box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
     }
   }

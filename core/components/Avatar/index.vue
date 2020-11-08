@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
 .ag-avatar {
   display: inline-block;
   border-radius: 50%;

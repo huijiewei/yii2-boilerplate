@@ -28,7 +28,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .error-view {
   width: 100%;
   height: 100vh;

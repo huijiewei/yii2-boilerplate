@@ -9,21 +9,14 @@
   >
     <el-form-item label="上级地区" prop="parentId">
       <el-col :md="16">
-        <el-cascader
-          style="width: 100%"
+        <district-cascader
           placeholder="请选择上级地区"
-          :props="{
-            value: 'id',
-            label: 'name',
-            checkStrictly: true,
-            lazy: true,
-            lazyLoad: loadDistricts,
-            leaf: 'leaf',
-          }"
           v-model="formDistrictParents"
           @change="handleDistrictParentsChange"
+          :leaf-length="6"
+          :disabled-codes="[this.district.code]"
         >
-        </el-cascader>
+        </district-cascader>
       </el-col>
     </el-form-item>
     <el-form-item
@@ -79,9 +72,10 @@
 
 <script>
 import UnprocessableEntityHttpErrorMixin from '@admin/mixins/UnprocessableEntityHttpErrorMixin'
-import MiscService from '@admin/services/MiscService'
+import DistrictCascader from '@admin/components/DistrictCascader'
 
 export default {
+  components: { DistrictCascader },
   mixins: [UnprocessableEntityHttpErrorMixin],
   props: {
     submitText: {
@@ -120,34 +114,6 @@ export default {
     },
     handleDistrictDelete() {
       this.$emit('on-delete', this.formModel)
-    },
-
-    async loadDistricts(node, resolve) {
-      if (node.data && node.data.leaf) {
-        resolve([])
-        return
-      }
-
-      const parentId = (node.data && node.data.id) || 0
-
-      this.loading = true
-
-      const { data } = await MiscService.districts(parentId)
-
-      if (data) {
-        const districts =
-          parentId === 0
-            ? [...[{ id: 0, name: '全国', code: '000000' }], ...data]
-            : data
-
-        districts.forEach((item) => {
-          item.leaf = item.code.length === 6
-        })
-
-        resolve(districts)
-      }
-
-      this.loading = false
     },
     handleFormSubmit(formName) {
       this.$refs[formName].validate((valid) => {

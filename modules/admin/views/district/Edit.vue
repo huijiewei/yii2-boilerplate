@@ -71,7 +71,7 @@ export default {
 
         this.$message.success('修改成功')
 
-        this.$emit('on-updated', data.id, data.parentId)
+        this.$emit('on-updated', data.id, data.parentId, this.district.parentId)
       }
 
       if (error) {

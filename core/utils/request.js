@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
-import contentDisposition from 'content-disposition'
 import { throttleAdapterEnhancer } from 'axios-extensions'
 import flatry from '@core/utils/flatry'
 
@@ -126,15 +125,17 @@ class Request {
         let filename = response.headers['x-suggested-filename']
 
         if (!filename) {
-          const disposition = contentDisposition.parse(
-            response.headers['content-disposition']
-          )
-
-          filename = disposition.parameters.filename
+          filename = response.headers['content-disposition'].match(
+            /filename="(.+)"/
+          )[1]
         }
 
         if (filename) {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const url = window.URL.createObjectURL(
+            new Blob([response.data], {
+              type: response.headers['content-type'],
+            })
+          )
           const link = document.createElement('a')
           link.href = url
           link.setAttribute('download', decodeURIComponent(filename))

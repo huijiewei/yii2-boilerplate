@@ -11,6 +11,7 @@ import adminRoute from './admin/admin'
 import adminLogRoute from './admin/admin-log'
 import adminGroupRoute from './admin/group'
 import userRoute from './user/user'
+import userAddressRoute from './user/address'
 import shopCategoryRoute from './shop/category'
 import shopBrandRoute from './shop/brand'
 import shopProductRoute from './shop/product'
@@ -58,6 +59,7 @@ const routes = [
       ...adminLogRoute,
       ...adminGroupRoute,
       ...userRoute,
+      ...userAddressRoute,
       ...shopBrandRoute,
       ...shopProductRoute,
       ...shopCategoryRoute,

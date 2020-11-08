@@ -70,7 +70,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .ag {
   .el-menu {
     border-right: none;

@@ -77,7 +77,13 @@ export default {
 
         this.$message.success('修改成功')
 
-        this.$emit('on-updated', shopCategory.id)
+        await this.$emit('on-updated')
+
+        this.$emit(
+          'on-expanded',
+          data.parents.map((parent) => parent.id),
+          data.id
+        )
       }
 
       if (error) {
@@ -97,7 +103,13 @@ export default {
           if (data) {
             this.$message.success('删除成功')
 
-            this.$emit('on-updated', shopCategory.parentId)
+            await this.$emit('on-updated')
+
+            this.$emit(
+              'on-expanded',
+              this.categoryParents,
+              shopCategory.parentId
+            )
 
             await this.$router.replace({
               path: '/shop-category',

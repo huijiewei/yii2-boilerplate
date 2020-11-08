@@ -27,7 +27,7 @@ export default [
         meta: {
           title: '新建地区',
           parent: {
-            name: '',
+            name: 'District',
             path: '/district',
             title: '地区',
           },

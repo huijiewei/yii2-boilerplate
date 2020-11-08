@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
 .ag-breadcrumb {
   margin-bottom: 15px;
 
