@@ -6,6 +6,8 @@ Thumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
 
+/database/district.sqlite
+/database/*.xlsx
 composer.phar
 /vendor
 /.idea
