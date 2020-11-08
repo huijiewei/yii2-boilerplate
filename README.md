@@ -12,9 +12,7 @@
 
 5. 代码风格规范符合 PSR-2,PSR-12
 
-6. 后台管理系统使用 Vue.js + Element UI + Vue Cli 构建
-
-7. 默认开启本地开发环境 HTTPS 和 HTTP2 支持（webpack-serve 未开启 HTTP2）
+6. 前端使用 Vue.js + Element UI + Vue Cli 构建
 
 ### 在线演示
 https://bp.huijiewei.com/admin
@@ -23,7 +21,7 @@ https://bp.huijiewei.com/admin
 
 ### 安装
 
-项目需要 PHP 7.1 以上版本
+项目需要 PHP 7.3 以上版本
 
 ##### 安装 composer 和 npm 依赖包
 
@@ -61,12 +59,17 @@ server {
 }
 ```
 
-##### 数据表初始化方法：
+### 数据表初始化方法：
 
 ```bash
 php bin/yii migrate
-php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 ```
+### 区域数据导入
+下载省市县数据库 https://github.com/modood/Administrative-divisions-of-China/blob/master/dist/data.sqlite
+
+重命名为 district.sqlite 并保存到 database 目录
+
+运行 agile-console(ConsoleApplication) 项目，选择区域数据导入
 
 ### 目录结构
 ```
@@ -120,11 +123,11 @@ php bin/yii migrate --migrationPath=@vendor/huijiewei/yii2-wechat/src/migrations
 #####
 管理后台前端开发服务器
 ```bash
-yarn admin-serve
+npm run serve:admin
 ```
 管理后台构建生产版本
 ```bash
-yarn admin-build
+npm run build:admin
 ```
 
 ### 其他
@@ -139,4 +142,4 @@ http://www.bp.test/admin
 用户：13012345678
 密码：123456
 
-Version: 2020-05-16 00:04
+Version: 2020-11-07 18:00

@@ -11,6 +11,10 @@ $config = [
     ],
 
     'components' => [
+        'sqlite' => [
+            'class' => \yii\db\Connection::class,
+            'dsn' => 'sqlite:' . dirname(__DIR__) . '/database/district.sqlite',
+        ],
         'urlManager' => [
             'baseUrl' => getenv('APP_URL'),
         ],
