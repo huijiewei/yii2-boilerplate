@@ -53,7 +53,7 @@ class User extends Identity
     public static function createdFromList()
     {
         return [
-            new UserCreatedFrom(static::CREATED_FROM_APP, 'APP'),
+            new UserCreatedFrom(static::CREATED_FROM_APP, '应用'),
             new UserCreatedFrom(static::CREATED_FROM_WEB, '网站'),
             new UserCreatedFrom(static::CREATED_FROM_WECHAT, '微信'),
             new UserCreatedFrom(static::CREATED_FROM_SYSTEM, '系统'),
