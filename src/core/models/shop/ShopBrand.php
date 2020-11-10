@@ -9,7 +9,7 @@ use app\core\components\ActiveRecord;
  *
  * @property integer $id
  * @property string $name
- * @property string $alias
+ * @property string $slug
  * @property string $logo
  * @property string $website
  * @property string $description
@@ -25,11 +25,11 @@ class ShopBrand extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'alias', 'logo', 'website', 'description', 'shopCategoryIds'], 'trim'],
-            [['name', 'alias'], 'required'],
-            [['name', 'alias', 'logo', 'website', 'description'], 'string'],
+            [['name', 'slug', 'logo', 'website', 'description', 'shopCategoryIds'], 'trim'],
+            [['name', 'slug'], 'required'],
+            [['name', 'slug', 'logo', 'website', 'description'], 'string'],
             ['name', 'unique'],
-            ['alias', 'unique'],
+            ['slug', 'unique'],
             [
                 'shopCategoryIds',
                 'exist',
@@ -45,7 +45,7 @@ class ShopBrand extends ActiveRecord
         return [
             'id',
             'name',
-            'alias',
+            'slug',
             'logo',
             'website',
             'description',
@@ -63,7 +63,7 @@ class ShopBrand extends ActiveRecord
     {
         return [
             'name' => '品牌名称',
-            'alias' => '品牌别名',
+            'slug' => '品牌别名',
             'logo' => '品牌 LOGO',
             'description' => '品牌介绍',
         ];

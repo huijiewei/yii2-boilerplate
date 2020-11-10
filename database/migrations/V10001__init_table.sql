@@ -150,11 +150,12 @@ CREATE TABLE `${table-prefix}shop_brand`
 (
     `id`          int          NOT NULL AUTO_INCREMENT,
     `name`        varchar(60)  NOT NULL DEFAULT '',
-    `alias`       varchar(50)  NOT NULL DEFAULT '',
+    `slug`       varchar(50)  NOT NULL DEFAULT '',
     `logo`        varchar(255) NOT NULL DEFAULT '',
     `website`     varchar(255) NOT NULL DEFAULT '',
     `description` text,
     PRIMARY KEY (`id`),
+    UNIQUE KEY `slug` (`slug`),
     KEY `name` (`name`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 11102
