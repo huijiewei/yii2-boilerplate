@@ -15,13 +15,16 @@ const routes = [
     component: defaultLayout,
     children: [
       {
-        path: 'home',
+        path: '',
+        redirect: '/home',
+      },
+      {
+        path: '/home',
+        name: 'Home',
         component: siteIndex,
-        alias: '',
         meta: {
-          breadcrumb: {
-            title: '首页',
-          },
+          affix: true,
+          title: '首页',
         },
       },
     ],
@@ -33,7 +36,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  base: '/admin',
+  base: process.env.VUE_APP_PUBLIC_PATH,
   mode: 'history',
   routes: routes,
   scrollBehavior: (to, from, savedPosition) => {

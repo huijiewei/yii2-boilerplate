@@ -24,7 +24,7 @@
     </el-form-item>
     <el-form-item
       label="别名"
-      prop="alias"
+      prop="slug"
       :rules="[
         {
           required: true,
@@ -34,7 +34,7 @@
       ]"
     >
       <el-col :md="6">
-        <el-input v-model.trim="formModel.alias" />
+        <el-input v-model.trim="formModel.slug" />
       </el-col>
     </el-form-item>
     <el-form-item label="LOGO" prop="logo">

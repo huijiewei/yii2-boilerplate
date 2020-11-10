@@ -143,11 +143,9 @@ export default {
           const { data } = await UserService.delete(user.id)
 
           if (data) {
-            this.users.forEach((item, index) => {
-              if (item.id === user.id) {
-                this.users.splice(index, 1)
-              }
-            })
+            this.users = Object.freeze(
+              this.users.filter((item) => item.id !== user.id)
+            )
 
             this.$message({
               type: 'success',
@@ -165,7 +163,7 @@ export default {
       const { data } = await UserService.all(this.buildRouteQuery(query))
 
       if (data) {
-        this.users = data.items
+        this.users = Object.freeze(data.items)
         this.pages = data.pages
 
         this.setSearchFields(data.searchFields)

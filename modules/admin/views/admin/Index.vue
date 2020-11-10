@@ -88,7 +88,7 @@ export default {
     const { data } = await AdminService.all()
 
     if (data) {
-      this.admins = data.items
+      this.admins = Object.freeze(data.items)
     }
 
     this.loading = false
@@ -115,11 +115,9 @@ export default {
           const { data } = await AdminService.delete(admin.id)
 
           if (data) {
-            this.admins.forEach((item, index) => {
-              if (item.id === admin.id) {
-                this.admins.splice(index, 1)
-              }
-            })
+            this.admins = Object.freeze(
+              this.admins.filter((item) => item.id !== admin.id)
+            )
 
             this.$message({
               type: 'success',

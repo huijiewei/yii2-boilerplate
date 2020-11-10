@@ -25,6 +25,7 @@
         label="Id"
       />
       <el-table-column prop="name" width="220" label="品牌名称" />
+      <el-table-column prop="slug" width="120" label="品牌别名" />
       <el-table-column width="110" align="center" label="图片">
         <template slot-scope="scope">
           <img
@@ -120,7 +121,7 @@ export default {
       const { data } = await ShopBrandService.all(this.buildRouteQuery(query))
 
       if (data) {
-        this.shopBrands = data.items
+        this.shopBrands = Object.freeze(data.items)
         this.pages = data.pages
 
         this.setSearchFields(data.searchFields)
@@ -145,11 +146,9 @@ export default {
           const { data } = await ShopBrandService.delete(shopBrand.id)
 
           if (data) {
-            this.shopBrands.forEach((item, index) => {
-              if (item.id === shopBrand.id) {
-                this.shopBrands.splice(index, 1)
-              }
-            })
+            this.shopBrands = Object.freeze(
+              this.shopBrands.filter((item) => item.id !== shopBrand.id)
+            )
 
             this.$message({
               type: 'success',
@@ -172,6 +171,7 @@ export default {
     height: 31px;
     vertical-align: middle;
   }
+
   .website {
     margin-top: 9px;
   }

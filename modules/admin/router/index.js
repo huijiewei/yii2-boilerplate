@@ -76,7 +76,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  base: '/admin',
+  base: process.env.VUE_APP_PUBLIC_PATH,
   mode: 'history',
   routes: routes,
   scrollBehavior: (to, from, savedPosition) => {

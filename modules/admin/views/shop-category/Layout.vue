@@ -140,7 +140,7 @@ export default {
       const { data } = await MiscService.shopCategoryTree()
 
       if (data) {
-        this.categoryTree = data
+        this.categoryTree = Object.freeze(data)
       }
 
       this.loading = false

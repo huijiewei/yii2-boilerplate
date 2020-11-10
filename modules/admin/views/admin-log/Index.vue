@@ -172,7 +172,7 @@ export default {
       const { data } = await AdminService.log(this.buildRouteQuery(query))
 
       if (data) {
-        this.adminLogs = data.items
+        this.adminLogs = Object.freeze(data.items)
         this.pages = data.pages
 
         this.setSearchFields(data.searchFields)

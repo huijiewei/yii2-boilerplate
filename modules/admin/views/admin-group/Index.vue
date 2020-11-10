@@ -56,7 +56,7 @@ export default {
     const { data } = await AdminGroupService.all()
 
     if (data) {
-      this.adminGroups = data.items
+      this.adminGroups = Object.freeze(data.items)
     }
 
     this.loading = false
@@ -79,11 +79,9 @@ export default {
           const { data } = await AdminGroupService.delete(adminGroup.id)
 
           if (data) {
-            this.adminGroups.forEach((item, index) => {
-              if (item.id === adminGroup.id) {
-                this.adminGroups.splice(index, 1)
-              }
-            })
+            this.adminGroups = Object.freeze(
+              this.adminGroups.filter((item) => item.id !== adminGroup.id)
+            )
 
             this.$message({
               type: 'success',
