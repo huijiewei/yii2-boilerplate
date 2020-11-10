@@ -98,11 +98,9 @@ export default {
           const { data } = await UserAddressService.delete(userAddress.id)
 
           if (data) {
-            this.users.forEach((item, index) => {
-              if (item.id === userAddress.id) {
-                this.userAddresses.splice(index, 1)
-              }
-            })
+            this.userAddresses = Object.freeze(
+              this.userAddresses.filter((item) => item.id !== userAddress.id)
+            )
 
             this.$message({
               type: 'success',
@@ -120,7 +118,7 @@ export default {
       const { data } = await UserAddressService.all(this.buildRouteQuery(query))
 
       if (data) {
-        this.userAddresses = data.items
+        this.userAddresses = Object.freeze(data.items)
         this.pages = data.pages
 
         this.setSearchFields(data.searchFields)
