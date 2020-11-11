@@ -32,8 +32,8 @@
           ref="districtSearchTree"
           node-key="id"
         >
-          <div class="district-tree-node" slot-scope="{ data }">
-            <div class="district-tree-icon">
+          <div class="category-tree-node" slot-scope="{ data }">
+            <div class="category-tree-icon">
               <ag-icon v-if="data.icon" :path="data.icon" />
               <i v-else-if="data.code.length < 9" class="el-icon-folder" />
               <i v-else class="el-icon-map-location" />
@@ -74,8 +74,8 @@
             isLeaf: 'leaf',
           }"
         >
-          <div class="district-tree-node" slot-scope="{ data }">
-            <div class="district-tree-icon">
+          <div class="category-tree-node" slot-scope="{ data }">
+            <div class="category-tree-icon">
               <ag-icon v-if="data.icon" :path="data.icon" />
               <i v-else-if="data.code.length < 9" class="el-icon-folder" />
               <i v-else class="el-icon-map-location" />
@@ -215,35 +215,3 @@ export default {
   },
 }
 </script>
-<style lang="less">
-.district-tree-node {
-  font-size: 14px;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 7px;
-
-  .district-tree-icon {
-    [class^='el-icon-'] {
-      margin-right: 3px;
-    }
-  }
-
-  &:hover {
-    .operate {
-      visibility: visible;
-    }
-  }
-
-  .operate {
-    visibility: hidden;
-    font-size: 12px;
-    color: #a6a9ad;
-
-    .el-button {
-      padding: 3px 5px 2px 5px;
-    }
-  }
-}
-</style>

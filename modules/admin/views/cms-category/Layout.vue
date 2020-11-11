@@ -13,7 +13,7 @@
         <hr class="spacer-xs" />
         <div class="text-right">
           <el-button
-            :disabled="!$can('shop-category/create')"
+            :disabled="!$can('cms-category/create')"
             title="创建根分类"
             size="mini"
             @click.native="handleCategoryCreate(0)"
@@ -44,14 +44,14 @@
               <el-button
                 size="mini"
                 @click.stop="handleCategoryEdit(data)"
-                :disabled="!$can('shop-category/view')"
+                :disabled="!$can('cms-category/view')"
                 icon="el-icon-edit-outline"
                 title="查看编辑"
               />
               <el-button
                 size="mini"
                 @click.stop="handleCategoryCreate(data.id)"
-                :disabled="!$can('shop-category/create')"
+                :disabled="!$can('cms-category/create')"
                 icon="el-icon-folder-add"
                 title="新建子分类"
               />
@@ -75,7 +75,7 @@ import MiscService from '@admin/services/MiscService'
 import AgIcon from '@core/components/Icon'
 
 export default {
-  name: 'ShopCategory',
+  name: 'CmsCategory',
   watch: {
     keyword(keyword) {
       if (!keyword) {
@@ -107,13 +107,13 @@ export default {
 
     handleCategoryCreate(parentId) {
       this.$router.push({
-        path: `/shop-category/create/${parentId}`,
+        path: `/cms-category/create/${parentId}`,
       })
     },
 
     handleCategoryEdit(category) {
       this.$router.push({
-        path: `/shop-category/edit/${category.id}`,
+        path: `/cms-category/edit/${category.id}`,
       })
     },
 
@@ -137,7 +137,7 @@ export default {
     async loadCategoryTree() {
       this.loading = true
 
-      const { data } = await MiscService.shopCategoryTree()
+      const { data } = await MiscService.cmsCategoryTree()
 
       if (data) {
         this.categoryTree = Object.freeze(data)

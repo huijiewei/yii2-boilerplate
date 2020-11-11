@@ -226,3 +226,34 @@
     display: block;
   }
 }
+
+.category-tree-node {
+  font-size: 14px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 7px;
+
+  .category-tree-icon {
+    [class^='el-icon-'] {
+      margin-right: 3px;
+    }
+  }
+
+  &:hover {
+    .operate {
+      display: inline-block;
+    }
+  }
+
+  .operate {
+    display: none;
+    font-size: 12px;
+    color: #a6a9ad;
+
+    .el-button {
+      padding: 3px 5px 2px 5px;
+    }
+  }
+}

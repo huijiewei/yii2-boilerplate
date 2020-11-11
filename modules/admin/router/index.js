@@ -17,6 +17,8 @@ import shopBrandRoute from './shop/brand'
 import shopProductRoute from './shop/product'
 import districtRoute from './district/district'
 
+import cmsCategoryRoute from './cms/category'
+
 import AdminLayout from '@admin/components/AdminLayout'
 
 Vue.use(VueRouter)
@@ -64,6 +66,7 @@ const routes = [
       ...shopProductRoute,
       ...shopCategoryRoute,
       ...districtRoute,
+      ...cmsCategoryRoute,
       {
         path: '*',
         component: notFound,
