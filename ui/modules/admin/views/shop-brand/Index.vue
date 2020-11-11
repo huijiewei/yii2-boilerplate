@@ -24,8 +24,8 @@
         prop="id"
         label="Id"
       />
-      <el-table-column prop="name" width="220" label="品牌名称" />
-      <el-table-column prop="slug" width="120" label="品牌别名" />
+      <el-table-column prop="name" width="230" label="品牌名称" />
+      <el-table-column prop="slug" width="150" label="品牌别名" />
       <el-table-column width="110" align="center" label="图片">
         <template slot-scope="scope">
           <img

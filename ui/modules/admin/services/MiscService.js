@@ -32,6 +32,14 @@ const MiscService = {
   shopCategoryPath(id) {
     return Vue.http.get('misc/shop-category-path', { id: id }, false)
   },
+
+  cmsCategoryTree() {
+    return Vue.http.get('misc/cms-category-tree', null, false)
+  },
+
+  cmsCategoryPath(id) {
+    return Vue.http.get('misc/cms-category-path', { id: id }, false)
+  },
 }
 
 export default MiscService
