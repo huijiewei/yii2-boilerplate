@@ -19,6 +19,11 @@ https://bp.huijiewei.com/admin
 账号：13098761234
 密码：123456
 
+### 欢迎体验 VUE 和 Spring Boot 配合
+https://github.com/huijiewei/agile-vue
+
+https://github.com/huijiewei/agile-boot
+
 ### 安装
 
 项目需要 PHP 7.3 以上版本
