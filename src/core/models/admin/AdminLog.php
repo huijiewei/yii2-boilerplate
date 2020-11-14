@@ -29,7 +29,10 @@ class AdminLog extends IdentityLog
     public function extraFields()
     {
         return [
-            'admin'
+            'admin' => function ($adminLog) {
+                /* @var $adminLog AdminLog */
+                return $adminLog->admin->toArray(['id', 'name', 'avatar']);
+            }
         ];
     }
 
