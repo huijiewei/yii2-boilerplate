@@ -15,7 +15,7 @@
     "@composer-asset/huijiewei--yii2-upload": "file:./vendor/foxy/composer-asset/huijiewei/yii2-upload",
     "@composer-asset/yiisoft--yii2": "file:./vendor/foxy/composer-asset/yiisoft/yii2",
     "@composer-asset/yiisoft--yii2-bootstrap": "file:./vendor/foxy/composer-asset/yiisoft/yii2-bootstrap",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "axios-extensions": "^3.1.3",
     "axios-progress-bar": "^1.2.0",
     "core-js": "^3.7.0",
