@@ -1,12 +1,12 @@
 const path = require('path')
 
-const ManifestPlugin = require('webpack-manifest-plugin')
+const { WebpackManifestPlugin }  = require('webpack-manifest-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
 const config = {
   configureWebpack: {
-    context: path.resolve(__dirname, 'ui'),
+    context: path.resolve(__dirname, 'ui')
   },
   chainWebpack: (config) => {
     config.resolve.alias
@@ -20,13 +20,13 @@ const config = {
     config.plugins.delete('preload')
     config.plugins.delete('prefetch')
 
-    config.plugin('manifest').use(ManifestPlugin, [
+    config.plugin('manifest').use(WebpackManifestPlugin, [
       {
         writeToFileEmit: !isProduction,
-        filter: function ({ name, isChunk }) {
+        filter: function({ name, isChunk }) {
           return isChunk && !name.startsWith('chunk-') && !name.endsWith('.map')
-        },
-      },
+        }
+      }
     ])
 
     config.optimization.splitChunks({
@@ -37,23 +37,23 @@ const config = {
           chunks: 'initial',
           name: 'vendor',
           priority: 10,
-          enforce: true,
+          enforce: true
         },
         element: {
           test: /[\\/]node_modules[\\/]_?element-ui(.*)/,
           name: 'element',
           priority: 20,
-          enforce: true,
+          enforce: true
         },
         boilerplate: {
           test: /[\\/]ui\/core[\\/]/,
           name: 'boilerplate',
           priority: 5,
-          enforce: true,
-        },
-      },
+          enforce: true
+        }
+      }
     })
-  },
+  }
 }
 
 if (!isProduction) {
@@ -62,7 +62,7 @@ if (!isProduction) {
     https: false,
     compress: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    contentBase: path.resolve(__dirname, 'ui'),
+    contentBase: path.resolve(__dirname, 'ui')
   }
 }
 
