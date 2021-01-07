@@ -8,6 +8,7 @@ const devServerPort = 8090
 
 const appPublicPath = '/admin'
 
+process.env.VUE_APP_QS_ARRAY_FORMAT = 'bracket'
 process.env.VUE_APP_PUBLIC_PATH = appPublicPath
 
 const customConfig = {
