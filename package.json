@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.admin.config.js vue-cli-service serve",
-    "serve:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.mobile.config.js vue-cli-service serve",
-    "build:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.admin.config.js vue-cli-service build",
-    "build:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.mobile.config.js vue-cli-service build",
-    "inspect:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.admin.config.js vue-cli-service inspect --mode production > webpack.entity.admin.js",
-    "inspect:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=$PWD/vue.entry.mobile.config.js vue-cli-service inspect --mode production > webpack.entity.mobile.js"
+    "serve:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.entry.admin.config.js vue-cli-service serve",
+    "serve:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.entry.mobile.config.js vue-cli-service serve",
+    "build:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.entry.admin.config.js vue-cli-service build",
+    "build:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.entry.mobile.config.js vue-cli-service build",
+    "inspect:admin": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.entry.admin.config.js vue-cli-service inspect --mode production > webpack.entity.admin.js",
+    "inspect:mobile": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.entry.mobile.config.js vue-cli-service inspect --mode production > webpack.entity.mobile.js"
   },
   "dependencies": {
     "@composer-asset/huijiewei--yii2-swagger": "file:./vendor/foxy/composer-asset/huijiewei/yii2-swagger",
