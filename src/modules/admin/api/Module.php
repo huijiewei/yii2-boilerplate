@@ -6,6 +6,7 @@ use app\core\components\AbstractModule;
 use app\core\components\WebRequest;
 use app\core\models\admin\Admin;
 use huijiewei\swagger\SwaggerController;
+use Yii;
 use yii\web\Application;
 use yii\web\Response;
 use yii\web\User;
@@ -57,8 +58,8 @@ class Module extends AbstractModule
     {
         parent::init();
 
-        if (\Yii::$app instanceof Application) {
-            \Yii::$app->set('request', [
+        if (Yii::$app instanceof Application) {
+            Yii::$app->set('request', [
                 'class' => WebRequest::class,
                 'enableCsrfValidation' => false,
                 'enableCsrfCookie' => false,
@@ -68,7 +69,7 @@ class Module extends AbstractModule
                 ],
             ]);
 
-            \Yii::$app->set('response', [
+            Yii::$app->set('response', [
                 'class' => Response::class,
                 'format' => Response::FORMAT_JSON,
             ]);
@@ -82,7 +83,7 @@ class Module extends AbstractModule
                             '@app/modules/admin/api/controllers'
                         ],
                         'defines' => [
-                            'API_HOST' => \Yii::$app->getRequest()->getHostName(),
+                            'API_HOST' => Yii::$app->getRequest()->getHostName(),
                             'API_BASE_PATH' => '/' . static::getUrlPrefix(),
                         ]
                     ],

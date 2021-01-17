@@ -5,17 +5,21 @@ namespace app\modules\admin\api\controllers;
 use app\core\models\shop\ShopBrand;
 use app\modules\admin\api\Controller;
 use app\modules\admin\api\models\ShopBrandSearchForm;
+use Yii;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 class ShopBrandController extends Controller
 {
+    /**
+     * @return ShopBrandSearchForm
+     */
     public function actionIndex()
     {
         $this->addExpandQueryParams('shopCategories');
 
         $form = new ShopBrandSearchForm();
-        $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
+        $form->load(Yii::$app->getRequest()->getQueryParams(), '');
 
         return $form;
     }
@@ -42,7 +46,7 @@ class ShopBrandController extends Controller
     public function actionCreate()
     {
         $shopBrand = new ShopBrand();
-        $shopBrand->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $shopBrand->load(Yii::$app->getRequest()->getBodyParams(), '');
 
         if (!$shopBrand->save()) {
             return $shopBrand;
@@ -54,7 +58,7 @@ class ShopBrandController extends Controller
     public function actionEdit($id)
     {
         $shopBrand = $this->getShopBrandById($id);
-        $shopBrand->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $shopBrand->load(Yii::$app->getRequest()->getBodyParams(), '');
 
         if (!$shopBrand->save()) {
             return $shopBrand;

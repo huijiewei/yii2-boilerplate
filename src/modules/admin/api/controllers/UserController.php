@@ -5,6 +5,7 @@ namespace app\modules\admin\api\controllers;
 use app\core\models\user\User;
 use app\modules\admin\api\Controller;
 use app\modules\admin\api\models\UserSearchFrom;
+use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
@@ -14,10 +15,10 @@ class UserController extends Controller
     {
         $user = new User();
         $user->setScenario('create');
-        $user->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $user->load(Yii::$app->getRequest()->getBodyParams(), '');
 
         $user->createdFrom = User::CREATED_FROM_SYSTEM;
-        $user->createdIp = \Yii::$app->getRequest()->getUserIP();
+        $user->createdIp = Yii::$app->getRequest()->getUserIP();
 
         if (!$user->save()) {
             return $user;
@@ -58,7 +59,7 @@ class UserController extends Controller
     {
         $user = $this->getUserById($id);
         $user->setScenario('edit');
-        $user->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $user->load(Yii::$app->getRequest()->getBodyParams(), '');
 
         if (!$user->save()) {
             return $user;
@@ -96,7 +97,7 @@ class UserController extends Controller
     private function userSearchForm()
     {
         $form = new UserSearchFrom();
-        $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
+        $form->load(Yii::$app->getRequest()->getQueryParams(), '');
 
         return $form;
     }

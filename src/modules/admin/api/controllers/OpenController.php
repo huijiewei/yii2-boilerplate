@@ -8,6 +8,7 @@ use app\modules\admin\api\Controller;
 use Gregwar\Captcha\CaptchaBuilder;
 use huijiewei\upload\ImageCropAction;
 use huijiewei\upload\UploadAction;
+use Yii;
 
 class OpenController extends Controller
 {
@@ -30,8 +31,8 @@ class OpenController extends Controller
         $captcha = new Captcha();
         $captcha->uuid = $uuid;
         $captcha->code = $code;
-        $captcha->userAgent = \Yii::$app->getRequest()->getUserAgent();
-        $captcha->remoteAddr = \Yii::$app->getRequest()->getRemoteIP();
+        $captcha->userAgent = Yii::$app->getRequest()->getUserAgent();
+        $captcha->remoteAddr = Yii::$app->getRequest()->getRemoteIP();
         $captcha->save(false);
 
         return [

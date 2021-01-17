@@ -5,6 +5,7 @@ namespace app\modules\admin\api\controllers;
 use app\core\models\admin\Admin;
 use app\modules\admin\api\Controller;
 use app\modules\admin\api\models\AdminSearchForm;
+use Yii;
 use yii\web\NotFoundHttpException;
 
 class AdminController extends Controller
@@ -13,7 +14,7 @@ class AdminController extends Controller
     {
         $admin = new Admin();
         $admin->setScenario('create');
-        $admin->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $admin->load(Yii::$app->getRequest()->getBodyParams(), '');
 
         if (!$admin->save()) {
             return $admin;
@@ -50,7 +51,7 @@ class AdminController extends Controller
         $admin = $this->getAdminById($id);
 
         $admin->setScenario('edit');
-        $admin->load(\Yii::$app->getRequest()->getBodyParams(), '');
+        $admin->load(Yii::$app->getRequest()->getBodyParams(), '');
 
         if (!$admin->save()) {
             return $admin;
@@ -64,7 +65,7 @@ class AdminController extends Controller
         $this->addExpandQueryParams('adminGroup');
 
         $form = new AdminSearchForm();
-        $form->load(\Yii::$app->getRequest()->getQueryParams(), '');
+        $form->load(Yii::$app->getRequest()->getQueryParams(), '');
 
         return $form;
     }

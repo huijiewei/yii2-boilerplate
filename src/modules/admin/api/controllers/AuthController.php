@@ -4,8 +4,7 @@ namespace app\modules\admin\api\controllers;
 
 use app\modules\admin\api\Controller;
 use app\modules\admin\api\models\AdminLoginForm;
-use yii\base\InvalidArgumentException;
-use yii\web\ForbiddenHttpException;
+use Yii;
 
 class AuthController extends Controller
 {
@@ -13,9 +12,9 @@ class AuthController extends Controller
     {
         $form = new AdminLoginForm(['clientId' => $this->getClientId()]);
 
-        $form->load(\Yii::$app->getRequest()->getBodyParams(), '');
-        $form->remoteAddr = \Yii::$app->getRequest()->getRemoteIP();
-        $form->userAgent = \Yii::$app->getRequest()->getUserAgent();
+        $form->load(Yii::$app->getRequest()->getBodyParams(), '');
+        $form->remoteAddr = Yii::$app->getRequest()->getRemoteIP();
+        $form->userAgent = Yii::$app->getRequest()->getUserAgent();
 
         if (!$form->login()) {
             return $form;
@@ -40,9 +39,9 @@ class AuthController extends Controller
     {
         $profile = $this->getIdentity();
 
-        if (\Yii::$app->getRequest()->getIsPut()) {
+        if (Yii::$app->getRequest()->getIsPut()) {
             $profile->setScenario('profile');
-            $profile->load(\Yii::$app->getRequest()->getBodyParams(), '');
+            $profile->load(Yii::$app->getRequest()->getBodyParams(), '');
 
             if (!$profile->save()) {
                 return $profile;
@@ -58,11 +57,11 @@ class AuthController extends Controller
     {
         $this->getIdentity()->logout(
             $this->getClientId(),
-            \Yii::$app->getRequest()->getRemoteIP(),
-            \Yii::$app->getRequest()->getUserAgent()
+            Yii::$app->getRequest()->getRemoteIP(),
+            Yii::$app->getRequest()->getUserAgent()
         );
 
-        \Yii::$app->getUser()->logout();
+        Yii::$app->getUser()->logout();
 
         return $this->message('退出登陆成功');
     }

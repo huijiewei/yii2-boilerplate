@@ -7,6 +7,7 @@ use app\core\models\admin\AdminHelper;
 use app\core\models\shop\ShopCategory;
 use app\modules\admin\api\Controller;
 use huijiewei\upload\BaseUpload;
+use Yii;
 
 class MiscController extends Controller
 {
@@ -33,21 +34,21 @@ class MiscController extends Controller
     public function actionImageUploadOption()
     {
         /* @var $upload BaseUpload */
-        $upload = \Yii::$app->get('upload');
+        $upload = Yii::$app->get('upload');
 
         return $upload->build(
             'a' . $this->getIdentity()->id,
             1024 * 1024 * 2,
             ['jpg', 'jpeg', 'png', 'gif'],
-            \Yii::$app->getRequest()->getQueryParam('thumbs', null),
-            \Yii::$app->getRequest()->getQueryParam('cropper', false)
+            Yii::$app->getRequest()->getQueryParam('thumbs', null),
+            Yii::$app->getRequest()->getQueryParam('cropper', false)
         );
     }
 
     public function actionFileUploadOption()
     {
         /* @var $upload BaseUpload */
-        $upload = \Yii::$app->get('upload');
+        $upload = Yii::$app->get('upload');
 
         return $upload->build(
             'a' . $this->getIdentity()->id,
