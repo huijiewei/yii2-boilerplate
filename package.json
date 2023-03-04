@@ -45,7 +45,7 @@
     "eslint-plugin-vue": "^7.1.0",
     "less": "^4.1.0",
     "less-loader": "^7.0.2",
-    "mocker-api": "^2.7.5",
+    "mocker-api": "^2.9.5",
     "prettier": "^2.1.2",
     "vue-template-compiler": "^2.6.12",
     "webpack-manifest-plugin": "^3.0.0"
